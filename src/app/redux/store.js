@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
-import registrationReducer from "./slices/registrationSlice";
+import authReducer from "./slices/authSlice/authSlice";
+import registrationReducer from "./slices/registrationSlice/registrationSlice";
 
 const store = configureStore({
     //Agregamos los slices, para combinacion de estados
