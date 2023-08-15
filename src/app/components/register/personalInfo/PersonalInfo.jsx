@@ -1,6 +1,4 @@
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import "./PersonalInfo.scss";
@@ -8,25 +6,33 @@ import "./PersonalInfo.scss";
 const PersonalInfoTab = () => {
   return (
     <div className="info-personal">
-      <Typography variant="h6" align="center">
+      <h3 className="title-info-personal">
         Comencemos con la información más básica
-      </Typography>
+      </h3>
       <div className="info">
         <div className="info-inputs">
           <div className="input-field">
-            <TextField label="Nombre" fullWidth />
+            <input type="text" className="custom-input" placeholder="Nombre" />
           </div>
           <div className="input-field">
-            <TextField label="Correo" fullWidth />
+            <input type="email" className="custom-input" placeholder="Correo" />
           </div>
           <div className="input-field">
-            <TextField label="Teléfono" fullWidth />
+            <input type="tel" className="custom-input" placeholder="Teléfono" />
           </div>
           <div className="input-field">
-            <TextField label="Contraseña" fullWidth type="password" />
+            <input
+              type="password"
+              className="custom-input"
+              placeholder="Contraseña"
+            />
           </div>
           <div className="input-field">
-            <TextField label="Repetir Contraseña" fullWidth type="password" />
+            <input
+              type="password"
+              className="custom-input"
+              placeholder="Repetir Contraseña"
+            />
           </div>
         </div>
 

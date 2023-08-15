@@ -1,53 +1,74 @@
 .info-personal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-    
-  
-    .info-inputs {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1rem;
-  
-      .input-field {
-        width: 100%;
-      }
-    }
-  
-    .upload-section {
-      display: flex;
-      align-items: center;
-      justify-content: end;
-      margin-top: 2rem;
-      
-  
-      .upload-image {
-        margin-right: 1rem;
-      }
-  
-      .no-image-icon {
-        background-color: #f0f0f0;
-        border-radius: 50%;
-        padding: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-      }
-    }
-    
-    .info{
-      display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+
+  .info-inputs {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .input-field {
       width: 100%;
-    flex-direction: row;
-    align-items: center;
+      margin-bottom: 1rem;
     }
-    .next-button {
-      margin-top: 2rem;
-      align-self: flex-end;
+
+    .custom-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid grey; 
+      padding: 8px 0; 
+      font-size: 16px;
+      background-color: transparent; 
+      transition: border-bottom 0.3s ease; 
+      
+      &::placeholder {
+        color: black; 
+      }
+
+      &:focus {
+        outline: none;
+        border-bottom-color: #007bff;
+      }
     }
   }
-  
+
+  .upload-section {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 2rem;
+
+    .upload-image {
+      margin-right: 1rem;
+    }
+
+    .no-image-icon {
+      background-color: #f0f0f0;
+      border-radius: 50%;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .title-info-personal {
+    color: black;
+    font-weight: 400;
+  }
+
+  .info {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .next-button {
+    margin-top: 2rem;
+    align-self: flex-end;
+  }
+}
