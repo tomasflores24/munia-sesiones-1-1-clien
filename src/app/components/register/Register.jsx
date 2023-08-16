@@ -16,7 +16,8 @@ const Register = () => {
           <strong>Construye</strong> tu perfil
         </h1>
         <p className="subtitle">
-          Esta información nos permitirá saber más sobre <span style={{color:"#AD867D", fontWeight:"bold"}}>usted.</span>
+          Esta información nos permitirá saber más sobre{" "}
+          <span className="subtitle-usted">usted.</span>
         </p>
         <div className="tabs-container">
           <div

@@ -4,6 +4,8 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import "./PersonalInfo.scss";
 
 const PersonalInfoTab = () => {
+  // const [showPassword, setShowPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -20,7 +22,11 @@ const PersonalInfoTab = () => {
       [name]: value,
     }));
   };
-
+  
+  // const handleTogglePasswordVisibility = () => {
+  //   setShowPassword((prevShowPassword) => !prevShowPassword);
+  // };
+  
   const handleSubmit = () => {
     //HACER RUTA ENVIAR AL BACKEND LOS DATOS DEL USUARIO REGISTRADO
 
@@ -132,6 +138,7 @@ const PersonalInfoTab = () => {
           <div className="upload-image">
             <Avatar sx={{ width: 80, height: 80 }}>
               <InsertPhotoIcon fontSize="large" />
+              
             </Avatar>
           </div>
         </div>
