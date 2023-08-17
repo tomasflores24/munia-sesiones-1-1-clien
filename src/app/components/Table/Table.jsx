@@ -17,19 +17,19 @@ const Table = () => {
             </div>
             <div className='TopContainerTitles'>
                 <div className='BoxTitle BoxTitleBorder'>
-                    <p className='pTitle pCardsLimit'>Pacientes</p>
+                    <p className='pTitle '>Pacientes</p>
                 </div>
                 <div className='BoxTitle BoxTitleBorder'>
-                    <p className='pTitle pCardsLimit'>Fecha y hora</p> 
+                    <p className='pTitle '>Fecha y hora</p> 
                 </div>
                 <div className='BoxTitle BoxTitleBorder'>
-                    <p className='pTitle pCardsLimit'>Tipo de servicio</p>
+                    <p className='pTitle '>Tipo de servicio</p>
                 </div>
                 <div className='BoxTitle BoxTitleBorder'>
-                    <p className='pTitle pCardsLimit'>Estado de la cita</p>
+                    <p className='pTitle '>Estado de la cita</p>
                 </div>
                 <div className='BoxTitle '>
-                    <p className='pTitle pCardsLimit'>Acciones</p>
+                    <p className='pTitle '>Acciones</p>
                 </div>
             </div>
             {
