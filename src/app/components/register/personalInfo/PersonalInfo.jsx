@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import "./PersonalInfo.scss";
@@ -6,12 +6,16 @@ import {
   nextStep,
   savePersonalInfo,
 } from "../../../redux/slices/registrationSlice/registrationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ButtonNext from "../../Button/ButtonNext";
 
 const PersonalInfoTab = () => {
-  // const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const userInfoCurrent = useSelector(
+    (state) => state.registration.personalInfo
+  );
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isFormComplete, setIsFormComplete] = useState(false);
   const [dataUser, setDataUser] = useState({
     name: "",
     lastName: "",
@@ -29,25 +33,55 @@ const PersonalInfoTab = () => {
     }));
   };
 
-  // const handleTogglePasswordVisibility = () => {
-  //   setShowPassword((prevShowPassword) => !prevShowPassword);
-  // };
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
+  const checkFormCompletion = () => {
+    const { name, lastName, email, phone, password, repeatPassword } = dataUser;
+    return (
+      name !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      phone !== "" &&
+      password !== "" &&
+      repeatPassword !== ""
+    );
+  };
 
   const handleSubmit = () => {
-    //HACER RUTA ENVIAR AL BACKEND LOS DATOS DEL USUARIO REGISTRADO
-    dispatch(nextStep());
-    //Guardamos datos del usuario en el estado de redux.
-    dispatch(savePersonalInfo(dataUser));
-    // Limpia los campos después de enviar
-    setDataUser({
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      repeatPassword: "",
-    });
+    const isValid = validateEmail(dataUser.email);
+    setIsValidEmail(isValid);
+
+    if (isValid && isFormComplete) {
+      dispatch(nextStep());
+      dispatch(savePersonalInfo(dataUser));
+      setDataUser({
+        name: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        repeatPassword: "",
+      });
+    }
   };
+
+  useEffect(() => {
+    setIsFormComplete(checkFormCompletion());
+  }, [dataUser]);
+
+  useEffect(() => {
+    setDataUser({
+      name: userInfoCurrent.name || "",
+      lastName: userInfoCurrent.lastName || "",
+      email: userInfoCurrent.email || "",
+      phone: userInfoCurrent.phone || "",
+      password: userInfoCurrent.password || "",
+      repeatPassword: userInfoCurrent.repeatPassword || "",
+    });
+  }, [userInfoCurrent]);
 
   return (
     <div className="info-personal">
@@ -151,8 +185,18 @@ const PersonalInfoTab = () => {
         </div>
       </div>
       <div className="next-button-section">
-        <ButtonNext className="next-button" textButton={"Siguiente"} handleFunction={handleSubmit} />
+        <ButtonNext
+          className="next-button"
+          textButton={"Siguiente"}
+          handleFunction={handleSubmit}
+        />
       </div>
+      {!isValidEmail && (
+        <p className="error-message">Ingresa un correo electrónico válido</p>
+      )}
+      {!isFormComplete && (
+        <p className="error-message">Faltan completar campos</p>
+      )}
     </div>
   );
 };
