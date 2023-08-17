@@ -28,6 +28,19 @@ $selectedTabColor: black;
       margin: 6px 0;
     }
   }
+  .admin-data {
+    height: 230px;
+    width: 100%;
+    background-color: #AE7A6C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .img {
+      width: 200px;
+    }
+  }
+  
   .navigation-buttons{
    width: 100%;
    display: flex;
