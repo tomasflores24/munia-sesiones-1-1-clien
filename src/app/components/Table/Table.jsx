@@ -66,23 +66,27 @@ const Table = () => {
                             <p className='pCards'>{information?.hour}</p>
                         </div>
                         <div className='BoxCards BoxCardsBorder BoxCardsServices'>
-                            <p className='pCards pCardsLimit BoxCardsBackground'>{information?.service}</p>
+                            <div className='BoxCenterService pCardsLimit'>
+                                <p className='pCards pCardsLimit BoxCardsBackground'>{information?.service}</p>
+                            </div>
                         </div>
                         <div className='BoxCards BoxCardsBorder'>
-                            <p className='pCards pCardsStatus'>{information?.state}</p>
-                            {information.state === 'Confirmado' ? (
-                                <CheckCircleIcon className='ImgConfirm' />
-                            ) : (
-                                information.state === "Cancelado" ? (
-                                    <CancelIcon className='ImgDenied'/>
+                            <div className='BoxCenterState'>
+                                <p className='pCards pCardsStatus'>{information?.state}</p>
+                                {information.state === 'Confirmado' ? (
+                                    <CheckCircleIcon className='ImgConfirm' />
                                 ) : (
-                                    information.state === "Reprogramado" ? (
-                                        <AccessTimeIcon className='ImgRescheduled' />  
+                                    information.state === "Cancelado" ? (
+                                        <CancelIcon className='ImgDenied'/>
                                     ) : (
-                                        null
+                                        information.state === "Reprogramado" ? (
+                                            <AccessTimeIcon className='ImgRescheduled' />  
+                                        ) : (
+                                            null
+                                        )
                                     )
-                                )
-                            )}
+                                )}
+                            </div>
                         </div>
                         <div>
                             <div className='BoxCards BoxCardsButtonsActions'>
