@@ -24,7 +24,7 @@ export default function SideBar() {
             icon={e.icon}
             key={e.title}
             selected={e.selected}
-            onClick={redirect(e.redirect)}
+            onClick={()=>redirect(e.redirect)}
           />
         ))}
         </section>
