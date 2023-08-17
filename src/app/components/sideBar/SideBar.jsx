@@ -1,9 +1,15 @@
 import Buttons from "./commonSideBar/buttons";
-import { buttonData } from "../../../utils/buttonOptions";
+import { buttonData } from "../../utils/buttonOptions";
+import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./SideBar.scss";
 
 export default function SideBar() {
+
+  const navigate = useNavigate();
+  const redirect = (redirect)=>{
+    navigate(redirect);
+  }
   return (
     <>
       <nav className="container">
@@ -18,6 +24,7 @@ export default function SideBar() {
             icon={e.icon}
             key={e.title}
             selected={e.selected}
+            onClick={redirect(e.redirect)}
           />
         ))}
         </section>
