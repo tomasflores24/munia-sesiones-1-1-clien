@@ -11,7 +11,7 @@ function AppRoutes() {
       <Route path="/user/register" element={<Register />} />
       <Route path="/table" element={<Table />} />
       <Route path="/sidebar" element={<Sidebar />} />
-
+      
       {/* Agregar más rutas aca */}
     </Routes>
   );
