@@ -1,11 +1,12 @@
-import { Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Register from "../components/register/register";
 // Importa más páginas si es necesario
 
 function AppRoutes() {
   return (
     <Routes>
       {/* ejemplo */}
-      {/* <Route path="/" element={<HomePage />} /> */}
+      <Route path="/user/register" element={<Register />} />
       {/* Agregar más rutas aca */}
     </Routes>
   );

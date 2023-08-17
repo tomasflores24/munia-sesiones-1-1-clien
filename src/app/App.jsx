@@ -1,13 +1,13 @@
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Register from "./components/register/register";
 import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Provider store={store}>
-          <Register />
+          <AppRoutes />
         </Provider>
       </BrowserRouter>
       ,

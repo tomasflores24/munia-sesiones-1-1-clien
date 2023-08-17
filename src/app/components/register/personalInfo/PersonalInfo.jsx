@@ -2,11 +2,17 @@ import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import "./PersonalInfo.scss";
+import {
+  nextStep,
+  savePersonalInfo,
+} from "../../../redux/slices/registrationSlice/registrationSlice";
+import { useDispatch } from "react-redux";
+import ButtonNext from "../../Button/ButtonNext";
 
 const PersonalInfoTab = () => {
   // const [showPassword, setShowPassword] = useState(false);
-
-  const [formData, setFormData] = useState({
+  const dispatch = useDispatch();
+  const [dataUser, setDataUser] = useState({
     name: "",
     lastName: "",
     email: "",
@@ -17,21 +23,23 @@ const PersonalInfoTab = () => {
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
-    setFormData((prevData) => ({
+    setDataUser((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-  
+
   // const handleTogglePasswordVisibility = () => {
   //   setShowPassword((prevShowPassword) => !prevShowPassword);
   // };
-  
+
   const handleSubmit = () => {
     //HACER RUTA ENVIAR AL BACKEND LOS DATOS DEL USUARIO REGISTRADO
-
+    dispatch(nextStep());
+    //Guardamos datos del usuario en el estado de redux.
+    dispatch(savePersonalInfo(dataUser));
     // Limpia los campos después de enviar
-    setFormData({
+    setDataUser({
       name: "",
       lastName: "",
       email: "",
@@ -58,7 +66,7 @@ const PersonalInfoTab = () => {
               type="text"
               className="custom-input"
               placeholder="Nombre"
-              value={formData.name}
+              value={dataUser.name}
               onChange={handleInputChange}
             />
           </div>
@@ -72,7 +80,7 @@ const PersonalInfoTab = () => {
               type="text"
               className="custom-input"
               placeholder="Apellido"
-              value={formData.lastName}
+              value={dataUser.lastName}
               onChange={handleInputChange}
             />
           </div>
@@ -86,7 +94,7 @@ const PersonalInfoTab = () => {
               type="email"
               className="custom-input"
               placeholder="Correo electronico"
-              value={formData.email}
+              value={dataUser.email}
               onChange={handleInputChange}
             />
           </div>
@@ -100,7 +108,7 @@ const PersonalInfoTab = () => {
               type="tel"
               className="custom-input"
               placeholder="Celular o teléfono"
-              value={formData.phone}
+              value={dataUser.phone}
               onChange={handleInputChange}
             />
           </div>
@@ -114,7 +122,7 @@ const PersonalInfoTab = () => {
               name="password"
               className="custom-input"
               placeholder="Contraseña"
-              value={formData.password}
+              value={dataUser.password}
               onChange={handleInputChange}
             />
           </div>
@@ -128,7 +136,7 @@ const PersonalInfoTab = () => {
               name="repeatPassword"
               className="custom-input"
               placeholder="Repetir Contraseña"
-              value={formData.repeatPassword}
+              value={dataUser.repeatPassword}
               onChange={handleInputChange}
             />
           </div>
@@ -138,15 +146,12 @@ const PersonalInfoTab = () => {
           <div className="upload-image">
             <Avatar sx={{ width: 80, height: 80 }}>
               <InsertPhotoIcon fontSize="large" />
-              
             </Avatar>
           </div>
         </div>
       </div>
       <div className="next-button-section">
-        <button className="next-button" onClick={handleSubmit}>
-          Siguiente
-        </button>
+        <ButtonNext className="next-button" textButton={"Siguiente"} handleFunction={handleSubmit} />
       </div>
     </div>
   );

@@ -1,14 +1,11 @@
-import { useState } from "react";
 import "./Register.scss";
+import Documentation from "./documentation/Documentation";
 import PersonalInfo from "./personalInfo/PersonalInfo";
+import { useSelector } from "react-redux";
+import PracticeAndServices from "./practiceAndServices/PracticeAndServices";
 
 const Register = () => {
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTabChange = (newValue) => {
-    setTabValue(newValue);
-  };
-
+  const currentStep = useSelector((state) => state.registration.currentStep);
   return (
     <div className="registration-container">
       <div className="registration-content">
@@ -20,29 +17,20 @@ const Register = () => {
           <span className="subtitle-usted">usted.</span>
         </p>
         <div className="tabs-container">
-          <div
-            className={`tab ${tabValue === 0 ? "active" : ""}`}
-            onClick={() => handleTabChange(0)}
-          >
+          <div className={`tab ${currentStep === 1 ? "active" : ""}`}>
             Información personal
           </div>
-          <div
-            className={`tab ${tabValue === 1 ? "active" : ""}`}
-            onClick={() => handleTabChange(1)}
-          >
+          <div className={`tab ${currentStep === 2 ? "active" : ""}`}>
             Documentación
           </div>
-          <div
-            className={`tab ${tabValue === 2 ? "active" : ""}`}
-            onClick={() => handleTabChange(2)}
-          >
+          <div className={`tab ${currentStep === 3 ? "active" : ""}`}>
             Servicios
           </div>
         </div>
         <div className="tab-content">
-          {tabValue === 0 && <PersonalInfo />}
-          {tabValue === 1 && <div>Contenido de Documentación y práctica</div>}
-          {tabValue === 2 && <div>Contenido de Servicios</div>}
+          {currentStep === 1 && <PersonalInfo />}
+          {currentStep === 2 && <Documentation />}
+          {currentStep === 3 && <PracticeAndServices />}
         </div>
       </div>
     </div>
