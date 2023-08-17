@@ -1,0 +1,21 @@
+.next-button {
+    background-color: #9c6d61;
+    text-align: center;
+    width: 15rem;
+    height: 4rem;
+    flex-shrink: 0;
+    padding: 1rem 3rem;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    align-self: flex-end;
+    font-family: Montserrat;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    &:hover {
+        cursor: pointer;
+        background-color: #9c6d61c3;
+    }
+}

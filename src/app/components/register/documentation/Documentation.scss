@@ -1,0 +1,31 @@
+.documentation-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: .5rem 2rem;
+    gap: 5rem;
+    .documentation-cards {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .title{
+        color: rgba(0, 0, 0, 0.60);
+        font-family: Montserrat;
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    .buttons{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+}

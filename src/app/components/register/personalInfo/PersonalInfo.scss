@@ -1,0 +1,122 @@
+.info-personal {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.7% 3%;
+  text-align: center;
+  .title-info-personal {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Montserrat;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    gap: 2rem;
+    padding: 4% 10%;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .info-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      width: 40%;
+
+      .input-field {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        width: 25rem;
+        height: 2.204rem;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        width: 100%;
+        color: rgba(0, 0, 0, 0.6);
+        font-family: Montserrat;
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        .input-label {
+          font-size: 1.5rem;
+        }
+      }
+
+      .custom-input {
+        border: none;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.323);
+        padding: 0 0;
+        margin-top: 0.5rem;
+        font-size: 1.3rem;
+        color: black;
+        background-color: transparent;
+        transition: border-bottom 0.3s ease;
+        width: 25rem;
+        height: 1.5rem;
+        flex-shrink: 0;
+        color: rgba(0, 0, 0, 0.3);
+        font-family: Montserrat;
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        &::placeholder {
+          padding: 0;
+          color: rgba(0, 0, 0, 0.3);
+          font-family: Montserrat;
+          font-size: 1.4rem;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+        }
+
+        &:focus {
+          outline: none;
+          border-bottom-color: #007bff;
+        }
+      }
+    }
+
+    .upload-section {
+      display: flex;
+      width: 60%;
+      justify-content: center;
+      align-items: center;
+
+      .upload-image {
+        margin-right: 1rem;
+      }
+    }
+  }
+  .next-button-section {
+    align-self: flex-end;
+    .next-button {
+      background-color: #9c6d61;
+      text-align: center;
+      width: 100%;
+      padding: 1rem 3rem;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      align-self: flex-end;
+      &:hover {
+        cursor: pointer;
+        background-color: #9c6d61c3;
+      }
+    }
+  }
+}
