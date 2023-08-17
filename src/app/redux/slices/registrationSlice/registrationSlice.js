@@ -32,7 +32,6 @@ const registrationSlice = createSlice({
     resetPersonalInfo: (state) => {
       state.personalInfo = personalInfoInitial;
     },
-   
   },
 });
 
