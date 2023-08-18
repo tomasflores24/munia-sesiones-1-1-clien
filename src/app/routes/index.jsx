@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "../components/register/register";
 import Table from "../components/Table/Table";
-import Sidebar from "../components/sideBar/SideBar"
+import SideBar from "../components/sideBar/sideBar";
 // Importa más páginas si es necesario
 
 function AppRoutes() {
@@ -10,8 +10,8 @@ function AppRoutes() {
       {/* ejemplo */}
       <Route path="/user/register" element={<Register />} />
       <Route path="/table" element={<Table />} />
-      <Route path="/sidebar" element={<Sidebar />} />
-
+      <Route path="/sidebar" element={<SideBar />} />
+      
       {/* Agregar más rutas aca */}
     </Routes>
   );
