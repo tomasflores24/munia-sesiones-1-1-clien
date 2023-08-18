@@ -6,15 +6,15 @@ import "./SideBar.scss";
 
 export default function SideBar() {
 
-  const admin = true
+  const type = "user"
   const navigate = useNavigate();
-  const redirect = (redirect)=>{
-    navigate(redirect);
+  const redirect = (type,redirect)=>{
+    navigate("/"+type+"/"+redirect);
   }
   return (
     <>
       <nav className="container">
-        {admin ? 
+        {type==="admin" ? 
         <header className="admin-data">
           <img src="muniaLogo.png" className="img"></img>
         </header>
@@ -23,14 +23,14 @@ export default function SideBar() {
           <h2 className="user-data">María Agustina Lahitou</h2>
         </header>}
         <section className="navigation-buttons">
-        {admin ? 
+        {type==="admin" ? 
          buttonDataAdmin.map((e) => (
           <Buttons
             title={e.title}
             icon={e.icon}
             key={e.title}
             selected={e.selected}
-            onClick={()=>redirect(e.redirect)}
+            onClick={()=>redirect(type,e.redirect)}
           />
         ))
         : buttonDataUser.map((e) => (
@@ -39,7 +39,7 @@ export default function SideBar() {
             icon={e.icon}
             key={e.title}
             selected={e.selected}
-            onClick={()=>redirect(e.redirect)}
+            onClick={()=>redirect(type,e.redirect)}
           />
         ))}
         </section>
