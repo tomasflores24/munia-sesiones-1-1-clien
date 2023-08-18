@@ -10,7 +10,7 @@ export const buttonDataUser = [
     { title: "Home", icon: <HomeIcon style={{ fontSize: '30px' }} />, redirect: "/home" },
     { title: "Perfil", icon: <PersonIcon style={{ fontSize: '30px' }} />, redirect: "/perfil" },
     { title: "Agenda", icon: <EventNoteIcon style={{ fontSize: '30px' }} />, redirect: "/agenda" },
-    { title: "Configuración", icon: <SettingsIcon style={{ fontSize: '30px' }} />, redirect: "/onfiguracion" },
+    { title: "Configuración", icon: <SettingsIcon style={{ fontSize: '30px' }} />, redirect: "/configuracion" },
 ];
 
 export const buttonDataAdmin = [
