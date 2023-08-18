@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import "./PersonalInfo.scss";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {
   nextStep,
   savePersonalInfo,
@@ -12,7 +11,7 @@ import ButtonNext from "../../Button/ButtonNext";
 const PersonalInfoTab = () => {
   const dispatch = useDispatch();
   const userInfoCurrent = useSelector(
-    (state) => state.registration.personalInfo
+    (state) => state.registration.dataUser
   );
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isFormComplete, setIsFormComplete] = useState(false);
@@ -24,6 +23,8 @@ const PersonalInfoTab = () => {
     password: "",
     repeatPassword: "",
   });
+
+  // const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
@@ -64,8 +65,15 @@ const PersonalInfoTab = () => {
         phone: "",
         password: "",
         repeatPassword: "",
+        imageUser: "",
       });
     }
+  };
+
+  const handleImageUpload = (e) => {
+    const imageFile = e.target.files[0];
+    const imageUrl = URL.createObjectURL(imageFile);
+    setDataUser({ ...dataUser, imageUser: imageUrl });
   };
 
   useEffect(() => {
@@ -80,6 +88,7 @@ const PersonalInfoTab = () => {
       phone: userInfoCurrent.phone || "",
       password: userInfoCurrent.password || "",
       repeatPassword: userInfoCurrent.repeatPassword || "",
+      imageUser: userInfoCurrent.imageUser || "",
     });
   }, [userInfoCurrent]);
 
@@ -176,11 +185,28 @@ const PersonalInfoTab = () => {
           </div>
         </div>
 
-        <div className="upload-section">
+        <div
+          className="upload-section"
+          style={{
+            backgroundImage: `url(${
+              dataUser.imageUser
+                ? dataUser.imageUser
+                : "../../../../assets/noImageUser.png"
+            })`,
+          }}
+        >
           <div className="upload-image">
-            <Avatar sx={{ width: 80, height: 80 }}>
-              <InsertPhotoIcon fontSize="large" />
-            </Avatar>
+            <label htmlFor="profile-image" className="upload-label">
+              <FileUploadIcon sx={{ width: "50%", height: "100%" }} />
+              <input
+                type="file"
+                id="profile-image"
+                name="profileImage"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+            </label>
           </div>
         </div>
       </div>

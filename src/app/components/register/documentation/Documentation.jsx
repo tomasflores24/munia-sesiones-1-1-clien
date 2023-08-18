@@ -2,10 +2,16 @@ import useCreateCardsDocumentation from "../../../hooks/Register/useCreateCardsD
 import ButtonNext from "../../Button/ButtonNext";
 import ButtonBack from "../../Button/ButtonBack";
 import "./Documentation.scss";
-import { backStep, nextStep } from "../../../redux/slices/registrationSlice/registrationSlice";
+import {
+  backStep,
+  nextStep,
+  saveDocumentationUser,
+} from "../../../redux/slices/registrationSlice/registrationSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 const Documentation = () => {
   const dispatch = useDispatch();
+  const [documentationUser, setDocumentationUser] = useState({});
 
   const titlesDocumentationCards = [
     { title: "Antecedentes Penales" },
@@ -13,17 +19,24 @@ const Documentation = () => {
     { title: "Tarjeta Profesional" },
     { title: "Portfolio de Servicios" },
   ];
+  //Avanzo siguiente ventana, y guardo la informacion
+  const handleNext = () => {
+    dispatch(saveDocumentationUser(documentationUser));
+    dispatch(nextStep());
+  };
+  const handleBack = () => {
+    dispatch(backStep());
+  };
+  //Obtengo documentos {} subidos por el usuario
+  const getDocument = (documentationUser) => {
+    setDocumentationUser(documentationUser);
+  };
+  //Customhooks para generacion de las cards para subir documentos
   const { DocumentationCards } = useCreateCardsDocumentation(
-    titlesDocumentationCards
+    titlesDocumentationCards,
+    getDocument
   );
-  const handleNext= ()=>{
-    dispatch(nextStep())
-
-  }
-  const handleBack= ()=>{
-    dispatch(backStep())
-
-  }
+ 
   return (
     <div className="documentation-container">
       <h2 className="title">
@@ -34,7 +47,7 @@ const Documentation = () => {
       </section>
       <section className="buttons">
         <ButtonBack textButton={"Atras"} handleFunction={handleBack} />
-        <ButtonNext textButton={"Siguiente"} handleFunction={handleNext}/>
+        <ButtonNext textButton={"Siguiente"} handleFunction={handleNext} />
       </section>
     </div>
   );

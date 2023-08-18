@@ -1,5 +1,6 @@
 $tabBackgroundColor: #7f7e7e38;
 $selectedTabColor: black;
+
 .registration-container {
   display: flex;
   width: 100vw;
@@ -7,21 +8,21 @@ $selectedTabColor: black;
   align-items: center;
   justify-content: center;
   background-image: url("https://somospnt.com/images/charlaa.jpg");
-  background-image: url("https://somospnt.com/images/charlaa.jpg");
   background-size: cover;
   background-position: center;
+
   .registration-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0;
+    padding: 2rem 0;
     background-color: #f0f0f0;
     border-radius: 20px;
-    width: 90rem;
-    height: 67.5rem;
+    width: 90%;
+    max-width: 80rem; /* Limita el ancho máximo */
+    height: auto; /* Se ajustará automáticamente */
     flex-shrink: 0;
-
     .title-register {
       color: rgba(0, 0, 0, 0.6);
       font-family: Montserrat;
@@ -91,9 +92,11 @@ $selectedTabColor: black;
 
     .tab-content {
       display: flex;
-      flex-wrap: wrap; // Ajusta el contenido al tamaño de pantalla
+      flex-direction: column;
       width: 100%;
       margin-top: 1rem;
+
+    
     }
   }
 }

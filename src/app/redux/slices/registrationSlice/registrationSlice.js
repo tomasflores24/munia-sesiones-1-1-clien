@@ -1,6 +1,7 @@
 // registrationSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 const personalInfoInitial = {
+  imageUser: "",
   name: "",
   email: "",
   phone: "",
@@ -9,7 +10,8 @@ const personalInfoInitial = {
 };
 const initialState = {
   currentStep: 1,
-  personalInfo: personalInfoInitial,
+  dataUser: personalInfoInitial,
+  documentationUser: {},
   // ...otros estados relacionados con la documentación y servicios si los tienes...
 };
 
@@ -27,10 +29,14 @@ const registrationSlice = createSlice({
       state.currentStep -= 1;
     },
     savePersonalInfo: (state, action) => {
-      state.personalInfo = { ...action.payload };
+      state.dataUser = { ...action.payload };
     },
     resetPersonalInfo: (state) => {
-      state.personalInfo = personalInfoInitial;
+      state.dataUser = personalInfoInitial;
+    },
+    saveDocumentationUser: (state, action) => {
+      console.log(action.payload, "esto llega de documentacion")
+      state.documentationUser = action.payload;
     },
   },
 });
@@ -41,6 +47,7 @@ export const {
   backStep,
   savePersonalInfo,
   resetPersonalInfo,
+  saveDocumentationUser
 } = registrationSlice.actions;
 
 export default registrationSlice.reducer;

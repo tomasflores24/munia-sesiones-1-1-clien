@@ -3,8 +3,12 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  padding: 0.7% 3%;
-  text-align: center;
+  padding: 2% 3%; /* Ajusta el espaciado */
+  align-items: center;
+  @media (max-width: 768px) {
+    width: 100%; /* Ajusta el ancho para pantallas pequeñas */
+    height: auto; /* Ajusta la altura para pantallas pequeñas */
+  }
   .title-info-personal {
     color: rgba(0, 0, 0, 0.6);
     font-family: Montserrat;
@@ -16,16 +20,19 @@
 
   .info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
+    height: auto; /* Cambia la altura a automático */
     width: 100%;
-    gap: 2rem;
-    padding: 4% 10%;
-    @media (min-width: 768px) {
-      flex-direction: row;
-      justify-content: space-between;
+    gap: 1.5rem; /* Reduce el espacio entre elementos */
+    padding: 2% 5%; /* Ajusta el espaciado */
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      justify-content: flex-start;
+      align-items: flex-start;
+      // padding: 0% 0%; /* Ajusta el espaciado */
     }
 
     .info-inputs {
@@ -38,9 +45,8 @@
         display: flex;
         flex-direction: column;
         align-items: start;
-
         width: 25rem;
-        height: 2.204rem;
+        height: 3rem;
         flex-shrink: 0;
         justify-content: flex-start;
         width: 100%;
@@ -51,7 +57,9 @@
         font-weight: 600;
         line-height: normal;
         .input-label {
-          font-size: 1.5rem;
+          text-align: start;
+          font-size: 2rem;
+          width: 100%;
         }
       }
 
@@ -60,12 +68,12 @@
         border-bottom: 1px solid rgba(128, 128, 128, 0.323);
         padding: 0 0;
         margin-top: 0.5rem;
-        font-size: 1.3rem;
+        font-size: 2.4rem;
         color: black;
         background-color: transparent;
         transition: border-bottom 0.3s ease;
         width: 25rem;
-        height: 1.5rem;
+        height: 2rem;
         flex-shrink: 0;
         color: rgba(0, 0, 0, 0.3);
         font-family: Montserrat;
@@ -78,7 +86,7 @@
           padding: 0;
           color: rgba(0, 0, 0, 0.3);
           font-family: Montserrat;
-          font-size: 1.4rem;
+          font-size: 1.8rem;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
@@ -87,18 +95,33 @@
         &:focus {
           outline: none;
           border-bottom-color: #007bff;
+          font-size: 1.8rem;
         }
       }
     }
 
     .upload-section {
       display: flex;
-      width: 60%;
+      position: relative;
       justify-content: center;
       align-items: center;
+      width: 25rem;
+      height: 25rem;
+      flex-shrink: 0;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 50%;
 
+      @media (max-width: 768px) {
+        width: 25rem; /* Ajusta el ancho para pantallas pequeñas */
+        height: 15rem; /* Ajusta la altura para pantallas pequeñas */
+      }
       .upload-image {
+        position: absolute;
         margin-right: 1rem;
+        bottom: 20%;
+        left: 33%;
       }
     }
   }
@@ -117,6 +140,20 @@
         cursor: pointer;
         background-color: #9c6d61c3;
       }
+    }
+  }
+  .error-message {
+    color: #ff0000; /* Color rojo para indicar error */
+    font-family: Montserrat;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 0.5rem; /* Espacio superior para separar del contenido */
+    text-align: center; /* Centrar el texto */
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem; /* Tamaño de fuente reducido para pantallas pequeñas */
     }
   }
 }
