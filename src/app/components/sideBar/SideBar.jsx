@@ -9,7 +9,7 @@ export default function SideBar() {
   const type = "user"
   const navigate = useNavigate();
   const redirect = (type,redirect)=>{
-    navigate("/"+type+"/"+redirect);
+    navigate("/"+type+redirect);
   }
   return (
     <>
