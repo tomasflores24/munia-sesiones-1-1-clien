@@ -93,14 +93,14 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <div className=''>
-                        <div>
-                            <div>
+                    <div className='BoxMid2'>
+                        <div className='ContainerMid2'>
+                            <div className='titleMid2'>
                                 <p>Citas recientes programadas</p>
                             </div>
-                            <div>
-                                <div>
-                                    <div>
+                            <div className='BoxCards2'>
+                                <div className='CardsContainer'>
+                                    <div className='Cards2'>
                                         <p>Pedro Terraf</p>
                                         <div>
                                             <p>Mie. 16 - 08 - 2023</p>
@@ -108,7 +108,7 @@ const Home = () => {
                                         </div>
                                         <p>Rafael Santandreu</p>
                                     </div>
-                                    <div>
+                                    <div className='Cards2'>
                                         <p>Juan Pablo Osudar</p>
                                         <div>
                                             <p>Mie. 16 - 08 - 2023</p>
@@ -116,7 +116,7 @@ const Home = () => {
                                         </div>
                                         <p>María Agustina Lahitou</p>
                                     </div>
-                                    <div>
+                                    <div className='Cards2'>
                                         <p>Juan Camilo Moreno</p>
                                         <div>
                                             <p>Mie. 16 - 08 - 2023</p>

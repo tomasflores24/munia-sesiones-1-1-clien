@@ -9,7 +9,7 @@
             display: flex;
             justify-content: space-around;
             flex-direction: row;
-            margin-top: 2em;
+            margin-top: 3em;
             width: 100%;
             .container1Top{
                 display: flex;
@@ -65,7 +65,7 @@
             border: 0.5px solid rgba(0, 0, 0, 0.50);
             background: #FFFDFD;
             border-radius: 25px;
-            width: 48%;
+            width: 50em;
             .titleMid1{
                 display: flex;
                 justify-content: center;
@@ -133,6 +133,62 @@
                         }
                         .BoxDescImg1{
                             padding: 1em;
+                        }
+                    }
+                }
+            }
+        }
+        .BoxMid2{
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 50%;
+            width: 50em;
+            margin-left: 3em;
+            border-radius: 25px;
+            border: 1px solid black;
+            .ContainerMid2{
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+               width: 100%; 
+                .titleMid2{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #AE7A6C;
+                    border: 0.5px solid rgba(255, 255, 255, 0.50);
+                    border-radius: 25px 25px 0px 0px;
+                    width: 100%;
+                    height: 5em;
+                    color: #000;
+                    font-family: Montserrat;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-align: center;
+                }
+                .BoxCards2{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    flex-direction: row;
+                    .CardsContainer{
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        border-radius: 25px;
+                        color: rgba(0, 0, 0, 0.60);
+                        font-family: Montserrat;
+                        font-size: 9px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        padding: 1em 2em 0 2em;
+                        .Cards2{
+                            display: flex;
+                            justify-content: center;
+                            flex-direction: row;
                         }
                     }
                 }
