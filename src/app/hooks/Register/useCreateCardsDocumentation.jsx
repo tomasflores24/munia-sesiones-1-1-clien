@@ -1,11 +1,11 @@
 import { DocumentationCard } from "../../components/DocumentationCard/DocumentationCard";
 
-const useCreateCardsDocumentation = (cardDataArray) => {
+const useCreateCardsDocumentation = (cardDataArray, getDocument) => {
   const DocumentationCards = ()=>{
     return (
       <>
         {cardDataArray.map((cardData, index) => (
-          <DocumentationCard key={index} title={cardData.title} />
+          <DocumentationCard key={index} title={cardData.title} getDocument={getDocument} />
         ))}
       </>
     );

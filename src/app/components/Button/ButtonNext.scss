@@ -1,7 +1,7 @@
 .next-button {
     background-color: #9c6d61;
     text-align: center;
-    width: 15rem;
+    width: 100%; /* Ancho del 100% para ocupar todo el espacio disponible */
     height: 4rem;
     flex-shrink: 0;
     padding: 1rem 3rem;
@@ -14,8 +14,18 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    &:hover {
-        cursor: pointer;
-        background-color: #9c6d61c3;
+    transition: background-color 0.3s ease; /* Agregado para suavizar la transición */
+  
+    @media (max-width: 768px) {
+      /* Ajustes específicos para pantallas más pequeñas */
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      height: 3rem;
     }
-}
+  
+    &:hover {
+      cursor: pointer;
+      background-color: #9c6d61c3;
+    }
+  }
+  

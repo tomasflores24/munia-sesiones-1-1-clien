@@ -1,88 +1,16 @@
-import { useEffect, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
-import "./PersonalInfo.scss";
-import {
-  nextStep,
-  savePersonalInfo,
-} from "../../../redux/slices/registrationSlice/registrationSlice";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import ButtonNext from "../../Button/ButtonNext";
+import "./PersonalInfoPresentation.scss";
 
-const PersonalInfoTab = () => {
-  const dispatch = useDispatch();
-  const userInfoCurrent = useSelector(
-    (state) => state.registration.personalInfo
-  );
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isFormComplete, setIsFormComplete] = useState(false);
-  const [dataUser, setDataUser] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    repeatPassword: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { value, name } = e.target;
-    setDataUser((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailRegex.test(email);
-  };
-
-  const checkFormCompletion = () => {
-    const { name, lastName, email, phone, password, repeatPassword } = dataUser;
-    return (
-      name !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      phone !== "" &&
-      password !== "" &&
-      repeatPassword !== ""
-    );
-  };
-
-  const handleSubmit = () => {
-    const isValid = validateEmail(dataUser.email);
-    setIsValidEmail(isValid);
-
-    if (isValid && isFormComplete) {
-      dispatch(nextStep());
-      dispatch(savePersonalInfo(dataUser));
-      setDataUser({
-        name: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        password: "",
-        repeatPassword: "",
-      });
-    }
-  };
-
-  useEffect(() => {
-    setIsFormComplete(checkFormCompletion());
-  }, [dataUser]);
-
-  useEffect(() => {
-    setDataUser({
-      name: userInfoCurrent.name || "",
-      lastName: userInfoCurrent.lastName || "",
-      email: userInfoCurrent.email || "",
-      phone: userInfoCurrent.phone || "",
-      password: userInfoCurrent.password || "",
-      repeatPassword: userInfoCurrent.repeatPassword || "",
-    });
-  }, [userInfoCurrent]);
-
+const PersonalInfoPresentation = ({
+  dataUser,
+  isValidEmail,
+  isFormComplete,
+  handleInputChange,
+  handleImageUpload,
+  handleSubmit,
+}) => {
   return (
     <div className="info-personal">
       <h3 className="title-info-personal">
@@ -99,14 +27,14 @@ const PersonalInfoTab = () => {
               name="name"
               type="text"
               className="custom-input"
-              placeholder="Nombre"
+              placeholder="Nombre completo"
               value={dataUser.name}
               onChange={handleInputChange}
             />
           </div>
           <div className="input-field">
             <label className="input-label" htmlFor="last-name">
-              Apellido
+              Apellido/s
             </label>
             <input
               id="last-name"
@@ -118,20 +46,7 @@ const PersonalInfoTab = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="input-field">
-            <label className="input-label" htmlFor="email">
-              Correo
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="custom-input"
-              placeholder="Correo electronico"
-              value={dataUser.email}
-              onChange={handleInputChange}
-            />
-          </div>
+
           <div className="input-field">
             <label className="input-label" htmlFor="phone">
               Teléfono
@@ -174,13 +89,44 @@ const PersonalInfoTab = () => {
               onChange={handleInputChange}
             />
           </div>
+          <div className="input-field">
+            <label className="input-label" htmlFor="email">
+              Correo
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="custom-input"
+              placeholder="Correo electronico"
+              value={dataUser.email}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
 
-        <div className="upload-section">
+        <div
+          className="upload-section"
+          style={{
+            backgroundImage: `url(${
+              dataUser.imageUser
+                ? dataUser.imageUser
+                : "../../../../assets/noImageUser.png"
+            })`,
+          }}
+        >
           <div className="upload-image">
-            <Avatar sx={{ width: 80, height: 80 }}>
-              <InsertPhotoIcon fontSize="large" />
-            </Avatar>
+            <label htmlFor="profile-image" className="upload-label">
+              <FileUploadIcon sx={{ width: "50%", height: "100%" }} />
+              <input
+                type="file"
+                id="profile-image"
+                name="profileImage"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+            </label>
           </div>
         </div>
       </div>
@@ -200,5 +146,21 @@ const PersonalInfoTab = () => {
     </div>
   );
 };
-
-export default PersonalInfoTab;
+// Define los propTypes
+PersonalInfoPresentation.propTypes = {
+  dataUser: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    repeatPassword: PropTypes.string.isRequired,
+    imageUser: PropTypes.string,
+  }).isRequired,
+  isValidEmail: PropTypes.bool.isRequired,
+  isFormComplete: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleImageUpload: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+export default PersonalInfoPresentation;
