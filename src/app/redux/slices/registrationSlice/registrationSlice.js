@@ -55,9 +55,8 @@ const registrationSlice = createSlice({
       let dataRegistrationUser = {
         ...userData,
         documentationUser: { ...documentationUser },
-        professionsUser: { ...professionsUser },
+        professionsUser: [ ...professionsUser ],
       };
-      console.log(dataRegistrationUser);
       await axios.post("/Ruta", dataRegistrationUser);
     },
   },
