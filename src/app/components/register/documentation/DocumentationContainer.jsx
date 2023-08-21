@@ -1,7 +1,6 @@
 import useCreateCardsDocumentation from "../../../hooks/Register/useCreateCardsDocumentation";
-import ButtonNext from "../../Button/ButtonNext";
-import ButtonBack from "../../Button/ButtonBack";
-import "./Documentation.scss";
+
+import "./DocumentationPresentation";
 import {
   backStep,
   nextStep,
@@ -9,6 +8,7 @@ import {
 } from "../../../redux/slices/registrationSlice/registrationSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import DocumentationPresentation from "./DocumentationPresentation";
 const Documentation = () => {
   const dispatch = useDispatch();
   const [documentationUser, setDocumentationUser] = useState({});
@@ -38,18 +38,7 @@ const Documentation = () => {
   );
  
   return (
-    <div className="documentation-container">
-      <h2 className="title">
-        Ahora, enfoquémonos en la documentación profesional.
-      </h2>
-      <section className="documentation-cards">
-        <DocumentationCards />
-      </section>
-      <section className="buttons">
-        <ButtonBack textButton={"Atras"} handleFunction={handleBack} />
-        <ButtonNext textButton={"Siguiente"} handleFunction={handleNext} />
-      </section>
-    </div>
+   <DocumentationPresentation handleBack={handleBack} DocumentationCards={DocumentationCards} handleNext={handleNext}/>
   );
 };
 

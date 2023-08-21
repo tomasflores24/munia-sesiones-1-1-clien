@@ -1,45 +1,57 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import "./DocumentationCard.scss";
 import { unifiedString } from "../../utils/unifiedStrings";
-import { useSelector } from "react-redux";
-export const DocumentationCard = ({ title, getDocument }) => {
-  const [documentationUser, setDocumentationUser] = useState({});
+import { saveDocumentationUser } from "../../redux/slices/registrationSlice/registrationSlice";
+
+export const DocumentationCard = ({ title }) => {
+  const dispatch = useDispatch();
+  const documentationStorage = useSelector(
+    (state) => state.registration.documentationUser[unifiedString(title)]
+  );
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleImageUpload = (e) => {
-    const { name } = e.target;
     const imageFile = e.target.files[0];
     const documentUpload = URL.createObjectURL(imageFile);
-    setDocumentationUser({ ...documentationUser, [name]: documentUpload });
-    getDocument(documentationUser);
+
+    // Dispatch action to update Redux state with the uploaded image
+    setImagePreview(documentUpload);
+    dispatch(saveDocumentationUser({ [unifiedString(title)]: documentUpload }));
   };
 
-  const documentImageUrl = `../../../assets/uploadDocument-${title}.png`;
-  const documentationStorage = useSelector(
-    (state) => state.registration.documentationUser
-  );
+  // { title: "Antecedentes Penales" },
+  //   { title: "Diploma de Grado" },
+  //   { title: "Tarjeta Profesional" },
+  //   { title: "Portfolio de Servicios" },
   useEffect(() => {
-    const showDocumentation = {
-      backgroundImage: documentationStorage[unifiedString(title)]
-        ? `url(${documentationStorage[unifiedString(title)]})`
-        : documentationUser[title]
-        ? `url(${documentationUser[title]})`
-        : `url(${documentImageUrl})`,
-    }[documentationStorage];
-  });
+    if (documentationStorage) {
+      setImagePreview(documentationStorage);
+    }
+  }, [documentationStorage]);
+
+  //imagen a mostrar card
+  const images = {
+    backgroundImage: `url(${
+      imagePreview
+        ? imagePreview
+        : title === "Antecedentes Penales"
+        ? "../../../assets/antecedenteNotFound.png"
+        : title === "Diploma de Grado"
+        ? "../../../assets/diplomaNotFound.png"
+        : title === "Tarjeta Profesional"
+        ? "../../../assets/tarjetaNotFound.png"
+        : title === "Portfolio de Servicios"
+        ? "../../../assets/portFolioNotFound.png"
+        : null
+    })`,
+  };
   return (
     <div className="card">
       <h3>{title}</h3>
-      <div
-        className="upload-section"
-        style={showDocumentation}
-        // style={{
-        //   backgroundImage: documentationUser[title]
-        //     ? `url(${documentationUser[title]})`
-        //     : `url(${documentImageUrl})`,
-        // }}
-      >
+      <div className="upload-section" style={images}>
         <section className="upload">
           <label htmlFor={`${title}-document`} className="upload-icon">
             <FileUploadIcon sx={{ width: "60%", height: "90%" }} />
@@ -52,7 +64,6 @@ export const DocumentationCard = ({ title, getDocument }) => {
               onChange={handleImageUpload}
             />
           </label>
-          {!documentationUser[title] && <p>Subir imagen</p>}
         </section>
       </div>
     </div>
@@ -61,5 +72,4 @@ export const DocumentationCard = ({ title, getDocument }) => {
 
 DocumentationCard.propTypes = {
   title: PropTypes.string.isRequired,
-  getDocument: PropTypes.func,
 };

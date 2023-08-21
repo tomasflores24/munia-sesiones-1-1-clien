@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "../components/register/register";
 import Table from "../components/Table/Table";
-import SideBar from "../components/sideBar/sideBar";
 import Home from "../views/Home/Home";
+import SideBar from "../components/sideBar/SideBar";
+import Register from "../pages/register/Register";
 // Importa más páginas si es necesario
 
 function AppRoutes() {
