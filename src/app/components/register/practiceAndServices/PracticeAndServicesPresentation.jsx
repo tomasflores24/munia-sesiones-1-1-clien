@@ -17,7 +17,6 @@ const PracticeAndServicesPresentation = ({
   options,
   showAlert,
   handleCloseAlert,
-  
 }) => {
   return (
     <div className="practice-and-services">
@@ -60,10 +59,13 @@ const PracticeAndServicesPresentation = ({
             </strong>
           </label>
         </section>
+        <section className="button-register">
+
         <Button
           handleFunction={handleSubmitRegistration}
           textButton="Registrarse"
         />
+        </section>
       </section>
       {showAlert && (
         <ModalMessage
@@ -74,7 +76,6 @@ const PracticeAndServicesPresentation = ({
           handleCloseAlert={handleCloseAlert}
         />
       )}
-   
     </div>
   );
 };

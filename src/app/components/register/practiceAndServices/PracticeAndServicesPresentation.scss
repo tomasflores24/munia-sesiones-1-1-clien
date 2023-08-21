@@ -84,9 +84,9 @@
                 display: flex;
                 align-items: center;
                 margin: 4px;
-                
+
                 background: #e2d4bb;
-                
+
                 color: black;
                 font-weight: bold;
                 font-size: 1.3rem;
@@ -115,6 +115,12 @@
         justify-content: space-between;
         align-items: center;
 
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
         .terms-section {
             display: flex;
             justify-content: center;
@@ -132,6 +138,13 @@
                 height: 1.7rem;
                 margin-right: 0.5rem;
             }
+        }
+    }
+    .button-register {
+        @media (max-width: 768px) {
+            align-self: flex-end;
+            justify-self: flex-end;
+            flex-wrap: wrap;
         }
     }
 }
