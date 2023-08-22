@@ -10,7 +10,7 @@ const personalInfoInitial = {
   confirmPassword: "",
 };
 const initialState = {
-  currentStep: 1,
+  currentStep: 0,
   dataUser: personalInfoInitial,
   documentationUser: {},
   professions: [],
@@ -55,9 +55,8 @@ const registrationSlice = createSlice({
       let dataRegistrationUser = {
         ...userData,
         documentationUser: { ...documentationUser },
-        professionsUser: { ...professionsUser },
+        professionsUser: [ ...professionsUser ],
       };
-      console.log(dataRegistrationUser);
       await axios.post("/Ruta", dataRegistrationUser);
     },
   },
