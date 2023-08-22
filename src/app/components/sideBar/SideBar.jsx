@@ -16,10 +16,10 @@ export default function SideBar() {
       <nav className="container">
         {type==="admin" ? 
         <header className="admin-data">
-          <img src="muniaLogo.png" className="img"></img>
+          <img src="assets/muniaLogo.png" className="img"></img>
         </header>
         :<header className="profile-data">
-          <img src="Ellipse 7.svg" className="img" />
+          <img src="assets/Ellipse 7.svg" className="img" />
           <h2 className="user-data">María Agustina Lahitou</h2>
         </header>}
         <section className="navigation-buttons">
