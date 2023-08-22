@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'; // Asegúrate de importar NavLink correctamente
+import { NavLink } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const Card = ({ to, imgComponent, title, variables }) => {
