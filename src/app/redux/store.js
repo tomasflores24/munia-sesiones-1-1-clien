@@ -28,6 +28,10 @@ const store = configureStore({
     auth: persistedAuthReducer,
     registration: persistedRegistrationReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 const persistor = persistStore(store);

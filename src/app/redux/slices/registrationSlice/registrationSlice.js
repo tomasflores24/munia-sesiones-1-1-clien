@@ -10,7 +10,7 @@ const personalInfoInitial = {
   confirmPassword: "",
 };
 const initialState = {
-  currentStep: 1,
+  currentStep: 0,
   dataUser: personalInfoInitial,
   documentationUser: {},
   professions: [],
