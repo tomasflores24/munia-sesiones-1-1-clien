@@ -2,7 +2,7 @@ import ButtonBack from "../../Button/ButtonBack";
 import Button from "../../Button/Button";
 import PropTypes from "prop-types";
 import "./PracticeAndServicesPresentation.scss";
-import ModalMessage from "../../alert/ModalMessage";
+import ModalMessage from "../../ModalMessages/ModalAlertMessage/ModalMessage";
 
 const PracticeAndServicesPresentation = ({
   selectedOption,

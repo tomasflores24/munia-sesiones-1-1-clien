@@ -8,6 +8,9 @@
     height: 100%;
     padding: 0.5rem 2rem;
     gap: 5rem;
+    @media (max-width: 768px) {
+        height: auto;
+    }
     .documentation-cards {
         display: flex;
         flex-direction: row;
@@ -32,7 +35,7 @@
         font-weight: 600;
         line-height: normal;
         @media (max-width: 768px) {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
         }
     }
     .buttons {
