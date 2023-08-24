@@ -6,6 +6,7 @@ import Register from "../pages/register/Register";
 // Importa más páginas si es necesario
 
 function AppRoutes() {
+
   return (
     <Routes>
       {/* ejemplo */}

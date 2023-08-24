@@ -39,7 +39,15 @@ const Table = () => {
         hour:'10:30 am',
         service:'Asesoría financiera',
         state:'Reprogramado'
-    }]
+    },
+    {
+        name: 'Pedro Terraf',
+        date:'Mar. 22 - 08 - 2023',
+        hour:'10:30 am',
+        service:'Asesoría financiera',
+        state:'Confirmado'
+    }
+]
 
     return(
         <div className='ContainerAll'>
