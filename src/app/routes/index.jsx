@@ -28,6 +28,7 @@ function AppRoutes() {
           <Route path="/table" element={<Table />} />
           <Route path="/sidebar" element={<SideBar />} />
           <Route path="/home" element={<Home />} />
+          {/* AGREGAR NUEVA RUTA SI SE NECESITA */}
         </Route>
         {/* flujo de provider */}
         <Route element={<ProtectedRoute isAllowed={!!user && user1?.UserTypeId?.id === "2"} />}>
