@@ -26,6 +26,7 @@ export default function SideBar() {
         {type==="admin" ? 
          buttonDataAdmin.map((e) => (
           <Buttons
+            className='saidBarButtons'
             title={e.title}
             icon={e.icon}
             key={e.title}
@@ -35,6 +36,7 @@ export default function SideBar() {
         ))
         : buttonDataUser.map((e) => (
           <Buttons
+            className='saidBarButtons'
             title={e.title}
             icon={e.icon}
             key={e.title}
