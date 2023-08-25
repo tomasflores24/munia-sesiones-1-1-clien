@@ -23,7 +23,7 @@ function AppRoutes() {
       <Routes>
         <Route index element={<Register />} />
         <Route path="/user/register" element={<Register />} />
-        {/* flujo de user */}
+        {/* flujo de user(hardcodeo con user1 porque no esta termiando lo del login) */}
         <Route element={<ProtectedRoute isAllowed={!!user && user1?.UserTypeId?.id === "1"} />}>
           <Route path="/table" element={<Table />} />
           <Route path="/sidebar" element={<SideBar />} />
@@ -41,7 +41,6 @@ function AppRoutes() {
         <Route element={<ProtectedRoute isAllowed={!!user && user1?.UserTypeId?.id === "4"} />}>
           <Route path="/admin" element={<Table />} />
         </Route>
-        
       </Routes>
     </>
   );
