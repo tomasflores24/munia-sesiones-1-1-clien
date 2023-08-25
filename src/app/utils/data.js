@@ -1,13 +1,13 @@
 export const user_type = {
-    id:"d0a2a9a5-9280-44e3-9433-b8901e670ce2",
-    name:"idk"
+    id:'1',
+    name:"user"
 }
 export const country = {
     id:"b5f8e8f0-7736-4d97-b8e0-764b9fc6846d",
     name: "Argentina",
     area_code:"1878"
 }
-export const user = {
+export const user1 = {
     id: "a0493c48-e70f-43a1-a56d-fffe46279184",
     name: "María Agustina Lahitou",
     email:"maria@gmail.com",
@@ -24,7 +24,7 @@ export const gender = {
 }
 export const provider = {
     id:"5e04b720-b6f2-4a32-971f-74e63ad9943b",
-    UserId: user.id,
+    UserId: user1.id,
     last_name:"Gutierrez",
     GenderId: gender
 }
@@ -32,19 +32,19 @@ export const rating = {
     id: "94c943eb-bc7d-419f-856d-e10e9f7c2b15",
     rating: 5,
     comentary: "Excelente servicio",
-    UserId: user.id,
+    UserId: user1.id,
     isActive:true,
     ProviderId: provider.id
 }
 export const company = {
     id:"249cf619-51e0-4d87-b5b4-18b2f4f1a84c",
-    UserId:user.id,
+    UserId:user1.id,
     phone:42535917,
     register_id:"adsads"
 }
 export const collaborators = {
     id: "87496ea0-7cf3-4b0c-81a9-c738d04ef40e",
-    UserId: user.id,
+    UserId: user1.id,
     last_name: "Gonzalez",
     GenderId: gender.id,
     CompanyId: company.id
