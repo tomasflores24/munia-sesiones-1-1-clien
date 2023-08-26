@@ -5,8 +5,8 @@ $selectedTabColor: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
-  height: 100vh;
+  width: 25em;
+  min-height: 100%;
   background-color: #EBDCC1;
 
   .profile-data {
@@ -29,6 +29,7 @@ $selectedTabColor: black;
       margin: 6px 0;
     }
   }
+
   .admin-data {
     height: 230px;
     width: 100%;
@@ -36,50 +37,78 @@ $selectedTabColor: black;
     display: flex;
     justify-content: center;
     align-items: center;
-  
+
     .img {
       width: 200px;
     }
   }
-  
-  .navigation-buttons{
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   margin-top: 5em;
-   > *:not(:first-child) {
-    margin-top: 1.5rem; 
-  }
+
+  .navigation-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2em;
+    > *:not(:first-child) {
+      margin-top: 1.5rem; 
+    }
   }
 
-.logOut {
+  .logOut {
     background-color: #EBDCC1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1em;
+    height: 100%;
     width: 100%;
-    height: 50px;
     border: none;
     font-size: 20px;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 125px;
     cursor: pointer;
-    transition: background-color 0.4s ease; 
-    margin-top: 4em;
+    transition: background-color 0.4s ease;
     .span {
       padding-left: 7px;
     }
-  
+
     &:hover {
       background-color: #c69081;
     }
-  
+
     &.selected {
       background-color: #AE7A6C;
     }
   }
-  
-}
 
+  @media (max-width: 768px) {
+    .profile-data .img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .user-data {
+      font-size: 14px;
+      margin: 3px 0;
+    }
+
+    .admin-data .img {
+      width: 150px;
+    }
+
+    .navigation-buttons {
+      margin-top: 1em;
+      > *:not(:first-child) {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .logOut {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 1em;
+      height: 100%;
+    }
+  }
+}
