@@ -1,5 +1,5 @@
-import ButtonBack from "../../Button/ButtonBack";
-import Button from "../../Button/Button";
+import ButtonBack from "../../Common/Button/ButtonBack";
+import Button from "../../Common/Button/Button"
 import PropTypes from "prop-types";
 import "./PracticeAndServicesPresentation.scss";
 import ModalMessage from "../../ModalMessages/ModalAlertMessage/ModalMessage";

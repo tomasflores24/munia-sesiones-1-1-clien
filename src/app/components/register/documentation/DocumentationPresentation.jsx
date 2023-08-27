@@ -1,5 +1,5 @@
-import ButtonNext from "../../Button/ButtonNext";
-import ButtonBack from "../../Button/ButtonBack";
+import ButtonBack from "../../Common/Button/ButtonBack";
+import ButtonNext from "../../Common/Button/ButtonNext";
 import "./DocumentationPresentation.scss";
 import PropTypes from "prop-types";
 

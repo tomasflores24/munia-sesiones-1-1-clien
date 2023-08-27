@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { nextStep } from "../../../redux/slices/registrationSlice/registrationSlice";
-import Button from "../../Button/Button";
-import ButtonNext from "../../Button/ButtonNext";
 import "./SelectUserRegistration.scss";
+import Button from "../../Common/Button/Button";
+import ButtonNext from "../../Common/Button/ButtonNext";
+
 const SelectUserRegistration = () => {
   const dispatch = useDispatch();
   const handleNext = () => {

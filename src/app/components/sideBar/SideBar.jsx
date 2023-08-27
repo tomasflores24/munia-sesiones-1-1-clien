@@ -6,7 +6,7 @@ import "./SideBar.scss";
 
 export default function SideBar() {
 
-  const type = "user"
+  const type = "admin"
   const navigate = useNavigate();
   const redirect = (type,redirect)=>{
     navigate("/"+type+redirect);
@@ -16,30 +16,32 @@ export default function SideBar() {
       <nav className="container">
         {type==="admin" ? 
         <header className="admin-data">
-          <img src="muniaLogo.png" className="img"></img>
+          <img src="assets/muniaLogo.png" className="img"></img>
         </header>
         :<header className="profile-data">
-          <img src="Ellipse 7.svg" className="img" />
+          <img src="assets/Ellipse 7.svg" className="img" />
           <h2 className="user-data">María Agustina Lahitou</h2>
         </header>}
         <section className="navigation-buttons">
         {type==="admin" ? 
          buttonDataAdmin.map((e) => (
           <Buttons
-            title={e.title}
-            icon={e.icon}
-            key={e.title}
-            selected={e.selected}
-            onClick={()=>redirect(type,e.redirect)}
+            className='saidBarButtons'
+            title={e?.title}
+            icon={e?.icon}
+            key={e?.title}
+            selected={e?.selected}
+            onClick={()=>redirect(type,e?.redirect)}
           />
         ))
         : buttonDataUser.map((e) => (
           <Buttons
-            title={e.title}
-            icon={e.icon}
-            key={e.title}
-            selected={e.selected}
-            onClick={()=>redirect(type,e.redirect)}
+            className='saidBarButtons'
+            title={e?.title}
+            icon={e?.icon}
+            key={e?.title}
+            selected={e?.selected}
+            onClick={()=>redirect(type,e?.redirect)}
           />
         ))}
         </section>
