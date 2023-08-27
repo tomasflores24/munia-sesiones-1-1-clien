@@ -27,21 +27,21 @@ export default function SideBar() {
          buttonDataAdmin.map((e) => (
           <Buttons
             className='saidBarButtons'
-            title={e.title}
-            icon={e.icon}
-            key={e.title}
-            selected={e.selected}
-            onClick={()=>redirect(type,e.redirect)}
+            title={e?.title}
+            icon={e?.icon}
+            key={e?.title}
+            selected={e?.selected}
+            onClick={()=>redirect(type,e?.redirect)}
           />
         ))
         : buttonDataUser.map((e) => (
           <Buttons
             className='saidBarButtons'
-            title={e.title}
-            icon={e.icon}
-            key={e.title}
-            selected={e.selected}
-            onClick={()=>redirect(type,e.redirect)}
+            title={e?.title}
+            icon={e?.icon}
+            key={e?.title}
+            selected={e?.selected}
+            onClick={()=>redirect(type,e?.redirect)}
           />
         ))}
         </section>

@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className='AllHome'>
       <SideBar />
-      <div className='HomeContainer'>
+      <div className='HomeContainer '>
         <div className='ContainerCards'>
           <Card to='/admin/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
           <Card to='/admin/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='.-' />
