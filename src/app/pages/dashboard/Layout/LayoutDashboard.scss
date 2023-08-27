@@ -1,0 +1,18 @@
+// Layout.scss
+.homeDashboard-container {
+  display: flex;
+  min-height: 100vh;
+  width: auto;
+}
+
+.homeDashboard-sidebar {
+  flex: 0 0 250px;
+  color: #fff;
+  padding: 20px;
+  width: 20%;
+}
+
+.homeDashboard-content {
+  flex: 1;
+  padding: 20px;
+}

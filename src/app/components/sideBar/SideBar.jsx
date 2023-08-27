@@ -6,7 +6,7 @@ import "./SideBar.scss";
 
 export default function SideBar() {
 
-  const type = "user"
+  const type = "admin"
   const navigate = useNavigate();
   const redirect = (type,redirect)=>{
     navigate("/"+type+redirect);

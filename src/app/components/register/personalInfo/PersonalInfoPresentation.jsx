@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import ButtonNext from "../../Button/ButtonNext";
+import ButtonNext from "../../Common/Button/ButtonNext";
 import "./PersonalInfoPresentation.scss";
 
 const PersonalInfoPresentation = ({
