@@ -1,0 +1,150 @@
+.practice-and-services {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .selected-items-container {
+        display: flex;
+        flex-direction: column;
+        border: 3px solid #0000002c;
+        background: #fff;
+        border-radius: 0rem 0rem 2.5rem 2.5rem;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        gap: 10px;
+
+        .select-container {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            border-bottom: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+
+            max-width: 30rem;
+
+            select {
+                border: none;
+                padding: 8px;
+                flex-grow: 1;
+                appearance: none;
+                background: transparent;
+                font-weight: bold;
+                text-align: center;
+                color: #000;
+                font-family: Montserrat;
+                font-size: 1.5rem;
+                font-style: normal;
+                font-weight: 600;
+
+                line-height: normal;
+                &:focus {
+                    outline: none; // Quita el bordeado al seleccionar el select
+                    background: #e2d4bb;
+                }
+                &:hover {
+                    border-radius: 5px;
+                    background: #e2d4bb;
+                }
+            }
+
+            select::-ms-expand {
+                display: none;
+            }
+
+            select option {
+                font-size: 1.6rem;
+                color: black;
+                font-weight: bold;
+                background: #e2d4bb;
+            }
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            padding: 10px 1rem;
+
+            .option {
+                background-color: #f0f0f0;
+                border-radius: 8px;
+                padding: 8px 10px;
+                display: flex;
+                align-items: center;
+                margin: 4px;
+
+                background: #e2d4bb;
+
+                color: black;
+                font-weight: bold;
+                font-size: 1.3rem;
+                button {
+                    background-color: #9c6d61c3;
+
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    padding: 4px 8px;
+                    margin-left: 8px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #f0f0f0;
+                        color: #9c6d61c3;
+                        transition: background-color 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+
+    .buttons-section {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .terms-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            color: rgba(0, 0, 0, 0.29);
+            font-family: Montserrat;
+            font-size: 1.6rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            gap: 2rem;
+            input[type="checkbox"] {
+                width: 1.4657rem;
+                height: 1.7rem;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+    .button-register {
+        @media (max-width: 768px) {
+            align-self: flex-end;
+            justify-self: flex-end;
+            flex-wrap: wrap;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.statistics-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .statistics-graphics-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: auto;
+        .section-graphics {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+
+        }
+    }
+}

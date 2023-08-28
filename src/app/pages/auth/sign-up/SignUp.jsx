@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import React from "react";
+=======
+>>>>>>> 7757caf66b3e564d047b1efaa298dc826bbe8daf
 
 const SignUp = () => {
   return (

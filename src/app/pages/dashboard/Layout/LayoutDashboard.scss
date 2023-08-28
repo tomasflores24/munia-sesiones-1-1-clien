@@ -1,0 +1,18 @@
+.layoutDashboard-container {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden; /* Para evitar que el contenido desborde en pantallas pequeñas */
+  width: 100%;
+}
+
+.layoutDashboard-sidebar {
+  flex: 0 0 250px;
+  color: #fff;
+}
+
+.layoutDashboard-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Para permitir el desplazamiento del contenido si es demasiado largo */
+  background-color: #f4f4f4; /* Color de fondo del área de contenido */
+}

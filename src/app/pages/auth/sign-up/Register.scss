@@ -1,0 +1,128 @@
+$tabBackgroundColor: #7f7e7e38;
+$selectedTabColor: black;
+
+.registration-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://somospnt.com/images/charlaa.jpg");
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: 768px) {
+    height: 100%;
+  }
+
+  .registration-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    width: 95%;
+    max-width: 80rem;
+    height: 100%;
+    max-height: 70rem;
+    flex-shrink: 0;
+
+    @media (max-width: 1023px) {
+      height: 100vh;
+    }
+    @media (max-width: 768px) {
+      height: 80rem;
+      max-height: 80rem;
+      width: 100%;
+      padding: 1rem;
+    }
+    @media (max-width: 460px) {
+      height: 86rem;
+      max-height: 86rem;
+    }
+
+    .title-register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.6);
+      font-family: Montserrat;
+      font-size: 3.6rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      gap: 0.5rem;
+
+      strong {
+        color: #000;
+        font-size: 3.6rem;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .subtitle {
+      color: rgba(0, 0, 0, 0.6);
+      font-family: Montserrat;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-top: 1.5rem;
+
+      .subtitle-usted {
+        color: #9c6d61;
+        font-family: Montserrat;
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    .tabs-container {
+      display: flex;
+      margin-top: 20px;
+      background-color: rgba(126, 126, 126, 0.019);
+      width: 100%;
+      height: 6rem;
+
+      .tab {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background-color: #d9d9d9;
+        color: #000;
+        font-family: Montserrat;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: normal;
+        width: 100%;
+
+        &.active {
+          color: $selectedTabColor;
+          border-bottom: none;
+          background-color: #e2d4bb;
+        }
+      }
+    }
+
+    .tab-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

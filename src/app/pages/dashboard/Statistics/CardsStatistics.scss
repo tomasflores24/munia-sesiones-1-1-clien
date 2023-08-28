@@ -1,0 +1,43 @@
+/* Cards.scss */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 5px;
+    width: 10rem;
+    height: auto;
+    background: #ae7a6c;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    &__title {
+      color: #000;
+      font-family: Montserrat;
+      font-size: 1.5rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    &__value {
+      color: rgba(0, 0, 0, 0.4);
+      font-family: Montserrat;
+      font-size: 2.3rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+}
