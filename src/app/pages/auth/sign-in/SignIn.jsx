@@ -16,7 +16,6 @@ const SignIn = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-
   const validationSchema = useMemo(() => {
     return yup.object({
       email: yup
@@ -64,7 +63,7 @@ const SignIn = () => {
         </div>
         <div className="formBox">
           <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
-          <h2>Correo</h2>
+            <h2>Correo</h2>
             <TextField
               {...register("email")} 
               helperText={errors?.email?.message}
@@ -73,27 +72,27 @@ const SignIn = () => {
               variant="standard"
             />
             <h2>Contraseña</h2>
-              <TextField
-                id="filled-password-input"
-                label="Password"
-                autoComplete="current-password"
-                variant="standard"
-                {...register("password")}
-                helperText={errors?.password?.message}
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
+            <TextField
+              id="filled-password-input"
+              label="Password"
+              autoComplete="current-password"
+              variant="standard"
+              {...register("password")}
+              helperText={errors?.password?.message}
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
             <p className="ResetPassword">¿Has olvidado tu contraseña?</p>
             <Button type="submit">Enviar</Button>
           </FormControl>
