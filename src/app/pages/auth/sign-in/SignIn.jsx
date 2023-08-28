@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
@@ -13,31 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import * as yup from "yup";
 
 const SignIn = () => {
-<<<<<<< HEAD
-
-  const peticion = "axios(get)"
-
-  // Esta funcion es encarga de ordenar los usuarios
-  const funcion = async ()=>{
-
-  }
-
-  return (
-    <div>
-      {/* Header */}
-      <div>navbar
-      </div>
-      <span>error ${peticion}</span>
-      {/* Cuerpo */}
-      <div>
-        cuerpo
-      </div>
-    </div>
-  )
-}
-=======
   const [showPassword, setShowPassword] = React.useState(false);
->>>>>>> 7757caf66b3e564d047b1efaa298dc826bbe8daf
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
