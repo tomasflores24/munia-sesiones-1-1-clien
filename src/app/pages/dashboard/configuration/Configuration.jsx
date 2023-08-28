@@ -1,12 +1,11 @@
 import LayoutDashboard from "../Layout/LayoutDashboard"
 
-const Home = () => {
+const Configuration = () => {
   return (
     <LayoutDashboard>
-
-      Home asd
+        Configuracion
     </LayoutDashboard>
   )
 }
 
-export default Home
+export default Configuration

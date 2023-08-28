@@ -1,5 +1,5 @@
 
-const SignIn = () => {
+const index = () => {
   return (
     <div>
       
@@ -7,4 +7,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default index

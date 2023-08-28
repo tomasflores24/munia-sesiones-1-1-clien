@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import "./Button.scss";
-const Button = ({ handleFunction, textButton, className }) => {
+const Button = ({ handleFunction, textButton, className, name }) => {
   return (
     <div>
       <button
         className={className ? className : "button"}
         onClick={handleFunction}
+        name={name ? name : ""}
       >
         {textButton}
       </button>
@@ -19,6 +20,7 @@ Button.propTypes = {
   //Text del button
   textButton: PropTypes.string.isRequired,
   className: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default Button;

@@ -14,7 +14,13 @@ const authPersistConfig = {
 const registrationPersistConfig = {
   key: "registration",
   storage,
-  whitelist: ["currentStep", "dataUser", "documentationUser", "professions"], // Aquí debes especificar los campos que deseas persistir
+  whitelist: [
+    "currentStep",
+    "dataUser",
+    "documentationUser",
+    "professions",
+    "typeUser",
+  ], // Aquí debes especificar los campos que deseas persistir
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
