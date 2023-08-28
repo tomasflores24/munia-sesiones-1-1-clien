@@ -24,7 +24,6 @@ function AppRoutes() {
     <>
       <Routes>
         <Route index element={<Register />} />
-        <Route path="/user/register" element={<Register />} />
         {/* flujo de user(hardcodeo con user1 porque no esta termiando lo del login) */}
         <Route
           element={
@@ -33,12 +32,8 @@ function AppRoutes() {
             />
           }
         >
-          <Route path="/admin/table" element={<Table />} />
-          <Route path="/dashboard" element={<LayoutDashboard />} />
-          <Route path="/admin/home" element={<Home />} />
-          <Route path="/admin/estadisticas" element={<Statistics />} />
-          <Route path="/admin/configuration" element={<Configuration />} />
-          <Route path="/admin/clientes" element={<Clients />} />
+          <Route path="/table" element={<Table />} />
+          <Route path="/home" element={<Home />} />
 
           {/* AGREGAR NUEVA RUTA SI SE NECESITA */}
         </Route>
@@ -70,7 +65,13 @@ function AppRoutes() {
             />
           }
         >
-          <Route path="/admin" element={<Table />} />
+          {/* <Route path="/admin" element={<Table />} /> */}
+          <Route path="/admin/table" element={<Table />} />
+          <Route path="/dashboard" element={<LayoutDashboard />} />
+          <Route path="/admin/home" element={<Home />} />
+          <Route path="/admin/estadisticas" element={<Statistics />} />
+          <Route path="/admin/configuration" element={<Configuration />} />
+          <Route path="/admin/clientes" element={<Clients />} />
         </Route>
       </Routes>
     </>
