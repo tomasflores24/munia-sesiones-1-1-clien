@@ -140,7 +140,7 @@ const PersonalInfoPresentation = ({
       {!isValidEmail && (
         <p className="error-message">Ingresa un correo electrónico válido</p>
       )}
-      {!isFormComplete && (
+      {isFormComplete === "vacio" && (
         <p className="error-message">Faltan completar campos</p>
       )}
     </div>

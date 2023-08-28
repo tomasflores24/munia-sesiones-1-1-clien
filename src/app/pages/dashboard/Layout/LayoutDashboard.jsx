@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import SideBar from "../../../components/sideBar/SideBar";
-import "./LayoutDashboard.scss"; // Importa tus estilos de Sass
+import "./LayoutDashboard.scss";
 
 const LayoutDashboard = ({ children }) => {
   return (

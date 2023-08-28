@@ -12,7 +12,7 @@ const PersonalInfoTab = () => {
     (state) => state.registration.dataUser
   );
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isFormComplete, setIsFormComplete] = useState(false);
+  const [isFormComplete, setIsFormComplete] = useState("as");
   const [dataUser, setDataUser] = useState({
     name: "",
     lastName: "",
@@ -39,21 +39,24 @@ const PersonalInfoTab = () => {
 
   const checkFormCompletion = () => {
     const { name, lastName, email, phone, password, repeatPassword } = dataUser;
-    return (
+    const isEmpty =
       name !== "" &&
       lastName !== "" &&
       email !== "" &&
       phone !== "" &&
       password !== "" &&
-      repeatPassword !== ""
-    );
+      repeatPassword !== "";
+
+    const result = isEmpty ? "completo" : "vacio";
+    return result;
   };
 
   const handleSubmit = () => {
     const isValid = validateEmail(dataUser.email);
     setIsValidEmail(isValid);
+    setIsFormComplete(checkFormCompletion());
 
-    if (isValid && isFormComplete) {
+    if (isValid && isFormComplete === "completo") {
       dispatch(nextStep());
       dispatch(savePersonalInfo(dataUser));
       setDataUser({
@@ -71,13 +74,13 @@ const PersonalInfoTab = () => {
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
-    setDataUser({ ...dataUser, imageUser: imageUrl||"../../../../assets/noImageUser.png" });
+    setDataUser({
+      ...dataUser,
+      imageUser: imageUrl || "../../../../assets/noImageUser.png",
+    });
   };
 
-  useEffect(() => {
-    setIsFormComplete(checkFormCompletion());
-  }, [dataUser]);
-
+ 
   useEffect(() => {
     setDataUser({
       name: userInfoCurrentStorage.name || "",
@@ -86,7 +89,9 @@ const PersonalInfoTab = () => {
       phone: userInfoCurrentStorage.phone || "",
       password: userInfoCurrentStorage.password || "",
       repeatPassword: userInfoCurrentStorage.repeatPassword || "",
-      imageUser: userInfoCurrentStorage.imageUser || "../../../../assets/noImageUser.png",
+      imageUser:
+        userInfoCurrentStorage.imageUser ||
+        "../../../../assets/noImageUser.png",
     });
   }, [userInfoCurrentStorage]);
 

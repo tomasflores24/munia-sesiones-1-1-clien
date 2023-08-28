@@ -18,8 +18,8 @@ import {
 } from "recharts";
 
 import "./Statistics.scss";
+import LayoutDashboard from "../Layout/LayoutDashboard";
 import CardsStatistics from "./CardsStatistics";
-import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
 
 const dataLineal = [
   { name: "Ene", value: 100 },

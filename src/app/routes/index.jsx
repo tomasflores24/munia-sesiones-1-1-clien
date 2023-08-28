@@ -5,9 +5,11 @@ import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import { useEffect, useState } from "react";
 import { user1 } from "../utils/data";
 import Register from "../pages/register/Register";
-import SideBar from "../components/sideBar/SideBar";
 import Home from "../pages/dashboard/home/Home";
-import Statistics from "../components/Statistics/Statistics";
+import LayoutDashboard from "../pages/dashboard/Layout/LayoutDashboard";
+import Configuration from "../pages/dashboard/configuration/Configuration";
+import Statistics from "../pages/dashboard/statistics/Statistics";
+import Clients from "../pages/dashboard/clients/Clients";
 
 function AppRoutes() {
   sessionStorage.setItem("session", JSON.stringify(user1));
@@ -31,10 +33,13 @@ function AppRoutes() {
             />
           }
         >
-          <Route path="/table" element={<Table />} />
-          <Route path="/sidebar" element={<SideBar />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/admin/table" element={<Table />} />
+          <Route path="/dashboard" element={<LayoutDashboard />} />
+          <Route path="/admin/home" element={<Home />} />
           <Route path="/admin/estadisticas" element={<Statistics />} />
+          <Route path="/admin/configuration" element={<Configuration />} />
+          <Route path="/admin/clientes" element={<Clients />} />
+
           {/* AGREGAR NUEVA RUTA SI SE NECESITA */}
         </Route>
         {/* flujo de provider */}
