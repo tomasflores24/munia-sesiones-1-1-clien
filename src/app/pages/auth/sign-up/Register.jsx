@@ -1,11 +1,11 @@
 import "./Register.scss";
-import DocumentationContainer from "../../components/register/documentation/DocumentationContainer";
-import PersonalInfoContainer from "../../components/register/personalInfo/PersonalInfoContainer";
+import DocumentationContainer from "../../../components/register/documentation/DocumentationContainer";
+import PersonalInfoContainer from "../../../components/register/personalInfo/PersonalInfoContainer";
 import { useSelector } from "react-redux";
-import PracticeAndServicesContainer from "../../components/register/practiceAndServices/PracticeAndServicesContainer";
+import PracticeAndServicesContainer from "../../../components/register/practiceAndServices/PracticeAndServicesContainer";
 import { useState } from "react";
-import ModalMunia from "../../components/ModalMessages/ModalMunia/ModalMunia";
-import SelectUserRegistration from "../../components/register/selectUserRegistration/SelectUserRegistration";
+import ModalMunia from "../../../components/ModalMessages/ModalMunia/ModalMunia";
+import SelectUserRegistration from "../../../components/register/selectUserRegistration/SelectUserRegistration";
 
 const Register = () => {
   const currentStep = useSelector((state) => state.registration.currentStep);
