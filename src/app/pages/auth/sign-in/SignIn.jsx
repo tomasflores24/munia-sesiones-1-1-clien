@@ -1,6 +1,6 @@
 import "./SignInStyle.scss";
 import * as React from 'react';
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -53,7 +53,7 @@ const SignIn = () => {
   return (
     <div className="login-root">
       <img
-        src="https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png"
+        src="https://s3-alpha-sig.figma.com/img/5555/3e83/3aac822dea85c905e6500a4bf92911fe?Expires=1694390400&Signature=i5fjZp~Qkm7aCLDYCd09MQY6GVK4V17Gjv2YZFl-3Koxvzdp6vrtBrRTtDb7QZn3gr6foj3154Cs3jtHTSmwvHD7P3v-zSlspGSrTeHRSlkD3Bh5Nx0SkXj678QODi54YBQ9zbfAZ0yfZCAkMfVSK0OXVNkh7L0oqrKtHx27-tRHNHZlKbAlg1idBhPReXWjACCl1SK9-UEe3B6ckW-URy1F0Qp~7rA-atUDUxV8qaEIxDoKI-fLiPl8u1n8EgU4uGCc~L7gbRtz8A~vaDglXdE2CWsfPTP8zfoGJeVZb3ThF4RdGH6blj5-whFXcqWc6HVxYkDIVdtx0aAE1VpOng__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
         className="login-img"
         alt=""
       />
@@ -62,23 +62,22 @@ const SignIn = () => {
           <h1>Ingresar</h1>
         </div>
         <div className="formBox">
-          <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
+          <FormControl sx={{ width: '38ch' }} variant="outlined">
             <h2>Correo</h2>
             <TextField
+              sx={{ mb: 5 }}
               {...register("email")} 
-              helperText={errors?.email?.message}
-              label="Usuario"
+              helperText={errors?.email ? (errors?.email?.message) : ("")}
               id="filled-password-input"
               variant="standard"
             />
             <h2>Contraseña</h2>
             <TextField
               id="filled-password-input"
-              label="Password"
               autoComplete="current-password"
               variant="standard"
               {...register("password")}
-              helperText={errors?.password?.message}
+              helperText={errors?.password ? (errors?.password?.message) : ("")}
               type={showPassword ? 'text' : 'password'}
               endAdornment={
                 <InputAdornment position="end">
@@ -94,7 +93,13 @@ const SignIn = () => {
               }
             />
             <p className="ResetPassword">¿Has olvidado tu contraseña?</p>
-            <Button type="submit">Enviar</Button>
+            <div className="BoxLoginSend">
+              <button className="loginSend" type="submit">Ingresar</button>
+              <p className="pTopGoogle">O Regístrate Utilizando</p>
+              <img className="imgGoogle" src='../../../../assets/Google.jpg' />
+              <p className="pBottomGoogle">¿Todavía no tienes una cuenta? </p>
+              <p className="pRegister">Regístrate</p>
+            </div>
           </FormControl>
         </div>
       </form>
