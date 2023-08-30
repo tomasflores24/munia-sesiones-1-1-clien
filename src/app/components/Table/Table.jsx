@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import "./Table.scss";
-import CloseIcon from "@mui/icons-material/Close";
 // import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // import CancelIcon from "@mui/icons-material/Cancel";
 // import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 const Table = ({ titles, informations, top }) => {
