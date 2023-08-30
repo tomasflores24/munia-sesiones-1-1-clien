@@ -12,7 +12,7 @@ const initialState = {
     name: "",
     phone: 0,
     userType: "", // userType en string,
-    userTypeId: 0,
+    userTypeId: 4,
     picture: "",
     addressId: 0,
     companyId: 0,

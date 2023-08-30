@@ -21,7 +21,7 @@ export const buttonDataUser = [
   {
     title: "Agenda",
     icon: <EventNoteIcon style={{ fontSize: "30px" }} />,
-    redirect: "/agenda",
+    redirect: "/diary",
   },
   {
     title: "Configuración",
@@ -44,17 +44,17 @@ export const buttonDataAdmin = [
   {
     title: "Agenda",
     icon: <EventNoteIcon style={{ fontSize: "30px" }} />,
-    redirect: "/table",
+    redirect: "/diary",
   },
   {
     title: "Clientes",
     icon: <PeopleIcon style={{ fontSize: "30px" }} />,
-    redirect: "/clientes",
+    redirect: "/clients",
   },
   {
     title: "Estadisticas",
     icon: <AnalyticsIcon style={{ fontSize: "30px" }} />,
-    redirect: "/estadisticas",
+    redirect: "/statistics",
   },
   {
     title: "Configuración",

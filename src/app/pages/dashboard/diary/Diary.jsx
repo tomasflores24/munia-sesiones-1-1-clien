@@ -2,7 +2,7 @@ import {
   informations,
   titles,
   top,
-} from "../../../Models/tablesDashboard/tableClientsModel";
+} from "../../../Models/tablesDashboard/tableDiaryModel";
 import Table from "../../../components/Table/Table";
 import LayoutDashboard from "../Layout/LayoutDashboard";
 
