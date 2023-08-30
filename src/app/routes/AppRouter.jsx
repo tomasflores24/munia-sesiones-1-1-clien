@@ -1,5 +1,4 @@
 import ProtectedRoutes from "./guards/ProtectedRoutes";
-import PublicRouter from "./guards/PublicRouter";
 import DashboardRoutes from "./DashboardRoutes/DashboardRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "../pages/auth/sign-up/Register";
@@ -17,7 +16,6 @@ const AppRouter = () => {
             </ProtectedRoutes>
           }
         />
-
         <Route path="/" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
       </Routes>

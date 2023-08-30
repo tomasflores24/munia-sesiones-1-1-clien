@@ -20,8 +20,3 @@ ol {
 a {
   text-decoration: none;
 }
-@media (max-width: 730px) {
-  html{
-    width: 100vh;
-  }
-}
