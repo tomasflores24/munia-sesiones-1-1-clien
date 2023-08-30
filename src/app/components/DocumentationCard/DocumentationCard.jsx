@@ -54,7 +54,7 @@ export const DocumentationCard = ({ title }) => {
       <div className="upload-section" style={images}>
         <section className="upload">
           <label htmlFor={`${title}-document`} className="upload-icon">
-            <FileUploadIcon sx={{ width: "60%", height: "90%" }} />
+            <FileUploadIcon sx={{ width: "60%", height: "90%", cursor: 'pointer' }} />
             <input
               type="file"
               id={`${title}-document`}

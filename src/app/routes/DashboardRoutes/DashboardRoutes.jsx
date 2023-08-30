@@ -4,6 +4,7 @@ import Home from "../../pages/dashboard/home/Home";
 import Configuration from "../../pages/dashboard/configuration/Configuration";
 import Clients from "../../pages/dashboard/clients/Clients";
 import Statistics from "../../pages/dashboard/statistics/Statistics";
+import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
 
 
 const DashboardRoutes = () => {

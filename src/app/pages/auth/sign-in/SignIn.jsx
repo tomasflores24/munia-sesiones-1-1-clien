@@ -10,9 +10,16 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../../redux/slices/authSlice/authSlice";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const userLogin = useSelector((state) => state.auth.user)
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -33,6 +40,11 @@ const SignIn = () => {
     });
   }, []);
 
+  const handleAuth = (event) => {
+    event.preventDefault();
+    dispatch(loginUser(event));
+  }
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -46,8 +58,13 @@ const SignIn = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const customHandleSubmit = (data) => {
-    console.log(data);
+  const customHandleSubmit = async (data) => {
+    if (data.email === userLogin.email && data.password === userLogin.password) {
+      dispatch(loginUser(data))
+      navigate("/home")
+    } else {
+      alert('No se encontro al usuario')
+    }
   };
 
   return (
@@ -62,17 +79,20 @@ const SignIn = () => {
           <h1>Ingresar</h1>
         </div>
         <div className="formBox">
-          <FormControl sx={{ width: '38ch' }} variant="outlined">
-            <h2>Correo</h2>
+          <FormControl className="formControlSignIn" variant="outlined">
+            <h2 className="pTitleBoxForm">Correo</h2>
             <TextField
-              sx={{ mb: 5 }}
+              className="InputBoxForm"
               {...register("email")} 
               helperText={errors?.email ? (errors?.email?.message) : ("")}
               id="filled-password-input"
               variant="standard"
+              required
             />
-            <h2>Contraseña</h2>
+            <h2 className="pTitleBoxForm">Contraseña</h2>
             <TextField
+              className="InputBoxForm"
+              required
               id="filled-password-input"
               autoComplete="current-password"
               variant="standard"
@@ -92,13 +112,19 @@ const SignIn = () => {
                 </InputAdornment>
               }
             />
-            <p className="ResetPassword">¿Has olvidado tu contraseña?</p>
+            <NavLink to='/recoverPassword' className='ResetPassword'>
+              <p className="ResetPassword">¿Has olvidado tu contraseña?</p>
+            </NavLink>
             <div className="BoxLoginSend">
               <button className="loginSend" type="submit">Ingresar</button>
               <p className="pTopGoogle">O Regístrate Utilizando</p>
-              <img className="imgGoogle" src='../../../../assets/Google.jpg' />
+              <button style={{ border:'none', background:'transparent'}} onClick={() => handleAuth} type="submit">
+                <img className="imgGoogle" src='../../../../assets/Google.jpg' />
+              </button>
               <p className="pBottomGoogle">¿Todavía no tienes una cuenta? </p>
-              <p className="pRegister">Regístrate</p>
+              <NavLink to='/register'>
+                <p className="pRegister">Regístrate</p>
+              </NavLink>
             </div>
           </FormControl>
         </div>

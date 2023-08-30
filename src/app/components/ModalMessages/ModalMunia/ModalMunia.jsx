@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import "./ModalMunia.scss";
+import { NavLink } from "react-router-dom";
 
 const ModalMunia = ({ handleFunction, text, title, subtitle }) => {
   return (
@@ -20,9 +21,11 @@ const ModalMunia = ({ handleFunction, text, title, subtitle }) => {
           )}
         </p>
         <div className="modal-actions">
-          <button className="modal-button" onClick={handleFunction}>
-            Ingresar
-          </button>
+          <NavLink to='/'>
+            <button className="modal-button" onClick={handleFunction}>
+              Ingresar
+            </button>
+          </NavLink>
         </div>
       </div>
       <section className="section-munia">
