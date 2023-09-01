@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import PropTypes from "prop-types";
 
+// eslint-disable-next-line react/prop-types
 const ProtectedRoutes = ({children}) => {
   const { userTypeId } = useSelector((state) => state.auth.user);
   if(userTypeId !== 4){
