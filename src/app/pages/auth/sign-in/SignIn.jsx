@@ -58,8 +58,7 @@ const SignIn = () => {
     dispatch(loginUser(event));
   }
 
-  const customHandleSubmit = async (data) => {
-    if (data.email === userLogin.email && data.password === userLogin.password) {
+  const customHandleSubmit = (data) => {
       dispatch(loginUser(data))
       navigate("/home")
       Swal.fire({
@@ -69,15 +68,13 @@ const SignIn = () => {
         showConfirmButton: false,
         timer: 1500
       })
-    } else {
-      Swal.fire({
+/*       Swal.fire({
         position: 'center',
         icon: 'error',
         title: 'Esta cuenta no existe Regístrate',
         showConfirmButton: false,
         timer: 1500
-      })
-    }
+      }) */
   };
 
   return (
