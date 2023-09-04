@@ -87,7 +87,6 @@ const SignIn = () => {
         className="login-img"
         alt=""
       />
-      <h1>Ingresar</h1>
       <form className="form" onSubmit={handleSubmit(customHandleSubmit)}>
         <div className="titleH1">
           <h1>Ingresar</h1>
