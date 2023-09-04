@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../redux/slices/authSlice/authSlice";
 import { NavLink, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -40,15 +41,10 @@ const SignIn = () => {
     });
   }, []);
 
-  const handleAuth = (event) => {
-    event.preventDefault();
-    dispatch(loginUser(event));
-  }
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  
   const {
     formState: { errors },
     handleSubmit,
@@ -57,13 +53,31 @@ const SignIn = () => {
     mode: "onTouched",
     resolver: yupResolver(validationSchema),
   });
+  
+  const handleGoogle = (event) => {
+    event.preventDefault();
+    dispatch(loginUser(event));
+  }
 
   const customHandleSubmit = async (data) => {
     if (data.email === userLogin.email && data.password === userLogin.password) {
       dispatch(loginUser(data))
       navigate("/home")
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Inicio de sesión exitoso!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     } else {
-      alert('No se encontro al usuario')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Esta cuenta no existe Regístrate',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   };
 
@@ -102,7 +116,7 @@ const SignIn = () => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
+                    aria-label="Mostrar/ocultar contraseña"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
@@ -118,7 +132,7 @@ const SignIn = () => {
             <div className="BoxLoginSend">
               <button className="loginSend" type="submit">Ingresar</button>
               <p className="pTopGoogle">O Regístrate Utilizando</p>
-              <button style={{ border:'none', background:'transparent'}} onClick={() => handleAuth} type="submit">
+              <button style={{ border:'none', background:'transparent'}} onClick={() => handleGoogle} type="submit">
                 <img className="imgGoogle" src='../../../../assets/Google.jpg' />
               </button>
               <p className="pBottomGoogle">¿Todavía no tienes una cuenta? </p>

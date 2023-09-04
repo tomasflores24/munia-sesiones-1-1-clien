@@ -49,6 +49,7 @@ export const loginUser = (dataUser) => async (dispatch) => {
   }
   try {
     /* const response = await axios.post("http://localhost:3000/auth", dataUser); */
+    console.log(user)
     dispatch(setLoginUser(/* response.data */ user));
   } catch (error) {
     console.error("Login error:", error);
