@@ -5,6 +5,7 @@ import Configuration from "../../pages/dashboard/configuration/Configuration";
 import Clients from "../../pages/dashboard/clients/Clients";
 import Statistics from "../../pages/dashboard/statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
+import Diary from "../../pages/dashboard/diary/Diary";
 
 
 const DashboardRoutes = () => {
@@ -15,6 +16,8 @@ const DashboardRoutes = () => {
         <Route path="/configuration" element={<Configuration />} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/statistics" element={<Statistics />} />
+        <Route path="/diary" element={<Diary />} />
+        <Route path="/profile" element={<Diary />} />
       </Routes>
     </Suspense>
   );

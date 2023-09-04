@@ -1,14 +1,14 @@
 import "./SignInStyle.scss";
-import * as React from 'react';
+import * as React from "react";
 import { TextField } from "@mui/material";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../redux/slices/authSlice/authSlice";
@@ -16,7 +16,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const userLogin = useSelector((state) => state.auth.user)
+  const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,8 +29,7 @@ const SignIn = () => {
         .string()
         .required("Correo es requerido")
         .matches(
-          // eslint-disable-next-line no-useless-escape
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|([a-zA-Z\-0-9]+\.[a-zA-Z]{2,}))$/,
           "Ingrese una dirección de correo electrónico válida"
         ),
       password: yup
@@ -43,7 +42,7 @@ const SignIn = () => {
   const handleAuth = (event) => {
     event.preventDefault();
     dispatch(loginUser(event));
-  }
+  };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -59,11 +58,14 @@ const SignIn = () => {
   });
 
   const customHandleSubmit = async (data) => {
-    if (data.email === userLogin.email && data.password === userLogin.password) {
-      dispatch(loginUser(data))
-      navigate("/home")
+    if (
+      data.email === userLogin.email &&
+      data.password === userLogin.password
+    ) {
+      dispatch(loginUser(data));
+      navigate("/home");
     } else {
-      alert('No se encontro al usuario')
+      alert("No se encontro al usuario");
     }
   };
 
@@ -74,6 +76,7 @@ const SignIn = () => {
         className="login-img"
         alt=""
       />
+      <h1>Ingresar</h1>
       <form className="form" onSubmit={handleSubmit(customHandleSubmit)}>
         <div className="titleH1">
           <h1>Ingresar</h1>
@@ -83,8 +86,8 @@ const SignIn = () => {
             <h2 className="pTitleBoxForm">Correo</h2>
             <TextField
               className="InputBoxForm"
-              {...register("email")} 
-              helperText={errors?.email ? (errors?.email?.message) : ("")}
+              {...register("email")}
+              helperText={errors?.email ? errors?.email?.message : ""}
               id="filled-password-input"
               variant="standard"
               required
@@ -97,8 +100,8 @@ const SignIn = () => {
               autoComplete="current-password"
               variant="standard"
               {...register("password")}
-              helperText={errors?.password ? (errors?.password?.message) : ("")}
-              type={showPassword ? 'text' : 'password'}
+              helperText={errors?.password ? errors?.password?.message : ""}
+              type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -107,22 +110,31 @@ const SignIn = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
             />
-            <NavLink to='/recoverPassword' className='ResetPassword'>
+            <NavLink to="/recoverPassword" className="ResetPassword">
               <p className="ResetPassword">¿Has olvidado tu contraseña?</p>
             </NavLink>
             <div className="BoxLoginSend">
-              <button className="loginSend" type="submit">Ingresar</button>
+              <button className="loginSend" type="submit">
+                Ingresar
+              </button>
               <p className="pTopGoogle">O Regístrate Utilizando</p>
-              <button style={{ border:'none', background:'transparent'}} onClick={() => handleAuth} type="submit">
-                <img className="imgGoogle" src='../../../../assets/Google.jpg' />
+              <button
+                style={{ border: "none", background: "transparent" }}
+                onClick={() => handleAuth}
+                type="submit"
+              >
+                <img
+                  className="imgGoogle"
+                  src="../../../../assets/Google.jpg"
+                />
               </button>
               <p className="pBottomGoogle">¿Todavía no tienes una cuenta? </p>
-              <NavLink to='/register'>
+              <NavLink to="/register">
                 <p className="pRegister">Regístrate</p>
               </NavLink>
             </div>
