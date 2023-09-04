@@ -1,10 +1,11 @@
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 
-const ColumnGraphic = () => {
+const ColumnGraphicServices = () => {
   const dataColumnas = [
     { service: "Servicio A", count: 50 },
     { service: "Servicio B", count: 70 },
     { service: "Servicio C", count: 30 },
+    { service: "Servicio C", count: 40 },
     // ...otros servicios
   ];
 
@@ -22,4 +23,4 @@ const ColumnGraphic = () => {
   );
 };
 
-export default ColumnGraphic;
+export default ColumnGraphicServices;
