@@ -16,7 +16,7 @@ export const buttonDataUser = [
   {
     title: "Perfil",
     icon: <PersonIcon style={{ fontSize: "30px" }} />,
-    redirect: "/perfil",
+    redirect: "/profile",
   },
   {
     title: "Agenda",

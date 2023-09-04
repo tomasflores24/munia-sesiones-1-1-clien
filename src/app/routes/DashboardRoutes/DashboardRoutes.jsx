@@ -17,6 +17,7 @@ const DashboardRoutes = () => {
         <Route path="/clients" element={<Clients />} />
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/diary" element={<Diary />} />
+        <Route path="/profile" element={<Diary />} />
       </Routes>
     </Suspense>
   );
