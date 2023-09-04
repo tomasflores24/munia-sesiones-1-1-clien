@@ -13,7 +13,7 @@ const initialState = {
     name: "",
     phone: 0,
     userType: "", // userType en string,
-    userTypeId: 0,
+    userTypeId: 4,
     picture: "",
     addressId: 0,
     companyId: 0,
@@ -24,11 +24,7 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    setLoginUser: (state, action) => {
-      state.user = action.payload
-    }
-  },
+  reducers: {},
 });
 //cargar las actions para exportar
 

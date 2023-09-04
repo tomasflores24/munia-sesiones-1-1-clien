@@ -16,7 +16,7 @@ export default function SideBar() {
   };
 
   const redirect = (type, redirect) => {
-    navigate("/" + type + redirect);
+    navigate("/" +"dashboard" + redirect);
   };
 
   return (
