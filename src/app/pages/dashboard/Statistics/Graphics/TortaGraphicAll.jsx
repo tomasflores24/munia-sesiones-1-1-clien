@@ -1,6 +1,6 @@
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 
-const TortaGraphic = () => {
+const TortaGraphicAll = () => {
   const dataTorta = [
     { name: "Usuarios", value: 500 },
     { name: "Psicólogos", value: 200 },
@@ -36,4 +36,4 @@ const TortaGraphic = () => {
   );
 };
 
-export default TortaGraphic;
+export default TortaGraphicAll;
