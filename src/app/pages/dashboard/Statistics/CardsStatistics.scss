@@ -2,8 +2,11 @@
 .cards-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  border: 0.5px solid rgba(0, 0, 0, 0.50);
+  background: #EBDCC1;
+  height: 100%;
   .card {
     display: flex;
     flex-direction: column;

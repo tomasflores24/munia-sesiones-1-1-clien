@@ -35,7 +35,7 @@ const Statistics = () => {
           <div className="container-cards-stadistics">
             <CardsStatistics />
           </div>
-          </div>
+        </div>
     </LayoutDashboard>
   );
 };
