@@ -109,7 +109,7 @@ const SignIn = () => {
               {...register("password")}
               helperText={errors?.password ? errors?.password?.message : ""}
               type={showPassword ? "text" : "password"}
-              endAdornment={
+              endadornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Mostrar/ocultar contraseña"
