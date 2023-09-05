@@ -1,0 +1,410 @@
+/* 
+
+.slider {
+  border: 2px solid gray;
+  height: max-content;
+  padding: 10px;
+  display:flex;
+  align-items: center;
+  gap: 1rem;
+  
+  
+  
+
+  .slider__container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    position: relative;
+    width: 500px;
+    height: 300px;
+
+
+    .slider__img {
+      width: 500px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      left: 100%;
+      transition: all .5s ;
+    }
+
+    .slider__img--active {
+      transition: all .5s ;
+      left: 0;
+    }
+  
+  }
+  .slider__arrowLeft {
+    transform: rotate(90deg);
+    font-size: 4rem;
+    box-shadow: 0 0 10px 0 rgba(128, 128, 128, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+ 
+
+  .slider__arrowRight {
+      transform: rotate(-90deg);
+      font-size: 4rem;
+      box-shadow: 0 0 10px 0 rgba(128, 128, 128, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+
+  }
+} */
+
+
+
+
+
+
+
+
+
+.section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+
+    padding-top: 150px;
+    gap: 10rem;
+
+    .agendar__container {
+      
+        border: 2px solid rgb(188, 188, 188);
+        background-color: var(--bg-beige);
+        width: 250px;
+        border-radius: 2rem;
+        height: 150px;
+        padding: 2rem;
+        cursor: pointer;
+      &:hover {
+        
+      }
+      .icon {
+        font-size: 4rem;
+      }
+
+        .route {
+            
+            font-weight: 600;
+            
+            font-size: 1.5rem;
+          }
+      }
+
+     
+      .view_window {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px;
+      
+
+
+        .window {
+          position: relative;
+            width: 100%;
+            max-width: 600px;
+            background-color: #ebdcc1;
+            border-radius: 2rem;
+            padding-bottom: 1rem;
+         
+            .closeIcon {
+              font-size: 3rem;
+              position: absolute;
+              right: 20px;
+              top: 20px;
+              cursor: pointer;
+            }
+
+            .title {
+                font-size: 2.5rem;
+                font-weight: 600;
+                padding: 2rem;
+              }
+
+              .window__container2 {
+                background-color: white;
+
+                .subtitle {
+                    text-align: center;
+                    font-size: 1.8rem;
+                    color: rgb(99, 99, 99);
+                    font-weight: 700;
+                  }
+
+
+                  .window__paragraph {
+                    text-align: center;
+                    font-size: 1.8rem;
+                    color: rgb(99, 99, 99);
+                    border-bottom: 1px solid gray;
+                  }
+                  .window__body {
+                      width: 90%;
+                      margin: auto;
+                      display: grid;
+                      grid-template-columns: repeat(2, 1fr);
+                      grid-template-areas:
+                      "calendar category"
+                      "consulta consulta";
+                      gap: 1rem;
+                      padding-top: 2rem;
+
+
+                      .calendar {
+                        width: 100%;
+                        height: 200px;
+                        grid-area: calendar;
+                        border: 2px solid gray;
+                      }
+
+                      .category {
+                        border: 1px solid gray;
+                        grid-area: category;
+                        border-radius: 2rem;
+                        position: relative;
+                        display: grid;
+                        
+
+                        
+                        .category__select--disabled {
+
+                          background-color: rgb(207, 207, 207);
+                          color: rgb(99, 99, 99);
+                          font-size: 1.8rem;
+                          border-radius: 2rem 2rem 0 0;
+                          width: 100%;
+                          border: none;
+                          font-weight: 700;
+                          padding: 5px 0;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          gap: 2px;
+
+                          .arrowIcon {
+                            font-size: 3rem;
+                        }
+
+                        }
+                        
+                      
+                            .category__select {
+
+                                background-color: #ebdcc1;
+                                color: rgb(99, 99, 99);
+                                font-size: 1.8rem;
+                                border-radius: 2rem 2rem 0 0;
+                                width: 100%;
+                                border: none;
+                                font-weight: 700;
+                                padding: 5px 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 2px;
+                                cursor: pointer;
+    
+                                .arrowIcon {
+                                    font-size: 3rem;
+                                }
+                              }
+    
+                           
+                              .category__option {
+                                position: absolute;
+                                width: 100%;
+                                box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+                                
+                                
+                                background-color: white;
+                                
+                                .category__li {
+                                    font-size: 1.5rem;
+                                    padding: .5rem;
+                                    cursor: pointer;
+                                    
+    
+    
+    
+                                    &:hover {
+                                        background-color: var(--bg-beige);
+                                    }
+                                  }
+                              
+                              
+                                }
+                                                     
+                        
+                            
+
+                        
+                      
+                          .category__option--services {
+
+                            width: max-content;
+                          }
+
+                          .optionSelected {
+                            padding: .5rem;
+                            font-size: 1.5rem;
+                          }
+
+                          
+                      }
+
+                      .window__consulta {
+                        grid-area: consulta;
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 2rem;
+
+                       
+
+                        .consulta__label {
+                            font-size: 1.8rem;
+
+                            font-weight: 700;
+                            color: rgb(99, 99, 99);
+                          }
+
+                          .consulta__input {
+                            font-size: 2rem;
+
+                            min-width: 100%;
+                            max-width: 100%;
+                            border: 1px solid gray;
+                            padding: 5px 10px;
+                            border-radius: 2rem;
+                            border-top-left-radius: 0;
+                            height: 200px;
+                            min-height: 100px;
+                            max-height: 200px;
+                          }
+                      }
+                      
+                    }
+                    .consulta__subtitle {
+                        padding: 10px 0;
+                    }
+
+                  
+
+              }
+             
+          }
+
+      }
+      .view_windowClose {
+        display: none;
+      }
+      @media (max-height: 800px) {
+        .view_window {
+          height: auto;
+        }
+      }
+      
+  }
+ 
+
+
+  
+ 
+  
+ 
+  
+ 
+  .section2 {
+    padding: 1rem 0.5rem;
+
+
+
+
+    .section2__container {
+        border-radius: 2rem;
+        padding: 0 0.5rem;
+        display: grid;
+        height: 150px;
+        grid-template-areas:
+          "img data data data star"
+          "img data data data star";
+        gap: 2px;
+
+        .section2__containerImage {
+            border-radius: 4rem 0 0 4rem;
+
+            background-color: white;
+            grid-area: img;
+          
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .section2__img {
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 50%;
+              }
+          }
+
+          .section2__data {
+            background-color: white;
+            padding: 0 5px;
+            grid-area: data;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            .section2__paragraph, .section2__name {
+                font-size: 1.5rem;
+            }
+          }
+          .section2__rating {
+            border-radius: 0 2rem 2rem 0;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            flex-direction: column;
+            grid-area: star;
+
+            .starIcon {
+                width: 30px;
+                height: 30px;
+              }
+          }
+      }
+  }
+ 
+  
+  .window__btn {
+    background-color: #9c6d61;
+    color: white;
+    padding: 10px 50px;
+    border-radius: 5rem;
+    box-shadow: 0 2px 5px 0 rgba(75, 75, 75, 0.5);
+    display: block;
+    margin: 0 auto;
+    font-size: 1.7rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+.selectd {
+    width: 100%;
+}
