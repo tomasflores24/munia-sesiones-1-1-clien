@@ -28,11 +28,13 @@ const authSlice = createSlice({
 });
 //cargar las actions para exportar
 
+export const {setLoginUser} = authSlice.actions;
+
 // eslint-disable-next-line no-unused-vars
 export const loginUser = (dataUser) => async (dispatch) => {
   const user = {
     id: "1",
-    email: "pedroterraf@live.com.ar",
+    email: "pedroterraf@live.com",
     name:"pedro",
     password: "123456Indian",
     phone: 3564691624,
@@ -45,11 +47,11 @@ export const loginUser = (dataUser) => async (dispatch) => {
   }
   try {
     /* const response = await axios.post("http://localhost:3000/auth", dataUser); */
-    dispatch(setLoginUser(/* response.data */ user));
+    console.log(user)
+    dispatch(setLoginUser(user));/* response.data */
   } catch (error) {
     console.error("Login error:", error);
   } 
 }
 
-export const {setLoginUser} = authSlice.actions;
 export default authSlice.reducer;
