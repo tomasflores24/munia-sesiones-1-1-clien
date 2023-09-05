@@ -3,6 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --bg-beige: #ebdcc1;
+}
 html {
   /* 10px por rem, 1rem = 10px */
   font-size: 62.5%;
