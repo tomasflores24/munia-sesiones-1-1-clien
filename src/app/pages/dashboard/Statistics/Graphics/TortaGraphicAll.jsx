@@ -34,7 +34,7 @@ const TortaGraphicAll = () => {
           <MenuItem value={10}>Map Options</MenuItem>
         </Select>
       </FormControl>
-      <PieChart width={300} height={300}>
+      <PieChart width={400} height={300}>
         <Pie
           data={dataTorta}
           dataKey="value"
