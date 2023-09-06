@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   AreaChart,
   Area,
@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const data = [
   { time: "2023-01-01", uv: 4000, pv: 2400, amt: 2400 },
@@ -34,19 +35,38 @@ const StackedAreaGraphics = () => {
     tickCount = 5; // Show around 5 ticks for years
   }
 
+  const [option, setOption] = React.useState('');
+  
+  const handleChangeOption = (event) => {
+    setOption(event.target.value);
+  };
+
   return (
     <div>
-      <div>
-        <label>
-          Seleccione la escala de tiempo:
-          <select value={timeScale} onChange={handleTimeScaleChange}>
-            <option value="day">Día</option>
-            <option value="month">Mes</option>
-            <option value="year">Año</option>
-          </select>
-        </label>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Opciones</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={option}
+          onChange={handleChangeOption}
+          label="Option"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Map Options</MenuItem>
+        </Select>
+      </FormControl>
+      <div style={{m:1 , display: 'flex', flexDirection: 'row' }}>
+        <p>Seleccione la escala de tiempo : </p>
+        <select value={timeScale} onChange={handleTimeScaleChange}>
+          <option value="day">Día</option>
+          <option value="month">Mes</option>
+          <option value="year">Año</option>
+        </select>
       </div>
-      <ResponsiveContainer width={500} height={400}>
+      <ResponsiveContainer width={300} height={300}>
         <AreaChart
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

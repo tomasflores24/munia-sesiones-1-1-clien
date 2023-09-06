@@ -13,25 +13,24 @@ const Statistics = () => {
     <LayoutDashboard>
       <div className="statistics-container">
         <div className="statistics-graphics-container">
-          <section className="section-graphics">
-            <ColumnGraphicServices />
-          </section>
-          <section className="section-graphics">
-            <RadarGraphic />
-          </section>
-          <section className="section-graphics">
-            <ColumnGraphicAge />
-          </section>
-          <section className="section-graphics">
-            <TortaGraphicGender />
-          </section>
-          <section className="section-graphics">
-            <StackedAreaGraphic />
-          </section>
-          <section className="section-graphics">
-            <TortaGraphicAll />
-          </section>
-          </div >
+          <div className="section-mid">
+            <p className="title__p__top">Panel de métricas de servicios elejidos por los usuarios</p>
+            <section className="section-graphics">
+              <ColumnGraphicServices />
+              <RadarGraphic />
+            </section>
+            <p className="title__p__top">Panel de metricas de servicios y categorías elejidos basado en datos demográficos</p>
+            <section className="section-graphics">
+              <ColumnGraphicAge />
+              <TortaGraphicGender />
+            </section>
+            <p className="title__p__top">Panel de estadísticas de cantidad de usuarios en la plataforma en el tiempo</p>
+            <section className="section-graphics">
+              <StackedAreaGraphic />
+              <TortaGraphicAll />
+            </section>
+            </div >
+          </div>
           <div className="container-cards-stadistics">
             <CardsStatistics />
           </div>
