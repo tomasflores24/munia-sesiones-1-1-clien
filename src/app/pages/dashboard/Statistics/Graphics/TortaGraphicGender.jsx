@@ -57,7 +57,7 @@ const TortaGraphicGender = () => {
           <MenuItem value={20}>Map Categories</MenuItem>
         </Select>
       </FormControl>
-      <PieChart width={300} height={300}>
+      <PieChart width={400} height={300}>
         <Pie
           data={dataTorta}
           dataKey="value"

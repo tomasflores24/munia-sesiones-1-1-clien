@@ -66,7 +66,7 @@ const StackedAreaGraphics = () => {
           <option value="year">Año</option>
         </select>
       </div>
-      <ResponsiveContainer width={300} height={300}>
+      <ResponsiveContainer width={400} height={300}>
         <AreaChart
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

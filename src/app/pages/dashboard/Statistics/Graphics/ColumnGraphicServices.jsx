@@ -33,7 +33,7 @@ const ColumnGraphicServices = () => {
           </MenuItem>
         </Select>
       </FormControl>
-      <BarChart width={300} height={300} data={dataColumnas}>
+      <BarChart width={400} height={300} data={dataColumnas}>
         <XAxis dataKey="service" />
         <YAxis />
         <CartesianGrid stroke="#ae7a6c8f" />
