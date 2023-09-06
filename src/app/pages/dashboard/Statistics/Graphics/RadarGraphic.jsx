@@ -1,3 +1,5 @@
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React from "react";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
 const RadarGraphic = () => {
@@ -35,14 +37,36 @@ const RadarGraphic = () => {
       value: 7,
     },
   ];
+
+  const [category, setCategory] = React.useState('');
+  
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
   return (
     <div>
-        <h2>Gráfico de Radar</h2>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Categorías</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={category}
+          onChange={handleChange}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Todos</MenuItem>
+          <MenuItem value={20}>Map Categories</MenuItem>
+        </Select>
+      </FormControl>
         <RadarChart
           cx={200}
           cy={150}
           outerRadius={120}
-          width={400}
+          width={350}
           height={300}
           data={dataRadar}
         >

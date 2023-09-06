@@ -1,17 +1,23 @@
 .layoutDashboard-container {
   display: flex;
   min-height: 100vh;
-  overflow: hidden; /* Para evitar que el contenido desborde en pantallas pequeñas */
   width: 100%;
 }
 
 .layoutDashboard-sidebar {
-  flex: 0 0 250px;
-  color: #fff;
+  background-color: #ebdcc1;
+  color: black;
+  height: 100%;
+  min-height: 100vh;
+  z-index: 1;
+  @media (max-width: 1200px) {
+    background-color: #ebdcc1;
+    color: black;
+    width: 3em;
+  }
 }
 
 .layoutDashboard-content {
   flex: 1;
-  overflow-y: auto; /* Para permitir el desplazamiento del contenido si es demasiado largo */
-  background-color: #f4f4f4; /* Color de fondo del área de contenido */
+  background-color: #f4f4f4;
 }
