@@ -1,5 +1,4 @@
 import Card from "../../../components/CardsHome/Cards"
-import SideBar from "../../../components/sideBar/SideBar"
 import LayoutDashboard from "../Layout/LayoutDashboard"
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
@@ -13,7 +12,6 @@ const Home = () => {
   return (
     <LayoutDashboard>
       <div className='AllHome'>
-        <SideBar />
         <div className='HomeContainer '>
           <div className='ContainerCards'>
             <Card to='/admin/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />

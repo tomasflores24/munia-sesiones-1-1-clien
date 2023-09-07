@@ -1,4 +1,6 @@
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React from "react";
 
 const ColumnGraphicServices = () => {
   const dataColumnas = [
@@ -9,9 +11,28 @@ const ColumnGraphicServices = () => {
     // ...otros servicios
   ];
 
+  const [all , setAll] = React.useState('');
+  
+  const handleChangeAll = (event) => {
+    setAll(event.target.value);
+  };
+
   return (
     <div>
-      <h2>Gráfico de Columnas - Ranking de Servicios</h2>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Todos</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={all}
+          onChange={handleChangeAll}
+          label="All"
+        >
+          <MenuItem value="">
+            <em>Todos</em>
+          </MenuItem>
+        </Select>
+      </FormControl>
       <BarChart width={400} height={300} data={dataColumnas}>
         <XAxis dataKey="service" />
         <YAxis />
