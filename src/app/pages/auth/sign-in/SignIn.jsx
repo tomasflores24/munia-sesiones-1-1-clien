@@ -61,7 +61,7 @@ const SignIn = () => {
 
   const customHandleSubmit = (data) => {
       dispatch(loginUser(data))
-      navigate("/home")
+      navigate("/dashboard/home")
       Swal.fire({
         position: 'center',
         icon: 'success',
