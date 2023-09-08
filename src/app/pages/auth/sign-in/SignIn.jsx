@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
   const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const SignIn = () => {
 
   const customHandleSubmit = (data) => {
       dispatch(loginUser(data))
-      navigate("/home")
+      navigate("/dashboard/home")
       Swal.fire({
         position: 'center',
         icon: 'success',
