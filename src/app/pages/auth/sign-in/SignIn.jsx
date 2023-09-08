@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
   const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
