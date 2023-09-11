@@ -1,0 +1,89 @@
+$backgroundColor: ""; // Esto es una variable SASS, asegúrate de asignarle un valor válido si lo necesitas.
+
+.box-root {
+  box-sizing: border-box;
+  width: 250px;
+  min-height: 400px;
+  border-radius: 2rem;
+  border: 0.5px solid #000000;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+
+  .box-header {
+    background-color: $backgroundColor;
+    border-radius: 2rem 2rem 0 0;
+    padding: 12px 15px;
+    .box-title {
+      font-size: 24px;
+      color: #ffffff;
+    }
+  }
+
+  .box-content {
+    padding: 0 20px 0;
+
+    
+    .box-info {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .box-price {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 1rem;
+
+    }
+
+    .box-description{
+        font-size: 8px;
+        text-align: left;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+
+    .box-benefits{
+        font-size: 8px;
+        text-align: left;
+        font-weight: 600;
+        line-height: 1.5;
+        gap: 7px;
+        display: flex;
+        flex-direction: column;
+
+        .benefits-container{
+            display: flex;
+            gap: 1rem;
+            // margin-bottom: 1rem;
+        }
+    }
+  }
+  .box-footer{
+    margin-bottom: 2rem;
+    .select-button{
+      color: black;
+      background-color: #EBDCC1;
+      padding: 8px 30px;
+      font-size: 12px;
+      border-radius: 16px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border: none;
+      font-weight: bold;
+      transition: .2s ease;
+      &:hover{
+        cursor: pointer;
+        background-color: #CDB1A3;
+    }
+      
+    }
+}
+
+}
+
