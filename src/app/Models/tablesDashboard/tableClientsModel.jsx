@@ -1,6 +1,6 @@
 export const top = {
   title: "Clientes",
-  button: "Nueva cita",
+  button: "Nuevo cliente",
 };
 export const titles = [
   { title: "Razón Social", value: "socialReason" },

@@ -19,7 +19,7 @@ const AppRouter = () => {
             </ProtectedRoutes>
           }
         />
-        <Route path='/createCompany' element={<CreateCompany />} />
+        <Route path='/create-company' element={<CreateCompany />} />
         <Route path="/" element={<SignIn />} /> 
         <Route path="/register" element={<Register />} />
         <Route path="/agenda" element={<Agenda />} />
