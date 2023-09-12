@@ -1,5 +1,5 @@
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import { Button, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
 import ButtonBack from '../Common/Button/ButtonBack'
 import ButtonNext from '../Common/Button/ButtonNext'
 import { nextStep, savePersonalInfo } from '../../redux/slices/registrationSlice/registrationSlice';
@@ -8,12 +8,12 @@ import { useEffect, useState } from 'react';
 import './CreateCompany.scss'
 
 // eslint-disable-next-line react/prop-types
-function CreateCompany({ onClick }) {
+function CreateCompany({ showLogin, setShowLogin }) {
+  console.log(showLogin, 'ESTADO')
       const dispatch = useDispatch();
   const userInfoCurrentStorage = useSelector(
     (state) => state.registration.dataUser
   );
-  const [showLogin, setShowLogin] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isFormComplete, setIsFormComplete] = useState("as");
   const [dataUser, setDataUser] = useState({
@@ -24,6 +24,11 @@ function CreateCompany({ onClick }) {
     password: "",
     repeatPassword: "",
   });
+
+  const handleClose = () => {
+    console.log(setShowLogin, 'SHOWLOGINPA')
+    setShowLogin(false)
+  } 
 
   // const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
@@ -83,22 +88,9 @@ function CreateCompany({ onClick }) {
     });
   };
 
-  const handleShow = () => {
-    if (onClick) onClick();
-    setShowLogin(true);
-  }
-
-  const handleClose = () => {
-    setShowLogin(false);
-    setDataUser({
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      repeatPassword: "",
-    })
-  }
+  useEffect(() => {
+    showLogin
+  }, [showLogin])
  
   useEffect(() => {
     setDataUser({
@@ -116,7 +108,6 @@ function CreateCompany({ onClick }) {
 
   return (
     <>
-      <Button onClick={handleShow}>Open modal</Button>
       <Modal
         open={(open,showLogin)}
         onClose={handleClose}
@@ -249,7 +240,7 @@ function CreateCompany({ onClick }) {
               />
               <ButtonNext
                 className="next-button"
-                textButton={"Continuar"}
+                textButton={"Registrar"}
                 handleFunction={handleSubmit}
               />
             </div>
