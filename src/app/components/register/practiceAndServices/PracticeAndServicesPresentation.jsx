@@ -20,19 +20,20 @@ const PracticeAndServicesPresentation = ({
 }) => {
   return (
     <div className="practice-and-services">
-      <h2>Selecciona los campos en los que deseas asistir a los pacientes.</h2>
-      <div className="selected-items-container">
-        <div className="select-container">
-          <select value={selectedOption} onChange={handleOptionChange}>
-            <option className="option" value="">
-              Selecciona una opción
-            </option>
-            {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
+      <div className="selected-mid">
+        <h2>Selecciona los campos en los que deseas asistir a los pacientes.</h2>
+        <div className="selected-items-container">
+          <div className="select-container">
+            <select value={selectedOption} onChange={handleOptionChange}>
+              <option className="option" value="">
+                Selecciona una opción
               </option>
-            ))}
-          </select>
+              {options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
         </div>
         <div className="options-container">
           {selectedOptions.map((option) => (
@@ -42,6 +43,7 @@ const PracticeAndServicesPresentation = ({
             </div>
           ))}
         </div>
+      </div>
       </div>
       <section className="buttons-section">
         <ButtonBack textButton={"Atras"} handleFunction={handleBack} />

@@ -109,15 +109,15 @@ const PersonalInfoPresentation = ({
           className="upload-section"
           style={{
             backgroundImage: `url(${
-              dataUser.imageUser
-                ? dataUser.imageUser
+              dataUser?.imageUser
+                ? dataUser?.imageUser
                 : "../../../../assets/noImageUser.png"
             })`,
           }}
         >
           <div className="upload-image">
             <label htmlFor="profile-image" className="upload-label">
-              <FileUploadIcon sx={{ width: "50%", height: "100%" }} />
+              <FileUploadIcon sx={{ width: "50%", height: "100%", cursor: 'pointer' }} />
               <input
                 type="file"
                 id="profile-image"
@@ -126,6 +126,7 @@ const PersonalInfoPresentation = ({
                 style={{ display: "none" }}
                 onChange={handleImageUpload}
               />
+              Subir imagen
             </label>
           </div>
         </div>

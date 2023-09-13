@@ -52,11 +52,17 @@ const PersonalInfoTab = () => {
   };
 
   const handleSubmit = () => {
+    // Validación de correo electrónico
     const isValid = validateEmail(dataUser.email);
     setIsValidEmail(isValid);
-    setIsFormComplete(checkFormCompletion());
-
-    if (isValid && isFormComplete === "completo") {
+  
+    // Verificación del formulario completado
+    const isFormCompleteValue = checkFormCompletion();
+    setIsFormComplete(isFormCompleteValue);
+  
+    // Si el correo es válido y el formulario está completo, procede
+    if (isValid && isFormCompleteValue === "completo") {
+      // Despachar acciones y restablecer datos del usuario
       dispatch(nextStep());
       dispatch(savePersonalInfo(dataUser));
       setDataUser({
@@ -70,6 +76,7 @@ const PersonalInfoTab = () => {
       });
     }
   };
+  
 
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
