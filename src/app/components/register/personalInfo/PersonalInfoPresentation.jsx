@@ -2,6 +2,14 @@ import PropTypes from "prop-types";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import ButtonNext from "../../Common/Button/ButtonNext";
 import "./PersonalInfoPresentation.scss";
+import { useState } from "react";
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Input } from "@mui/material";
 
 const PersonalInfoPresentation = ({
   dataUser,
@@ -11,6 +19,15 @@ const PersonalInfoPresentation = ({
   handleImageUpload,
   handleSubmit,
 }) => {
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="info-personal">
       <h3 className="title-info-personal">
@@ -18,116 +35,135 @@ const PersonalInfoPresentation = ({
       </h3>
       <div className="info">
         <div className="info-inputs">
-          <div className="input-field">
-            <label className="input-label" htmlFor="name">
-              Nombre
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
+          <FormControl className="input-field" variant="standard">
+          <div className="input-label-margin">
+            <InputLabel className="input-label" htmlFor="standard-adornment-password">Nombre</InputLabel>
+          </div>
+            <Input
+              required
               className="custom-input"
-              placeholder="Nombre completo"
+              id="standard-adornment-password"
+              type="text"
+              name="name"
               value={dataUser.name}
               onChange={handleInputChange}
             />
+          </FormControl>
+          <FormControl className="input-field" variant="standard">
+          <div className="input-label-margin">
+            <InputLabel className="input-label" htmlFor="standard-adornment-password">Apellido</InputLabel>
           </div>
-          <div className="input-field">
-            <label className="input-label" htmlFor="last-name">
-              Apellido/s
-            </label>
-            <input
-              id="last-name"
-              name="lastName"
-              type="text"
+            <Input
+              required
               className="custom-input"
-              placeholder="Apellido"
+              id="standard-adornment-password"
+              type="text"
+              name="lastName"
               value={dataUser.lastName}
               onChange={handleInputChange}
             />
+          </FormControl>
+          <FormControl className="input-field" variant="standard">
+          <div className="input-label-margin">
+            <InputLabel className="input-label" htmlFor="standard-adornment-password">Correo electronico</InputLabel>
           </div>
-
-          <div className="input-field">
-            <label className="input-label" htmlFor="phone">
-              Teléfono
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
+            <Input
+              required
               className="custom-input"
-              placeholder="Celular o teléfono"
-              value={dataUser.phone}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="input-field">
-            <label className="input-label" htmlFor="password">
-              Contraseña
-            </label>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              className="custom-input"
-              placeholder="Contraseña"
-              value={dataUser.password}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="input-field">
-            <label className="input-label" htmlFor="repeat-password">
-              Repetir Contraseña
-            </label>
-            <input
-              id="repeat-password"
-              type="password"
-              name="repeatPassword"
-              className="custom-input"
-              placeholder="Repetir Contraseña"
-              value={dataUser.repeatPassword}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="input-field">
-            <label className="input-label" htmlFor="email">
-              Correo
-            </label>
-            <input
-              id="email"
-              name="email"
+              id="standard-adornment-password"
               type="email"
-              className="custom-input"
-              placeholder="Correo electronico"
+              name="email"
               value={dataUser.email}
               onChange={handleInputChange}
             />
+          </FormControl>
+          <FormControl className="input-field" variant="standard">
+            <div className="input-label-margin">
+              <InputLabel className="input-label" htmlFor="standard-adornment-password">Teléfono</InputLabel>
+            </div>
+            <Input
+              required
+              className="custom-input"
+              id="standard-adornment-password"
+              type='tel'
+              name="phone"
+              value={dataUser.phone}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <FormControl className="input-field" variant="standard">
+          <div className="input-label-margin">
+            <InputLabel className="input-label" htmlFor="standard-adornment-password">Contraseña</InputLabel>
           </div>
+          <Input
+            required
+            className="custom-input"
+            id="standard-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        <FormControl className="input-field" variant="standard">
+          <div className="input-label-margin">
+            <InputLabel className="input-label" htmlFor="standard-adornment-password">Repetir Contraseña</InputLabel>
+          </div>
+          <Input
+            required
+            className="custom-input"
+            id="standard-adornment-password repeat-password"
+            type={showPassword ? 'text' : 'password'}
+            name="repeatPassword"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onChange={handleInputChange}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
         </div>
-
-        <div
-          className="upload-section"
-          style={{
-            backgroundImage: `url(${
-              dataUser?.imageUser
-                ? dataUser?.imageUser
-                : "../../../../assets/noImageUser.png"
-            })`,
-          }}
-        >
-          <div className="upload-image">
-            <label htmlFor="profile-image" className="upload-label">
-              <FileUploadIcon sx={{ width: "50%", height: "100%", cursor: 'pointer' }} />
-              <input
-                type="file"
-                id="profile-image"
-                name="profileImage"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleImageUpload}
-              />
-              Subir imagen
-            </label>
+        <div className="box-upload-section">
+          <div
+            className="upload-section"
+            style={{
+              backgroundImage: `url(${
+                dataUser?.imageUser
+                  ? dataUser?.imageUser
+                  : "../../../../assets/noImageUser.png"
+              })`,
+            }}
+          >
+            <div className="upload-image">
+              <label htmlFor="profile-image" className="upload-label">
+                <FileUploadIcon sx={{ width: "25%", height: "50%", cursor: 'pointer' }} />
+                <input
+                  type="file"
+                  id="profile-image"
+                  name="profileImage"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageUpload}
+                />
+                Subir imagen
+              </label>
+            </div>
           </div>
         </div>
       </div>
