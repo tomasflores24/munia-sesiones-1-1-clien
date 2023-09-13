@@ -4,7 +4,8 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 2% 3%; /* Ajusta el espaciado */
+  padding-left: 5em;
+  padding-right: 5em;
   align-items: center;
   @media (max-width: 768px) {
     width: 100%; /* Ajusta el ancho para pantallas pequeñas */
@@ -14,9 +15,8 @@
     color: rgba(0, 0, 0, 0.6);
     font-family: Montserrat;
     font-size: 2rem;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    margin-top: .5em;
   }
 
   .info {
@@ -24,17 +24,17 @@
     flex-direction: row;
     align-items: center;    
     justify-content: space-between;
-    height: auto; /* Cambia la altura a automático */
+    height: auto;
     width: 100%;
     height: 100%;
-    gap: 1.5rem; /* Reduce el espacio entre elementos */
-    padding: 2% 5%; /* Ajusta el espaciado */
+    gap: 1.5rem;
+    padding: 2% 5%;
     overflow-y: auto;
     @media (max-width: 768px) {
       flex-direction: column-reverse;
       justify-content: flex-start;
       align-items: center;
-      padding: 0% 0%; /* Ajusta el espaciado */
+      padding: 0% 0%;
     }
 
     .info-inputs {
@@ -48,12 +48,12 @@
       }
       .input-field {
         display: flex;
+        justify-content: flex-start;
         flex-direction: column;
         align-items: start;
         width: 25rem;
         height: 3rem;
         flex-shrink: 0;
-        justify-content: flex-start;
         width: 100%;
         color: rgba(0, 0, 0, 0.6);
         font-family: Montserrat;
@@ -67,7 +67,7 @@
         }
         .input-label {
           text-align: start;
-          font-size: 2rem;
+          font-size: .8em;
           width: 100%;
         }
       }
@@ -75,9 +75,7 @@
       .custom-input {
         border: none;
         border-bottom: 1px solid rgba(128, 128, 128, 0.323);
-        padding: 0 0;
-        margin-top: 0.5rem;
-        font-size: 2.4rem;
+        font-size: 1em;
         color: black;
         background-color: transparent;
         transition: border-bottom 0.3s ease;
@@ -86,25 +84,21 @@
         flex-shrink: 0;
         color: rgba(0, 0, 0, 0.3);
         font-family: Montserrat;
-        font-size: 1.4rem;
-        font-style: normal;
+        font-size: .7em;
         font-weight: 600;
-        line-height: normal;
 
         &::placeholder {
           padding: 0;
           color: rgba(0, 0, 0, 0.3);
           font-family: Montserrat;
-          font-size: 1.8rem;
-          font-style: normal;
+          font-size: .8em;
           font-weight: 600;
-          line-height: normal;
         }
 
         &:focus {
           outline: none;
           border-bottom-color: #007bff;
-          font-size: 1.8rem;
+          font-size: .8em;
         }
       }
     }
@@ -121,10 +115,10 @@
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 50%;
-
+      bottom: 10%;
       @media (max-width: 768px) {
-        width: 17rem; /* Ajusta el ancho para pantallas pequeñas */
-        height: 15rem; /* Ajusta la altura para pantallas pequeñas */
+        width: 17rem;
+        height: 15rem; 
         margin-top: 3px;
       }
       .upload-image {
@@ -132,6 +126,13 @@
         margin-right: 1rem;
         bottom: 20%;
         left: 35%;
+        .upload-label{
+          display: flex;
+          flex-direction: column;
+          text-align: start;
+          font-size: 1em;
+          font-weight: bold;
+        }
       }
     }
   }

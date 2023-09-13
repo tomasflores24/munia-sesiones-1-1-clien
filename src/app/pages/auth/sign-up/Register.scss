@@ -7,9 +7,9 @@ $selectedTabColor: black;
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: url("https://somospnt.com/images/charlaa.jpg");
+  background-image: url("https://s3-alpha-sig.figma.com/img/96db/3a25/6d8b5083788a011a941a927b6779022a?Expires=1695600000&Signature=pR-q6xpXQAIAtStZyqx~1SW7gZm8QsB6Gjm9WDP95xHyr3o2k4qoXEFKX6YCae6dHyYFB3Y3nvFXthPSyTnyNFxmgPkZ8LKL~C5hgURxxXa8h21e3j6Pumd8X6D4FCJCAijjz~4vPsddORv14UFesurJluTeV4TSgQHx6ksgQmB1yV9QhfJd86xa-q-tflrJoOWXZw8jdKIdzXclORZzKF5Nr5Xx~f1Vu0bqaI1sUraThJCXt3YUQh9rCrhLLFp1DFixkeX5v1jxLKJYgIBRkZjG6NUG69BzUsHRIW--SM7GKDqEc7qMsd3JYTMf-FS1rTNFkq9mk~NBiisX6wzNfA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
   background-size: cover;
-  background-position: center;
+  background-position: top;
 
   @media (max-width: 768px) {
     height: 100%;
@@ -20,13 +20,12 @@ $selectedTabColor: black;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding: 1em;
     background-color: #f0f0f0;
     border-radius: 20px;
-    width: 95%;
-    max-width: 80rem;
-    height: 100%;
-    max-height: 70rem;
+    width: 100%;
+    max-width: 75rem;
+    height: 75vh;
     flex-shrink: 0;
 
     @media (max-width: 1023px) {
@@ -49,12 +48,14 @@ $selectedTabColor: black;
       align-items: center;
       color: rgba(0, 0, 0, 0.6);
       font-family: Montserrat;
-      font-size: 3.6rem;
-      font-style: normal;
+      font-size: 2.2em;
       font-weight: 700;
-      line-height: normal;
+      text-align: center;
       gap: 0.5rem;
-
+      .title-bold{
+        color: black;
+        font-weight: bold;
+      }
       strong {
         color: #000;
         font-size: 3.6rem;
@@ -72,7 +73,7 @@ $selectedTabColor: black;
     .subtitle {
       color: rgba(0, 0, 0, 0.6);
       font-family: Montserrat;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
@@ -81,7 +82,7 @@ $selectedTabColor: black;
       .subtitle-usted {
         color: #9c6d61;
         font-family: Montserrat;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
@@ -105,7 +106,7 @@ $selectedTabColor: black;
         background-color: #d9d9d9;
         color: #000;
         font-family: Montserrat;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 700;
         line-height: normal;
         width: 100%;
