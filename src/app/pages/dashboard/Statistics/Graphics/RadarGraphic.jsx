@@ -66,7 +66,7 @@ const RadarGraphic = () => {
           cx={200}
           cy={150}
           outerRadius={120}
-          width={350}
+          width={410}
           height={300}
           data={dataRadar}
         >

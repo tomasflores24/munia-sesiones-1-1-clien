@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import "./DocumentationCard.scss";
 import { unifiedString } from "../../utils/unifiedStrings";
 import { saveDocumentationUser } from "../../redux/slices/registrationSlice/registrationSlice";
@@ -54,7 +54,7 @@ export const DocumentationCard = ({ title }) => {
       <div className="upload-section" style={images}>
         <section className="upload">
           <label htmlFor={`${title}-document`} className="upload-icon">
-            <FileUploadIcon sx={{ width: "60%", height: "90%", cursor: 'pointer' }} />
+            <FileUploadOutlinedIcon sx={{ width: "60%", height: "90%", cursor: 'pointer' }} />
             <input
               type="file"
               id={`${title}-document`}
@@ -63,6 +63,7 @@ export const DocumentationCard = ({ title }) => {
               style={{ display: "none" }}
               onChange={handleImageUpload}
             />
+            Subir imagen
           </label>
         </section>
       </div>

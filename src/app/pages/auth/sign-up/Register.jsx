@@ -39,7 +39,10 @@ const Register = () => {
     <div className="registration-container">
       <div className="registration-content">
         <h1 className="title-register">
-          <strong>Construye</strong> tu perfil
+          <span className="title-bold" >
+          Construye
+          </span>
+           tu perfil
         </h1>
         <p className="subtitle">
           Esta información nos permitirá saber más sobre{" "}
@@ -58,7 +61,7 @@ const Register = () => {
                   Documentación
                 </div>
                 <div className={`tab ${currentStep === 3 ? "active" : ""}`}>
-                  Servicios
+                  Práctica y Servicios
                 </div>
               </div>
               {currentStep === 1 && <PersonalInfoContainer />}

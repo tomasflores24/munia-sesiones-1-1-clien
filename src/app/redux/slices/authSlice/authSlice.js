@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-//import axios from "axios";
+import axios from "axios";
 
 const initialState = {
   token: null,
@@ -46,9 +46,9 @@ export const loginUser = (dataUser) => async (dispatch) => {
     colaboratorId: 0,
   }
   try {
-    /* const response = await axios.post("http://localhost:3000/auth", dataUser); */
+    const response = await axios.post("http://localhost:3000/auth", dataUser);
     console.log(user)
-    dispatch(setLoginUser(user));/* response.data */
+    dispatch(setLoginUser(response.data ));/* response.data */
   } catch (error) {
     console.error("Login error:", error);
   } 

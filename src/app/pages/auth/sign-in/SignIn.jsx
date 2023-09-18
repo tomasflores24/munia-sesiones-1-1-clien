@@ -14,11 +14,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../redux/slices/authSlice/authSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import MembershipModal from '../../../components/MembershipModal/MembershipModal';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-
+  // eslint-disable-next-line no-unused-vars
   const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
@@ -62,7 +61,7 @@ const SignIn = () => {
 
   const customHandleSubmit = (data) => {
     dispatch(loginUser(data));
-    navigate('/home');
+    navigate('/dashboard/home');
     Swal.fire({
       position: 'center',
       icon: 'success',

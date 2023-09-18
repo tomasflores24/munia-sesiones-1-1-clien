@@ -1,0 +1,234 @@
+.profile {
+    display: grid;
+    gap: 3rem;
+
+    .profile__description {
+        background-color: white;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        padding: 3rem;
+        place-items: center;
+        border-radius: 2rem;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+
+
+        .profile__img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            grid: 1 / 2;
+        } 
+        .profile__texts {
+            padding: 0 10rem;
+            grid-column: 2 / 6;
+        }
+
+        .profile__titleDescription {
+            border-bottom: 1px solid gray;
+            font-size: 2rem;
+            
+
+            .title__icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        .profile__pDescription {
+            font-size: 1.3rem;
+            font-weight: 700;
+
+        }
+    }
+
+
+    .section__data {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        justify-content: center;
+        border-radius: 2rem;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+            padding: 5rem;
+        
+        
+            .profile__data {
+            
+            display: grid;
+            grid-template-areas: 
+            "nombre apellido intereses"
+            "genero pais intereses"
+            "telefono ciudad intereses "
+            "correo nacimiento intereses"
+            "contraseña vacio intereses";
+            padding: 3rem;
+            width: max-content;
+            min-width: 900px;
+
+            gap: 3rem;
+    
+            .profile__nombre {
+                grid-area: nombre;
+                display: flex;
+                align-items: end;
+            }
+    
+            .profile__apellido {
+                grid-area: apellido;
+                display: flex;
+                align-items: end;
+            }
+            .profile__genero {
+                grid-area: genero;
+                display: flex;
+                align-items: end;
+            }
+            .profile__pais {
+                grid-area: pais;
+                display: flex;
+                align-items: end;
+            }
+            .profile__telefono {
+                grid-area: telefono;
+                display: flex;
+                align-items: end;
+            }
+            .profile__ciudad {
+                grid-area: ciudad;
+                display: flex;
+                align-items: end;
+            }
+            .profile__correo {
+                grid-area: correo;
+                display: flex;
+                align-items: end;
+            }
+            .profile__nacimiento {
+                grid-area: nacimiento;
+                display: flex;
+                align-items: end;
+            }
+
+            .profile__contraseña {
+                grid-area: contraseña;
+
+
+                display: grid;
+                place-items: center;
+
+                .profile__btnContraseña {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 2px;
+                    width: 100%;
+                    padding: 5px 10px;
+                    border-radius: 2rem;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: white;
+                    border: none;
+                    background-color: var(--bg-cafe);
+                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.376);
+                    cursor: pointer;
+
+                    .btnContraseña__icon {
+                        font-size: 3rem;
+                    }
+                }
+            }
+            .profile__intereses {
+    
+                grid-area: intereses;
+                display: flex;
+                gap: 5rem;
+                flex-direction: column;
+                align-items: center;
+        
+        
+                .profile__deleteIntereses {
+                    border-radius: 2rem;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    text-align: center;
+                    width: 280px;
+                    min-height: 300px;
+                   
+        
+                    .intereses__tittle {
+                        background-color: var(--bg-beige);
+                        font-size: 2.5rem;
+                        border-radius: 2rem 2rem 0 0;
+                        border-bottom: 1px solid black;
+                        padding: .7rem;
+                        
+                        
+                    }
+        
+                    .intereses__list {
+                        display: grid;
+                        gap: 15px;
+                        padding: 15px 0;
+                        .intereses__li {
+                            border-radius: .5rem;
+                            border: 2px solid var(--bg-beige);
+                            width: max-content;
+                            margin: 0 auto;
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            color: rgba(0, 0, 0, 0.6);
+                            padding: 5px 10px;
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            transition: .2s;
+                            &:hover {
+                                background-color: var(--bg-beige);
+                                
+        
+                            }
+        
+        
+                            .li__icon {
+                               
+                                font-size: 1.5rem;
+                                
+                            }
+                        }
+    
+                      
+                    }
+
+
+                    
+                }
+                
+
+            }
+    
+    
+        }
+    
+        .profile__btnGuardar {
+            
+            width: 200px;
+            padding: 12px;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            background-color: var(--bg-cafe);
+            border-radius: 2rem;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.376);
+            cursor: pointer;
+            font-weight: 700;        
+        }   
+
+    }
+
+
+   
+}
