@@ -14,12 +14,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../redux/slices/authSlice/authSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import CommentModal from '../../../components/CommentModal/CommentModal';
 import MembershipModal from '../../../components/MembershipModal/MembershipModal';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [openModal, setOpenModal] = React.useState(false);
 
   const userLogin = useSelector((state) => state.auth.user);
 
@@ -79,14 +77,6 @@ const SignIn = () => {
         showConfirmButton: false,
         timer: 1500
       }) */
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
   };
 
   return (
@@ -159,14 +149,9 @@ const SignIn = () => {
             </div>
           </FormControl>
           {/* <button onClick={handleOpenModal}>Abrir CommenModal</button> */}
-          <button onClick={handleOpenModal}>Abrir MembershipModal</button>
         </div>
       </form>
       {/* <CommentModal handleCloseModal={handleCloseModal} openModal={openModal} /> */}
-      <MembershipModal
-        handleCloseModal={handleCloseModal}
-        openModal={openModal}
-      />
     </div>
   );
 };

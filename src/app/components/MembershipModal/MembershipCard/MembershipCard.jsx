@@ -11,6 +11,7 @@ const MembershipCard = ({
   benefits,
   backgroundColor,
   handleFunction,
+  textButton,
 }) => {
   const boxStyle = {
     backgroundColor: backgroundColor,
@@ -43,11 +44,15 @@ const MembershipCard = ({
           </section>
         </div>
         <section className='box-footer'>
-          <CustomButton
-            textButton={'Seleccionar'}
-            className={'select-button'}
-            handleFunction={handleFunction}
-          />
+          {textButton ? (
+            <CustomButton
+              textButton={textButton}
+              className={'select-button'}
+              handleFunction={handleFunction}
+            />
+          ) : (
+            ''
+          )}
         </section>
       </div>
     </>
@@ -61,6 +66,7 @@ MembershipCard.propTypes = {
   description: PropTypes.string,
   benefits: PropTypes.arrayOf(PropTypes.object),
   backgroundColor: PropTypes.string,
+  textButton: PropTypes.string,
   handleFunction: PropTypes.func,
 };
 

@@ -1,7 +1,7 @@
 import './MembershipModalStyle.scss';
-import MembershipCard from './MembershipCard/MembershipCard';
 import CustomButton from './CustomButton/CustomButton';
 import { memberships } from './memberships';
+import MembershipCard from './MembershipCard/MembershipCard';
 
 const MembershipModal = ({ openModal, handleCloseModal }) => {
   return (
@@ -23,6 +23,7 @@ const MembershipModal = ({ openModal, handleCloseModal }) => {
                       backgroundColor={membership.backgroundColor}
                       description={membership.description}
                       benefits={membership.benefits}
+                      textButton={'Seleccionar'}
                       handleFunction={() => {
                         console.log('click');
                       }}
