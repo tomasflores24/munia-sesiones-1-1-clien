@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  nextStep,
-  saveTypeUser,
-} from "../../../redux/slices/registrationSlice/registrationSlice";
+// import {
+//   nextStep,
+//   saveTypeUser,
+// } from "../../../redux/slices/registrationSlice/registrationSlice";
 import "./SelectUserRegistration.scss";
 import Button from "../../Common/Button/Button";
 import ButtonNext from "../../Common/Button/ButtonNext";

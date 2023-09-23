@@ -1,0 +1,51 @@
+.shared_table__root {
+  width: 100%;
+  .headers {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1vmin;
+    width: max-content;
+    border-radius: 25px;
+    padding: 1em 0;
+    margin-bottom: 1.5em;
+    background-color: #ebdcc1;
+    cursor: default;
+    .header__title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0.5em 1em;
+      width: 20rem;
+      .header {
+        color: #000;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  .shared_table-body {
+    display: flex;
+    gap: 1vmin;
+    border-radius: 25px;
+    padding: 1em 0;
+    align-items: center;
+    margin-bottom: 1.5em;
+    background-color: #cdb1a3;
+    width: max-content;
+    .rows {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0.5em 1em;
+      width: 20rem;
+
+    }
+  }
+}

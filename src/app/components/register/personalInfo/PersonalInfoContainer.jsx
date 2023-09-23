@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  nextStep,
-  savePersonalInfo,
-} from "../../../redux/slices/registrationSlice/registrationSlice";
+// import {
+//   nextStep,
+//   savePersonalInfo,
+// } from "../../../redux/slices/registrationSlice/registrationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import PersonalInfoPresentation from "./PersonalInfoPresentation";
 

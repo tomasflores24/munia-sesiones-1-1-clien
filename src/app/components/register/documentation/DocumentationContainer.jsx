@@ -1,11 +1,11 @@
 import useCreateCardsDocumentation from "../../../hooks/Register/useCreateCardsDocumentation";
 
 import "./DocumentationPresentation";
-import {
-  backStep,
-  nextStep,
-  saveDocumentationUser,
-} from "../../../redux/slices/registrationSlice/registrationSlice";
+// import {
+//   backStep,
+//   nextStep,
+//   saveDocumentationUser,
+// } from "../../../redux/slices/registrationSlice/registrationSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import DocumentationPresentation from "./DocumentationPresentation";

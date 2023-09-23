@@ -1,0 +1,16 @@
+.documentation__root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .documentation__form{
+    display: flex;
+    flex-direction: row;
+  }
+  .actions{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}

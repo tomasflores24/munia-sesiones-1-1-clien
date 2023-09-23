@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  backStep,
-  registrationUser,
-  saveProfession,
-} from "../../../redux/slices/registrationSlice/registrationSlice";
+// import {
+//   backStep,
+//   registrationUser,
+//   saveProfession,
+// } from "../../../redux/slices/registrationSlice/registrationSlice";
 import PracticeAndServicesPresentation from "./PracticeAndServicesPresentation";
 import PropTypes from "prop-types";
 

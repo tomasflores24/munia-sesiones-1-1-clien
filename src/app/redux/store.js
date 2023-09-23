@@ -1,38 +1,27 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // o cualquier otro almacenamiento que prefieras
 
-import authReducer from "./slices/authSlice/authSlice";
-import registrationReducer from "./slices/registrationSlice/registrationSlice";
+import AuthSlice from "./slices/authSlice/authSlice";
+import registerSlice from "./slices/registerSlice/registerSlice";
 
 const authPersistConfig = {
-  key: "auth",
+  key: "root",
   storage,
-  whitelist: ["user"], // Aquí debes especificar los campos que deseas persistir
+  whitelist: ["authSlice"], // Aquí debes especificar los campos que deseas persistir
 };
 
-const registrationPersistConfig = {
-  key: "registration",
-  storage,
-  whitelist: [
-    "currentStep",
-    "dataUser",
-    "documentationUser",
-    "professions",
-    "typeUser",
-  ], // Aquí debes especificar los campos que deseas persistir
-};
+const rootReducer = combineReducers({
+  AuthSlice: AuthSlice,
+});
 
-const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
-const persistedRegistrationReducer = persistReducer(
-  registrationPersistConfig,
-  registrationReducer
-);
+const persistedAuthSlice = persistReducer(authPersistConfig, rootReducer);
+
 
 const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer,
-    registration: persistedRegistrationReducer,
+    auth: persistedAuthSlice,
+    register: registerSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
