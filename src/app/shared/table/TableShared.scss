@@ -1,51 +1,124 @@
-.shared_table__root {
+.table__root {
   width: 100%;
-  .headers {
+  overflow-x: scroll;
+  .shared_table__root {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 1vmin;
-    width: max-content;
-    border-radius: 25px;
-    padding: 1em 0;
-    margin-bottom: 1.5em;
-    background-color: #ebdcc1;
-    cursor: default;
-    .header__title {
+    height: auto;
+    position: relative;
+    display: table;
+    min-width: 800px;
+
+    .headers {
+      width: 100%;
+      border-radius: 16px;
+      background-color: #cdb1a3;
+      height: 50px;
+      margin-bottom: 17px;
       display: flex;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 0.5em 1em;
-      width: 20rem;
-      .header {
-        color: #000;
-        font-family: Montserrat;
-        font-size: 16px;
-        font-weight: 700;
+      text-align: center !important;
+      .header__title {
+        height: 100%;
+        width: 100%;
+        color: #fff;
+        font-family: "Montserrat";
+        font-size: 1.2rem;
+        font-style: normal;
+        font-weight: 600;
         line-height: normal;
-        white-space: nowrap;
-        overflow: hidden;
+        // text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
       }
     }
-  }
-  .shared_table-body {
-    display: flex;
-    gap: 1vmin;
-    border-radius: 25px;
-    padding: 1em 0;
-    align-items: center;
-    margin-bottom: 1.5em;
-    background-color: #cdb1a3;
-    width: max-content;
-    .rows {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0.5em 1em;
-      width: 20rem;
+    .shared_table-body {
+      width: 100%;
+      height: auto;
+      .row-table-container {
+        width: 100%;
+        border-radius: 16px;
+        background-color: #ebdcc1;
+        height: 85px;
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 5px;
 
+        .data-row-tag {
+          width: 100%;
+          height: 100%;
+          max-width: 130px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          white-space: pre-wrap;
+          justify-content: center;
+          word-break: break-word;
+          text-align: center;
+
+          .product-img {
+            max-width: 85px;
+            max-height: 82px;
+          }
+
+          .data-image-patients {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+          }
+        }
+
+        .data-row-info {
+          text-align: justify;
+          padding: 5px;
+        }
+
+        .actions-row {
+          .wrapper-icon-row {
+            position: relative;
+
+            .icon-tag {
+              cursor: pointer;
+            }
+
+            .edit_icon {
+              margin-right: 18px;
+            }
+
+            .delete_icon {
+              width: 19px;
+              height: 21px;
+            }
+
+            .title-icon {
+              position: absolute;
+              top: 25px;
+              left: -10px;
+              color: #df6f4b;
+              visibility: hidden;
+            }
+
+            .title-icon-edit {
+              top: 26px;
+              left: -5px;
+            }
+
+            // .edit_icon:hover + .title-icon-edit{
+            //     visibility: visible;
+            // }
+            // .delete_icon:hover + .title-icon-delete{
+            //     visibility: visible;
+            // }
+          }
+        }
+      }
     }
   }
 }

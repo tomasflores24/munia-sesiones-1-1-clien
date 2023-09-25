@@ -98,28 +98,36 @@ const GeneralInformation = ({ step, setStep }) => {
         className="generalInfo__form"
         onSubmit={handleSubmit(customHandleSubmit)}
       >
-        <div className="img-container">
-          <img src={imgSrc} alt="" className="profile-pic" />
-          <div className="round">
-            <input
-              type="file"
-              name=""
-              id=""
-              accept=".png"
-              {...register("profilePic", {
-                onChange: (e) => {
-                  const file = e.target.files?.[0];
-                  const reader = new FileReader();
-
-                  reader.onload = (e) => {
-                    const result = e.target.result;
-                    setImgSrc(result.toString());
-                  };
-
-                  reader.readAsDataURL(file);
-                },
-              })}
+        <div className="img__container">
+          <div className="upload">
+            <img
+              src={
+                imgSrc
+                  ? imgSrc
+                  : "https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+              }
+              alt=""
+              id="profile"
             />
+            <div className="round">
+              <input
+                type="file"
+                accept=".png"
+                {...register("profilePic", {
+                  onChange: (e) => {
+                    const file = e.target.files?.[0];
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+                      const result = e.target.result;
+                      setImgSrc(result.toString());
+                    };
+
+                    reader.readAsDataURL(file);
+                  },
+                })}
+              />
+            </div>
           </div>
           {errors?.profilePic && <p>{errors?.profilePic?.message}</p>}
         </div>
@@ -176,14 +184,17 @@ const GeneralInformation = ({ step, setStep }) => {
               <FormHelperText>{errors?.password?.message}</FormHelperText>
             )}
           </FormControl>
-          <button
-            type="submit"
-            className={isValid ? "submit_btn" : "submit_btn disabled"}
-          >
-            Siguiente
-          </button>
         </div>
       </form>
+      <div className="general-info__actions">
+        <button
+          type="button"
+          onClick={() => handleSubmit(customHandleSubmit)()}
+          className={isValid ? "submit_btn" : "submit_btn disabled"}
+        >
+          Siguiente
+        </button>
+      </div>
     </section>
   );
 };

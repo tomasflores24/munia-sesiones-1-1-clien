@@ -1,22 +1,52 @@
 import { useForm } from "react-hook-form";
 import "./DocumentationStyle.scss";
-import React, { useMemo, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setParts } from "../../../../../redux/slices/registerSlice/registerSlice";
 
 const Documentation = ({ step, setStep }) => {
-  const [files, setFiles] = useState({});
+  const [filesValue, setFiles] = useState({});
   const dispatch = useDispatch();
 
-  const dataSlice = useSelector((state) => state.register);
-  console.log(dataSlice);
+  const { antPenales, diploma, tarjProf, portServicios } = useSelector(
+    (state) => state.register
+  );
 
-  const { register, handleSubmit } = useForm({
+  useEffect(() => {
+    if (
+      antPenales.name ||
+      diploma.name ||
+      tarjProf.name ||
+      portServicios.name
+    ) {
+      setFiles({
+        ...filesValue,
+        ...(antPenales && {
+          antPenales: antPenales.name,
+        }),
+        ...(diploma && {
+          diploma: diploma.name,
+        }),
+        ...(tarjProf && {
+          tarjProf: tarjProf.name,
+        }),
+        ...(portServicios && {
+          portServicios: portServicios.name,
+        }),
+      });
+    }
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
     defaultValues: {
-      antPenales: "",
-      diploma: "",
-      tarjProf: "",
-      portServicios: "",
+      antPenales: antPenales.file ? antPenales.file : "",
+      diploma: diploma.file ? diploma.file : "",
+      tarjProf: tarjProf.file ? tarjProf.file : "",
+      portServicios: portServicios.file ? portServicios.file : "",
     },
   });
 
@@ -24,19 +54,19 @@ const Documentation = ({ step, setStep }) => {
     dispatch(
       setParts({
         antPenales: {
-          name: files.antPenales,
+          name: filesValue.antPenales,
           file: data.antPenales,
         },
         diploma: {
-          name: files.diploma,
+          name: filesValue.diploma,
           file: data.diploma,
         },
         tarjProf: {
-          name: files.tarjProf,
+          name: filesValue.tarjProf,
           file: data.tarjProf,
         },
         portServicios: {
-          name: files.portServicios,
+          name: filesValue.portServicios,
           file: data.portServicios,
         },
       })
@@ -48,6 +78,7 @@ const Documentation = ({ step, setStep }) => {
     const { name, files } = e.target;
 
     setFiles({
+      ...filesValue,
       [name]: files[0].name,
     });
   };
@@ -61,44 +92,91 @@ const Documentation = ({ step, setStep }) => {
       >
         <div className="wrapper-file_input">
           <h5>Antecendentes Penales</h5>
-          <input
-            type="file"
-            accept=".pdf"
-            {...register("antPenales", {
-              onChange: (e) => handleChange(e),
-            })}
-          />
-          <p>{files.antPenales ? files.antPenales : "Subir Archivo"}</p>
+          <div className="img__container">
+            <div className="upload">
+              <img src="" alt="" className="profile" />
+              <div className="round">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  className="file-input__input"
+                  {...register("antPenales", {
+                    onChange: (e) => handleChange(e),
+                  })}
+                />
+              </div>
+              <p className="pic-text">
+                {filesValue.antPenales
+                  ? filesValue.antPenales
+                  : "Subir Archivo"}
+              </p>
+            </div>
+          </div>
         </div>
         <div className="wrapper-file_input">
-          <h5>Diploma de Grado</h5>
-          <input
-            type="file"
-            {...register("diploma", {
-              onChange: (e) => handleChange(e),
-            })}
-          />
-          <p>Subir Archivo</p>
+          <h5>Antecendentes Penales</h5>
+          <div className="img__container">
+            <div className="upload">
+              <img src="" alt="" className="profile" />
+              <div className="round">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  className="file-input__input"
+                  {...register("diploma", {
+                    onChange: (e) => handleChange(e),
+                  })}
+                />
+              </div>
+              <p className="pic-text">
+                {filesValue.diploma ? filesValue.diploma : "Subir Archivo"}
+              </p>
+            </div>
+          </div>
         </div>
         <div className="wrapper-file_input">
-          <h5>Tarjeta Profesional</h5>
-          <input
-            type="file"
-            {...register("tarjProf", {
-              onChange: (e) => handleChange(e),
-            })}
-          />
-          <p>Subir Archivo</p>
+          <h5>Antecendentes Penales</h5>
+          <div className="img__container">
+            <div className="upload">
+              <img src="" alt="" className="profile" />
+              <div className="round">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  className="file-input__input"
+                  {...register("tarjProf", {
+                    onChange: (e) => handleChange(e),
+                  })}
+                />
+              </div>
+              <p className="pic-text">
+                {filesValue.tarjProf ? filesValue.tarjProf : "Subir Archivo"}
+              </p>
+            </div>
+          </div>
         </div>
         <div className="wrapper-file_input">
-          <h5>Portfolio de Servicios </h5>
-          <input
-            type="file"
-            {...register("portServicios", {
-              onChange: (e) => handleChange(e),
-            })}
-          />
-          <p>Subir Archivo</p>
+          <h5>Antecendentes Penales</h5>
+          <div className="img__container">
+            <div className="upload">
+              <img src="" alt="" className="profile" />
+              <div className="round">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  className="file-input__input"
+                  {...register("portServicios", {
+                    onChange: (e) => handleChange(e),
+                  })}
+                />
+              </div>
+              <p className="pic-text">
+                {filesValue.portServicios
+                  ? filesValue.portServicios
+                  : "Subir Archivo"}
+              </p>
+            </div>
+          </div>
         </div>
       </form>
       <div className="actions">
@@ -110,9 +188,9 @@ const Documentation = ({ step, setStep }) => {
           atras
         </button>
         <button
-          type="submit"
-          className="submit_btn"
+          type="button"
           onClick={() => handleSubmit(customHandleSubmit)()}
+          className={isValid ? "submit_btn" : "submit_btn disabled"}
         >
           siguiente
         </button>

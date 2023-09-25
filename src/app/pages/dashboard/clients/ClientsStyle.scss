@@ -1,0 +1,16 @@
+.clients__root {
+  // margin: 0 0.5em 0 3em;
+  padding: 1em 0.5em 0 2.5em;
+  // margin: 1em;
+  //   padding-left: 3.5em;
+
+  margin-right: 0;
+  width: 100%;
+  .clients_table {
+    // overflow-x: scroll;
+    width: 100%;
+  }
+  @media (max-width: 1200px) {
+    padding-left: 3.5em;
+  }
+}

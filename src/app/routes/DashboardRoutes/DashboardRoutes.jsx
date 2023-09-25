@@ -11,15 +11,17 @@ import Diary from "../../pages/dashboard/diary/Diary";
 const DashboardRoutes = () => {
   return (
     <Suspense>
-      <Routes element={<LayoutDashboard />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/configuration" element={<Configuration />} />
-        <Route path="/clients" element={<Clients />} />
-        <Route path="/statistics" element={<Statistics />} />
-        <Route path="/diary" element={<Diary />} />
-        <Route path="/profile" element={<Diary />} />
-        <Route path="/userProfile" element={<UserProfiles />} />
-      </Routes>
+      <LayoutDashboard>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/configuration" element={<Configuration />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/diary" element={<Diary />} />
+          <Route path="/profile" element={<Diary />} />
+          <Route path="/userProfile" element={<UserProfiles />} />
+        </Routes>
+      </LayoutDashboard>
     </Suspense>
   );
 };

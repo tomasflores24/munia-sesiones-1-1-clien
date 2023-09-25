@@ -19,6 +19,7 @@ import { loginServices } from "../../../services/auth/login.services";
 import { useMutation } from "react-query";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import jwtDecode from "jwt-decode";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -65,18 +66,14 @@ const SignIn = () => {
           },
         })
       );
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Inicio de sesión exitoso!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(()=>{
+      toast.success("¡Inicio de sesión exitoso!");
+      setTimeout(() => {
         navigate("/dashboard/home");
-
-      }, 1800)
+      }, 1800);
     },
+    onError: (e)=>{
+      toast.error(e.response.message);
+    }
   });
 
   const {
@@ -96,22 +93,6 @@ const SignIn = () => {
     mutate({
       user: data,
     });
-    // dispatch(loginUser(data));
-    //       navigate("/dashboard/home")
-    //       Swal.fire({
-    //         position: 'center',
-    //         icon: 'success',
-    //         title: '¡Inicio de sesión exitoso!',
-    //         showConfirmButton: false,
-    //         timer: 1500
-    //       })
-    // /*       Swal.fire({
-    //         position: 'center',
-    //         icon: 'error',
-    //         title: 'Esta cuenta no existe Regístrate',
-    //         showConfirmButton: false,
-    //         timer: 1500
-    //       }) */
   };
 
   return (
@@ -189,6 +170,7 @@ const SignIn = () => {
           </form>
         </>
       )}
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
