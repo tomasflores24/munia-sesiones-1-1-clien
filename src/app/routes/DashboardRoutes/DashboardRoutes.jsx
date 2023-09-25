@@ -12,16 +12,17 @@ import Memberships from '../../pages/dashboard/memberships/Memberships';
 const DashboardRoutes = () => {
   return (
     <Suspense>
-      <Routes element={<LayoutDashboard />}>
-        <Route path='/home' element={<Home />} />
-        <Route path='/configuration' element={<Configuration />} />
-        <Route path='/clients' element={<Clients />} />
-        <Route path='/statistics' element={<Statistics />} />
-        <Route path='/diary' element={<Diary />} />
-        <Route path='/profile' element={<Diary />} />
-        <Route path='/userProfile' element={<UserProfiles />} />
-        <Route path='/memberships' element={<Memberships />} />
-      </Routes>
+      <LayoutDashboard>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/configuration" element={<Configuration />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/diary" element={<Diary />} />
+          <Route path="/profile" element={<Diary />} />
+          <Route path="/userProfile" element={<UserProfiles />} />
+        </Routes>
+      </LayoutDashboard>
     </Suspense>
   );
 };

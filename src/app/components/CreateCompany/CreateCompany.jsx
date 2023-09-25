@@ -2,7 +2,6 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { Modal } from '@mui/material';
 import ButtonBack from '../Common/Button/ButtonBack'
 import ButtonNext from '../Common/Button/ButtonNext'
-import { nextStep, savePersonalInfo } from '../../redux/slices/registrationSlice/registrationSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import './CreateCompany.scss'
@@ -11,9 +10,6 @@ import './CreateCompany.scss'
 function CreateCompany({ showLogin, setShowLogin }) {
   console.log(showLogin, 'ESTADO')
       const dispatch = useDispatch();
-  const userInfoCurrentStorage = useSelector(
-    (state) => state.registration.dataUser
-  );
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isFormComplete, setIsFormComplete] = useState("as");
   const [dataUser, setDataUser] = useState({
@@ -92,19 +88,6 @@ function CreateCompany({ showLogin, setShowLogin }) {
     showLogin
   }, [showLogin])
  
-  useEffect(() => {
-    setDataUser({
-      name: userInfoCurrentStorage.name || "",
-      lastName: userInfoCurrentStorage.lastName || "",
-      email: userInfoCurrentStorage.email || "",
-      phone: userInfoCurrentStorage.phone || "",
-      password: userInfoCurrentStorage.password || "",
-      repeatPassword: userInfoCurrentStorage.repeatPassword || "",
-      imageUser:
-        userInfoCurrentStorage.imageUser ||
-        "../../../../assets/noImageUser.png",
-    });
-  }, [userInfoCurrentStorage]);
 
   return (
     <>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import "./DocumentationCard.scss";
 import { unifiedString } from "../../utils/unifiedStrings";
-import { saveDocumentationUser } from "../../redux/slices/registrationSlice/registrationSlice";
+// import { saveDocumentationUser } from "../../redux/slices/registrationSlice/registrationSlice";
 
 export const DocumentationCard = ({ title }) => {
   const dispatch = useDispatch();

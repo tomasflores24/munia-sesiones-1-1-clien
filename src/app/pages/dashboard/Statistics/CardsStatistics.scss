@@ -5,18 +5,18 @@
   justify-content: space-between;
   align-items: center;
   background: #EBDCC1;
-  min-height: 100vh;
+  min-height: 98vh;
   .divisor-header-bottom{
     text-align: center;
     padding-left: .5em;
     padding-right: .5em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
     background: #CDB1A3;
     color: #000;
     font-family: Montserrat;
-    font-size: 1.5em;
+    font-size: 1rem;
     font-weight: 600;
   }
   .card-top{
@@ -25,7 +25,7 @@
     .select__top{
       width: 100%;
       .select__p__top{
-        font-size: 1.5em;
+        font-size: 1rem;
         font-weight: 600;
       }
     }
@@ -36,16 +36,16 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin: 1em;
+    margin: 10px;
     border-radius: 25px;
     width: 90%;
-    height: 6em;
+    // height: 6em;
     background: #ffffff;
-    padding: 1em;
+    padding: 15px 9px;
     .card__title__services{
       color: rgba(0, 0, 0, 0.5);
       font-family: Montserrat;
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-align: center;
       white-space: nowrap;
@@ -62,14 +62,14 @@
     .card__title {
       color: rgba(0, 0, 0, 0.5);
       font-family: Montserrat;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
       text-align: center;
     }
     .card__value {
       color: rgba(0, 0, 0);
       font-family: Montserrat;
-      font-size: 3rem;
+      font-size: 1.5rem;
       font-weight: 600;
     }
   }
@@ -79,12 +79,12 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin: 1em;
+    margin: 10px;
     border-radius: 25px;
     width: 90%;
-    height: 7em;
+    // height: 7em;
     background: #ae7a6c;
-    padding: 1em;
+    padding: 10px 5px;
     .card__title {
       color: rgba(0, 0, 0, 0.5);
       font-family: Montserrat;
@@ -95,7 +95,7 @@
     .card__value {
       color: rgb(0, 0, 0);
       font-family: Montserrat;
-      font-size: 3em;
+      font-size: 1.5em;
       font-weight: 600;
     }
   }
@@ -128,7 +128,7 @@
     }
     .card-header,
     .card-bottom {
-      height: 4.5em; 
+      // height: 4.5em; 
       border-radius: 15px;
       .card__title__services{
         font-size: .7rem;

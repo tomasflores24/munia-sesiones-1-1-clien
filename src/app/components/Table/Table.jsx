@@ -7,18 +7,26 @@ import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CreateCompany from "../CreateCompany/CreateCompany";
 import { useState } from "react";
+import { ClientsServices } from "../../services/dashboard/clients/clients.services";
+import { useQuery } from "react-query";
+
 
 // eslint-disable-next-line react/prop-types
 const Table = ({ titles, informations, top, onClick }) => {
-
   const [showLogin, setShowLogin] = useState(false);
 
+  // const { isLoading, data, isSucess } = useQuery(
+  //   ["getAllClients"],
+  //   ClientsServices.getAllClients
+  // );
+
+  // console.log(data.data.allCompanies)
+
   const handleShow = () => {
-    console.log(onClick, 'ONCLICK', showLogin, 'SHOWLOGIN')
+    console.log(onClick, "ONCLICK", showLogin, "SHOWLOGIN");
     if (onClick) onClick();
     setShowLogin(true);
-  }
-
+  };
 
   return (
     <>
@@ -26,7 +34,13 @@ const Table = ({ titles, informations, top, onClick }) => {
         <div className="Container">
           <div className="TopContainer">
             <p>{top?.title}</p>
-            <button className="ButtonNewDate" type="submit" onClick={handleShow}>{top?.button}</button>
+            <button
+              className="ButtonNewDate"
+              type="submit"
+              onClick={handleShow}
+            >
+              {top?.button}
+            </button>
           </div>
           <div className="TopContainerTitles">
             {titles.map((title, index) => (
@@ -72,7 +86,10 @@ const Table = ({ titles, informations, top, onClick }) => {
           ))}
         </div>
       </div>
-      <CreateCompany showLogin={showLogin} setShowLogin={setShowLogin}></CreateCompany>
+      <CreateCompany
+        showLogin={showLogin}
+        setShowLogin={setShowLogin}
+      ></CreateCompany>
     </>
   );
 };

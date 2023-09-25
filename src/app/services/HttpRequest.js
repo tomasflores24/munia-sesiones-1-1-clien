@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "localhost:4000/backend"
+const URL = "http://localhost:3000"
 
 const Http = axios.create({
     baseURL: URL,
