@@ -4,6 +4,7 @@ import { Drawer, IconButton } from "@mui/material";
 import "./SideBar.scss";
 import { useSelector } from "react-redux";
 import NavItems from "./commonSideBar/NavItems";
+import muniaLogo from '/assets/muniaLogo.png'
 
 const ADMIN = 4;
 
@@ -37,7 +38,7 @@ export default function SideBar() {
           {user.userTypeId === ADMIN ? (
             <header className="admin-data">
               <img
-                src="/public/assets/muniaLogo.png"
+                src={muniaLogo}
                 className="img"
                 alt="Logo"
               />
@@ -45,7 +46,7 @@ export default function SideBar() {
           ) : (
             <header className="profile-data">
               <img
-                src="../../../assets/noImageUser.png"
+                src={muniaLogo}
                 className="img"
                 alt="Profile"
               />
@@ -61,14 +62,14 @@ export default function SideBar() {
         {user.userTypeId === ADMIN ? (
           <header className="admin-data">
             <img
-              src="/public/assets/muniaLogo.png"
+              src={muniaLogo}
               className="img"
               alt="Logo"
             />
           </header>
         ) : (
           <header className="profile-data">
-            <img src="assets/Ellipse 7.svg" className="img" alt="Profile" />
+            <img src={muniaLogo} className="img" alt="Profile" />
             <h2 className="user-data">María Agustina Lahitou</h2>
           </header>
         )}
