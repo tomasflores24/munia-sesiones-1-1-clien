@@ -85,9 +85,11 @@
 
         .data-row-actions {
           display: flex;
+          flex-direction: column;
           flex-wrap: nowrap;
           gap: .3rem;
           .action-button {
+            width: 100%;
             background-color: #9c6d61;
             text-align: center;
             text-wrap: nowrap;
