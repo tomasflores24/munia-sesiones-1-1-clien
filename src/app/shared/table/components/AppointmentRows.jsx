@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Chip } from '@mui/material';
+import { CancelOutlined } from '@mui/icons-material';
 
 const AppointmentRows = ({ data, onEdit, onDelete }) => {
+  const status = 1
   return (
     <div>
       <div className="shared_table-body">
@@ -21,7 +23,7 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
               <Chip label="Nutricion" size='small' className='service-type' />              
             </div>
             <div className="data-row-tag">
-              Confirmado  <CheckCircleOutlineIcon fontSize='22' stroke='#068F1C' />
+              Confirmado {status === 1 ? <CheckCircleOutlineIcon fontSize='22' stroke='#068F1C' /> : <CancelOutlined fontSize='22' stroke='#FF0000' />}
             </div>
             <div className="data-row-tag">Maria@munia.com</div>
             <div className="data-row-tag data-row-actions">
@@ -30,14 +32,14 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                 onClick={onEdit}
                 className='action-button'
               >
-                Editar
+                Reprogramar
               </button>
               <button
                 type='button'
                 onClick={onDelete}
                 className='action-button'
               >
-                Eliminar
+                Cancelar Cita
               </button>
             </div>
           </div>
