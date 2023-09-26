@@ -1,13 +1,38 @@
 import {
   informations,
-  titles,
-  top,
 } from "../../../Models/tablesDashboard/tableDiaryModel";
-import Table from "../../../components/Table/Table";
-import LayoutDashboard from "../Layout/LayoutDashboard";
+import TableShared from "../../../shared/table/TableShared";
+import './AppointmentStyle.scss'
 
-const Clientes = () => {
-  return <Table informations={informations} titles={titles} top={top} />;
+const appointmentHeaders = [
+  "Profesional",
+  "Fecha y Hora",
+  "Tipo de Servicio",
+  "Estado",
+  "Contacto",
+  "Acciones"
+]
+
+const Appointment = () => {
+  const onEdit = () => {
+    console.log("Edit")
+  }
+
+  const onDelete = () => {
+    console.log("Delete")
+  }
+
+  return (
+      <div className="appointment_table">
+        <TableShared
+          data={informations}
+          currentPage="Appointment"
+          headers={appointmentHeaders}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      </div>
+    )
 };
 
-export default Clientes;
+export default Appointment;
