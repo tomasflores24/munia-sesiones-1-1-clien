@@ -4,8 +4,6 @@ import DashboardRoutes from "./DashboardRoutes/DashboardRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "../pages/auth/sign-in/SignIn";
 import SignUp2 from "../pages/auth/sign-up2/SignUp2";
-import Comments from "../pages/comments/Comments"
-
 
 const AppRouter = () => {
   return (
