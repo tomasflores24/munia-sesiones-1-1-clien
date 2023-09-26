@@ -1,0 +1,53 @@
+.rootContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .commentsSection{
+        max-width: 100%;
+        margin: 4%;
+    }
+}
+.commentsTitle{
+    margin-bottom: 3%;
+}
+.commentsFilters{
+    display: flex;   
+    flex-direction: row;
+    align-items: center;
+    color: #000;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal; 
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    background: #CDB1A3;
+}
+.filterText{
+    padding-left: 2%;
+    padding-right: 17%;
+}
+
+.filterSeparatorLine{
+    width: 0.5px;
+    height: 47px;
+    background: rgba(0, 0, 0, 0.50);
+}
+.filterButtonContainer{
+    margin: 0px;
+}
+.filterButton{
+    background: #CDB1A3;
+    width: 18px;
+    height: 13px;
+    flex-shrink: 0;
+    border:none;
+    margin-right:20px;
+}
+.commentFilter{
+    border: 2px rgb(0, 0, 0) dashed; 
+    display: flex;
+    justify-content: space-evenly;
+}

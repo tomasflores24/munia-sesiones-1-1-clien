@@ -42,6 +42,11 @@ export const buttonDataAdmin = [
     redirect: "/home",
   },
   {
+    title: "Comments",
+    icon: <HomeIcon style={{ fontSize: "30px" }} />,
+    redirect: "/comments",
+  },
+  {
     title: "Agenda",
     icon: <EventNoteIcon style={{ fontSize: "30px" }} />,
     redirect: "/diary",

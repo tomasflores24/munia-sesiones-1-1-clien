@@ -7,6 +7,7 @@ import UserProfiles from "../../pages/dashboard/userProfile/UserProfiles";
 import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
 import Diary from "../../pages/dashboard/diary/Diary";
+import Comments from "../../pages/comments/Comments"
 
 const DashboardRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const DashboardRoutes = () => {
           <Route path="/diary" element={<Diary />} />
           <Route path="/profile" element={<Diary />} />
           <Route path="/userProfile" element={<UserProfiles />} />
+          <Route path="/comments" element={<Comments />} />
         </Routes>
       </LayoutDashboard>
     </Suspense>
