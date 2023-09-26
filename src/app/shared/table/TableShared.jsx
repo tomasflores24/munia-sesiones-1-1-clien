@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types'
+
 import "./TableShared.scss";
 import ClientsRows from "./components/ClientsRows";
 import AppointmentRows from "./components/AppointmentRows";
 import { TablePagination } from "@mui/material";
 
-const TableShared = ({ headers, data, currentPage }) => {
+const TableShared = ({ headers, data, currentPage, onEdit, onDelete }) => {
   const [dataTableFilter, setDataTableFilter] = useState(data);
   const [itemsPaginator, setItemsPaginator] = useState(5);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleChangePage = (event,newPage) => {
-    if(false){
-      console.log(event)
-    }
+  const handleChangePage = (event, newPage) => {
+    console.log(event)
+
     setPage(newPage);
   };
 
@@ -27,9 +28,9 @@ const TableShared = ({ headers, data, currentPage }) => {
   }, [page]);
 
   const HandleUpdateTableChangePage = () => {
-    let indexInicio = page * rowsPerPage;
-    let indexFinal = indexInicio + rowsPerPage;
-    let filterData = data.slice(indexInicio, indexFinal);
+    let startIndex = page * rowsPerPage;
+    let endIndex = startIndex + rowsPerPage;
+    let filterData = data.slice(startIndex, endIndex);
     setItemsPaginator(data.length);
     setDataTableFilter([...filterData]);
   };
@@ -52,14 +53,20 @@ const TableShared = ({ headers, data, currentPage }) => {
     <div className="table__root">
       <div className="shared_table__root">
         <div className="headers">
-          {headers.map((header) => (
-            <div className="header__title">{header}</div>
+          {headers.map((header, i) => (
+            <div className="header__title" key={i}>{header}</div>
           ))}
         </div>
         {currentPage === "Clients" ? (
           <ClientsRows data={dataTableFilter} />
         ) : null}
-        {currentPage === "Appointment" ? <AppointmentRows /> : null}
+        {currentPage === "Appointment" ? (
+          <AppointmentRows 
+            data={dataTableFilter}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ) : null}
         {/* Paginador */}
         <section className="section-paginador-table">
           <TablePagination
@@ -77,5 +84,13 @@ const TableShared = ({ headers, data, currentPage }) => {
     </div>
   );
 };
+
+TableShared.propTypes = {
+  data: PropTypes.array,
+  headers: PropTypes.arrayOf(PropTypes.string),
+  currentPage: PropTypes.oneOf(["Clients", "Appointment"]),
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+}
 
 export default TableShared;
