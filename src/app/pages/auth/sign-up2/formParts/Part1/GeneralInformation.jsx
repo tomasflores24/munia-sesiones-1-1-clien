@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import "./GeneralInformationStyle.scss";
 import {
   TextField,
@@ -15,8 +15,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { setParts } from "../../../../../redux/slices/registerSlice/registerSlice";
+import { UserTypes } from "../../../../../utils/registerUserType";
 
-const GeneralInformation = ({ step, setStep }) => {
+// eslint-disable-next-line react/prop-types
+const GeneralInformation = ({ step, setStep, userType }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [imgSrc, setImgSrc] = useState("");
   const dispatch = useDispatch();
@@ -66,7 +68,6 @@ const GeneralInformation = ({ step, setStep }) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -88,7 +89,14 @@ const GeneralInformation = ({ step, setStep }) => {
         },
       })
     );
-    setStep(step + 1);
+
+    if (userType !== UserTypes.user) {
+      setStep(step + 1);
+      return;
+    }
+
+    // TODO: Registrar user
+    console.log({ data, userType });
   };
 
   return (
@@ -192,7 +200,7 @@ const GeneralInformation = ({ step, setStep }) => {
           onClick={() => handleSubmit(customHandleSubmit)()}
           className={isValid ? "submit_btn" : "submit_btn disabled"}
         >
-          Siguiente
+          {userType !== UserTypes.user ? "Siguiente" : "Registrarse"}
         </button>
       </div>
     </section>

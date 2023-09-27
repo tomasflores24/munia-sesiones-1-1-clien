@@ -40,6 +40,11 @@
         padding: 20px 20px;
         text-align: center;
         background-color: #d9d9d9;
+        &.main__step {
+          background-color: #E2D4BB;
+          font-weight: 700;
+          font-size: 20px;
+        }
       }
       .selected {
         background-color: #9c6d61;
@@ -57,16 +62,20 @@
         background-color: #9c6d61;
         color: #fff;
         width: 100%;
-        padding: 10px 30px;
+        padding: 10px 20px;
         border-radius: 16px;
         border: none;
+        text-transform: capitalize;
+        font-weight: 700;
       }
       .back_btn {
         margin-top: 20px;
         background-color: #e2d4bb;
-        color: #fff;
+        color: #000;
+        text-transform: capitalize;
+        font-weight: 700;
         width: 100%;
-        padding: 10px 30px;
+        padding: 10px 20px;
         border-radius: 16px;
         border: none;
       }

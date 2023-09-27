@@ -28,6 +28,7 @@ const registerSlice = createSlice({
       name: "",
       file: null,
     },
+    services: []
   },
   reducers: {
     setParts: (state, { payload }) => {

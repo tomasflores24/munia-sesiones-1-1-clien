@@ -1,0 +1,76 @@
+.practiceAndServices__root {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   padding: 0 3rem 3rem 3rem;
+   width: 100%;
+
+   .practiceAndServices__topWrapper {
+      .practiceAndServices__title {
+         color: #00000099;
+         font-size: 20px;
+         text-align: center;
+      }
+      .practiceAndService__multiselect {
+         padding: 1rem;
+         display: flex;
+         justify-content: center;
+         .multiselect__container {
+            width: 80%;
+            max-width: 480px;
+            outline-color: #00000080;
+            .label {
+               color: #000000;
+               font-weight: 600;
+               font-size: 20px;
+               background-color: #fff;
+               padding: 0 .3rem;
+               margin-bottom: -5px;
+            }
+            .select__input {
+               border-radius: 15px;
+               border-color: #00000080;
+
+               &:focus {
+                  border-color: #00000080;
+               }
+            }
+         }
+      }
+   }
+   .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+         margin-top: 0 !important;
+         flex-basis: 0;
+      }
+      .wrapper__term_of_use {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         .term_of_use {
+            display: flex;
+            align-items: center;
+            gap: .2rem;
+            flex: 1;
+            justify-content: center;
+            p {
+               color: #0000004A;
+               font-weight: 600;
+               text-wrap: nowrap;
+               span {
+                  color: #000000;
+                  text-decoration: underline;
+               }
+            }
+         }
+         .error {
+            color: #f72c2c;
+            font-size: 14px;
+         }
+      }
+   }
+}
