@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from "react";
 import { MenuProps } from "./multiselect.utils";
 import { useGetServices } from "../../../../../hooks/Register/useServices";
 import { setParts } from "../../../../../redux/slices/registerSlice/registerSlice";
+import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner";
 
 const PracticesAndServices = ({ step, setStep }) => {
   const [selectedServices, setSelectedServices] = useState([]);
@@ -62,8 +63,9 @@ const PracticesAndServices = ({ step, setStep }) => {
         </h2>
 
         <div className="practiceAndService__multiselect">
-          {isLoading && <div>Fetching services.</div>}
-          {isSuccess && (
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : isSuccess && !isLoading ? (
             <FormControl className="multiselect__container">
               <InputLabel id="mutiple-select-label" className="label">
                 Servicios
@@ -103,7 +105,7 @@ const PracticesAndServices = ({ step, setStep }) => {
                 ))}
               </Select>
             </FormControl>
-          )}
+          ) : null}
         </div>
       </div>
 
