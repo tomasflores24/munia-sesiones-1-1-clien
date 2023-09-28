@@ -5,8 +5,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PeopleIcon from "@mui/icons-material/People";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import PsychologyIcon from "@mui/icons-material/Psychology";
-import SmsIcon from '@mui/icons-material/Sms';
-import WorkIcon from '@mui/icons-material/Work';
+import SmsIcon from "@mui/icons-material/Sms";
+import WorkIcon from "@mui/icons-material/Work";
 
 export const buttonDataProfessionals = [
   {
@@ -36,8 +36,8 @@ export const buttonDataProfessionals = [
     title: "Estadisticas",
     icon: <AnalyticsIcon style={{ fontSize: "30px" }} />,
     redirect: "statistics",
-  }
-]
+  },
+];
 
 export const buttonDataAdmin = [
   {
@@ -67,6 +67,7 @@ export const buttonDataAdmin = [
   {
     title: "Proveedores",
     icon: <PsychologyIcon style={{ fontSize: "30px" }} />,
+    redirect: "providers",
   },
   {
     title: "Comentarios",
@@ -75,8 +76,8 @@ export const buttonDataAdmin = [
   {
     title: "Servicios",
     icon: <WorkIcon style={{ fontSize: "30px" }} />,
-  }
-]
+  },
+];
 
 export const buttonDataCompanies = [
   {
@@ -101,8 +102,8 @@ export const buttonDataCompanies = [
   {
     title: "Membresías",
     icon: <SettingsIcon style={{ fontSize: "30px" }} />,
-  }
-]
+  },
+];
 
 export const buttonDataCollaborators = [
   {
@@ -123,5 +124,5 @@ export const buttonDataCollaborators = [
   {
     title: "Profesionales",
     icon: <PsychologyIcon style={{ fontSize: "30px" }} />,
-  }
-]
+  },
+];
