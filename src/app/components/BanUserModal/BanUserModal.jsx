@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import "./BanUserModalStyle.scss";
 import { useState } from "react";
 
-const BanUserModal = ({ handleModal }) => {
+const BanUserModal = ({ handleModal, onDelete, isLoading }) => {
   const [message, setMessage] = useState("");
 
   const onConfirm = () => {
-    console.log(message);
+    onDelete(message);
   };
 
   return (
@@ -35,8 +35,12 @@ const BanUserModal = ({ handleModal }) => {
             />
           </section>
 
-          <button onClick={onConfirm} className="modal__btn">
-            Confirmar
+          <button
+            onClick={onConfirm}
+            className="modal__btn"
+            disabled={isLoading}
+          >
+            {isLoading ? "Eliminando ..." : "Confirmar"}
           </button>
         </div>
       </div>
@@ -46,6 +50,8 @@ const BanUserModal = ({ handleModal }) => {
 
 BanUserModal.propTypes = {
   handleModal: PropTypes.func,
+  onDelete: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default BanUserModal;
