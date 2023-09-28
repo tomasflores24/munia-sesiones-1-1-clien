@@ -1,6 +1,8 @@
 import React from "react";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
+import { useQuery } from "react-query";
 
 const TortaGraphicGender = () => {
   const dataTorta = [
@@ -11,22 +13,35 @@ const TortaGraphicGender = () => {
 
   const COLORS = ["#845f54", "#74635e", "#4d322b", "#AE7A6C"];
 
-  const [category, setCategory] = React.useState('');
-  
+  const [category, setCategory] = React.useState("Psicologia");
+
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
 
-  const [service, setService] = React.useState('');
-  
+  const [service, setService] = React.useState("");
+
   const handleChangeService = (event) => {
     setService(event.target.value);
   };
 
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
+
+  const { data: services, isSucess } = useQuery(
+    ["getAllServices"],
+    StatisticsServices.getAllServices
+  );
+
   return (
     <div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Categorías</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">
+          Categorías
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -34,15 +49,20 @@ const TortaGraphicGender = () => {
           onChange={handleChangeCategory}
           label="Category"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
+          {categories?.data.allCategories &&
+            categories.data.allCategories !== undefined &&
+            categories.data.allCategories.length > 0 &&
+            categories.data.allCategories.map((category) => (
+              <MenuItem key={category.id} value={category.name}>
+                <em>{category.name}</em>
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Servicios</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">
+          Servicios
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -50,11 +70,13 @@ const TortaGraphicGender = () => {
           onChange={handleChangeService}
           label="Service"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
+          {services?.data.map((el) => {
+            return (
+              <MenuItem key={el.serviceName} value={el.serviceName}>
+                <em>{el.serviceName}</em>
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
       <PieChart width={400} height={300}>

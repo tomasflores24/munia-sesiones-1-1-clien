@@ -1,6 +1,8 @@
 import React from "react";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useQuery } from "react-query";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 
 const TortaGraphicAll = () => {
   const dataTorta = [
@@ -11,11 +13,22 @@ const TortaGraphicAll = () => {
 
   const COLORS = ["#845f54", "#74635e", "#4d322b", "#AE7A6C"];
 
-  const [option, setOption] = React.useState('');
-  
+  const [option, setOption] = React.useState("Psicologia");
+
   const handleChangeOption = (event) => {
     setOption(event.target.value);
   };
+
+  // const {
+  //   data: categories,
+  //   error,
+  //   isLoading,
+  // } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
+
+  const { data: users } = useQuery(
+    "getAllUsers",
+    StatisticsServices.getAllUsers
+  );
 
   return (
     <div>
@@ -28,10 +41,15 @@ const TortaGraphicAll = () => {
           onChange={handleChangeOption}
           label="Option"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Map Options</MenuItem>
+          <MenuItem value={10}>Todos</MenuItem>
+          {/* {users?.data.statistics.data.map((user) => (
+            <MenuItem
+              key={user.data.statistics.data}
+              value={user.data.statistics.data}
+            >
+              <em>{user.data.statistics.data}</em>
+            </MenuItem>
+          ))} */}
         </Select>
       </FormControl>
       <PieChart width={400} height={300}>

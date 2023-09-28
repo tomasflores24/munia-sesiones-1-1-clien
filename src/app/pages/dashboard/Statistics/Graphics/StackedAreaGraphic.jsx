@@ -10,7 +10,8 @@ import {
   Legend,
 } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
+import { useQuery } from "react-query";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 const data = [
   { time: "2023-01-01", uv: 4000, pv: 2400, amt: 2400 },
   { time: "2024-02-01", uv: 3000, pv: 1398, amt: 2210 },
@@ -35,11 +36,18 @@ const StackedAreaGraphics = () => {
     tickCount = 5; // Show around 5 ticks for years
   }
 
-  const [option, setOption] = React.useState('');
-  
+  const [option, setOption] = React.useState("");
+
   const handleChangeOption = (event) => {
     setOption(event.target.value);
   };
+
+  const { data: users } = useQuery(
+    "getAllUsers",
+    StatisticsServices.getAllUsers
+  );
+
+  // console.log(users.data.statistics.data.Colaborador);
 
   return (
     <div>
@@ -52,13 +60,12 @@ const StackedAreaGraphics = () => {
           onChange={handleChangeOption}
           label="Option"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Map Options</MenuItem>
+          <MenuItem value="Colaborador">Colaborador</MenuItem>
+          <MenuItem value="Empresa">Empresa</MenuItem>
+          <MenuItem value="Colaborador">Profesional</MenuItem>
         </Select>
       </FormControl>
-      <div style={{m:1 , display: 'flex', flexDirection: 'row' }}>
+      <div style={{ m: 1, display: "flex", flexDirection: "row" }}>
         <p>Seleccione la escala de tiempo : </p>
         <select value={timeScale} onChange={handleTimeScaleChange}>
           <option value="day">Día</option>

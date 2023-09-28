@@ -1,45 +1,58 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { useQuery } from "react-query";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 
 const RadarGraphic = () => {
-  const dataRadar = [
-    {
-      name: "Higiene del Sueño",
-      value: 8,
-    },
-    {
-      name: "Gestión de la Ansiedad",
-      value: 8,
-    },
-    {
-      name: "Mindfulness",
-      value: 7,
-    },
-    {
-      name: "Relaciones de Pareja",
-      value: 5,
-    },
-    {
-      name: "Gestión de las Adicciones",
-      value: 7,
-    },
-    {
-      name: "Gestión Emocional",
-      value: 9.2,
-    },
-    {
-      name: "Gestión del Duelo",
-      value: 4,
-    },
-    {
-      name: "Gestión del Estrés",
-      value: 7,
-    },
-  ];
+  const {
+    data: categories,
+    error,
+    isLoading,
+  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
 
-  const [category, setCategory] = React.useState('');
-  
+  const { data: services, isSucess } = useQuery(
+    ["getAllServices"],
+    StatisticsServices.getAllServices
+  );
+
+  // const dataRadar = [
+  //   {
+  //     name: "Higiene del Sueño",
+  //     value: 10,
+  //   },
+  //   {
+  //     name: "Gestión de la Ansiedad",
+  //     value: 4,
+  //   },
+  // {
+  //   name: "Mindfulness",
+  //   value: 0,
+  // },
+  // {
+  //   name: "Relaciones de Pareja",
+  //   value: 0,
+  // },
+  // {
+  //   name: "Gestión de las Adicciones",
+  //   value: 0,
+  // },
+  // {
+  //   name: "Gestión Emocional",
+  //   value: 0,
+  // },
+  // {
+  //   name: "Gestión del Duelo",
+  //   value: 0,
+  // },
+  // {
+  //   name: "Gestión del Estrés",
+  //   value: 0,
+  // },
+  // ];
+
+  const [category, setCategory] = React.useState("todos");
+
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
@@ -47,7 +60,9 @@ const RadarGraphic = () => {
   return (
     <div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Categorías</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">
+          Categorías
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -55,30 +70,25 @@ const RadarGraphic = () => {
           onChange={handleChange}
           label="Age"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
+          <MenuItem value={"todos"}>Todos</MenuItem>
+
+          {categories &&
+            categories?.data.allCategories !== undefined &&
+            categories.data.allCategories.length > 0 &&
+            categories.data.allCategories.map((category) => (
+              <MenuItem key={category.id} value={category.name}>
+                <em>{category.name}</em>
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
-        <RadarChart
-          cx={200}
-          cy={150}
-          outerRadius={120}
-          width={410}
-          height={300}
-          data={dataRadar}
-        >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="name" />
-          <Radar
-            dataKey="value"
-            stroke="#AE7A6C"
-            fill="#AE7A6C"
-            fillOpacity={0.6}
-          />
-        </RadarChart>
+      <BarChart width={400} height={300} data={services?.data}>
+        <XAxis dataKey="serviceName" />
+        <YAxis />
+        <CartesianGrid stroke="#ae7a6c8f" />
+        <Tooltip />
+        <Bar dataKey="count" fill="#AE7A6C" />
+      </BarChart>
     </div>
   );
 };
