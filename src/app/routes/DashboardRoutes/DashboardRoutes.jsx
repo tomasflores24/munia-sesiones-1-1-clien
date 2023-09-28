@@ -1,14 +1,15 @@
-import { Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from '../../pages/dashboard/home/Home';
-import Configuration from '../../pages/dashboard/configuration/Configuration';
-import Clients from '../../pages/dashboard/clients/Clients';
-import UserProfiles from '../../pages/dashboard/userProfile/UserProfiles';
-import Statistics from '../../pages/dashboard/Statistics/Statistics';
-import LayoutDashboard from '../../pages/dashboard/Layout/LayoutDashboard';
-import Diary from '../../pages/dashboard/appointment/Appointment';
-import Memberships from '../../pages/dashboard/memberships/Memberships';
-import Appointment from '../../pages/dashboard/appointment/Appointment';
+import { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "../../pages/dashboard/home/Home";
+import Configuration from "../../pages/dashboard/configuration/Configuration";
+import Clients from "../../pages/dashboard/clients/Clients";
+import UserProfiles from "../../pages/dashboard/userProfile/UserProfiles";
+import Statistics from "../../pages/dashboard/Statistics/Statistics";
+import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
+import Diary from "../../pages/dashboard/appointment/Appointment";
+import Memberships from "../../pages/dashboard/memberships/Memberships";
+import Appointment from "../../pages/dashboard/appointment/Appointment";
+import Providers from "../../pages/dashboard/providers/Providers";
 
 const DashboardRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const DashboardRoutes = () => {
           <Route path="/diary" element={<Appointment />} />
           <Route path="/profile" element={<Diary />} />
           <Route path="/userProfile" element={<UserProfiles />} />
+          <Route path="/providers" element={<Providers />} />
         </Routes>
       </LayoutDashboard>
     </Suspense>
