@@ -84,6 +84,7 @@ const Collaborators = () => {
           handleModal={() => setShowDeleteModal(false)}
           onDelete={onDelete}
           isLoading={isLoadingDelete}
+          title="Dar de baja collaborador"
         />
       )}
       {showCreateModal && (

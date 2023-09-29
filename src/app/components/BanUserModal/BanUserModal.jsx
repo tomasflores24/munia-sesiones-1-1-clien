@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./BanUserModalStyle.scss";
 import { useEffect, useRef, useState } from "react";
 
-const BanUserModal = ({ handleModal, onDelete, isLoading }) => {
+const BanUserModal = ({ handleModal, onDelete, isLoading, title }) => {
   const [message, setMessage] = useState("");
   const modalRef = useRef(null);
 
@@ -22,12 +22,12 @@ const BanUserModal = ({ handleModal, onDelete, isLoading }) => {
     <div className="modal__overlay" ref={modalRef}>
       <div className="modal__root">
         <CloseIcon className="closeIcon" onClick={() => handleModal(false)} />
-        <h2 className="title">Dar de baja proveedor</h2>
+        <h2 className="title">{title}</h2>
         <div className="modal__container">
           <section className="modal__body">
             <p className="subtitle">
-              Esta accion es irreversibley eliminara al proveedor de nuestra
-              base de datos cancelando todas sus citas agendadas
+              Esta accion es irreversibley eliminara al {title.toLowerCase()} de
+              nuestra base de datos cancelando todas sus citas agendadas
             </p>
 
             <p className="label">Breve descripcion de la baja</p>
@@ -59,6 +59,7 @@ BanUserModal.propTypes = {
   handleModal: PropTypes.func,
   onDelete: PropTypes.func,
   isLoading: PropTypes.bool,
+  title: PropTypes.string.isRequired,
 };
 
 export default BanUserModal;
