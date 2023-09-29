@@ -9,6 +9,7 @@ import {
   IconButton,
   FormHelperText,
 } from "@mui/material";
+import UploadIcon from "@mui/icons-material/Upload";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -107,7 +108,7 @@ const GeneralInformation = ({ step, setStep, userType }) => {
         onSubmit={handleSubmit(customHandleSubmit)}
       >
         <div className="img__container">
-          <div className="upload">
+          <label className="upload" htmlFor="uploadImg">
             <img
               src={
                 imgSrc
@@ -117,8 +118,13 @@ const GeneralInformation = ({ step, setStep, userType }) => {
               alt=""
               id="profile"
             />
+            <div className="upload__label">
+                <UploadIcon className="icon" />
+                <p>Subir imagen</p>
+              </div>
             <div className="round">
               <input
+                id="uploadImg"
                 type="file"
                 accept=".png"
                 {...register("profilePic", {
@@ -136,7 +142,7 @@ const GeneralInformation = ({ step, setStep, userType }) => {
                 })}
               />
             </div>
-          </div>
+          </label>
           {errors?.profilePic && <p>{errors?.profilePic?.message}</p>}
         </div>
         <div className="text_inputs">
