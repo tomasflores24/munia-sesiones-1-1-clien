@@ -1,0 +1,152 @@
+.addCollaboratorModal__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  .addCollaboratorModal__root {
+    position: relative;
+    inset: 0;
+    z-index: 100;
+    width: 100%;
+    max-width: 640px;
+    background-color: white;
+    border-radius: 2rem;
+    padding: 2.2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    .closeIcon {
+      font-size: 3rem;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+    }
+    .title {
+      font-size: 2rem;
+      text-align: center;
+      font-weight: 600;
+      padding: 2rem;
+      span {
+        color: #00000099;
+      }
+    }
+    .addCollaboratorModal__container {
+      .collaborator__form {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding: .5rem 1rem;
+        gap: 2rem;
+        .img__container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .upload {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #3f0963;
+            display: flex;
+            #profile {
+              object-fit: cover;
+              width: 100%;
+              height: 100%;
+              background-color: #ffff;
+            }
+            .upload__label {
+              position: absolute;
+              bottom: 0;
+              background-color: rgba(75, 75, 75, 0.2);
+              width: 100%;
+              height: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              font-weight: 600;
+              gap: 1rem;
+              .icon {
+                $size: 44px;
+                width: $size;
+                height: $size;
+              }
+            }
+            .round {
+              text-align: center;
+              overflow: hidden;
+              position: absolute;
+              bottom: 10px;
+              input[type="file"] {
+                position: absolute;
+                transform: scale(10);
+                opacity: 0;
+              }
+              input[type="file"]::-webkit-file-upload-button {
+                cursor: pointer;
+              }
+            }
+          }
+          .img_helper {
+            text-align: center;
+            color: #ffff;
+            margin: 5px 4px 0 4px;
+            max-width: 230px;
+            word-wrap: break-word;
+          }
+          @media (max-width: 680px) {
+            width: 100%;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            .img_helper {
+              max-width: none;
+            }
+          }
+        }
+        .input__error {
+          color: #d41b1b;
+        }
+        .text_inputs {
+          display: flex;
+          flex-direction: column;
+          gap: .5rem;
+          .input {
+            width: 100%;
+          }
+        }
+      }
+      .action__buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+    }
+    .addCollaboratorModal__btn {
+      background-color: #9c6d61;
+      color: white;
+      padding: 10px 50px;
+      border-radius: 5rem;
+      box-shadow: 0 2px 5px 0 rgba(75, 75, 75, 0.5);
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(85%);
+      }
+      &.cancel {
+        background-color: #E2D4BB;
+        color: black  ;
+      }
+    }
+  }
+}
