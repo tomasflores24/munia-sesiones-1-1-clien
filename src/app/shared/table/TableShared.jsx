@@ -6,6 +6,7 @@ import ClientsRows from "./components/ClientsRows";
 import AppointmentRows from "./components/AppointmentRows";
 import { TablePagination } from "@mui/material";
 import ProvidersRows from "./components/ProvidersRows";
+import CollaboratorsRows from "./components/CollaboratorsRows";
 
 const TableShared = ({
   headers,
@@ -32,29 +33,21 @@ const TableShared = ({
   };
 
   useEffect(() => {
-    HandleUpdateTableChangePage();
-  }, [page]);
-
-  const HandleUpdateTableChangePage = () => {
-    let startIndex = page * rowsPerPage;
-    let endIndex = startIndex + rowsPerPage;
-    let filterData = data.slice(startIndex, endIndex);
-    setItemsPaginator(data.length);
-    setDataTableFilter([...filterData]);
-  };
-
-  useEffect(() => {
     if (data) {
+      let startIndex = page * rowsPerPage;
+      let endIndex = startIndex + rowsPerPage;
+      let filterData = data.slice(startIndex, endIndex);
       setItemsPaginator(data.length);
-      setDataTableFilter(data);
-      setPage(0);
+      setDataTableFilter([...filterData]);
     }
-  }, [data]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, data]);
 
   useEffect(() => {
     let filterData = data.slice(0, rowsPerPage);
     // Actualiza datos de la tabla
     setDataTableFilter([...filterData]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowsPerPage]);
 
   return (
@@ -80,6 +73,9 @@ const TableShared = ({
         {currentPage === "Providers" ? (
           <ProvidersRows data={dataTableFilter} openModal={openModal} />
         ) : null}
+        {currentPage === "Collaborators" ? (
+          <CollaboratorsRows data={dataTableFilter} openModal={openModal} />
+        ) : null}
         {/* Paginador */}
         <section className="section-paginador-table">
           <TablePagination
@@ -101,8 +97,12 @@ const TableShared = ({
 TableShared.propTypes = {
   data: PropTypes.array.isRequired,
   headers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentPage: PropTypes.oneOf(["Clients", "Appointment", "Providers"])
-    .isRequired,
+  currentPage: PropTypes.oneOf([
+    "Clients",
+    "Appointment",
+    "Providers",
+    "Collaborators",
+  ]).isRequired,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
   openModal: PropTypes.func,
