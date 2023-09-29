@@ -98,6 +98,7 @@ export const buttonDataCompanies = [
   {
     title: "Colaboradores",
     icon: <PeopleIcon style={{ fontSize: "30px" }} />,
+    redirect: "collaborators",
   },
   {
     title: "Membresías",
