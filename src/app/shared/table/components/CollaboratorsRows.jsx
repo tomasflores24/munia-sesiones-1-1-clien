@@ -2,8 +2,6 @@ import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
 
 const CollaboratorsRows = ({ data, openModal }) => {
-  // services colors: text: #00000099,  parent: #D9D9D9
-
   return (
     <>
       <div className="shared_table-body">
@@ -19,16 +17,18 @@ const CollaboratorsRows = ({ data, openModal }) => {
               <Chip label="Servicios" size="small" className="service-type" />
             </div>
             <div className="data-row-tag">
-              <button
-                type="button"
-                onClick={() => {
-                  console.log("asignar sesiones");
-                }}
-                className="action-button"
-              >
-                Dar de baja
-              </button>
-              <p className="sessions_text">Sesiones restantes 20</p>
+              <div className="column_sessions">
+                <button
+                  type="button"
+                  onClick={() => {
+                    console.log("asignar sesiones");
+                  }}
+                  className="addSession_button"
+                >
+                  Asignar sesiones
+                </button>
+                <p className="sessions_text">Sesiones restantes 20</p>
+              </div>
             </div>
             <div className="data-row-tag">
               <div className="comment_wrapper">
@@ -40,11 +40,7 @@ const CollaboratorsRows = ({ data, openModal }) => {
             <div className="data-row-tag data-row-actions">
               <button
                 type="button"
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  console.log("here")
-                  openModal(collaborator.id);
-                }}
+                onClick={() => openModal(collaborator.id)}
                 className="action-button"
               >
                 Dar de baja
