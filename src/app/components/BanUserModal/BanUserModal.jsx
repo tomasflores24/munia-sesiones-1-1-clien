@@ -2,17 +2,24 @@ import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
 
 import "./BanUserModalStyle.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BanUserModal = ({ handleModal, onDelete, isLoading }) => {
   const [message, setMessage] = useState("");
+  const modalRef = useRef(null);
 
   const onConfirm = () => {
     onDelete(message);
   };
 
+  useEffect(() => {
+    if (modalRef) {
+      modalRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   return (
-    <div className="modal__overlay">
+    <div className="modal__overlay" ref={modalRef}>
       <div className="modal__root">
         <CloseIcon className="closeIcon" onClick={() => handleModal(false)} />
         <h2 className="title">Dar de baja proveedor</h2>
