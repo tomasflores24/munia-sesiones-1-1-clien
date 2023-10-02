@@ -28,7 +28,13 @@ const CreateUserModal = ({ open, closeModal }) => {
   };
 
   return (
-    <Dialog open={open} onClose={closeModal} className="createUserModal__root" maxWidth="md">
+    <Dialog
+      open={open}
+      onClose={closeModal}
+      className="createUserModal__root"
+      maxWidth="md"
+      sx={{ "& .MuiDialog-paper": { borderRadius: "25px" } }}
+    >
       <DialogContent>
         <div className="createUserModal__steps">{formDispense()}</div>
       </DialogContent>

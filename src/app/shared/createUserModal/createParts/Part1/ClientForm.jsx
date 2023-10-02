@@ -73,7 +73,7 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
       onSuccess: (e) => {
         const company = e.data;
         setCompanyId(company.id);
-        toast.success("¡Registro exitoso de empresa!");
+        toast.success("¡Registro de empresa exitoso!");
         setStep(2);
       },
       onError: (e) => {
