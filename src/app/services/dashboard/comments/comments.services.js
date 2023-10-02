@@ -1,4 +1,4 @@
-import { HttpRequest } from "../HttpRequest";
+import { HttpRequest } from "../../HttpRequest";
 
 const CommentsServices = {
   getAllRatings: async (keyword, rating, serviceId, date) => {
