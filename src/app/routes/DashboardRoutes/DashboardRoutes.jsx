@@ -6,6 +6,8 @@ import Clients from "../../pages/dashboard/clients/Clients";
 import UserProfiles from "../../pages/dashboard/userProfile/UserProfiles";
 import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
+import Diary from "../../pages/dashboard/diary/Diary";
+import Comments from "../../pages/dashboard/comments/Comments"
 import Diary from "../../pages/dashboard/appointment/Appointment";
 import Memberships from "../../pages/dashboard/memberships/Memberships";
 import Appointment from "../../pages/dashboard/appointment/Appointment";
@@ -24,6 +26,7 @@ const DashboardRoutes = () => {
           <Route path="/diary" element={<Appointment />} />
           <Route path="/profile" element={<Diary />} />
           <Route path="/userProfile" element={<UserProfiles />} />
+          <Route path="/comments" element={<Comments />} />
           <Route path="/providers" element={<Providers />} />
           <Route path="/collaborators" element={<Collaborators />} />
         </Routes>
