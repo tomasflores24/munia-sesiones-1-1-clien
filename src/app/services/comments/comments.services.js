@@ -1,8 +1,32 @@
 import { HttpRequest } from "../HttpRequest";
 
 const CommentsServices = {
-  getAllRatings: async (keyword) =>
-    HttpRequest.get(keyword ? `/rating?keyword=${keyword}` : "/rating"),
+  getAllRatings: async (keyword, rating, serviceId, date) => {
+    let url = `/rating`;
+    const querys = [
+      { name: "keyword", value: keyword },
+      { name: "rating", value: rating },
+      { name: "serviceId", value: serviceId },
+      { name: "date", value: date },
+    ];
+
+    if (!keyword && !rating && !serviceId && !date) {
+      return HttpRequest.get(url);
+    } else {
+      querys.filter((el) => el.value).map((el, index) => {
+        if (index === 0) {
+          url = url + `?${el.name}=${el.value}`
+        } else {
+          url = url + `&${el.name}=${el.value}`
+        }
+      })
+      return HttpRequest.get(url)
+    }
+  },
+  getAllService: async () => {
+    let url = `/service/`;
+    return HttpRequest.get(url)
+  }
 };
 
 export default CommentsServices;

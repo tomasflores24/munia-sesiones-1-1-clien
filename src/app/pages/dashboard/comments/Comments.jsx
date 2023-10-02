@@ -2,105 +2,176 @@ import "./Comments.scss";
 import React, { useEffect, useState } from "react";
 import Comment from "../../../components/Comment/Comment";
 import CommentsServices from "../../../services/comments/comments.services";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
-import arrowFilterIcon from "/assets/arrowFilterIcon.png";
 import { format } from "date-fns";
+import ReplayIcon from '@mui/icons-material/Replay';
+import { IconButton } from "@mui/material";
+import index from './../../auth/index';
+
+const ratingsArray = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
 
 const Comments = () => {
-  const [comments, setComments] = useState([]);
+  const [filters, setFilters] = useState();
+  const [rating, setRating] = useState(0)
+  const [service, setService] = useState()
+  const [date, setDate] = useState()
 
-  const [filters, setFilters] = useState({});
-
-  const { isLoading, data, isSucess, refetch } = useQuery(
+  const { isLoading: ratingsAreLoading, data: ratingsData, refetch: ratingsRefetch } = useQuery(
     ["getAllRatings"],
-    () => CommentsServices.getAllRatings(filters.search)
+    () => CommentsServices.getAllRatings(filters, rating, service, date)
   );
 
-  useEffect(() => {
-    if (data) {
-      setComments(data.data);
-    }
-  }, [data]);
+  const { isLoading: serviceLoading, data: serviceData } = useQuery(
+    ["getAllService"],
+    () => CommentsServices.getAllService()
+  );
 
-  const handleChangeFilters = (e) => {
-    const { value, name } = e.target;
-
-    setFilters({
-      ...filters,
-      [name]: value,
-    });
+  const handleChangeFilters = async (e) => {
+    const { value } = e.target;
+    await setFilters(value);
+    ratingsRefetch();
   };
 
-  console.log(filters);
+  const handleChangeRating = async (e) => {
+    const { value } = e.target;
+    await setRating(value);
+    ratingsRefetch();
+  }
+
+  const handleChangeService = async (e) => {
+    const { value } = e.target;
+    await setService(value);
+    ratingsRefetch();
+  }
+
+  const handleChangeDate = async (e) => {
+    const { value } = e.target;
+    await setDate(value);
+    ratingsRefetch();
+  };
+  console.log(date);
 
   return (
     <div className="rootContainer">
       <div className="commentsSection">
         <div className="commentsTitle">
           <h1>Comentarios de pacientes</h1>
-          <input
-            type="text"
-            name="search"
-            placeholder="search"
-            value={filters.search}
-            onChange={handleChangeFilters}
-            id=""
-          />
-          <button
-            onClick={() => {
-              refetch();
-            }}
-          >
-            buscar
-          </button>
-        </div>
-        <div className="commentsFilters">
-          <div className="filterText">
-            <p>Satisfacción</p>
-          </div>
-          <div className="filterButtonContainer">
-            <button className="filterButton">
-              <img src={arrowFilterIcon} alt="arrowFilterIcon" />
+
+          <div className="commentsSearchBar">
+            <input
+              id=""
+              className="inputSearchBar"
+              type="text"
+              name="fecha"
+              placeholder="Busca comentarios aquí"
+              value={filters}
+              onChange={handleChangeFilters}
+            />
+            <button
+              className="buttonSearchBar"
+              onClick={async () => {
+                  await setFilters("")
+              }}
+            >
+              Buscar
             </button>
           </div>
-          <div className="filterSeparatorLine"></div>
-          <div className="filterText">
-            <p>Fecha</p>
-          </div>
-          <div className="filterButtonContainer">
-            <button className="filterButton">
-              <img src={arrowFilterIcon} alt="arrowFilterIcon" />
-            </button>
-          </div>
-          <div className="filterSeparatorLine"></div>
-          <div className="filterText">
-            <p>Servicio</p>
-          </div>
-          <div className="filterButtonContainer">
-            <button className="filterButton">
-              <img src={arrowFilterIcon} alt="arrowFilterIcon" />
-            </button>
-          </div>
+
         </div>
 
-        <div>
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : data.data.length === 0 ? (
-            <h1>no se encontro la informacion</h1>
-          ) : (
-            comments.map((el, index) => (
-              <Comment
-                username={el.user.name}
-                rating={el.rating}
-                service={el.service.name}
-                commentDate={format(new Date(el.createdAt), "dd/MM/yyyy HH:mm")}
-                commentText={el.comentary}
-              />
-            ))
-          )}
-        </div>
+        {ratingsAreLoading || serviceLoading ? (
+          <LoadingSpinner />
+        ) : !ratingsAreLoading && !serviceLoading ? (
+          <>
+            <div className="commentsFilterContainer">
+              <div className="satisfactionButton">
+                <select
+                  className="satisfactionComment"
+                  value={rating}
+                  onChange={handleChangeRating}
+                >
+                  <option hidden >Satisfacción</option>
+                  {
+                    ratingsArray.map((num, index) => (
+                      <option
+                        key={index}
+                        value={num}
+                      >{num}
+                      </option>
+
+                    ))
+                  }
+
+                </select>
+              </div>
+              <div className="dateButton">
+                <h2 className="dateTitle">Fecha</h2>
+                <input
+                  id="date"
+                  className="dateComment"
+                  name="date"
+                  placeholder="Fecha"
+                  type="date"
+                  value={date}
+                  onChange={handleChangeDate}
+                >
+                </input>
+              </div>
+              <div className="serviceButton">
+                <select
+                  className="serviceComment"
+                  value={service}
+                  onChange={handleChangeService}
+                >
+                  <option hidden>Servicio</option>
+                  {
+                    serviceData?.data?.allServices?.map((ser, index) => (
+                      <option
+                        key={index}
+                        value={ser.id}
+                      >{ser.name}
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
+              <IconButton
+                className="refreshFilters"
+                aria-label="refresh"
+                size="medium"
+                onClick={async () => {
+                  await setFilters()
+                  await setService()
+                  await setRating(0)
+                  await setDate()
+                  ratingsRefetch()
+                }}
+
+              >
+                <ReplayIcon />
+              </IconButton>
+            </div>
+
+
+            {ratingsAreLoading || serviceLoading ? (
+              <LoadingSpinner />
+            ) : (
+              ratingsData?.data?.map((el) => (
+                <Comment
+                  key={el.id}
+                  username={el.user.name}
+                  rating={el.rating}
+                  service={el.service.name}
+                  commentDate={format(new Date(el.createdAt), "dd/MM/yyyy HH:mm")}
+                  commentText={el.comentary}
+                />
+              ))
+            )
+            }
+          </>
+        ) : null
+        }
       </div>
     </div>
   );
