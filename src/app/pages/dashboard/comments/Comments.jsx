@@ -49,7 +49,6 @@ const Comments = () => {
     await setDate(value);
     ratingsRefetch();
   };
-  console.log(date);
 
   return (
     <div className="rootContainer">
