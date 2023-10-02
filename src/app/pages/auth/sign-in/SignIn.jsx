@@ -23,8 +23,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,15 +52,15 @@ const SignIn = () => {
 
   const { isLoading, mutate } = useMutation(["login"], loginServices.login, {
     onSuccess: (e) => {
-      const decoded = jwtDecode(e.data.token);
+      const decoded = jwtDecode(e.data);
 
       dispatch(
         setDataSuccess({
-          token: e.data.token,
+          token: e.data,
           isAuthenticated: true,
           user: {
-            id: decoded.UserId,
-            userTypeId: decoded.UserTypeId,
+            id: decoded.userId,
+            userTypeId: decoded.userTypeId,
             email: decoded.email,
           },
         })
@@ -91,9 +89,7 @@ const SignIn = () => {
   };
 
   const customHandleSubmit = async (data) => {
-    mutate({
-      user: data,
-    });
+    mutate(data)
   };
 
   return (

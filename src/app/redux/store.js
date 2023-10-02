@@ -6,13 +6,13 @@ import AuthSlice from "./slices/authSlice/authSlice";
 import registerSlice from "./slices/registerSlice/registerSlice";
 
 const authPersistConfig = {
-  key: "root",
+  key: "auth",
   storage,
-  whitelist: ["authSlice"], // Aquí debes especificar los campos que deseas persistir
+  whitelist: ["auth"], // Aquí debes especificar los campos que deseas persistir
 };
 
 const rootReducer = combineReducers({
-  AuthSlice: AuthSlice,
+  auth: AuthSlice,
 });
 
 const persistedAuthSlice = persistReducer(authPersistConfig, rootReducer);
