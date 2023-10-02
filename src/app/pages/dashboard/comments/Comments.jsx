@@ -28,8 +28,7 @@ const Comments = () => {
 
   const handleChangeFilters = async (e) => {
     const { value } = e.target;
-    await setFilters(value);
-    ratingsRefetch();
+    setFilters(value);
   };
 
   const handleChangeRating = async (e) => {
@@ -61,7 +60,6 @@ const Comments = () => {
               id=""
               className="inputSearchBar"
               type="text"
-              name="fecha"
               placeholder="Busca comentarios aquí"
               value={filters}
               onChange={handleChangeFilters}
@@ -69,7 +67,7 @@ const Comments = () => {
             <button
               className="buttonSearchBar"
               onClick={async () => {
-                  await setFilters("")
+                  ratingsRefetch();
               }}
             >
               Buscar
@@ -124,7 +122,7 @@ const Comments = () => {
                 >
                   <option hidden>Servicio</option>
                   {
-                    serviceData?.data?.allServices?.map((ser, index) => (
+                    serviceData?.data?.map((ser, index) => (
                       <option
                         key={index}
                         value={ser.id}
@@ -139,6 +137,7 @@ const Comments = () => {
                 aria-label="refresh"
                 size="medium"
                 onClick={async () => {
+                  await setFilters("")
                   await setFilters()
                   await setService()
                   await setRating(0)

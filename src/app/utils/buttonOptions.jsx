@@ -7,6 +7,8 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import SmsIcon from "@mui/icons-material/Sms";
 import WorkIcon from "@mui/icons-material/Work";
+import TextsmsIcon from '@mui/icons-material/Textsms';
+
 
 export const buttonDataProfessionals = [
   {
@@ -47,8 +49,8 @@ export const buttonDataAdmin = [
   },
   {
     title: "Comments",
-    icon: <HomeIcon style={{ fontSize: "30px" }} />,
-    redirect: "/comments",
+    icon: <TextsmsIcon style={{ fontSize: "30px" }} />,
+    redirect: "comments",
   },
   {
     title: "Agenda",

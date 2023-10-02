@@ -1,5 +1,5 @@
 import ProtectedRoutes from "./guards/ProtectedRoutes";
-// import PublicRouter from "./guards/PublicRouter";
+import PublicRouter from "./guards/PublicRouter";
 import DashboardRoutes from "./DashboardRoutes/DashboardRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "../pages/auth/sign-in/SignIn";
@@ -17,8 +17,12 @@ const AppRouter = () => {
             </ProtectedRoutes>
           }
         />
-        <Route path="/" element= {<SignIn/>} />
-        <Route path="/register" element={<SignUp2 />} />
+        <Route path="/" element= {
+        <PublicRouter>
+          <SignIn/>
+        </PublicRouter>
+       } />
+        <Route path="/register" element={<PublicRouter><SignUp2 /></PublicRouter>} />
       </Routes>
     </Router>
   );
