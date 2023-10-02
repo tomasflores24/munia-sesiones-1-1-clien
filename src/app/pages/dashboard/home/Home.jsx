@@ -12,12 +12,12 @@ const Home = () => {
       <div className='AllHome'>
         <div className='HomeContainer '>
           <div className='ContainerCards'>
-            <Card to='/admin/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
+            <Card to='/dashboard/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
             <Card to='/dashboard/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='.-' />
-            <Card to='/admin/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='37' />
-            <Card to='/admin/comments' imgComponent={<TextsmsIcon className='Img' />} title='Comentarios' variables='1130' />
-            <Card to='/admin/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='5' />
-            <Card to='/admin/memberships' imgComponent={<SettingsIcon className='Img' />} title='Membresías' variables='.-' />
+            <Card to='/dashboard/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='37' />
+            <Card to='/dashboard/comments' imgComponent={<TextsmsIcon className='Img' />} title='Comentarios' variables='1130' />
+            <Card to='/dashboard/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='5' />
+            <Card to='/dashboard/memberships' imgComponent={<SettingsIcon className='Img' />} title='Membresías' variables='.-' />
           </div>
         </div>
       </div>

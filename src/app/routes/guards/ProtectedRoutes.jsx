@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoutes = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.auth.AuthSlice);
+  const {isAuthenticated} = useSelector((state) => state.auth.auth);
+ 
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }

@@ -10,7 +10,7 @@ const ADMIN = 4;
 
 export default function SideBar() {
   const [openSidebar, setOpenSidebar] = useState(false);
-  const user = useSelector((state) => state.auth.AuthSlice.user)
+  const user = useSelector((state) => state.auth.auth.user)
 
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
