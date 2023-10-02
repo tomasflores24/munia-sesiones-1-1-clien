@@ -7,7 +7,7 @@ const CommentsServices = {
       { name: "keyword", value: keyword },
       { name: "rating", value: rating },
       { name: "serviceId", value: serviceId },
-      { name: "date", value: date },
+      { name: "fecha", value: date },
     ];
 
     if (!keyword && !rating && !serviceId && !date) {
