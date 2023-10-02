@@ -1,7 +1,7 @@
 import "./Comments.scss";
 import React, { useEffect, useState } from "react";
 import Comment from "../../../components/Comment/Comment";
-import CommentsServices from "../../../services/comments/comments.services";
+import CommentsServices from "../../../services/dashboard/comments/comments.services";
 import { useQuery } from "react-query";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import { format } from "date-fns";
