@@ -1,5 +1,5 @@
 import "./Comments.scss";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Comment from "../../../components/Comment/Comment";
 import CommentsServices from "../../../services/dashboard/comments/comments.services";
 import { useQuery } from "react-query";
@@ -7,7 +7,6 @@ import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import { format } from "date-fns";
 import ReplayIcon from '@mui/icons-material/Replay';
 import { IconButton } from "@mui/material";
-import index from './../../auth/index';
 
 const ratingsArray = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
 
