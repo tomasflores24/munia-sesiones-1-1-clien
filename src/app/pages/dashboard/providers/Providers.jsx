@@ -75,6 +75,7 @@ const Providers = () => {
           handleModal={() => setShowModal(false)}
           onDelete={onDelete}
           isLoading={isLoadingDelete}
+          title="Dar de baja proveedor"
         />
       )}
     </div>
