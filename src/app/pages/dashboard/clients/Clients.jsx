@@ -18,7 +18,7 @@ const clientHeaders = [
 const Clientes = () => {
   const [openClientModal, setOpenClientModal] = useState(false);
 
-  const { isLoading, data, isSucess } = useQuery(
+  const { isLoading, data } = useQuery(
     ["getAllClients"],
     ClientsServices.getAllClients
   );
@@ -30,10 +30,19 @@ const Clientes = () => {
 
   const handleCloseModal = () => setOpenClientModal(false);
 
-  // console.log(isLoading ? data : data.data.allCompanies);
   return (
     <div className="clients__root">
-      <h1>Clientes</h1>
+      <header className="clients__header">
+        <h1>Clientes</h1>
+        {/**TODO: search input */}
+        <button
+          type="button"
+          className="btn__newClient"
+          onClick={() => setOpenClientModal(true)}
+        >
+          Nuevo Cliente
+        </button>
+      </header>
       {isLoading ? (
         <LoadingSpinner />
       ) : (

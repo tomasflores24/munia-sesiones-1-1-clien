@@ -1,0 +1,44 @@
+
+.selectMembership__root {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 600;
+    padding: 2rem;
+    span {
+      color: #00000099;
+    }
+  }
+  .selectMembership__container {
+    display: flex;
+    gap: 2rem;
+  }
+  .action__buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .selectMembership__btn {
+    background-color: #9c6d61;
+    color: white;
+    padding: 10px 50px;
+    border-radius: 5rem;
+    box-shadow: 0 2px 5px 0 rgba(75, 75, 75, 0.5);
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      filter: brightness(85%);
+    }
+    &.cancel {
+      background-color: #E2D4BB;
+      color: black  ;
+    }
+  }
+}
