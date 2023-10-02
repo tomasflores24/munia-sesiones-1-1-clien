@@ -22,7 +22,7 @@ const AppRouter = () => {
           <SignIn/>
         </PublicRouter>
        } />
-        <Route path="/register" element={<PublicRouter><SignUp2 /><PublicRouter/>} />
+        <Route path="/register" element={<PublicRouter><SignUp2 /></PublicRouter>} />
       </Routes>
     </Router>
   );
