@@ -23,7 +23,7 @@ const CommentsServices = {
       return HttpRequest.get(url)
     }
   },
-  getAllService: async () => HttpRequest.get(`/service),
+  getAllService: async () => HttpRequest.get(`/service`),
 };
 
 export default CommentsServices;
