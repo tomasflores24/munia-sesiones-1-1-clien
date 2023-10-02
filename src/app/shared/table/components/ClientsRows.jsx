@@ -2,7 +2,6 @@ import React from "react";
 import { format } from "date-fns";
 
 const ClientsRows = ({ data }) => {
-  console.log(new Date(data[0].user.createdAt));
   return (
     <div className="shared_table-body">
       {data.map((client, index) => (

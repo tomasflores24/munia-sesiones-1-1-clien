@@ -35,21 +35,22 @@ const SignIn = () => {
     return yup.object({
       email: yup
         .string()
-        .required("Correo es requerido")
+        .required('Correo es requerido')
         .matches(
           /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|([a-zA-Z\-0-9]+\.[a-zA-Z]{2,}))$/,
-          "Ingrese una dirección de correo electrónico válida"
+          'Ingrese una dirección de correo electrónico válida'
         ),
       password: yup
         .string()
-        .required("La contraseña es requerida")
-        .min(5, "La contraseña tiene que ser de minimo 5 caracteres"),
+        .required('La contraseña es requerida')
+        .min(5, 'La contraseña tiene que ser de minimo 5 caracteres'),
     });
   }, []);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
 
   const { isLoading, mutate } = useMutation(["login"], loginServices.login, {
     onSuccess: (e) => {
@@ -81,7 +82,7 @@ const SignIn = () => {
     handleSubmit,
     register,
   } = useForm({
-    mode: "onTouched",
+    mode: 'onTouched',
     resolver: yupResolver(validationSchema),
   });
   const handleGoogle = (event) => {

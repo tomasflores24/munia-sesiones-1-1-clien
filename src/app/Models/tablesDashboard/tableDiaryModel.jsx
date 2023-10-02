@@ -33,4 +33,16 @@ export const informations = [
     serviceType: "Nutrición y/o trastornos alimenticios",
     appointmentStatus: "Confirmado",
   },
+  {
+    patients: "Juan Pablo Osudar",
+    dateAndTime: "Mie. 16 - 08 - 2023",
+    serviceType: "Nutrición y/o trastornos alimenticios",
+    appointmentStatus: "Confirmado",
+  },
+  {
+    patients: "Juan Pablo Osudar",
+    dateAndTime: "Mie. 16 - 08 - 2023",
+    serviceType: "Nutrición y/o trastornos alimenticios",
+    appointmentStatus: "Confirmado",
+  },
 ];
