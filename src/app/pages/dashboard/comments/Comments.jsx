@@ -139,9 +139,9 @@ const Comments = () => {
                 onClick={async () => {
                   await setFilters("")
                   await setFilters()
-                  await setService()
+                  await setService(0)
                   await setRating(0)
-                  await setDate()
+                  await setDate(0)
                   ratingsRefetch()
                 }}
 
