@@ -1,22 +1,19 @@
 import { useState } from "react";
-import Buttons from "./commonSideBar/buttons";
-import { buttonDataAdmin, buttonDataUser } from "../../utils/buttonOptions";
-import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Drawer, IconButton } from "@mui/material";
 import "./SideBar.scss";
+import { useSelector } from "react-redux";
+import NavItems from "./commonSideBar/NavItems";
+import muniaLogo from '/assets/muniaLogo.png'
+
+const ADMIN = 4;
 
 export default function SideBar() {
-  const type = "admin";
-  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(false);
+  const user = useSelector((state) => state.auth.auth.user)
 
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
-  };
-
-  const redirect = (type, redirect) => {
-    navigate("/" + "dashboard" + redirect);
   };
 
   return (
@@ -38,10 +35,10 @@ export default function SideBar() {
       </IconButton>
       <Drawer anchor="left" open={openSidebar} onClose={toggleSidebar}>
         <nav className="container-responsive">
-          {type === "admin" ? (
+          {user.userTypeId === ADMIN ? (
             <header className="admin-data">
               <img
-                src="/public/assets/muniaLogo.png"
+                src={muniaLogo}
                 className="img"
                 alt="Logo"
               />
@@ -49,7 +46,7 @@ export default function SideBar() {
           ) : (
             <header className="profile-data">
               <img
-                src="../../../assets/noImageUser.png"
+                src={muniaLogo}
                 className="img"
                 alt="Profile"
               />
@@ -57,68 +54,28 @@ export default function SideBar() {
             </header>
           )}
           <section className="navigation-buttons">
-            {type === "admin"
-              ? buttonDataAdmin.map((e) => (
-                  <Buttons
-                    className="saidBarButtons"
-                    title={e?.title}
-                    icon={e?.icon}
-                    key={e?.title}
-                    selected={e?.selected}
-                    onClick={() => redirect(type, e?.redirect)}
-                  />
-                ))
-              : buttonDataUser.map((e) => (
-                  <Buttons
-                    className="saidBarButtons"
-                    title={e?.title}
-                    icon={e?.icon}
-                    key={e?.title}
-                    selected={e?.selected}
-                    onClick={() => redirect(type, e?.redirect)}
-                  />
-                ))}
+            <NavItems userTypeId={user.userTypeId} />
           </section>
         </nav>
       </Drawer>
       <nav className="container">
-          {type === "admin" ? (
-            <header className="admin-data">
-              <img
-                src="/public/assets/muniaLogo.png"
-                className="img"
-                alt="Logo"
-              />
-            </header>
-          ) : (
-            <header className="profile-data">
-              <img src="assets/Ellipse 7.svg" className="img" alt="Profile" />
-              <h2 className="user-data">María Agustina Lahitou</h2>
-            </header>
-          )}
-          <section className="navigation-buttons">
-            {type === "admin"
-              ? buttonDataAdmin.map((e) => (
-                  <Buttons
-                    className="saidBarButtons"
-                    title={e?.title}
-                    icon={e?.icon}
-                    key={e?.title}
-                    selected={e?.selected}
-                    onClick={() => redirect(type, e?.redirect)}
-                  />
-                ))
-              : buttonDataUser.map((e) => (
-                  <Buttons
-                    className="saidBarButtons"
-                    title={e?.title}
-                    icon={e?.icon}
-                    key={e?.title}
-                    selected={e?.selected}
-                    onClick={() => redirect(type, e?.redirect)}
-                  />
-                ))}
-          </section>
+        {user.userTypeId === ADMIN ? (
+          <header className="admin-data">
+            <img
+              src={muniaLogo}
+              className="img"
+              alt="Logo"
+            />
+          </header>
+        ) : (
+          <header className="profile-data">
+            <img src={muniaLogo} className="img" alt="Profile" />
+            <h2 className="user-data">María Agustina Lahitou</h2>
+          </header>
+        )}
+        <section className="navigation-buttons">
+          <NavItems userTypeId={user.userTypeId} />
+        </section>
       </nav>
     </>
   );

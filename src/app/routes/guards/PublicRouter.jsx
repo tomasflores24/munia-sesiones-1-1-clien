@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const PublicRouter = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  return isAuthenticated ? children : <Navigate to="/dashboard/" />;
+  return isAuthenticated ? children : <Navigate to="/dashboard/home" />;
 };
 PublicRouter.propTypes = {
   children: PropTypes.node,

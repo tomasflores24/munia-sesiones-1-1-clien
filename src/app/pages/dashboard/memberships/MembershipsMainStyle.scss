@@ -1,0 +1,87 @@
+.membership-root{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .membership-header{
+        width: 100%;
+        height: 108px;
+        .membership-navbar{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            background-color: #AE7A6C   ;
+            height: 100%;
+            .munia-logo{
+                align-self: center;
+            }
+        }
+    }
+
+    .membership-content{
+        height: 100%;
+        width: 90%;
+        .membership-main{
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            // background-color: blue;
+            flex-direction: column;
+            font-size: 20px;
+            padding: 30px;
+            .membership-title{
+                text-align: center;
+                padding-bottom: 2rem;
+            }
+            .membership-paragraph{
+                text-align: left;
+                font-size: 16px;
+                padding: 0 30px;
+            }
+
+            .section-cards{
+                display: flex;
+                justify-content: center;
+                height: 100%;
+                // background-color: tomato;
+                
+                .arrow-container{
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                    // background-color: slateblue;
+                    .arrowIcon{
+                        height: 40px;
+                        width: 40px;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .membership-container{
+                    display: flex;
+                    // background-color: tomato;
+                    flex-direction: row;
+                    gap: 50px;
+                    align-items: center;
+                    justify-content: center;
+                    
+                    .membership-card{
+                        transition: transform 0.2s ease-out;
+                        &:hover{
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+            }
+          }
+    }
+    
+    
+}

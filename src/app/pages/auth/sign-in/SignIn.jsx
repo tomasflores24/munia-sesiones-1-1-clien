@@ -23,8 +23,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const userLogin = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,15 +33,15 @@ const SignIn = () => {
     return yup.object({
       email: yup
         .string()
-        .required("Correo es requerido")
+        .required('Correo es requerido')
         .matches(
           /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|([a-zA-Z\-0-9]+\.[a-zA-Z]{2,}))$/,
-          "Ingrese una dirección de correo electrónico válida"
+          'Ingrese una dirección de correo electrónico válida'
         ),
       password: yup
         .string()
-        .required("La contraseña es requerida")
-        .min(5, "La contraseña tiene que ser de minimo 5 caracteres"),
+        .required('La contraseña es requerida')
+        .min(5, 'La contraseña tiene que ser de minimo 5 caracteres'),
     });
   }, []);
 
@@ -51,17 +49,18 @@ const SignIn = () => {
     event.preventDefault();
   };
 
+
   const { isLoading, mutate } = useMutation(["login"], loginServices.login, {
     onSuccess: (e) => {
-      const decoded = jwtDecode(e.data.token);
+      const decoded = jwtDecode(e.data);
 
       dispatch(
         setDataSuccess({
-          token: e.data.token,
+          token: e.data,
           isAuthenticated: true,
           user: {
-            id: decoded.UserId,
-            userTypeId: decoded.UserTypeId,
+            id: decoded.userId,
+            userTypeId: decoded.userTypeId,
             email: decoded.email,
           },
         })
@@ -81,7 +80,7 @@ const SignIn = () => {
     handleSubmit,
     register,
   } = useForm({
-    mode: "onTouched",
+    mode: 'onTouched',
     resolver: yupResolver(validationSchema),
   });
   const handleGoogle = (event) => {
@@ -90,9 +89,7 @@ const SignIn = () => {
   };
 
   const customHandleSubmit = async (data) => {
-    mutate({
-      user: data,
-    });
+    mutate(data)
   };
 
   return (
