@@ -7,6 +7,7 @@ import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import { format } from "date-fns";
 import ReplayIcon from '@mui/icons-material/Replay';
 import { IconButton } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 const ratingsArray = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
 
@@ -16,9 +17,12 @@ const Comments = () => {
   const [service, setService] = useState()
   const [date, setDate] = useState()
 
+
+  const { providerId } = useParams();
+
   const { isLoading: ratingsAreLoading, data: ratingsData, refetch: ratingsRefetch } = useQuery(
     ["getAllRatings"],
-    () => CommentsServices.getAllRatings(filters, rating, service, date)
+    () => providerId ? CommentsServices.getAllRatings(filters, rating, service, date, providerId) : CommentsServices.getAllRatings(filters, rating, service, date)
   );
 
   const { isLoading: serviceLoading, data: serviceData } = useQuery(
@@ -28,7 +32,7 @@ const Comments = () => {
 
   const handleChangeFilters = async (e) => {
     const { value } = e.target;
-    setFilters(value);
+    await setFilters(value);
   };
 
   const handleChangeRating = async (e) => {
@@ -67,7 +71,7 @@ const Comments = () => {
             <button
               className="buttonSearchBar"
               onClick={async () => {
-                  ratingsRefetch();
+                ratingsRefetch();
               }}
             >
               Buscar

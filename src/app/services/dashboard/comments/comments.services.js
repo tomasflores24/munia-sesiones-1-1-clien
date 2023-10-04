@@ -1,16 +1,17 @@
 import { HttpRequest } from "../../HttpRequest";
 
 const CommentsServices = {
-  getAllRatings: async (keyword, rating, serviceId, date) => {
+  getAllRatings: async (keyword, rating, serviceId, date, providerId) => {
     let url = `/rating`;
     const querys = [
       { name: "keyword", value: keyword },
       { name: "rating", value: rating },
       { name: "serviceId", value: serviceId },
       { name: "fecha", value: date },
+      { name: "ProviderId", value: providerId },
     ];
 
-    if (!keyword && !rating && !serviceId && !date) {
+    if (!keyword && !rating && !serviceId && !date && !providerId) {
       return HttpRequest.get(url);
     } else {
       querys.filter((el) => el.value).map((el, index) => {
@@ -20,10 +21,10 @@ const CommentsServices = {
           url = url + `&${el.name}=${el.value}`
         }
       })
-      return HttpRequest.get(url)
+      return await HttpRequest.get(url)
     }
   },
-  getAllService: async () => HttpRequest.get(`/service`),
+  getAllService: async () => await HttpRequest.get(`/service`),
 };
 
 export default CommentsServices;
