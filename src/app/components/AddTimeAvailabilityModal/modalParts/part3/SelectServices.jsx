@@ -115,7 +115,7 @@ const SelectServices = ({ closeModal, providerId }) => {
                     <ListItemText primary="Select All" />
                   </MenuItem>
                   {services?.map((option) => (
-                    <MenuItem key={option.id} value={option}>
+                    <MenuItem key={option.service.id} value={option}>
                       <ListItemIcon>
                         <Checkbox
                           checked={selectedServices.indexOf(option) > -1}
@@ -131,10 +131,6 @@ const SelectServices = ({ closeModal, providerId }) => {
         </div>
 
         <section className="selectServices__action-button">
-          <button className="restore__btn" type="button">
-            Restaurar
-          </button>
-
           <button className={`continue__btn`} type="submit">
             Confirmar
           </button>
