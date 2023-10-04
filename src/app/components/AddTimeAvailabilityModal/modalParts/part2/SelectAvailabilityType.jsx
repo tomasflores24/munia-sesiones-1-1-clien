@@ -1,11 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import {
-  format,
-  parseISO,
-  isValid,
-  setMonth,
-} from "date-fns";
+import { format, parseISO, isValid, setMonth } from "date-fns";
 import {
   FormControl,
   Input,
@@ -23,28 +18,25 @@ import {
 } from "../../../../utils/calendar";
 
 const SelectAvailabilityType = ({ closeModal, nextStep }) => {
-  const [timeInterval, setTimeInterval] = useState("");
+  const [minInterval, setMinInterval] = useState("");
   const [availabilityType, setAvailabilityType] = useState("");
   const [rangeDate, setRangeDate] = useState({ min: "", max: "" });
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleChangeTimeInterval = (event) => {
-    setTimeInterval(event.target.value);
+    setMinInterval(event.target.value);
   };
 
-  const handleChangeAvailabilityType = (event) => {
-    const value = event.target.value;
-    const weekMinMaxDates = calculateWeekMinMaxDates();
+  const handleChangeAvailabilityType = ({ target: { value } }) => {
     if (value === "week") {
-      setRangeDate(weekMinMaxDates);
-      setSelectedDate(weekMinMaxDates.min);
-    } else if (value === "weekly") {
-      setRangeDate(weekMinMaxDates);
+      setRangeDate(calculateWeekMinMaxDates());
     } else if (value === "month") {
       setRangeDate({ min: calculateMonthMinDate().min, max: "" });
     }
-    setAvailabilityType(event.target.value);
+    setSelectedDate("");
+    setAvailabilityType(value);
   };
 
   const handleChangeDate = (event) => {
@@ -54,27 +46,33 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    if (!selectedDate || !minInterval) {
+      setIsError(true);
+      return;
+    }
+
     console.log({
-      selectedDate,
-      selectedMonth,
-      timeInterval,
-      year: selectedDate.split("-")[0],
+      [availabilityType]: selectedDate,
+      minInterval,
     });
+    nextStep();
   };
 
   useEffect(() => {
     let isValidDate = false;
     let monthName = "";
-    if (availabilityType === "weekly" || availabilityType === "week") {
+    if (availabilityType === "week") {
       const result = parseISO(selectedDate + "-1");
       isValidDate = isValid(result);
-      monthName = isValidDate ? format(result, "MMMM") : "";
+      monthName = isValidDate ? format(result, "yyyy-MM") : "";
     } else {
       const monthNumber = selectedDate.split("-")?.[1];
-      const dateWithMonth = setMonth(new Date(0), monthNumber - 1);
-      monthName = isValid(dateWithMonth) ? format(dateWithMonth, "MMMM") : "";
+      const dateWithMonth = setMonth(new Date(), monthNumber - 1);
+      monthName = isValid(dateWithMonth)
+        ? format(dateWithMonth, "yyyy-MM")
+        : "";
     }
-
+    setIsError(false);
     setSelectedMonth(monthName);
   }, [availabilityType, selectedDate]);
 
@@ -85,17 +83,24 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
         <CloseIcon className="closeIcon" onClick={closeModal} />
       </div>
 
-      <form className="selectAvailabilityType__body" onSubmit={onSubmit}>
-        <div className="body-header">
+      <form className="selectAvailabilityType__form" onSubmit={onSubmit}>
+        <div className="form-header">
           <span className="desc">
             Seleccione el mes, año y intervalo entre sesiones
           </span>
         </div>
 
-        <div className="body__content">
-          <FormControl size="small" variant="standard">
-            <InputLabel id="">Mes</InputLabel>
-            <Input value={selectedMonth} readOnly />
+        <div className="form__content">
+          <FormControl>
+            <label id="month">Mes</label>
+            <input
+              type="month"
+              min={rangeDate.min}
+              value={selectedMonth}
+              className="date__range"
+              disabled={availabilityType !== "month"}
+              onChange={handleChangeDate}
+            />
           </FormControl>
           <FormControl size="small" variant="standard">
             <InputLabel id="">Año</InputLabel>
@@ -108,7 +113,7 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
               </InputLabel>
               <Select
                 labelId="availabilitySelect"
-                id="demo-select-small"
+                id="availabilityType"
                 value={availabilityType}
                 label="Age"
                 onChange={handleChangeAvailabilityType}
@@ -119,37 +124,24 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
                   <em>Selecione uno</em>
                 </MenuItem>
                 <MenuItem value="day">Para un dia</MenuItem>
-                <MenuItem value="week">{`${
-                  new Date().getDay() <= 1
-                    ? "Para esta semana"
-                    : "Para la siguiente semana"
-                } `}</MenuItem>
-                <MenuItem value="weekly">Semanal</MenuItem>
-                <MenuItem value="month">Todo El mes</MenuItem>
+                <MenuItem value="week">Semanal</MenuItem>
+                <MenuItem value="month">Mensual</MenuItem>
               </Select>
             </FormControl>
             {availabilityType === "day" && (
-              <DateInput
+              <input
                 type="date"
+                className="date__range"
                 min={format(new Date(), "yyyy-MM-dd")}
                 onChange={handleChangeDate}
               />
             )}
             {availabilityType === "week" && (
-              <DateInput type="week" value={selectedDate} disabled />
-            )}
-            {availabilityType === "weekly" && (
-              <DateInput
+              <input
                 type="week"
                 min={rangeDate.min}
                 max={rangeDate.max}
-                onChange={handleChangeDate}
-              />
-            )}
-            {availabilityType === "month" && (
-              <DateInput
-                type="month"
-                min={rangeDate.min}
+                className="date__range"
                 onChange={handleChangeDate}
               />
             )}
@@ -159,8 +151,8 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
             <InputLabel id="timeInterval">Intervalo en minutos</InputLabel>
             <Select
               labelId="timeInterval"
-              id="demo-select-small"
-              value={timeInterval}
+              id="timeInterval"
+              value={minInterval}
               label="Age"
               onChange={handleChangeTimeInterval}
               placeholder="Seleccione un intervalo"
@@ -177,6 +169,7 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
           </FormControl>
         </div>
 
+        {isError && <p className="form__error">Seleccione todos los campos</p>}
         <section className="selectAvailabilityType__action-button">
           <button className={`continue__btn`} type="submit">
             Confirmar
@@ -186,20 +179,6 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
     </div>
   );
 };
-
-// eslint-disable-next-line react/prop-types
-function DateInput({ type, min, max, onChange, ...props }) {
-  return (
-    <input
-      type={type}
-      className="date__range"
-      min={min}
-      max={max}
-      onChange={onChange}
-      {...props}
-    />
-  );
-}
 
 SelectAvailabilityType.propTypes = {
   nextStep: PropTypes.func,

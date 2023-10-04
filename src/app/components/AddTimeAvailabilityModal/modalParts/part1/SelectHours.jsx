@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 
@@ -46,18 +46,26 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
     reset,
     handleSubmit,
     watch,
+    control,
   } = useForm({ defaultValues: initialData });
 
   const handleAllEndChange = (event) => {
-    const watchMon = watch("mon", false);
-    const watchTue = watch("tue", false);
-    const watchWed = watch("wed", false);
-    const watchThu = watch("thu", false);
-    const watchFri = watch("fri", false);
-    const watchSat = watch("sat", false);
-    const watchSun = watch("sun", false);
+    const watchMon = watch("mon");
+    const watchTue = watch("tue");
+    const watchWed = watch("wed");
+    const watchThu = watch("thu");
+    const watchFri = watch("fri");
+    const watchSat = watch("sat");
+    const watchSun = watch("sun");
     const newValue = event.target.value;
     reset({
+      mon: watchMon,
+      tue: watchTue,
+      wed: watchWed,
+      thu: watchThu,
+      fri: watchFri,
+      sat: watchSat,
+      sun: watchSun,
       monEnd: watchMon ? newValue : "",
       tueEnd: watchTue ? newValue : "",
       wedEnd: watchWed ? newValue : "",
@@ -70,16 +78,23 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
   };
 
   const handleAllStartChange = (event) => {
-    const watchMon = watch("mon", false);
-    const watchTue = watch("tue", false);
-    const watchWed = watch("wed", false);
-    const watchThu = watch("thu", false);
-    const watchFri = watch("fri", false);
-    const watchSat = watch("sat", false);
-    const watchSun = watch("sun", false);
+    const watchMon = watch("mon");
+    const watchTue = watch("tue");
+    const watchWed = watch("wed");
+    const watchThu = watch("thu");
+    const watchFri = watch("fri");
+    const watchSat = watch("sat");
+    const watchSun = watch("sun");
     const newValue = event.target.value;
     setAllStartValue(newValue);
     reset({
+      mon: watchMon,
+      tue: watchTue,
+      wed: watchWed,
+      thu: watchThu,
+      fri: watchFri,
+      sat: watchSat,
+      sun: watchSun,
       monStart: watchMon ? newValue : "",
       tueStart: watchTue ? newValue : "",
       wedStart: watchWed ? newValue : "",
@@ -110,7 +125,6 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
 
   useEffect(() => {
     if (provider) {
-      console.log(provider.mon);
       reset({
         mon: provider.mon,
         tue: provider.tue,
@@ -186,12 +200,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title" htmlFor="mon">
                   Lunes
-                  <input type="checkbox" id="mon" {...register("mon")} />
-                  {watch("mon") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="mon"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="mon" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -212,12 +234,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Martes
-                  <input type="checkbox" {...register("tue")} />
-                  {watch("tue") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="tue"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="tue" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -238,12 +268,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Miércoles
-                  <input type="checkbox" {...register("wed")} />
-                  {watch("wed") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="wed"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="wed" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -264,12 +302,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Jueves
-                  <input type="checkbox" {...register("thu")} />
-                  {watch("thu") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="thu"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="thu" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -290,12 +336,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Viernes
-                  <input type="checkbox" {...register("fri")} />
-                  {watch("fri") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="fri"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="fri" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -316,12 +370,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Sábado
-                  <input type="checkbox" {...register("sat")} />
-                  {watch("sat") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="sat"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="sat" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
@@ -342,12 +404,20 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
               <div className="dayOfWeek">
                 <label className="title">
                   Domingo
-                  <input type="checkbox" {...register("sun")} />
-                  {watch("sun") ? (
-                    <CheckCircleOutlineIcon className="checked" />
-                  ) : (
-                    <CancelIcon className="cancel" />
-                  )}
+                  <Controller
+                    name="sun"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <input type="checkbox" id="sun" {...field} />
+                        {field.value ? (
+                          <CheckCircleOutlineIcon className="checked" />
+                        ) : (
+                          <CancelIcon className="cancel" />
+                        )}
+                      </>
+                    )}
+                  />
                 </label>
                 <div className="select__hour-container">
                   <input
