@@ -16,11 +16,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const serviceSchema = yup.object({
-  nombre: yup.string().required("El nombre es requerido"),
-  descripcion: yup.string().required("La descripción es requerida"),
-  precio: yup.number().required("El precio es requerido").positive(),
-  duracion: yup.string().required("La duración es requerida"),
-  categoria: yup.string().required("La categoría es requerida"),
+  name: yup.string().required("El nombre es requerido"),
+  // description: yup.string().required("La descripción es requerida"),
+  // price: yup.number().required("El precio es requerido").positive(),
+  // duration: yup.string().required("La duración es requerida"),
+  CategoryId: yup.number().required("La categoría es requerida"),
 });
 
 const ServiceForm = ({ initialData = {} }) => {
@@ -31,11 +31,11 @@ const ServiceForm = ({ initialData = {} }) => {
   } = useForm({
     resolver: yupResolver(serviceSchema),
     defaultValues: {
-      nombre: initialData.nombre || "",
-      descripcion: initialData.descripcion || "",
-      precio: initialData.precio || "",
-      duracion: initialData.duracion || "",
-      categoria: initialData.categoria || "Categoria1",
+      name: initialData.name || "",
+      // description: initialData.descripcion || "",
+      // price: initialData.precio || "",
+      // duration: initialData.duracion || "",
+      CategoryId: initialData.categoria || "1",
     },
   });
 
@@ -52,7 +52,10 @@ const ServiceForm = ({ initialData = {} }) => {
   });
 
   const handleFormSubmit = (data) => {
-    createServiceMutation.mutate(data);
+    createServiceMutation.mutate({
+      name: data.name,
+      CategoryId: data.CategoryId,
+    });
   };
 
   return (
@@ -60,26 +63,27 @@ const ServiceForm = ({ initialData = {} }) => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Controller
-            name="nombre"
+            name="name"
             control={control}
-            defaultValue={initialData.nombre || ""}
+            defaultValue={initialData.name || ""}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Nombre del Servicio"
                 fullWidth
                 required
-                error={!!errors.nombre}
-                helperText={errors.nombre?.message}
+                error={!!errors.name}
+                helperText={errors.name?.message}
               />
             )}
           />
         </Grid>
+        {/* Otras opciones de formulario
         <Grid item xs={12}>
           <Controller
-            name="descripcion"
+            name="description"
             control={control}
-            defaultValue={initialData.descripcion || ""}
+            defaultValue={initialData.description || ""}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -87,17 +91,17 @@ const ServiceForm = ({ initialData = {} }) => {
                 multiline
                 fullWidth
                 required
-                error={!!errors.descripcion}
-                helperText={errors.descripcion?.message}
+                error={!!errors.description}
+                helperText={errors.description?.message}
               />
             )}
           />
         </Grid>
         <Grid item xs={12}>
           <Controller
-            name="precio"
+            name="price"
             control={control}
-            defaultValue={initialData.precio || ""}
+            defaultValue={initialData.price || ""}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -105,41 +109,42 @@ const ServiceForm = ({ initialData = {} }) => {
                 type="number"
                 fullWidth
                 required
-                error={!!errors.precio}
-                helperText={errors.precio?.message}
+                error={!!errors.price}
+                helperText={errors.price?.message}
               />
             )}
           />
         </Grid>
         <Grid item xs={12}>
           <Controller
-            name="duracion"
+            name="duration"
             control={control}
-            defaultValue={initialData.duracion || ""}
+            defaultValue={initialData.duration || ""}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Duración del Servicio"
                 fullWidth
                 required
-                error={!!errors.duracion}
-                helperText={errors.duracion?.message}
+                error={!!errors.duration}
+                helperText={errors.duration?.message}
               />
             )}
           />
-        </Grid>
+        </Grid> 
+         */}
         <Grid item xs={12}>
           <Controller
-            name="categoria"
+            name="CategoryId"
             control={control}
-            defaultValue={initialData.categoria || "Categoria1"}
+            defaultValue={initialData.CategoryId || "1"}
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>Categoría del Servicio</InputLabel>
                 <Select {...field}>
-                  <MenuItem value="Categoria1">Categoría 1</MenuItem>
-                  <MenuItem value="Categoria2">Categoría 2</MenuItem>
-                  <MenuItem value="Categoria3">Categoría 3</MenuItem>
+                  <MenuItem value="1">Categoría 1</MenuItem>
+                  <MenuItem value="2">Categoría 2</MenuItem>
+                  <MenuItem value="3">Categoría 3</MenuItem>
                 </Select>
               </FormControl>
             )}
@@ -147,7 +152,7 @@ const ServiceForm = ({ initialData = {} }) => {
         </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
-            Guardar
+            Crear
           </Button>
         </Grid>
       </Grid>

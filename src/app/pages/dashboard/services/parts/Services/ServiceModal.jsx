@@ -13,34 +13,30 @@ const ServiceModal = ({
   isOpen,
   onClose,
   onSubmit,
-  title,
   initialData = {},
   isViewMode = false,
   onDelete,
+  isCreateMode = false,
 }) => {
   const handleClose = () => {
     onClose();
   };
 
+  const modalTitle = isCreateMode
+    ? "Crear Servicio"
+    : isViewMode
+    ? "Ver Servicio"
+    : "Editar Servicio";
+  const actionButtonLabel = isCreateMode ? "Crear" : "Guardar";
+
   return (
     <Dialog open={isOpen} onClose={handleClose} maxWidth="md">
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{modalTitle}</DialogTitle>
       <DialogContent>
         {isViewMode ? (
           <div>
-            <Typography variant="h6">Nombre: {initialData.nombre}</Typography>
-            <Typography variant="body1">
-              Descripción: {initialData.descripcion}
-            </Typography>
-            <Typography variant="body1">
-              Precio: {initialData.precio}
-            </Typography>
-            <Typography variant="body1">
-              Duración: {initialData.duracion}
-            </Typography>
-            <Typography variant="body1">
-              Categoría: {initialData.categoria}
-            </Typography>
+            <Typography variant="h6">Nombre: {initialData.name}</Typography>
+            <Typography variant="h6">Categoria: {initialData.CategoryId}</Typography>
           </div>
         ) : (
           <ServiceForm onSubmit={onSubmit} initialData={initialData} />
@@ -52,14 +48,19 @@ const ServiceModal = ({
             Cancelar
           </Button>
         )}
-        {isViewMode && onDelete && (
+        {onDelete && isViewMode && (
           <Button onClick={onDelete} color="secondary">
             Eliminar
           </Button>
         )}
         {!isViewMode && (
-          <Button type="submit" form="service-form" color="primary">
-            Guardar
+          <Button type="submit" variant="contained" color="primary">
+            {actionButtonLabel}
+          </Button>
+        )}
+        {isViewMode && (
+          <Button onClick={handleClose} color="primary">
+            Cerrar
           </Button>
         )}
       </DialogActions>
@@ -74,7 +75,8 @@ ServiceModal.propTypes = {
     title: PropTypes.string.isRequired,
     initialData: PropTypes.object,
     isViewMode: PropTypes.bool,
-    onDelete: PropTypes.func,
+  onDelete: PropTypes.func,
+  isCreateMode: PropTypes.bool,
 };
     
 

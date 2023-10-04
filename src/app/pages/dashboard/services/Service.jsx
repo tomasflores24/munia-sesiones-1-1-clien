@@ -13,6 +13,7 @@ import {
 import ServiceModal from "./parts/Services/ServiceModal";
 import { ServiceServices } from "../../../services/dashboard/service/service.service";
 import Swal from "sweetalert2";
+import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 
 function Service() {
   const queryClient = useQueryClient();
@@ -21,10 +22,11 @@ function Service() {
   const [isViewModalOpen, setViewModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
-  const { data: services, isLoading } = useQuery(
-    "services",
-    ServiceServices.getAllServices
-  );
+  const {
+    data: services,
+    isLoading,
+    isSuccess,
+  } = useQuery("services", ServiceServices.getAllServices);
 
   const createServiceMutation = useMutation(ServiceServices.createService, {
     onSuccess: () => {
@@ -43,11 +45,13 @@ function Service() {
   const deleteServiceMutation = useMutation(ServiceServices.deleteService, {
     onSuccess: () => {
       queryClient.invalidateQueries("services");
+      setViewModalOpen(false);
     },
   });
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
+    setSelectedService(null);
   };
 
   const openEditModal = (service) => {
@@ -63,7 +67,7 @@ function Service() {
   const handleDeleteService = async () => {
     if (selectedService) {
       await deleteServiceMutation.mutateAsync(selectedService.id);
-      setViewModalOpen(false);
+      setSelectedService(null);
     }
   };
 
@@ -86,35 +90,30 @@ function Service() {
   };
 
   if (isLoading) {
-    return <p>Cargando...</p>;
+    return <LoadingSpinner />;
   }
 
   return (
     <div>
-      <h1>Listado de Servicios</h1>
-      <Button variant="contained" onClick={openCreateModal}>
-        Crear Servicio
-      </Button>
+      <div>
+        <h1>Listado de Servicios</h1>
+        <Button variant="contained" onClick={openCreateModal}>
+          Crear Servicio
+        </Button>
+      </div>
 
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Descripción</TableCell>
-              <TableCell>Precio</TableCell>
-              <TableCell>Categoría</TableCell>
-              <TableCell>Acciones</TableCell>
+              <TableCell>Servicios</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {Array.isArray(services) && services.length > 0 ? (
-              services.map((service) => (
+            {isSuccess && !isLoading ? (
+              services.data.map((service) => (
                 <TableRow key={service.id}>
-                  <TableCell>{service.nombre}</TableCell>
-                  <TableCell>{service.descripcion}</TableCell>
-                  <TableCell>{service.precio}</TableCell>
-                  <TableCell>{service.categoria}</TableCell>
+                  <TableCell>{service.name}</TableCell>
                   <TableCell>
                     <Button
                       variant="outlined"
@@ -155,6 +154,7 @@ function Service() {
           onClose={() => setCreateModalOpen(false)}
           onSubmit={createServiceMutation.mutateAsync}
           title="Crear Servicio"
+          isCreateMode={true}
         />
       )}
 
@@ -163,7 +163,11 @@ function Service() {
           isOpen={isEditModalOpen}
           onClose={() => setEditModalOpen(false)}
           onSubmit={(data) =>
-            updateServiceMutation.mutateAsync({ ...selectedService, ...data })
+            updateServiceMutation.mutateAsync({
+              id: selectedService.id,
+              name: data.name,
+              CategoryId: data.CategoryId,
+            })
           }
           title="Editar Servicio"
           initialData={selectedService}
@@ -176,7 +180,7 @@ function Service() {
           onClose={() => setViewModalOpen(false)}
           title="Ver Servicio"
           isViewMode={true}
-          onDelete={handleDeleteService}
+          onCloseButton={true}
           initialData={selectedService}
         />
       )}
