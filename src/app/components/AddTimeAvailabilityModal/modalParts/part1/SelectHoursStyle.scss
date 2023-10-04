@@ -73,8 +73,11 @@ $mainPadding: 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
             input[type="checkbox"] {
               opacity: 0;
+              position: absolute;
+              z-index: -1;
             }
           }
           .select__hour-container {

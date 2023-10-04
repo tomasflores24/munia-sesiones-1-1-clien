@@ -16,11 +16,11 @@ $mainPadding: 1.5rem;
       cursor: pointer;
     }
   }
-  .selectAvailabilityType__body {
+  .selectAvailabilityType__form {
     display: flex;
     flex-direction: column;
     padding: .5rem $mainPadding;
-    .body-header {
+    .form-header {
       margin-bottom: 1rem;
       .subtitle {
         margin-top: 0.2rem;
@@ -31,10 +31,14 @@ $mainPadding: 1.5rem;
         color: #00000099;
       }
     }
-    .body__content {
+    .form__content {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      padding: 1rem 2rem;
+      label {
+        font-size: 14px;
+      }
       .flex {
         display: flex;
         gap: .5rem;
@@ -45,6 +49,12 @@ $mainPadding: 1.5rem;
         border-bottom: 1px solid #747474;
         outline: none;
       }
+    }
+    .form__error {
+      color: #ca1313;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: center;
     }
     .selectAvailabilityType__form {
       display: flex;

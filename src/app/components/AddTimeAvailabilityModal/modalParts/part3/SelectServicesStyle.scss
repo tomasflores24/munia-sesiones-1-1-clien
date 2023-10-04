@@ -74,9 +74,9 @@ $mainPadding: 1.5rem;
     }
     .selectServices__action-button {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       padding: 1.5rem 0;
-      .continue__btn, .restore__btn {
+      .continue__btn {
         background-color: #9C6D61;
         text-align: center;
         text-wrap: nowrap;
@@ -95,13 +95,6 @@ $mainPadding: 1.5rem;
         &:hover {
             cursor: pointer;
             background-color: #9c6d61c3;
-        }
-      }
-      .restore__btn {
-        color: #000000;
-        background-color: #EBDCC1;
-        &:hover {
-          background-color: #80594fc3
         }
       }
     }
