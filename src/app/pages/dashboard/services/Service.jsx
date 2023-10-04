@@ -10,13 +10,8 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import ServiceModal from "./ServiceModal";
-import {
-  getAllServices,
-  createService,
-  updateService,
-  deleteService,
-} from "../services/service.services";
+import ServiceModal from "./parts/Services/ServiceModal";
+import { ServiceServices } from "../../../services/dashboard/service/service.service";
 import Swal from "sweetalert2";
 
 function Service() {
@@ -26,23 +21,26 @@ function Service() {
   const [isViewModalOpen, setViewModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
-  const { data: services, isLoading } = useQuery("services", getAllServices);
+  const { data: services, isLoading } = useQuery(
+    "services",
+    ServiceServices.getAllServices
+  );
 
-  const createServiceMutation = useMutation(createService, {
+  const createServiceMutation = useMutation(ServiceServices.createService, {
     onSuccess: () => {
       queryClient.invalidateQueries("services");
       setCreateModalOpen(false);
     },
   });
 
-  const updateServiceMutation = useMutation(updateService, {
+  const updateServiceMutation = useMutation(ServiceServices.updateService, {
     onSuccess: () => {
       queryClient.invalidateQueries("services");
       setEditModalOpen(false);
     },
   });
 
-  const deleteServiceMutation = useMutation(deleteService, {
+  const deleteServiceMutation = useMutation(ServiceServices.deleteService, {
     onSuccess: () => {
       queryClient.invalidateQueries("services");
     },
@@ -67,29 +65,25 @@ function Service() {
       await deleteServiceMutation.mutateAsync(selectedService.id);
       setViewModalOpen(false);
     }
-    };
-    
-    const alertdeleteService = () => {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#00A7AF',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    '¡Eliminado!',
-                    'El servicio ha sido eliminado.',
-                    'success'
-                )
-            }
-        })
-    }
+  };
 
+  const alertdeleteService = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#00A7AF",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeleteService();
+        Swal.fire("¡Eliminado!", "El servicio ha sido eliminado.", "success");
+      }
+    });
+  };
 
   if (isLoading) {
     return <p>Cargando...</p>;
@@ -114,42 +108,47 @@ function Service() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {services.map((service) => (
-              <TableRow key={service.id}>
-                <TableCell>{service.nombre}</TableCell>
-                <TableCell>{service.descripcion}</TableCell>
-                <TableCell>{service.precio}</TableCell>
-                <TableCell>{service.categoria}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    onClick={() => openEditModal(service)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => openViewModal(service)}
-                  >
-                    Ver
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      setSelectedService(service);
+            {Array.isArray(services) && services.length > 0 ? (
+              services.map((service) => (
+                <TableRow key={service.id}>
+                  <TableCell>{service.nombre}</TableCell>
+                  <TableCell>{service.descripcion}</TableCell>
+                  <TableCell>{service.precio}</TableCell>
+                  <TableCell>{service.categoria}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => openEditModal(service)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => openViewModal(service)}
+                    >
+                      Ver
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        setSelectedService(service);
                         alertdeleteService();
-                    }}
-                  >
-                    Eliminar
-                  </Button>
-                </TableCell>
+                      }}
+                    >
+                      Eliminar
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5}>No hay servicios disponibles.</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
-      {/* Renderizar el modal de creación de servicio */}
       {isCreateModalOpen && (
         <ServiceModal
           isOpen={isCreateModalOpen}
@@ -159,7 +158,6 @@ function Service() {
         />
       )}
 
-      {/* Renderizar el modal de edición de servicio */}
       {isEditModalOpen && (
         <ServiceModal
           isOpen={isEditModalOpen}
@@ -172,7 +170,6 @@ function Service() {
         />
       )}
 
-      {/* Renderizar el modal de visualización de servicio */}
       {isViewModalOpen && (
         <ServiceModal
           isOpen={isViewModalOpen}
