@@ -8,7 +8,7 @@ import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
 /* import Diary from "../../pages/dashboard/diary/Diary"; */
 import Comments from "../../pages/dashboard/comments/Comments"
-import Diary from "../../pages/dashboard/appointment/Appointment";
+import Profile from "../../pages/dashboard/profile/Profile";
 import Memberships from "../../pages/dashboard/memberships/Memberships";
 import Appointment from "../../pages/dashboard/appointment/Appointment";
 import Providers from "../../pages/dashboard/providers/Providers";
@@ -24,7 +24,7 @@ const DashboardRoutes = () => {
           <Route path="/clients" element={<Clients />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/diary" element={<Appointment />} />
-          <Route path="/profile" element={<Diary />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/userProfile" element={<UserProfiles />} />
           <Route path="/comments" element={<Comments />} />
           <Route path="/providers" element={<Providers />} />
