@@ -27,6 +27,7 @@ const DashboardRoutes = () => {
           <Route path="/profile" element={<Diary />} />
           <Route path="/userProfile" element={<UserProfiles />} />
           <Route path="/comments" element={<Comments />} />
+          <Route path="/comments/:providerId" element={<Comments />} />
           <Route path="/providers" element={<Providers />} />
           <Route path="/collaborators" element={<Collaborators />} />
         </Routes>
