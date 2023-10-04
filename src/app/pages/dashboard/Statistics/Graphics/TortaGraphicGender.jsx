@@ -1,40 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 import { useQuery } from "react-query";
 
 const TortaGraphicGender = () => {
-  const dataTorta = [
-    { name: "Hombre", value: 25 },
-    { name: "Mujer", value: 12 },
-    { name: "Otros", value: 5 },
-  ];
-
   const COLORS = ["#845f54", "#74635e", "#4d322b", "#AE7A6C"];
-
-  const [category, setCategory] = React.useState("Psicologia");
-
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-  };
-
+  const [category, setCategory] = React.useState("");
   const [service, setService] = React.useState("");
 
-  const handleChangeService = (event) => {
-    setService(event.target.value);
-  };
+  const { data: servicesFilter, refetch: servicesFilterRefetch } = useQuery(
+    ["getServices"],
+    () => StatisticsServices.getServices()
+  );
 
   const {
-    data: categories,
-    error,
-    isLoading,
-  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
+    data: dataCategory,
+    errors,
+    refetch: categoriesRefetch,
+  } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
 
-  const { data: services, isSucess } = useQuery(
-    ["getAllServices"],
-    StatisticsServices.getAllServices
+  const {
+    data: gender,
+    errorss,
+    refetch: genderRefetch,
+  } = useQuery(["getAllGenders"], () =>
+    StatisticsServices.getAllGenders(category, service)
   );
+
+  const handleChangeCategory = async (event) => {
+    const selectedCategory = event.target.value;
+    if (selectedCategory === "Todos") {
+      await setCategory();
+      categoriesRefetch();
+      genderRefetch();
+    } else {
+      await setCategory(selectedCategory);
+      categoriesRefetch();
+      genderRefetch();
+    }
+  };
+
+  const handleChangeService = async (event) => {
+    const selectedService = event.target.value;
+    if (selectedService === "Todos") {
+      await setService();
+      genderRefetch();
+      servicesFilterRefetch();
+    } else {
+      await setService(selectedService);
+      genderRefetch();
+      servicesFilterRefetch();
+    }
+  };
+
+  const genderData = gender?.data.map((item) => {
+    const key = Object.keys(item)[0];
+    const value = item[key];
+    return { name: key, value };
+  });
 
   return (
     <div>
@@ -49,11 +73,12 @@ const TortaGraphicGender = () => {
           onChange={handleChangeCategory}
           label="Category"
         >
-          {categories?.data.allCategories &&
-            categories.data.allCategories !== undefined &&
-            categories.data.allCategories.length > 0 &&
-            categories.data.allCategories.map((category) => (
-              <MenuItem key={category.id} value={category.name}>
+          <MenuItem value="Todos">Todos</MenuItem>
+          {dataCategory &&
+            dataCategory?.data !== undefined &&
+            dataCategory.data.length > 0 &&
+            dataCategory.data.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
                 <em>{category.name}</em>
               </MenuItem>
             ))}
@@ -70,10 +95,11 @@ const TortaGraphicGender = () => {
           onChange={handleChangeService}
           label="Service"
         >
-          {services?.data.map((el) => {
+          <MenuItem value="Todos">Todos</MenuItem>
+          {servicesFilter?.data.map((el) => {
             return (
-              <MenuItem key={el.serviceName} value={el.serviceName}>
-                <em>{el.serviceName}</em>
+              <MenuItem key={el.id} value={el.id}>
+                <em>{el.name}</em>
               </MenuItem>
             );
           })}
@@ -81,7 +107,7 @@ const TortaGraphicGender = () => {
       </FormControl>
       <PieChart width={400} height={300}>
         <Pie
-          data={dataTorta}
+          data={genderData}
           dataKey="value"
           nameKey="name"
           cx="50%"
@@ -90,7 +116,7 @@ const TortaGraphicGender = () => {
           fill="#AE7A6C"
           label={({ name }) => name}
         >
-          {dataTorta.map((entry, index) => (
+          {genderData?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

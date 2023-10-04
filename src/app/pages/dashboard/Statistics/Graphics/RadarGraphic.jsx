@@ -1,60 +1,43 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Tooltip,
+  XAxis,
+  YAxis,
+  Legend,
+} from "recharts";
 import { useQuery } from "react-query";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 
 const RadarGraphic = () => {
-  const {
-    data: categories,
-    error,
-    isLoading,
-  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
+  const [category, setCategory] = React.useState("");
 
-  const { data: services, isSucess } = useQuery(
+  const { data: services, refetch: serviceRefetch } = useQuery(
     ["getAllServices"],
-    StatisticsServices.getAllServices
+    () => StatisticsServices.getAllServices(category)
   );
 
-  // const dataRadar = [
-  //   {
-  //     name: "Higiene del Sueño",
-  //     value: 10,
-  //   },
-  //   {
-  //     name: "Gestión de la Ansiedad",
-  //     value: 4,
-  //   },
-  // {
-  //   name: "Mindfulness",
-  //   value: 0,
-  // },
-  // {
-  //   name: "Relaciones de Pareja",
-  //   value: 0,
-  // },
-  // {
-  //   name: "Gestión de las Adicciones",
-  //   value: 0,
-  // },
-  // {
-  //   name: "Gestión Emocional",
-  //   value: 0,
-  // },
-  // {
-  //   name: "Gestión del Duelo",
-  //   value: 0,
-  // },
-  // {
-  //   name: "Gestión del Estrés",
-  //   value: 0,
-  // },
-  // ];
+  const {
+    data: dataCategory,
+    errors,
+    refetch: refetchCategory,
+  } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
 
-  const [category, setCategory] = React.useState("todos");
-
-  const handleChange = (event) => {
-    setCategory(event.target.value);
+  const handleChange = async (event) => {
+    const selectedCategory = event.target.value;
+    console.log(selectedCategory);
+    if (selectedCategory === "Todos") {
+      await setCategory("");
+      serviceRefetch();
+      refetchCategory();
+    } else {
+      await setCategory(selectedCategory);
+      serviceRefetch();
+      refetchCategory();
+    }
   };
 
   return (
@@ -68,25 +51,25 @@ const RadarGraphic = () => {
           id="demo-simple-select-standard"
           value={category}
           onChange={handleChange}
-          label="Age"
+          label="Category"
         >
-          <MenuItem value={"todos"}>Todos</MenuItem>
-
-          {categories &&
-            categories?.data.allCategories !== undefined &&
-            categories.data.allCategories.length > 0 &&
-            categories.data.allCategories.map((category) => (
-              <MenuItem key={category.id} value={category.name}>
-                <em>{category.name}</em>
+          <MenuItem value="Todos">Todos</MenuItem>
+          {dataCategory &&
+            dataCategory?.data !== undefined &&
+            dataCategory.data.length > 0 &&
+            dataCategory.data.map((el) => (
+              <MenuItem key={el.id} value={el.id}>
+                <em>{el.name}</em>
               </MenuItem>
             ))}
         </Select>
       </FormControl>
-      <BarChart width={400} height={300} data={services?.data}>
+      <BarChart width={410} height={300} data={services?.data}>
         <XAxis dataKey="serviceName" />
         <YAxis />
         <CartesianGrid stroke="#ae7a6c8f" />
         <Tooltip />
+        <Legend />
         <Bar dataKey="count" fill="#AE7A6C" />
       </BarChart>
     </div>

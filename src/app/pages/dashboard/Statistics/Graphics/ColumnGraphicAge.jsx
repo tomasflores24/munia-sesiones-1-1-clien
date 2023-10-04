@@ -1,43 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 
 const ColumnGraphicAge = () => {
-  // const dataColumnas = [
-  //   { service: "Servicio A", count: 50 },
-  //   { service: "Servicio B", count: 70 },
-  //   { service: "Servicio C", count: 30 },
-  //   // ...otros servicios
-  // ];
-
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
-
-  // const [statisticsServices, setStatisticsServices] = useState([]);
-
-  const { data: services, isSucess } = useQuery(
-    ["getAllServices"],
-    StatisticsServices.getAllServices
-  );
-
-  // const [categories, setCategories] = React.useState([]);
-  const [category, setCategory] = useState("Psicologia");
+  const [category, setCategory] = useState("");
   const [service, setService] = useState("");
 
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
+  const { data: servicesFilter } = useQuery(["getServices"], () =>
+    StatisticsServices.getServices()
+  );
+
+  const { data: dataCategory, errors } = useQuery(["getAllCategory"], () =>
+    StatisticsServices.getAllCategory()
+  );
+  const { data: ages, refetch: agesRefetch } = useQuery(["getAllAges"], () =>
+    StatisticsServices.getAllAges(service, category)
+  );
+
+  const handleChangeCategory = async (event) => {
+    if (event.target.value === "Todos") {
+      await setCategory("");
+      agesRefetch();
+    } else {
+      await setCategory(event.target.value);
+      agesRefetch();
+    }
   };
 
-  const handleChangeService = (event) => {
-    setService(event.target.value);
+  const handleChangeService = async (event) => {
+    const { value } = event.target;
+    await setService(value);
+    agesRefetch();
   };
+
+  const formattedData = ages?.data
+    .filter((item) => !item.ages)
+    .map((item) => {
+      const ageRange = Object.keys(item)[0];
+      const ages = item[ageRange];
+      return {
+        años: ageRange,
+        count: ages.length,
+      };
+    });
 
   return (
     <div>
@@ -52,12 +60,12 @@ const ColumnGraphicAge = () => {
           onChange={handleChangeCategory}
           label="Category"
         >
-          <MenuItem value={10}>Todos</MenuItem>
-          {categories?.data.allCategories &&
-            categories.data.allCategories !== undefined &&
-            categories.data.allCategories.length > 0 &&
-            categories.data.allCategories.map((category) => (
-              <MenuItem key={category.id} value={category.name}>
+          <MenuItem value="Todos">Todos</MenuItem>
+          {dataCategory &&
+            dataCategory?.data !== undefined &&
+            dataCategory.data.length > 0 &&
+            dataCategory.data.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
                 <em>{category.name}</em>
               </MenuItem>
             ))}
@@ -74,18 +82,18 @@ const ColumnGraphicAge = () => {
           onChange={handleChangeService}
           label="Service"
         >
-          <MenuItem value={10}>Todos</MenuItem>
-          {services?.data.map((el) => {
+          <MenuItem>Todos</MenuItem>
+          {servicesFilter?.data.map((el) => {
             return (
-              <MenuItem key={el.serviceName} value={el.serviceName}>
-                <em>{el.serviceName}</em>
+              <MenuItem key={el.id} value={el.id}>
+                <em>{el.name}</em>
               </MenuItem>
             );
           })}
         </Select>
       </FormControl>
-      <BarChart width={400} height={300} data={services?.data}>
-        <XAxis dataKey="serviceName" />
+      <BarChart width={400} height={300} data={formattedData}>
+        <XAxis dataKey="años" />
         <YAxis />
         <CartesianGrid stroke="#ae7a6c8f" />
         <Tooltip />

@@ -12,42 +12,56 @@ import {
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useQuery } from "react-query";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
-const data = [
-  { time: "2023-01-01", uv: 4000, pv: 2400, amt: 2400 },
-  { time: "2024-02-01", uv: 3000, pv: 1398, amt: 2210 },
-  { time: "2025-03-01", uv: 2000, pv: 9800, amt: 2290 },
-  { time: "2026-04-01", uv: 2780, pv: 3908, amt: 2000 },
-  { time: "2027-05-01", uv: 1890, pv: 4800, amt: 2181 },
-  { time: "2028-06-01", uv: 2390, pv: 3800, amt: 2500 },
-  { time: "2029-07-01", uv: 3490, pv: 4300, amt: 2100 },
-];
 
 const StackedAreaGraphics = () => {
-  const [timeScale, setTimeScale] = useState("day");
+  const [timeScale, setTimeScale] = useState("");
 
-  const handleTimeScaleChange = (event) => {
-    setTimeScale(event.target.value);
+  const handleTimeScaleChange = async (event) => {
+    await setTimeScale(event.target.value);
+    usersRefetch();
   };
 
-  let tickCount = 10; // Default value
+  let tickCount = 10;
   if (timeScale === "month") {
-    tickCount = 7; // Show around 7 ticks for months
+    tickCount = 7;
   } else if (timeScale === "year") {
-    tickCount = 5; // Show around 5 ticks for years
+    tickCount = 5;
   }
 
   const [option, setOption] = React.useState("");
 
-  const handleChangeOption = (event) => {
-    setOption(event.target.value);
+  const handleChangeOption = async (event) => {
+    const selectedOption = event.target.value;
+    await setOption(selectedOption);
+    usersRefetch();
   };
 
-  const { data: users } = useQuery(
-    "getAllUsers",
-    StatisticsServices.getAllUsers
+  const { data: users, refetch: usersRefetch } = useQuery("getAllUsers", () =>
+    StatisticsServices.getAllUsers(timeScale, option)
   );
 
-  // console.log(users.data.statistics.data.Colaborador);
+  const formatDataForAreaChart = (data) => {
+    const formattedData = [];
+    const uniqueDates = [
+      ...new Set(data?.flatMap((item) => item[Object.keys(item)].CreatedAt)),
+    ];
+
+    uniqueDates.forEach((date) => {
+      const dateObj = { time: date };
+
+      data.forEach((item) => {
+        const category = Object.keys(item)[0];
+        const createdAt = item[category].CreatedAt;
+        const count = createdAt.filter((date) => date === dateObj.time).length;
+        dateObj[category] = count;
+      });
+
+      formattedData.push(dateObj);
+    });
+
+    return formattedData;
+  };
+  const formattedData = formatDataForAreaChart(users?.data);
 
   return (
     <div>
@@ -60,9 +74,10 @@ const StackedAreaGraphics = () => {
           onChange={handleChangeOption}
           label="Option"
         >
+          <MenuItem value="">Todos</MenuItem>
           <MenuItem value="Colaborador">Colaborador</MenuItem>
-          <MenuItem value="Empresa">Empresa</MenuItem>
-          <MenuItem value="Colaborador">Profesional</MenuItem>
+          <MenuItem value="Empresa">Cliente</MenuItem>
+          <MenuItem value="Profesional">Proveedor</MenuItem>
         </Select>
       </FormControl>
       <div style={{ m: 1, display: "flex", flexDirection: "row" }}>
@@ -75,7 +90,7 @@ const StackedAreaGraphics = () => {
       </div>
       <ResponsiveContainer width={400} height={300}>
         <AreaChart
-          data={data}
+          data={formattedData}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -98,21 +113,21 @@ const StackedAreaGraphics = () => {
           <Legend />
           <Area
             type="monotone"
-            dataKey="uv"
+            dataKey="Cliente"
             stackId="1"
             stroke="#8884d8"
             fill="#8884d8"
           />
           <Area
             type="monotone"
-            dataKey="pv"
+            dataKey="Colaborador"
             stackId="1"
             stroke="#82ca9d"
             fill="#82ca9d"
           />
           <Area
             type="monotone"
-            dataKey="amt"
+            dataKey="Proveedor"
             stackId="1"
             stroke="#ffc658"
             fill="#ffc658"

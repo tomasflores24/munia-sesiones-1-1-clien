@@ -8,27 +8,34 @@ import { StatisticsServices } from "../../../services/dashboard/statistics/stati
 import { useQuery } from "react-query";
 
 const CardsStatistics = () => {
-  const [company, setCompany] = React.useState("");
-
-  const handleChange = (event) => {
-    setCompany(event.target.value);
-    console.log(company);
-  };
+  const [company, setCompany] = React.useState(
+    "4ec50719-1919-41fe-96ed-7e2070e2d5e9"
+  );
 
   const { data: collaborators } = useQuery(
     ["getAllCollaborators"],
     StatisticsServices.getAllCollaborators
   );
 
-  const { data: companies } = useQuery(
+  const { data: companies, refetch: companiesRefetch } = useQuery(
     ["getAllcompanies"],
     StatisticsServices.getAllCompanies
   );
-
   const { data: provider } = useQuery(
     ["getAllProvider"],
     StatisticsServices.getAllProvider
   );
+
+  const { data: general, refetch: generalRefetch } = useQuery(
+    ["getAllGeneral"],
+    () => StatisticsServices.getAllGeneral(company)
+  );
+
+  const handleChange = async (event) => {
+    await setCompany(event.target.value);
+    companiesRefetch();
+    generalRefetch();
+  };
 
   return (
     <div className="cards-container">
@@ -47,7 +54,7 @@ const CardsStatistics = () => {
             onChange={handleChange}
             label="Company"
           >
-            {companies?.data.allCompanies.map((company) => (
+            {companies?.data.map((company) => (
               <MenuItem key={company.id} value={company.id}>
                 <em>{company.user.name}</em>
               </MenuItem>
@@ -56,34 +63,34 @@ const CardsStatistics = () => {
         </FormControl>
       </div>
       <div className="card-header">
-        <div className="card__value">25</div>
+        <div className="card__value">{general?.data.totalUsers}</div>
         <div className="card__title">Usuarios</div>
       </div>
       <div className="card-header">
-        <div className="card__value">12</div>
+        <div className="card__value">{general?.data.totalAppointments}</div>
         <div className="card__title">Citas programadas</div>
       </div>
       <div className="card-header">
-        <div className="card__value__services">Higiene del sueño</div>
+        <div className="card__value__services">
+          {general?.data.mostUsedService}
+        </div>
         <div className="card__title__services">Servicio mas utilizado</div>
       </div>
       <div className="card-header">
-        <div className="card__value">4.0 - 5.0</div>
+        <div className="card__value">{general?.data.averageRating}</div>
         <div className="card__title">Promedio de satisfacción general</div>
       </div>
       <p className="divisor-header-bottom">Información general</p>
       <div className="card-bottom">
-        <div className="card__value">
-          {collaborators?.data.allCollaborators.length}
-        </div>
+        <div className="card__value">{collaborators?.data.length}</div>
         <div className="card__title">Usuarios</div>
       </div>
       <div className="card-bottom">
-        <div className="card__value">{companies?.data.allCompanies.length}</div>
+        <div className="card__value">{companies?.data?.length}</div>
         <div className="card__title">Clientes</div>
       </div>
       <div className="card-bottom">
-        <div className="card__value">{provider?.data.allProvider.length}</div>
+        <div className="card__value">{provider?.data.length}</div>
         <div className="card__title">Proveedores</div>
       </div>
     </div>

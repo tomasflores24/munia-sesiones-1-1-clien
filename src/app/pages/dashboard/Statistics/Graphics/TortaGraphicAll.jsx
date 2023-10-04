@@ -1,61 +1,29 @@
 import React from "react";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useQuery } from "react-query";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 
 const TortaGraphicAll = () => {
-  const dataTorta = [
-    { name: "Usuarios", value: 500 },
-    { name: "Psicólogos", value: 200 },
-    { name: "Empresas", value: 100 },
-  ];
-
   const COLORS = ["#845f54", "#74635e", "#4d322b", "#AE7A6C"];
 
-  const [option, setOption] = React.useState("Psicologia");
+  const { data: users } = useQuery("getUsers", StatisticsServices.getUsers);
 
-  const handleChangeOption = (event) => {
-    setOption(event.target.value);
-  };
+  const formattedData = users?.data.map((item) => {
+    const userName = Object.keys(item)[0];
+    const count = item[userName].Count;
 
-  // const {
-  //   data: categories,
-  //   error,
-  //   isLoading,
-  // } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
-
-  const { data: users } = useQuery(
-    "getAllUsers",
-    StatisticsServices.getAllUsers
-  );
+    return {
+      name: userName,
+      count: count,
+    };
+  });
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Opciones</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={option}
-          onChange={handleChangeOption}
-          label="Option"
-        >
-          <MenuItem value={10}>Todos</MenuItem>
-          {/* {users?.data.statistics.data.map((user) => (
-            <MenuItem
-              key={user.data.statistics.data}
-              value={user.data.statistics.data}
-            >
-              <em>{user.data.statistics.data}</em>
-            </MenuItem>
-          ))} */}
-        </Select>
-      </FormControl>
       <PieChart width={400} height={300}>
         <Pie
-          data={dataTorta}
-          dataKey="value"
+          data={formattedData}
+          dataKey="count"
           nameKey="name"
           cx="50%"
           cy="50%"
@@ -63,7 +31,7 @@ const TortaGraphicAll = () => {
           fill="#AE7A6C"
           label={({ name }) => name}
         >
-          {dataTorta.map((entry, index) => (
+          {formattedData?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
