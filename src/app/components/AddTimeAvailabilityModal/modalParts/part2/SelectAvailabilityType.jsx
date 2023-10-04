@@ -16,13 +16,13 @@ import {
 
 import CloseIcon from "@mui/icons-material/Close";
 
-import "./SelectAvailabilityType.Style.scss";
+import "./SelectAvailabilityTypeStyle.scss";
 import {
   calculateMonthMinDate,
   calculateWeekMinMaxDates,
 } from "../../../../utils/calendar";
 
-const SelectAvailabilityType = ({ closeModal }) => {
+const SelectAvailabilityType = ({ closeModal, nextStep }) => {
   const [timeInterval, setTimeInterval] = useState("");
   const [availabilityType, setAvailabilityType] = useState("");
   const [rangeDate, setRangeDate] = useState({ min: "", max: "" });
