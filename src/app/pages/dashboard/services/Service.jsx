@@ -1,3 +1,5 @@
+// Service.js
+
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import {
@@ -170,7 +172,10 @@ function Service() {
             })
           }
           title="Editar Servicio"
-          initialData={selectedService}
+          initialData={{
+            name: selectedService.name,
+            CategoryId: selectedService.CategoryId,
+          }}
         />
       )}
 

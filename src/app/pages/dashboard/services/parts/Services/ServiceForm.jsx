@@ -17,9 +17,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const serviceSchema = yup.object({
   name: yup.string().required("El nombre es requerido"),
-  // description: yup.string().required("La descripción es requerida"),
-  // price: yup.number().required("El precio es requerido").positive(),
-  // duration: yup.string().required("La duración es requerida"),
   CategoryId: yup.number().required("La categoría es requerida"),
 });
 
@@ -32,9 +29,6 @@ const ServiceForm = ({ initialData = {} }) => {
     resolver: yupResolver(serviceSchema),
     defaultValues: {
       name: initialData.name || "",
-      // description: initialData.descripcion || "",
-      // price: initialData.precio || "",
-      // duration: initialData.duracion || "",
       CategoryId: initialData.categoria || "1",
     },
   });
@@ -78,61 +72,7 @@ const ServiceForm = ({ initialData = {} }) => {
             )}
           />
         </Grid>
-        {/* Otras opciones de formulario
-        <Grid item xs={12}>
-          <Controller
-            name="description"
-            control={control}
-            defaultValue={initialData.description || ""}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Descripción del Servicio"
-                multiline
-                fullWidth
-                required
-                error={!!errors.description}
-                helperText={errors.description?.message}
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="price"
-            control={control}
-            defaultValue={initialData.price || ""}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Precio del Servicio"
-                type="number"
-                fullWidth
-                required
-                error={!!errors.price}
-                helperText={errors.price?.message}
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            name="duration"
-            control={control}
-            defaultValue={initialData.duration || ""}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Duración del Servicio"
-                fullWidth
-                required
-                error={!!errors.duration}
-                helperText={errors.duration?.message}
-              />
-            )}
-          />
-        </Grid> 
-         */}
+
         <Grid item xs={12}>
           <Controller
             name="CategoryId"
