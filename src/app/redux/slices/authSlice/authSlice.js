@@ -34,8 +34,10 @@ const authSlice = createSlice({
     },
   },
 });
-//cargar las actions para exportar
 
+//cargar las actions para exportar
 export const { setDataSuccess } = authSlice.actions;
+
+export const selectUser = (state) => state.auth.auth.user;
 
 export default authSlice.reducer;

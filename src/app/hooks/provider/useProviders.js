@@ -3,8 +3,13 @@ import { ProvidersServices } from "../../services/dashboard/providers/providers.
 
 const providerKey = "providers";
 
-export function useGetProviders() {
-  return useQuery([providerKey], ProvidersServices.getAllProviders);
+/**
+ * 
+ * @param {string | undefined} keyword 
+ * @returns useQuery hook from react-query
+ */
+export function useGetProviders(keyword) {
+  return useQuery([providerKey, keyword], () => ProvidersServices.getAllProviders(keyword));
 }
 
 export function useDeleteProvider() {
