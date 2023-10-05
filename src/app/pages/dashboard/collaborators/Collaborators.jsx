@@ -72,7 +72,7 @@ const Collaborators = () => {
       ) : !isLoading && isSuccess ? (
         <div className="collaborators_table">
           <TableShared
-            data={data.data.allCollaborators}
+            data={data.data || []}
             currentPage="Collaborators"
             headers={collaboratorsHeaders}
             openModal={openModal}
