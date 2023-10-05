@@ -1,3 +1,4 @@
+import "./ServiceForm.style.scss";
 import { useForm, Controller } from "react-hook-form";
 import {
   TextField,
@@ -53,7 +54,7 @@ const ServiceForm = ({ initialData = {} }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="service-form">
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Controller
@@ -64,10 +65,11 @@ const ServiceForm = ({ initialData = {} }) => {
               <TextField
                 {...field}
                 label="Nombre del Servicio"
-                fullWidth
+                // fullWidth
                 required
                 error={!!errors.name}
                 helperText={errors.name?.message}
+                className="service-textfield"
               />
             )}
           />
@@ -79,7 +81,7 @@ const ServiceForm = ({ initialData = {} }) => {
             control={control}
             defaultValue={initialData.CategoryId || "1"}
             render={({ field }) => (
-              <FormControl fullWidth>
+              <FormControl fullWidth className="service-select">
                 <InputLabel>Categoría del Servicio</InputLabel>
                 <Select {...field}>
                   <MenuItem value="1">Categoría 1</MenuItem>
@@ -91,7 +93,12 @@ const ServiceForm = ({ initialData = {} }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="service-button"
+          >
             Crear
           </Button>
         </Grid>

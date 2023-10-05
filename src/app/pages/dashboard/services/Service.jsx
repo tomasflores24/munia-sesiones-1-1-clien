@@ -1,21 +1,22 @@
-// Service.js
-
+import "./Services.Style.scss";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import {
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
   Paper,
+  Grid,
 } from "@mui/material";
-import ServiceModal from "./parts/Services/ServiceModal";
+import ServiceModal from "./parts/ServiceModal/ServiceModal";
 import { ServiceServices } from "../../../services/dashboard/service/service.service";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Service() {
   const queryClient = useQueryClient();
@@ -72,15 +73,15 @@ function Service() {
       setSelectedService(null);
     }
   };
-
+// color la letra de el boton cancelar a #AE7A6C
   const alertdeleteService = () => {
     Swal.fire({
       title: "¿Estás seguro?",
       text: "¡No podrás revertir esto!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#00A7AF",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#AE7A6C",
+      cancelButtonColor: "#AE7A6C", 
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
@@ -96,59 +97,53 @@ function Service() {
   }
 
   return (
-    <div>
-      <div>
-        <h1>Listado de Servicios</h1>
-        <Button variant="contained" onClick={openCreateModal}>
+    <div className="service-container">
+      <div className="service-header">
+        <h1 className="service-title">Listado de Servicios</h1>
+        <Button
+          className="button-service"
+          variant="contained"
+          onClick={openCreateModal}
+        >
           Crear Servicio
         </Button>
       </div>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Servicios</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isSuccess && !isLoading ? (
-              services.data.map((service) => (
-                <TableRow key={service.id}>
-                  <TableCell>{service.name}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => openEditModal(service)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => openViewModal(service)}
-                    >
-                      Ver
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        setSelectedService(service);
-                        alertdeleteService();
-                      }}
-                    >
-                      Eliminar
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={5}>No hay servicios disponibles.</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Grid container className="service-grid">
+        {isSuccess && !isLoading ? (
+          services.data.map((service) => (
+            <Grid key={service.id} className="service-grid-item">
+              <Card className="service-card">
+                <CardContent className="service-card-content">
+                  <Typography variant="h5">{service.name}</Typography>
+                </CardContent>
+                <CardActions className="service-card-actions">
+                  <Button onClick={() => openEditModal(service)}>
+                    <EditIcon />
+                  </Button>
+                  <Button onClick={() => openViewModal(service)}>
+                    <VisibilityIcon />
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setSelectedService(service);
+                      alertdeleteService();
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Paper elevation={3} className="service-empty">
+            <Typography variant="body1">
+              No hay servicios disponibles.
+            </Typography>
+          </Paper>
+        )}
+      </Grid>
 
       {isCreateModalOpen && (
         <ServiceModal
