@@ -27,7 +27,7 @@ const Comments = () => {
 
   const { isLoading: serviceLoading, data: serviceData } = useQuery(
     ["getAllService"],
-    () => CommentsServices.getAllService()
+    () => providerId ? CommentsServices.getAllService(providerId) : CommentsServices.getAllService()
   );
 
   const handleChangeFilters = async (e) => {
@@ -125,7 +125,15 @@ const Comments = () => {
                   onChange={handleChangeService}
                 >
                   <option hidden>Servicio</option>
-                  {
+                  {providerId ? (
+                    serviceData?.data[0]?.provider_assign_service?.map((servicio, index) => (
+                      <option
+                        key={index}
+                        value={servicio.service.id}
+                      >{servicio.service.name}
+                      </option>
+                    ))
+                  ) :
                     serviceData?.data?.map((ser, index) => (
                       <option
                         key={index}

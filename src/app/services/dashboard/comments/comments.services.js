@@ -24,7 +24,7 @@ const CommentsServices = {
       return await HttpRequest.get(url)
     }
   },
-  getAllService: async () => await HttpRequest.get(`/service`),
+  getAllService: async (ProviderId) => await HttpRequest.get(ProviderId ? `/service/provider/${ProviderId}`: `/service`),
 };
 
 export default CommentsServices;
