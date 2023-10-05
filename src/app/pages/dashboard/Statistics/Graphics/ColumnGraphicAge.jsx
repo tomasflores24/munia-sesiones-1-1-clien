@@ -1,68 +1,117 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useQuery } from "react-query";
+import { useState } from "react";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
+import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 
 const ColumnGraphicAge = () => {
-  const dataColumnas = [
-    { service: "Servicio A", count: 50 },
-    { service: "Servicio B", count: 70 },
-    { service: "Servicio C", count: 30 },
-    // ...otros servicios
-  ];
+  const [category, setCategory] = useState("");
+  const [service, setService] = useState("");
 
-  const [category, setCategory] = React.useState('');
-  
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
+  const { data: servicesFilter, isLoading } = useQuery(["getServices"], () =>
+    StatisticsServices.getServices()
+  );
+
+  const {
+    data: dataCategory,
+    errors,
+    isLoading: isLoadingCategory,
+  } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
+  const {
+    data: ages,
+    refetch: agesRefetch,
+    isLoading: isLoadingAges,
+  } = useQuery(["getAllAges"], () =>
+    StatisticsServices.getAllAges(service, category)
+  );
+
+  const handleChangeCategory = async (event) => {
+    if (event.target.value === "Todos") {
+      await setCategory("");
+      agesRefetch();
+    } else {
+      await setCategory(event.target.value);
+      agesRefetch();
+    }
   };
 
-  const [service, setService] = React.useState('');
-  
-  const handleChangeService = (event) => {
-    setService(event.target.value);
+  const handleChangeService = async (event) => {
+    const { value } = event.target;
+    await setService(value);
+    agesRefetch();
   };
+
+  const formattedData = ages?.data
+    .filter((item) => !item.ages)
+    .map((item) => {
+      const ageRange = Object.keys(item)[0];
+      const ages = item[ageRange];
+      return {
+        años: ageRange,
+        count: ages.length,
+      };
+    });
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Categorías</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={category}
-          onChange={handleChangeCategory}
-          label="Category"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Servicios</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={service}
-          onChange={handleChangeService}
-          label="Service"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
-        </Select>
-      </FormControl>
-      <BarChart width={400} height={300} data={dataColumnas}>
-        <XAxis dataKey="service" />
-        <YAxis />
-        <CartesianGrid stroke="#ae7a6c8f" />
-        <Tooltip />
-        <Bar dataKey="count" fill="#AE7A6C" />
-      </BarChart>
+      {isLoading || isLoadingCategory || isLoadingAges ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Categorías
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={category}
+              onChange={handleChangeCategory}
+              label="Category"
+            >
+              <MenuItem value="Todos">Todos</MenuItem>
+              {dataCategory &&
+                dataCategory?.data !== undefined &&
+                dataCategory.data.length > 0 &&
+                dataCategory.data.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    <em>{category.name}</em>
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Servicios
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={service}
+              onChange={handleChangeService}
+              label="Service"
+            >
+              <MenuItem>Todos</MenuItem>
+              {servicesFilter?.data.map((el) => {
+                return (
+                  <MenuItem key={el.id} value={el.id}>
+                    <em>{el.name}</em>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <BarChart width={400} height={300} data={formattedData}>
+            <XAxis dataKey="años" />
+            <YAxis />
+            <CartesianGrid stroke="#ae7a6c8f" />
+            <Tooltip />
+            <Bar dataKey="count" fill="#AE7A6C" />
+          </BarChart>
+        </>
+      )}
     </div>
   );
 };
