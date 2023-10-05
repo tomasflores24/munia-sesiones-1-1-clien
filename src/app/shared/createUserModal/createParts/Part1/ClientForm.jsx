@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 
 import "./ClientFormStyle.scss";
 import { useMutation } from "react-query";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ClientsServices } from "../../../../services/dashboard/clients/clients.services";
 
 const collaboratorSchema = yup.object({
@@ -38,7 +38,10 @@ const collaboratorSchema = yup.object({
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       "Ingresa un correo valido"
     ),
-  phone: yup.string().required("El telefono es requerido"),
+  phone: yup
+    .number()
+    .typeError("El telefono debe ser un numero")
+    .required("El telefono es requerido"),
   password: yup
     .string()
     .required("La contraseña es requerida")
@@ -70,37 +73,32 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
     ["registerClient"],
     ClientsServices.createClient,
     {
-      onSuccess: (e) => {
-        const company = e.data;
-        setCompanyId(company.id);
+      onSuccess: (res) => {
+        setCompanyId(res.data);
         toast.success("¡Registro de empresa exitoso!");
-        setStep(2);
+        setTimeout(() => {
+          setStep(2);
+        }, [1000]);
       },
-      onError: (e) => {
-        toast.error(e.message);
+      onError: (err) => {
+        toast.error(err.message || "Algo salio mal.");
       },
     }
   );
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    // TODO: fix the city, must be dynamic.
     mutate({
-      user: {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        isActive: false,
-        isDelete: false,
-        UserTypeId: 1,
-        city: "bs as",
-        CountryId: 1,
-      },
-      profile: {
-        phone: parseInt(data.phone, 10),
-        register_id: "123123",
-      },
-      auth: {
-        type: "Empresa",
-      },
+      profilePic: "https://picsum.photos/200",
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      CountryId: 1,
+      city: "Seattle",
+      isActive: false,
+      UserTypeId: 2,
+      phone: parseInt(data.phone, 10),
+      register_id: "COMP123456",
     });
   };
 
@@ -256,8 +254,6 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
           </button>
         </div>
       </div>
-
-      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
