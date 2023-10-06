@@ -1,13 +1,14 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Toaster } from "react-hot-toast";
 
 import SelectMembership from "./createParts/Part2/SelectMembership";
 import ClientForm from "./createParts/Part1/ClientForm";
 import "./CreateUserModalStyle.scss";
 
 const CreateUserModal = ({ open, closeModal }) => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [companyId, setCompanyId] = useState(null);
 
   const formDispense = () => {
@@ -21,24 +22,33 @@ const CreateUserModal = ({ open, closeModal }) => {
           />
         );
       case 2:
-        return <SelectMembership companyId={companyId} />;
+        return (
+          <SelectMembership
+            companyId={companyId}
+            setStep={setStep}
+            closeModal={closeModal}
+          />
+        );
       default:
         break;
     }
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={closeModal}
-      className="createUserModal__root"
-      maxWidth="md"
-      sx={{ "& .MuiDialog-paper": { borderRadius: "25px" } }}
-    >
-      <DialogContent>
-        <div className="createUserModal__steps">{formDispense()}</div>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog
+        open={open}
+        onClose={closeModal}
+        className="createUserModal__root"
+        maxWidth="md"
+        sx={{ "& .MuiDialog-paper": { borderRadius: "25px" } }}
+      >
+        <DialogContent>
+          <div className="createUserModal__steps">{formDispense()}</div>
+        </DialogContent>
+      </Dialog>
+      <Toaster position="top-center" reverseOrder={false} />
+    </>
   );
 };
 

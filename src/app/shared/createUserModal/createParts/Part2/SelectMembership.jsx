@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
 
 import MembershipBox from "./MembershipBox/MembershipBox";
 import "./SelectMembershipStyle.scss";
@@ -8,19 +9,27 @@ import { useMutation } from "react-query";
 import { PurchasesServices } from "../../../../services/dashboard/purchases/purchases.services";
 
 export const MembershipTypes = {
-  BASIC: "BASIC",
-  STANDARD: "STANDARD",
-  COMPANY: "COMPANY",
+  BASIC: 1,
+  STANDARD: 2,
+  COMPANY: 3,
 };
 
-const SelectMembership = ({ companyId }) => {
+const SelectMembership = ({ companyId, closeModal, setStep }) => {
   const [selectedMembership, setSelectedMembership] = useState(
     MembershipTypes.BASIC
   );
 
   const { mutate } = useMutation(
     ["purchase"],
-    PurchasesServices.createPurchase
+    PurchasesServices.createPurchase,
+    {
+      onSuccess: () => {
+        toast.success("¡Compra de membresia exitosa!");
+      },
+      onError: (err) => {
+        toast.error(err.message || "Algo salio mal.");
+      },
+    }
   );
 
   const selectMembership = (type) => {
@@ -34,6 +43,12 @@ const SelectMembership = ({ companyId }) => {
       CompanyId: companyId,
       MembershipId: selectedMembership,
     });
+    closeModal();
+    
+    // Para que no se vea el paso uno antes de cerrar el modal
+    setTimeout(() => {
+      setStep(1);
+    }, [1000]);
   };
 
   return (
@@ -83,6 +98,8 @@ const SelectMembership = ({ companyId }) => {
 
 SelectMembership.propTypes = {
   companyId: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  setStep: PropTypes.func,
 };
 
 export default SelectMembership;
