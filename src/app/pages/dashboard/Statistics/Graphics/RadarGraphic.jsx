@@ -13,14 +13,11 @@ import { useQuery } from "react-query";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 
-const RadarGraphic = () => {
-  const [category, setCategory] = React.useState("");
-
+const RadarGraphic = ({ company, category, setCategory }) => {
   const { data: services, refetch: serviceRefetch } = useQuery(
     ["getAllServices"],
-    () => StatisticsServices.getAllServices(category)
+    () => StatisticsServices.getAllServices(company, category)
   );
-
   const {
     data: dataCategory,
     errors,
@@ -30,16 +27,9 @@ const RadarGraphic = () => {
 
   const handleChange = async (event) => {
     const selectedCategory = event.target.value;
-    console.log(selectedCategory);
-    if (selectedCategory === "Todos") {
-      await setCategory("");
-      serviceRefetch();
-      refetchCategory();
-    } else {
-      await setCategory(selectedCategory);
-      serviceRefetch();
-      refetchCategory();
-    }
+    await setCategory(selectedCategory);
+    serviceRefetch();
+    refetchCategory();
   };
 
   return (
@@ -59,7 +49,7 @@ const RadarGraphic = () => {
               onChange={handleChange}
               label="Category"
             >
-              <MenuItem value="Todos">Todos</MenuItem>
+              <MenuItem value="">Todos</MenuItem>
               {dataCategory &&
                 dataCategory?.data !== undefined &&
                 dataCategory.data.length > 0 &&
