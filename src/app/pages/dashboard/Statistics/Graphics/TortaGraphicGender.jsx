@@ -5,10 +5,14 @@ import { StatisticsServices } from "../../../../services/dashboard/statistics/st
 import { useQuery } from "react-query";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 
-const TortaGraphicGender = () => {
+const TortaGraphicGender = ({
+  company,
+  categoryGenders,
+  serviceGenders,
+  setServiceGenders,
+  setCategoryGenders,
+}) => {
   const COLORS = ["#845f54", "#74635e", "#4d322b", "#AE7A6C"];
-  const [category, setCategory] = React.useState(1);
-  const [service, setService] = React.useState("");
 
   const {
     data: servicesFilter,
@@ -29,33 +33,23 @@ const TortaGraphicGender = () => {
     refetch: genderRefetch,
     isLoading: isLoadingGenders,
   } = useQuery(["getAllGenders"], () =>
-    StatisticsServices.getAllGenders(category, service)
+    StatisticsServices.getAllGenders(company, categoryGenders, serviceGenders)
   );
 
   const handleChangeCategory = async (event) => {
     const selectedCategory = event.target.value;
-    if (selectedCategory === "Todos") {
-      await setCategory();
-      categoriesRefetch();
-      genderRefetch();
-    } else {
-      await setCategory(selectedCategory);
-      categoriesRefetch();
-      genderRefetch();
-    }
+    await setCategoryGenders(selectedCategory);
+    await categoriesRefetch();
+    await genderRefetch();
+    await servicesFilterRefetch;
   };
 
   const handleChangeService = async (event) => {
     const selectedService = event.target.value;
-    if (selectedService === "Todos") {
-      await setService();
-      genderRefetch();
-      servicesFilterRefetch();
-    } else {
-      await setService(selectedService);
-      genderRefetch();
-      servicesFilterRefetch();
-    }
+    await setServiceGenders(selectedService);
+    await genderRefetch();
+    await servicesFilterRefetch();
+    await categoriesRefetch;
   };
 
   const genderData = gender?.data.map((item) => {
@@ -77,11 +71,11 @@ const TortaGraphicGender = () => {
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={category}
+              value={categoryGenders}
               onChange={handleChangeCategory}
               label="Category"
             >
-              <MenuItem value="Todos">Todos</MenuItem>
+              <MenuItem value="">Todos</MenuItem>
               {dataCategory &&
                 dataCategory?.data !== undefined &&
                 dataCategory.data.length > 0 &&
@@ -99,11 +93,11 @@ const TortaGraphicGender = () => {
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={service}
+              value={serviceGenders}
               onChange={handleChangeService}
               label="Service"
             >
-              <MenuItem value="Todos">Todos</MenuItem>
+              <MenuItem>Todos</MenuItem>
               {servicesFilter?.data.map((el) => {
                 return (
                   <MenuItem key={el.id} value={el.id}>
