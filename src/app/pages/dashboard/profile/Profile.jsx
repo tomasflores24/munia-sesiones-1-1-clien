@@ -2,7 +2,7 @@ import UserProfile from "./UserProfile";
 import ProviderProfile from "./profileTypes/ProviderProfile";
 
 const Profile = () => {
-  const profileData = {
+  /* const profileData = {
     profileImage: "",
     username: "Usuario Ejemplo",
     description:
@@ -65,14 +65,15 @@ const Profile = () => {
         placeholder: "",
       },
     ],
-  };
+  }; */
 
   return (
     <>
-      {/* <UserProfile {...profileData} /> */}
       <ProviderProfile />
     </>
   );
 };
 
 export default Profile;
+
+{/*  <UserProfile {...profileData} /> */}
