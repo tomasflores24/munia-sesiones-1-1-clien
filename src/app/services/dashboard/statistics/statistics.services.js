@@ -5,8 +5,9 @@ export const StatisticsServices = {
   getAllCompanies: async () => HttpRequest.get("/company/"),
   getAllProvider: async () => HttpRequest.get("/provider"),
   getAllAges: async () => HttpRequest.get("/statistics/ages"),
-  getAllCategories: async () => HttpRequest.get("/statistics/categories"),
+
   getUsers: async () => HttpRequest.get("/statistics/users"),
+
   getAllUsers: async (scaleTime, userType) => {
     let url = "/statistics/users";
 
@@ -33,12 +34,14 @@ export const StatisticsServices = {
 
   getAllCategory: async (categoryId) =>
     HttpRequest.get(categoryId ? `/category/${categoryId}` : "/category"),
-  getAllServices: async (categoryId) =>
-    await HttpRequest.get(
-      categoryId
-        ? `/statistics/services?CategoryId=${categoryId}`
-        : "/statistics/services"
+
+  getAllCategories: async (CompanyId) =>
+    HttpRequest.get(
+      CompanyId
+        ? `/statistics/categories?CompanyId=${CompanyId}`
+        : "/statistics/categories"
     ),
+
   getAllGeneral: async (CompanyId) =>
     HttpRequest.get(
       CompanyId
@@ -50,17 +53,17 @@ export const StatisticsServices = {
       categoryId ? `/service/?CategoryId=${categoryId}` : "/service/"
     ),
 
-  getAllAges: async (ServiceId, CategoryId) => {
-    let url = "/statistics/ages";
+  getAllServices: async (CompanyId, CategoryId) => {
+    let url = "/statistics/services";
 
-    if (!ServiceId && !CategoryId) {
+    if (!CompanyId && !CategoryId) {
       return HttpRequest.get(url);
     } else {
       const queryParams = [
-        { name: "ServiceId", value: ServiceId },
+        { name: "CompanyId", value: CompanyId },
         { name: "CategoryId", value: CategoryId },
       ];
-      const filteredQuerys = queryParams
+      queryParams
         .filter((el) => el.value)
         .map((el, index) => {
           if (index === 0) {
@@ -68,19 +71,44 @@ export const StatisticsServices = {
           } else {
             url = url + `&${el.name}=${el.value}`;
           }
-          return url;
         });
+      return HttpRequest.get(url);
     }
-    return HttpRequest.get(url);
   },
 
-  getAllGenders: async (CategoryId, ServiceId) => {
-    let url = "/statistics/genders";
+  getAllAges: async (ServiceId, CompanyId, CategoryId) => {
+    let url = "/statistics/ages";
 
-    if (!CategoryId && !ServiceId) {
+    if (!ServiceId && !CompanyId && !CategoryId) {
       return HttpRequest.get(url);
     } else {
       const queryParams = [
+        { name: "ServiceId", value: ServiceId },
+        { name: "CompanyId", value: CompanyId },
+        { name: "CategoryId", value: CategoryId },
+      ];
+      const filteredQuerys = queryParams
+        .filter((el) => el.value)
+        .map((el, index) => {
+          if (index === 0) {
+            url = url + `?${el.name}=${el.value}`;
+          } else {
+            url = url + `&${el.name}=${el.value}`;
+          }
+          return url;
+        });
+      return HttpRequest.get(url);
+    }
+  },
+
+  getAllGenders: async (CompanyId, CategoryId, ServiceId) => {
+    let url = "/statistics/genders";
+
+    if (!CategoryId && !CompanyId && !ServiceId) {
+      return HttpRequest.get(url);
+    } else {
+      const queryParams = [
+        { name: "CompanyId", value: CompanyId },
         { name: "CategoryId", value: CategoryId },
         { name: "ServiceId", value: ServiceId },
       ];
@@ -94,7 +122,7 @@ export const StatisticsServices = {
           }
           return url;
         });
+      return HttpRequest.get(url);
     }
-    return HttpRequest.get(url);
   },
 };

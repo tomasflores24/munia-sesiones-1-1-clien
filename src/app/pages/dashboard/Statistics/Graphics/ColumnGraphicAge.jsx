@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useQuery } from "react-query";
-import { useState } from "react";
+
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 
-const ColumnGraphicAge = () => {
-  const [category, setCategory] = useState("");
-  const [service, setService] = useState("");
-
-  const { data: servicesFilter, isLoading } = useQuery(["getServices"], () =>
-    StatisticsServices.getServices()
-  );
+const ColumnGraphicAge = ({
+  company,
+  categoryAges,
+  serviceAges,
+  setCategoryAges,
+  setServiceAges,
+}) => {
+  const {
+    data: servicesFilter,
+    isLoading,
+    refetch: servicesFilterRefecth,
+  } = useQuery(["getServices"], () => StatisticsServices.getServices());
 
   const {
     data: dataCategory,
     errors,
+    refetch: dataCategoryRefetch,
     isLoading: isLoadingCategory,
   } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
   const {
@@ -24,22 +30,27 @@ const ColumnGraphicAge = () => {
     refetch: agesRefetch,
     isLoading: isLoadingAges,
   } = useQuery(["getAllAges"], () =>
-    StatisticsServices.getAllAges(service, category)
+    StatisticsServices.getAllAges(serviceAges, company, categoryAges)
   );
 
   const handleChangeCategory = async (event) => {
     if (event.target.value === "Todos") {
-      await setCategory("");
+      await setCategoryAges("");
       agesRefetch();
+      dataCategoryRefetch();
+      servicesFilterRefecth();
     } else {
-      await setCategory(event.target.value);
+      await setCategoryAges(event.target.value);
       agesRefetch();
+      dataCategoryRefetch();
+      servicesFilterRefecth();
     }
   };
 
   const handleChangeService = async (event) => {
     const { value } = event.target;
-    await setService(value);
+    await setServiceAges(value);
+    dataCategoryRefetch();
     agesRefetch();
   };
 
@@ -67,7 +78,7 @@ const ColumnGraphicAge = () => {
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={category}
+              value={categoryAges}
               onChange={handleChangeCategory}
               label="Category"
             >
@@ -89,11 +100,11 @@ const ColumnGraphicAge = () => {
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={service}
+              value={serviceAges}
               onChange={handleChangeService}
               label="Service"
             >
-              <MenuItem>Todos</MenuItem>
+              <MenuItem value="">Todos</MenuItem>
               {servicesFilter?.data.map((el) => {
                 return (
                   <MenuItem key={el.id} value={el.id}>

@@ -1,17 +1,16 @@
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
-const ColumnGraphicServices = () => {
+const ColumnGraphicServices = ({ company }) => {
   const {
     data: categories,
     error,
     isLoading,
-  } = useQuery("getAllCategories", StatisticsServices.getAllCategories);
-
-  console.log(categories?.data)
+  } = useQuery(["getAllCategories"], () =>
+    StatisticsServices.getAllCategories(company)
+  );
 
   return (
     <div>

@@ -9,9 +9,16 @@ import TortaGraphicGender from "./Graphics/TortaGraphicGender";
 import TortaGraphicAll from "./Graphics/TortaGraphicAll";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const Statistics = () => {
   const [isLoading, setIsloading] = useState(false);
+  const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
+  const [categoryAges, setCategoryAges] = useState("");
+  const [serviceAges, setServiceAges] = useState("");
+  const [categoryGenders, setCategoryGenders] = useState();
+  const [serviceGenders, setServiceGenders] = useState("");
 
   useEffect(() => {
     setIsloading(true);
@@ -19,6 +26,8 @@ const Statistics = () => {
       setIsloading(false);
     }, 4000);
   }, []);
+
+  const user = useSelector((state) => state.auth.auth.user.userTypeId);
 
   return (
     <div className="statistics-container">
@@ -31,30 +40,64 @@ const Statistics = () => {
               <p className="title__p__top">
                 Panel de métricas de servicios elejidos por los usuarios
               </p>
-              <section className="section-graphics">
-                <ColumnGraphicServices />
-                <RadarGraphic />
-              </section>
-              <p className="title__p__top">
-                Panel de metricas de servicios y categorías elejidos basado en
-                datos demográficos
-              </p>
-              <section className="section-graphics">
-                <ColumnGraphicAge />
-                <TortaGraphicGender />
-              </section>
-              <p className="title__p__top">
-                Panel de estadísticas de cantidad de usuarios en la plataforma
-                en el tiempo
-              </p>
-              <section className="section-graphics">
-                <StackedAreaGraphic />
-                <TortaGraphicAll />
-              </section>
+
+              <div>
+                <section className="section-graphics">
+                  <ColumnGraphicServices company={company} />
+                  <RadarGraphic
+                    company={company}
+                    category={category}
+                    setCategory={setCategory}
+                  />
+                </section>
+              </div>
+
+              <div>
+                <p className="title__p__top">
+                  Panel de metricas de servicios y categorías elejidos basado en
+                  datos demográficos
+                </p>
+                <section className="section-graphics">
+                  <ColumnGraphicAge
+                    company={company}
+                    categoryAges={categoryAges}
+                    serviceAges={serviceAges}
+                    setCategoryAges={setCategoryAges}
+                    setServiceAges={setServiceAges}
+                  />
+                  <TortaGraphicGender
+                    company={company}
+                    categoryGenders={categoryGenders}
+                    serviceGenders={serviceGenders}
+                    setServiceGenders={setServiceGenders}
+                    setCategoryGenders={setCategoryGenders}
+                  />
+                </section>
+              </div>
+              {user === 4 ? (
+                <div>
+                  <p className="title__p__top">
+                    Panel de estadísticas de cantidad de usuarios en la
+                    plataforma en el tiempo
+                  </p>
+                  <section className="section-graphics">
+                    <StackedAreaGraphic />
+                    <TortaGraphicAll />
+                  </section>
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="container-cards-stadistics">
-            <CardsStatistics />
+            <CardsStatistics
+              company={company}
+              setCompany={setCompany}
+              category={category}
+              categoryAges={categoryAges}
+              serviceAges={serviceAges}
+              categoryGenders={categoryGenders}
+              serviceGenders={serviceGenders}
+            />
           </div>
         </>
       )}
