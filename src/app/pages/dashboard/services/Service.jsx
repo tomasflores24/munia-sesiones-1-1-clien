@@ -1,6 +1,6 @@
 import "./Services.Style.scss";
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import {
   Button,
   Card,
@@ -16,10 +16,10 @@ import Swal from "sweetalert2";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+// import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Service() {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isViewModalOpen, setViewModalOpen] = useState(false);
@@ -29,28 +29,33 @@ function Service() {
     data: services,
     isLoading,
     isSuccess,
+    refetch,
   } = useQuery("services", ServiceServices.getAllServices);
 
   const createServiceMutation = useMutation(ServiceServices.createService, {
     onSuccess: () => {
-      queryClient.invalidateQueries("services");
+      refetch();
       setCreateModalOpen(false);
     },
   });
 
-  const updateServiceMutation = useMutation(ServiceServices.updateService, {
+  const { mutate } = useMutation(["services"], ServiceServices.updateService, {
     onSuccess: () => {
-      queryClient.invalidateQueries("services");
+      refetch();
       setEditModalOpen(false);
     },
   });
 
-  const deleteServiceMutation = useMutation(ServiceServices.deleteService, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("services");
-      setViewModalOpen(false);
-    },
-  });
+  const { mutateAsync: deleteServiceMutation, isLoading: isDeleting } = useMutation(["DeleteService"],
+    ServiceServices.deleteService,
+    {
+      onSuccess: () => {
+        refetch();
+        setViewModalOpen(false);
+      },
+    }
+  );
+
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
@@ -61,40 +66,39 @@ function Service() {
     setSelectedService(service);
     setEditModalOpen(true);
   };
-
-  const openViewModal = (service) => {
-    setSelectedService(service);
-    setViewModalOpen(true);
+  // const openViewModal = (service) => {
+  //   setSelectedService(service);
+  //   setViewModalOpen(true);
+  // };
+  const handleUpdateService = async (data) => {
+   mutate({ id: selectedService.id, ...data });
   };
 
-  const handleDeleteService = async () => {
-    if (selectedService) {
-      await deleteServiceMutation.mutateAsync(selectedService.id);
-      setSelectedService(null);
-    }
+  const handleDeleteService = async (id) => { 
+      await deleteServiceMutation(id);
   };
-// color la letra de el boton cancelar a #AE7A6C
-  const alertdeleteService = () => {
+
+  const alertdeleteService = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
       text: "¡No podrás revertir esto!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#AE7A6C",
-      cancelButtonColor: "#AE7A6C", 
+      cancelButtonColor: "#AE7A6C",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        handleDeleteService();
+        handleDeleteService(id);
         Swal.fire("¡Eliminado!", "El servicio ha sido eliminado.", "success");
       }
     });
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+ if (isLoading || isDeleting) {
+   return <LoadingSpinner />;
+ }
 
   return (
     <div className="service-container">
@@ -116,18 +120,19 @@ function Service() {
               <Card className="service-card">
                 <CardContent className="service-card-content">
                   <Typography variant="h5">{service.name}</Typography>
+                  <Typography variant="p">{service.categories.name}</Typography>
                 </CardContent>
                 <CardActions className="service-card-actions">
                   <Button onClick={() => openEditModal(service)}>
                     <EditIcon />
                   </Button>
-                  <Button onClick={() => openViewModal(service)}>
+                  {/* <Button onClick={() => openViewModal(service)}>
                     <VisibilityIcon />
-                  </Button>
+                  </Button> */}
                   <Button
                     onClick={() => {
                       setSelectedService(service);
-                      alertdeleteService();
+                      alertdeleteService(service.id);
                     }}
                   >
                     <DeleteIcon />
@@ -159,15 +164,10 @@ function Service() {
         <ServiceModal
           isOpen={isEditModalOpen}
           onClose={() => setEditModalOpen(false)}
-          onSubmit={(data) =>
-            updateServiceMutation.mutateAsync({
-              id: selectedService.id,
-              name: data.name,
-              CategoryId: data.CategoryId,
-            })
-          }
+          onSubmit={handleUpdateService}
           title="Editar Servicio"
           initialData={{
+            id: selectedService.id,
             name: selectedService.name,
             CategoryId: selectedService.CategoryId,
           }}

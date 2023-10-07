@@ -21,17 +21,16 @@ const serviceSchema = yup.object({
   CategoryId: yup.number().required("La categoría es requerida"),
 });
 
-const ServiceForm = ({ initialData = {} }) => {
+const ServiceForm = ({ initialData = {}, isCreateMode }) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(serviceSchema),
-    defaultValues: {
-      name: initialData.name || "",
-      CategoryId: initialData.categoria || "1",
-    },
+    defaultValues: isCreateMode
+      ? { name: "", CategoryId: "1" }
+      : { name: initialData.name, CategoryId: initialData.CategoryId },
   });
 
   const queryClient = useQueryClient();
@@ -46,11 +45,26 @@ const ServiceForm = ({ initialData = {} }) => {
     },
   });
 
+  const updateServiceMutation = useMutation(ServiceServices.updateService, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("services");
+      toast.success("¡Servicio actualizado con éxito!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Hubo un error al actualizar el servicio");
+    },
+  });
+
   const handleFormSubmit = (data) => {
-    createServiceMutation.mutate({
-      name: data.name,
-      CategoryId: data.CategoryId,
-    });
+    if (isCreateMode) {
+      createServiceMutation.mutate(data);
+    } else {
+      updateServiceMutation.mutate({
+        ...data,
+        id: initialData.id,
+        isActive: initialData.isActive,
+      });
+    }
   };
 
   return (
@@ -60,12 +74,11 @@ const ServiceForm = ({ initialData = {} }) => {
           <Controller
             name="name"
             control={control}
-            defaultValue={initialData.name || ""}
+            defaultValue={isCreateMode ? "" : initialData.name}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Nombre del Servicio"
-                // fullWidth
                 required
                 error={!!errors.name}
                 helperText={errors.name?.message}
@@ -79,7 +92,7 @@ const ServiceForm = ({ initialData = {} }) => {
           <Controller
             name="CategoryId"
             control={control}
-            defaultValue={initialData.CategoryId || "1"}
+            defaultValue={isCreateMode ? "1" : initialData.CategoryId}
             render={({ field }) => (
               <FormControl fullWidth className="service-select">
                 <InputLabel>Categoría del Servicio</InputLabel>
@@ -99,7 +112,7 @@ const ServiceForm = ({ initialData = {} }) => {
             color="primary"
             className="service-button"
           >
-            Crear
+            {isCreateMode ? "Crear" : "Guardar"}
           </Button>
         </Grid>
       </Grid>
@@ -108,7 +121,7 @@ const ServiceForm = ({ initialData = {} }) => {
 };
 
 ServiceForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  isCreateMode: PropTypes.bool.isRequired,
   initialData: PropTypes.object,
 };
 

@@ -28,7 +28,6 @@ const ServiceModal = ({
     : isViewMode
     ? "Ver Servicio"
     : "Editar Servicio";
-  const actionButtonLabel = isCreateMode ? "Crear" : "Guardar";
 
   return (
     <Dialog
@@ -47,7 +46,11 @@ const ServiceModal = ({
             </Typography>
           </div>
         ) : (
-          <ServiceForm onSubmit={onSubmit} initialData={initialData} />
+          <ServiceForm
+            onSubmit={onSubmit}
+            initialData={initialData}
+            isCreateMode={isCreateMode}
+          />
         )}
       </DialogContent>
       <DialogActions className="service-modal-actions">
@@ -55,11 +58,6 @@ const ServiceModal = ({
         {onDelete && isViewMode && (
           <Button onClick={onDelete} className="color-secondary">
             Eliminar
-          </Button>
-        )}
-        {!isViewMode && (
-          <Button type="submit" className="color-primary">
-            {actionButtonLabel}
           </Button>
         )}
         {isViewMode && (
