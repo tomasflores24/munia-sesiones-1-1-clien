@@ -25,6 +25,10 @@ const SelectMembership = ({ companyId, closeModal, setStep }) => {
     {
       onSuccess: () => {
         toast.success("¡Compra de membresia exitosa!");
+        closeModal();
+        setTimeout(() => {
+          setStep(1);
+        }, [1000]);
       },
       onError: (err) => {
         toast.error(err.message || "Algo salio mal.");
@@ -42,13 +46,7 @@ const SelectMembership = ({ companyId, closeModal, setStep }) => {
       amountHistory: 500,
       CompanyId: companyId,
       MembershipId: selectedMembership,
-    });
-    closeModal();
-    
-    // Para que no se vea el paso uno antes de cerrar el modal
-    setTimeout(() => {
-      setStep(1);
-    }, [1000]);
+    });    
   };
 
   return (

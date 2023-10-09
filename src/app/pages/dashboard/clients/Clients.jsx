@@ -13,6 +13,7 @@ const clientHeaders = [
   "País",
   "Colaboradores",
   "Contacto",
+  "N° de sesiones"
 ];
 
 const Clientes = () => {
