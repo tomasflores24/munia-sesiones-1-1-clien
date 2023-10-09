@@ -7,13 +7,14 @@ import UserProfiles from "../../pages/dashboard/userProfile/UserProfiles";
 import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
 /* import Diary from "../../pages/dashboard/diary/Diary"; */
-import Comments from "../../pages/dashboard/comments/Comments"
+import Comments from "../../pages/dashboard/comments/Comments";
 import Profile from "../../pages/dashboard/profile/Profile";
 import Memberships from "../../pages/dashboard/memberships/Memberships";
 import Appointment from "../../pages/dashboard/appointment/Appointment";
 import Providers from "../../pages/dashboard/providers/Providers";
 import Collaborators from "../../pages/dashboard/collaborators/Collaborators";
 import Service from "../../pages/dashboard/services/Service";
+
 
 const DashboardRoutes = () => {
   return (
@@ -31,6 +32,7 @@ const DashboardRoutes = () => {
           <Route path="/comments/:providerId" element={<Comments />} />
           <Route path="/providers" element={<Providers />} />
           <Route path="/collaborators" element={<Collaborators />} />
+          <Route path="/memberships" element={<Memberships />} />
           <Route path="/services" element={<Service />} />
         </Routes>
       </LayoutDashboard>
