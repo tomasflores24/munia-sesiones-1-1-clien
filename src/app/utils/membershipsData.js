@@ -31,7 +31,7 @@ const company = {
     "8 sesiones por persona con especialistas de nuestra red",
     "Dashboard empresarial con datos y estádisticas",
     "Acceso a material informativo sobre temas de salud mental",
-    "Cada mes el departamento de RR.HH recibe métricas de como sus colaboradores interactúan con el servicio",
+    // "Cada mes el departamento de RR.HH recibe métricas de como sus colaboradores interactúan con el servicio",
   ],
   titleBgColor: "#AE7A6C",
 };

@@ -10,10 +10,19 @@ const ClientsRows = ({ data }) => {
           <div className="data-row-tag">
             {format(new Date(client.user.createdAt), "dd/MM/yyyy HH:mm")}
           </div>
-          <div className="data-row-tag">parrafo</div>
+          <div className="data-row-tag">
+            {client.purchase_membership.length !== 0
+              ? client.purchase_membership[0].membership.name
+              : "No tiene membresia"}
+          </div>
           <div className="data-row-tag">{client.user.country.name}</div>
-          <div className="data-row-tag">parrafo</div>
+          <div className="data-row-tag">{client.collaborator}</div>
           <div className="data-row-tag">{client.user.email}</div>
+          <div className="data-row-tag">
+            {client.purchase_membership.length !== 0
+              ? client.purchase_membership[0].amountHistory
+              : 0}
+          </div>
         </div>
       ))}
     </div>

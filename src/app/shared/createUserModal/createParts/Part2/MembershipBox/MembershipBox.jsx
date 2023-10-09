@@ -11,6 +11,7 @@ const MembershipBox = ({
   titleBgColor,
   selectMembership,
   selected,
+  buttonTxt
 }) => {
   const user = useSelector((state) => state.auth.auth.user.userTypeId);
 
@@ -37,13 +38,13 @@ const MembershipBox = ({
           </ul>
         </div>
         <div className="membershipBox__footer">
-          {user === 4 ? (
+          {buttonTxt ? (
             <button
               type="button"
               className="select__button__admin"
               onClick={selectMembership}
             >
-              Editar
+              {buttonTxt}
             </button>
           ) : (
             <button
@@ -68,6 +69,7 @@ MembershipBox.propTypes = {
   titleBgColor: PropType.string.isRequired,
   selectMembership: PropType.func.isRequired,
   selected: PropType.bool,
+  buttonTxt: PropType.string
 };
 
 export default MembershipBox;
