@@ -83,6 +83,7 @@ export const buttonDataAdmin = [
   {
     title: "Servicios",
     icon: <WorkIcon style={{ fontSize: "30px" }} />,
+    redirect: "services",
   },
 ];
 
@@ -110,6 +111,11 @@ export const buttonDataCompanies = [
   {
     title: "Membresías",
     icon: <SettingsIcon style={{ fontSize: "30px" }} />,
+  },
+  {
+    title: "Servicios",
+    icon: <WorkIcon style={{ fontSize: "30px" }} />,
+    redirect: "services",
   },
 ];
 

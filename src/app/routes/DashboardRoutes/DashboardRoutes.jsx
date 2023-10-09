@@ -13,8 +13,8 @@ import Memberships from "../../pages/dashboard/memberships/Memberships";
 import Appointment from "../../pages/dashboard/appointment/Appointment";
 import Providers from "../../pages/dashboard/providers/Providers";
 import Collaborators from "../../pages/dashboard/collaborators/Collaborators";
-import MembershipsMain from "../../pages/dashboard/memberships/MembershipsMain";
-import MembershipsAdmin from "../../pages/dashboard/memberships/membershipsAdmin/MembershipsAdmin";
+import Service from "../../pages/dashboard/services/Service";
+
 
 const DashboardRoutes = () => {
   return (
@@ -33,6 +33,7 @@ const DashboardRoutes = () => {
           <Route path="/providers" element={<Providers />} />
           <Route path="/collaborators" element={<Collaborators />} />
           <Route path="/memberships" element={<Memberships />} />
+          <Route path="/services" element={<Service />} />
         </Routes>
       </LayoutDashboard>
     </Suspense>

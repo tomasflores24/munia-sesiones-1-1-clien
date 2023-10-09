@@ -1,0 +1,84 @@
+.service-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.5em 0 2.5em;
+
+    .service-header {
+        display: flex;
+        justify-content: space-between;
+        margin: .8rem 0 1.5rem 0;
+        align-items: center;
+        font-family: inherit;
+
+        .button-service {
+            background-color: #AE7A6C;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 1.5rem;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+
+            &:hover {
+                cursor: pointer;
+                filter: brightness(80%);
+            }
+        }
+
+    }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 2rem;
+        padding: 1rem;
+
+
+        .service-grid-item {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            .service-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: 200px;
+                min-width: 200px;
+                padding: 0.5rem;
+                border: 1px solid #AE7A6C;
+                border-radius: 25px;
+
+                .service-card-content {
+                    text-align: center;
+                    padding: 1rem;
+                }
+
+                .service-card-actions {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                }
+
+                .service-card-actions button {
+                    background-color: #AE7A6C;
+                    color: white;
+                    margin-top: 0.5rem;
+                    height: 40px;
+                    width: 50px;
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease-in-out;
+                }
+
+                .service-card-actions button:hover {
+                    background-color: #AE7A6C;
+                }
+            }
+        }
+    }
+}
