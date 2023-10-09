@@ -70,15 +70,12 @@ export const buttonDataAdmin = [
   {
     title: "Membresías",
     icon: <SettingsIcon style={{ fontSize: "30px" }} />,
+    redirect: "memberships",
   },
   {
     title: "Proveedores",
     icon: <PsychologyIcon style={{ fontSize: "30px" }} />,
     redirect: "providers",
-  },
-  {
-    title: "Comentarios",
-    icon: <SmsIcon style={{ fontSize: "30px" }} />,
   },
   {
     title: "Servicios",

@@ -4,6 +4,9 @@
   background-color: white;
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-height: 300px;
+  min-width: 200px;
   .title {
     font-size: 2rem;
     text-align: center;
