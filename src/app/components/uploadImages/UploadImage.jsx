@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import "./UploadImage.scss";
 
 const UploadImage = ({ profileImage, handleImageUpload, showFileUploadIcon }) => {
   return (
@@ -14,7 +15,7 @@ const UploadImage = ({ profileImage, handleImageUpload, showFileUploadIcon }) =>
       <div className="upload-image">
         {showFileUploadIcon && (
           <label htmlFor="profile-image" className="upload-label">
-            <FileUploadIcon sx={{ width: "50%", height: "100%" }} />
+            <FileUploadIcon visibility="hidden" sx={{fontSize:"14vh"}}/>
           </label>
         )}
         <input
