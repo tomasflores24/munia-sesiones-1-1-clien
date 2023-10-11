@@ -2,6 +2,8 @@ import { useQueryClient } from "react-query";
 import { useState, useEffect } from "react";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import "./AppointmentCalendarStyle.scss";
 import { useMutation, useQuery } from "react-query";
@@ -50,6 +52,11 @@ const AppointmentCalendar = () => {
   return (
     <div className="appointmentCalendar__root">
       <div className="appointmentCalendar__container">
+        <ChevronLeftIcon className="left-arrow arrow-icons" fontSize="large" />
+        <ChevronRightIcon
+          className="right-arrow arrow-icons"
+          fontSize="large"
+        />
         {isLoading ? (
           <LoadingSpinner />
         ) : (
