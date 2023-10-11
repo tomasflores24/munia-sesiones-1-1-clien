@@ -31,7 +31,7 @@
             padding-left: 3%;
             padding-top: 4%;
             padding-bottom: 4%;
-            height: 65vh;
+            height: 68vh;
             background: #FFFDFD;
             border-radius: 25px;
             border: 0.5px solid rgba(0, 0, 0, 0.308);
@@ -58,8 +58,10 @@
                     grid-template-columns: 1fr 1fr;
                     /* Define dos columnas con diferentes tamaños */
                     gap: 4%;
-                    width: 60%;
-                    height: 100%;
+                    width: 90%;
+                    height: 80%;
+                    margin-right: 8%;
+                    margin-bottom: 4%;
                     /*  border: 2px rgb(0, 149, 22) solid; */
 
                     @media (max-width: 800px) {
@@ -81,7 +83,11 @@
                 .provider__profile__modals__container {
                     width: 40%;
                     height: 100%;
-                    margin-left: 20%;
+                    /* margin-left: 10%; */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
                     /* border: 2px rgb(0, 15, 125) solid; */
 
                     @media (max-width: 800px) {
@@ -94,16 +100,16 @@
 
                     .btn__modal__availability {
                         background-color: #EBDCC1;
-                        width: 30vh;
-                        height: 14vh;
+                        width: 28vh;
+                        height: 13vh;
                         border-radius: 25px;
                         border: 0.5px solid rgba(0, 0, 0, 0.50);
                         background: #EBDCC1;
                     }
 
                     .btn__modal__availability__items {
-                       font-size: small;
-                       font-weight: 600;
+                        font-size: small;
+                        font-weight: 600;
                     }
 
                 }
@@ -114,7 +120,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
-                height: 40%;
+                height: 60%;
                 width: 88%;
                 margin-top: 3%;
                 /* border: 1px rgb(255, 47, 0) solid; */
@@ -126,9 +132,12 @@
                 }
 
                 .provider__profile__buttons__container {
-                    width: 30%;
-                    height: 100%;
-                    border: 2px rgb(0, 149, 22) solid;
+                    width: 26%;
+                    height: 120%;
+                    /* border: 2px rgb(0, 149, 22) solid; */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
 
                     @media (max-width: 800px) {
                         display: flex;
@@ -137,12 +146,47 @@
                         height: 100%;
                         width: 100%;
                     }
+
+                    .profile__btnContraseña {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 2px;
+                        width: 100%;
+                        padding: 5px 10px;
+                        border-radius: 25px;
+                        font-size: smaller;
+                        font-weight: 700;
+                        color: white;
+                        border: none;
+                        background-color: #9C6D61;
+                        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.376);
+                        cursor: pointer;
+
+                    }
+
+                    .profile__btnGuardar {
+
+                        width: 100%;
+                        padding: 12px;
+                        border: none;
+                        border-radius: 25px;
+                        font-size: small;
+                        color: white;
+                        background-color: #9C6D61;
+                        border-radius: 2rem;
+                        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.376);
+                        cursor: pointer;
+                        font-weight: 700;
+                    }
                 }
 
                 .provider__profile__documents__container {
                     width: 70%;
                     height: 100%;
-                    border: 2px rgb(0, 15, 125) solid;
+                    /* border: 2px rgb(0, 15, 125) solid; */
+                    display: flex;
+                    justify-content: space-between;
 
                     @media (max-width: 800px) {
                         display: flex;
