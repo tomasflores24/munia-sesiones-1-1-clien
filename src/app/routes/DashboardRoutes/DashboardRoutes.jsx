@@ -6,11 +6,9 @@ import Clients from "../../pages/dashboard/clients/Clients";
 import UserProfiles from "../../pages/dashboard/userProfile/UserProfiles";
 import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
-
 import Diary from "../../pages/dashboard/diary/Diary";
 import Comments from "../../pages/dashboard/comments/Comments";
 import Profile from "../../pages/dashboard/profile/Profile";
-
 import Memberships from "../../pages/dashboard/memberships/Memberships";
 import Appointment from "../../pages/dashboard/diary/appointment/Appointment";
 import DiaryCreate from "../../pages/dashboard/diary/diaryCreate/DiaryCreate";
