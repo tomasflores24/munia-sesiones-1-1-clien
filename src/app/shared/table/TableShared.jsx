@@ -36,18 +36,29 @@ const TableShared = ({
     if (data) {
       let startIndex = page * rowsPerPage;
       let endIndex = startIndex + rowsPerPage;
-      let filterData = data?.data?.slice(startIndex, endIndex);
-      setItemsPaginator(data.data.length);
-      setDataTableFilter([...filterData]);
+      if (currentPage === "Appointment") {
+        let filterData = data?.data?.slice(startIndex, endIndex);
+        setItemsPaginator(data.data.length);
+        setDataTableFilter([...filterData]);
+      } else {
+        let filterData = data?.slice(startIndex, endIndex);
+        setItemsPaginator(data.length);
+        setDataTableFilter([...filterData]);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, data]);
 
   useEffect(() => {
-    let filterData = data?.data?.slice(0, rowsPerPage);
-    // Actualiza datos de la tabla
-    setDataTableFilter([...filterData]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (currentPage === "Appoiment") {
+      let filterData = data?.data?.slice(0, rowsPerPage);
+      // Actualiza datos de la tabla
+      setDataTableFilter([...filterData]);
+    } else {
+      let filterData = data.slice(0, rowsPerPage);
+      setDataTableFilter([...filterData]);
+    }
   }, [rowsPerPage]);
 
   return (
