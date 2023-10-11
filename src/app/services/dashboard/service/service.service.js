@@ -6,4 +6,5 @@ export const ServiceServices = {
   updateService: async ({ id, ...data }) =>
     HttpRequest.put(`/service/${id}`, data),
   deleteService: async (id) => HttpRequest.delete(`/service/${id}`),
+  getAllCategory: async () => HttpRequest.get("/category"),
 };

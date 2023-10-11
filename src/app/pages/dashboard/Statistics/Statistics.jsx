@@ -41,16 +41,14 @@ const Statistics = () => {
                 Panel de métricas de servicios elejidos por los usuarios
               </p>
 
-              <div>
-                <section className="section-graphics">
-                  <ColumnGraphicServices company={company} />
-                  <RadarGraphic
-                    company={company}
-                    category={category}
-                    setCategory={setCategory}
-                  />
-                </section>
-              </div>
+              <section className="section-graphics">
+                <ColumnGraphicServices company={company} />
+                <RadarGraphic
+                  company={company}
+                  category={category}
+                  setCategory={setCategory}
+                />
+              </section>
 
               <div>
                 <p className="title__p__top">

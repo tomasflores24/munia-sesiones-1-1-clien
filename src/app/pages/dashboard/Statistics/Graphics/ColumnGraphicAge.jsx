@@ -17,7 +17,9 @@ const ColumnGraphicAge = ({
     data: servicesFilter,
     isLoading,
     refetch: servicesFilterRefecth,
-  } = useQuery(["getServices"], () => StatisticsServices.getServices());
+  } = useQuery(["getServices"], () =>
+    StatisticsServices.getServices(categoryAges)
+  );
 
   const {
     data: dataCategory,
@@ -25,6 +27,7 @@ const ColumnGraphicAge = ({
     refetch: dataCategoryRefetch,
     isLoading: isLoadingCategory,
   } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
+
   const {
     data: ages,
     refetch: agesRefetch,

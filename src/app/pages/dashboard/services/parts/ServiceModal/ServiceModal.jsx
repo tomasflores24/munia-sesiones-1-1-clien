@@ -2,8 +2,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
-  Button,
   Typography,
 } from "@mui/material";
 import ServiceForm from "../ServiceForm/ServiceForm";
@@ -16,10 +14,10 @@ const ServiceModal = ({
   onSubmit,
   initialData = {},
   isViewMode = false,
-  onDelete,
   isCreateMode = false,
 }) => {
   const handleClose = () => {
+    console.log("comentario linea 23 handle")
     onClose();
   };
 
@@ -49,23 +47,11 @@ const ServiceModal = ({
           <ServiceForm
             onSubmit={onSubmit}
             initialData={initialData}
-            isCreateMode={isCreateMode}
+              isCreateMode={isCreateMode}
+              handleClose={handleClose}
           />
         )}
       </DialogContent>
-      <DialogActions className="service-modal-actions">
-        {!isViewMode && <Button onClick={handleClose}>Cancelar</Button>}
-        {onDelete && isViewMode && (
-          <Button onClick={onDelete} className="color-secondary">
-            Eliminar
-          </Button>
-        )}
-        {isViewMode && (
-          <Button onClick={handleClose} className="color-primary">
-            Cerrar
-          </Button>
-        )}
-      </DialogActions>
     </Dialog>
   );
 };

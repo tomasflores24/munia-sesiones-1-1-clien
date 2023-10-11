@@ -2,18 +2,25 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 25px;
     width: 100%;
     height: 100%;
+
     .service-modal-title {
         text-align: center;
         font-size: 30px;
         font-weight: 700;
     }
+
     .service-modal-content {
+        display: flex;
+        flex-direction: column;
         height: 300px;
-        width: 800px;
+        width: 600px;
+        border-radius: 25px;
         margin: 0 auto;
     }
+
     .service-modal-actions {
         display: flex;
         flex-direction: row;
@@ -21,24 +28,14 @@
         height: 150px;
         margin-top: 1rem;
     }
-    
+
     .service-modal-actions button {
-        background-color: #AE7A6C;
+        background-color: #ae7a6c;
         color: white;
-        margin-top: 0.5rem;
-        height: 50px;
-        width: 150px;
-        padding: 0.5rem 1rem;
         border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
-    .service-modal-actions button.color-secondary {
-        background-color: #AE7A6C;
-    }
-    
-    .service-modal-actions button.color-primary {
-        background-color: #AE7A6C;
+        border-radius: 25px;
+        padding: 1rem 1.5rem;
+        font-size: 16px;
+        font-weight: 700;
     }
 }

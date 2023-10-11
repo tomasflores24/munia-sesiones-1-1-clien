@@ -6,6 +6,9 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Dialog, DialogContent, TextField } from "@mui/material";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import { useMutation, useQueryClient } from "react-query";
+import { MembershipsServices } from "../../../../services/dashboard/memberships/memberships.services";
+
 export const MembershipTypes = {
   BASIC: 1,
   STANDARD: 2,
@@ -13,10 +16,22 @@ export const MembershipTypes = {
 };
 
 const MembershipsAdmin = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate, error, isLoading } = useMutation(
+    ["postMembership"],
+    async (data) => {
+      await MembershipsServices.postMembership(data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("posts");
+      },
+    }
+  );
   const [selectedMembership, setSelectedMembership] = useState(
     MembershipTypes.BASIC
   );
-
   const selectMembership = (type) => {
     setSelectedMembership(type);
   };
@@ -28,6 +43,17 @@ const MembershipsAdmin = () => {
   };
 
   const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const createMembrships = async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    if (isLoading) {
+      return;
+    }
+    await mutate({ name, amount });
     setModalOpen(false);
   };
 
@@ -55,14 +81,20 @@ const MembershipsAdmin = () => {
             <DialogContent>
               <div className="create-membership-modal">
                 <h2 className="membership-modal-title">Crear Membresía</h2>
-                <h3 className="membership-modal-subtitles">
-                  Nombre de la membresía
-                </h3>
                 <TextField
-                  id="standard-basic"
+                  id="name"
                   label="Nombre de la membresia"
                   variant="standard"
                   placeholder="none"
+                  className="textField-membership"
+                />
+                <br />
+                <TextField
+                  id="amount"
+                  label="Precio"
+                  variant="standard"
+                  placeholder="none"
+                  className="textField-membership"
                 />
                 <h3 className="membership-modal-subtitles">Descripción</h3>
                 <TextareaAutosize
@@ -70,9 +102,14 @@ const MembershipsAdmin = () => {
                   className="membership-modal-textarea"
                 />
               </div>
-              <button onClick={openModal} className="button">
-                Nueva membresía
-              </button>
+              <div className="container-button">
+                <button
+                  onClick={createMembrships}
+                  className="membership-button"
+                >
+                  Nueva membresía
+                </button>
+              </div>
             </DialogContent>
           </Dialog>
         </>

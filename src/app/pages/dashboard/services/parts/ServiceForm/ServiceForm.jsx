@@ -1,3 +1,4 @@
+import React from "react";
 import "./ServiceForm.style.scss";
 import { useForm, Controller } from "react-hook-form";
 import {
@@ -9,19 +10,23 @@ import {
   MenuItem,
   Grid,
 } from "@mui/material";
-import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
-import { ServiceServices } from "../../../../../services/dashboard/service/service.service";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ServiceServices } from "../../../../../services/dashboard/service/service.service";
 
 const serviceSchema = yup.object({
   name: yup.string().required("El nombre es requerido"),
   CategoryId: yup.number().required("La categoría es requerida"),
 });
 
-const ServiceForm = ({ initialData = {}, isCreateMode }) => {
+const ServiceForm = ({ initialData = {}, isCreateMode, handleClose }) => {
+  const { data: categories, isLoading } = useQuery(
+    "categories",
+    ServiceServices.getAllCategory
+  );
   const {
     handleSubmit,
     control,
@@ -29,7 +34,7 @@ const ServiceForm = ({ initialData = {}, isCreateMode }) => {
   } = useForm({
     resolver: yupResolver(serviceSchema),
     defaultValues: isCreateMode
-      ? { name: "", CategoryId: "1" }
+      ? { name: "", CategoryId: 1 }
       : { name: initialData.name, CategoryId: initialData.CategoryId },
   });
 
@@ -54,6 +59,11 @@ const ServiceForm = ({ initialData = {}, isCreateMode }) => {
       toast.error(error.message || "Hubo un error al actualizar el servicio");
     },
   });
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+  // console.log(categories);
 
   const handleFormSubmit = (data) => {
     if (isCreateMode) {
@@ -87,33 +97,44 @@ const ServiceForm = ({ initialData = {}, isCreateMode }) => {
             )}
           />
         </Grid>
-
         <Grid item xs={12}>
           <Controller
             name="CategoryId"
             control={control}
-            defaultValue={isCreateMode ? "1" : initialData.CategoryId}
+            defaultValue={isCreateMode ? 1 : initialData.CategoryId}
             render={({ field }) => (
               <FormControl fullWidth className="service-select">
                 <InputLabel>Categoría del Servicio</InputLabel>
                 <Select {...field}>
-                  <MenuItem value="1">Categoría 1</MenuItem>
-                  <MenuItem value="2">Categoría 2</MenuItem>
-                  <MenuItem value="3">Categoría 3</MenuItem>
+                  {categories.data.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             )}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="service-button"
-          >
-            {isCreateMode ? "Crear" : "Guardar"}
-          </Button>
+        <Grid className="service-form-actions">
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              className="service-button-form"
+            >
+              {isCreateMode ? "Crear" : "Guardar"}
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={handleClose}
+              variant="contained"
+              className="close-modal-btn"
+            >
+              Cerrar
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </form>
@@ -123,6 +144,8 @@ const ServiceForm = ({ initialData = {}, isCreateMode }) => {
 ServiceForm.propTypes = {
   isCreateMode: PropTypes.bool.isRequired,
   initialData: PropTypes.object,
+  onClose: PropTypes.func,
+  handleClose: PropTypes.func,
 };
 
 export default ServiceForm;
