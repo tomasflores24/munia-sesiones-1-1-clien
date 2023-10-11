@@ -1,7 +1,7 @@
 import {
   informations,
-} from "../../../Models/tablesDashboard/tableDiaryModel";
-import TableShared from "../../../shared/table/TableShared";
+} from "../../../../Models/tablesDashboard/tableDiaryModel";
+import TableShared from "../../../../shared/table/TableShared";
 import './AppointmentStyle.scss'
 
 const appointmentHeaders = [

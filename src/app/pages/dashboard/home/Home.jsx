@@ -12,10 +12,12 @@ const Home = () => {
   const user = useSelector((state) => state.auth.auth.user.userTypeId);
   
   return (
+
     <div className='AllHome'>
       <div className='HomeContainer '>
         <div className='ContainerCards'>
           {user === 1 || user === 4 || user === 3 ?
+
             <Card to='/dashboard/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='.-' />
             : null
           }
