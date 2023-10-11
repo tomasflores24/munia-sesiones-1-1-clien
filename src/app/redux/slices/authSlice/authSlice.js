@@ -14,7 +14,7 @@ const initialState = {
     addressId: 0,
     companyId: "",
     collaboratorId: "",
-    provaiderId: "",
+    providerId: "",
   },
 };
 
