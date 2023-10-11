@@ -1,9 +1,8 @@
 import { useQuery } from "react-query";
-import { informations } from "../../../Models/tablesDashboard/tableDiaryModel";
-import { AppointmentService } from "../../../services/dashboard/appointments/appointment.service";
-import TableShared from "../../../shared/table/TableShared";
+import { AppointmentService } from "../../../../services/dashboard/appointments/appointment.service";
+import TableShared from "../../../../shared/table/TableShared";
 import "./AppointmentStyle.scss";
-import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
