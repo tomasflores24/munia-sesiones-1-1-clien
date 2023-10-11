@@ -6,21 +6,43 @@ import TextsmsIcon from '@mui/icons-material/Textsms';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './Home.scss'
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const user = useSelector((state) => state.auth.auth.user.userTypeId);
+  
   return (
-      <div className='AllHome'>
-        <div className='HomeContainer '>
-          <div className='ContainerCards'>
-            <Card to='/dashboard/diary' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
+
+    <div className='AllHome'>
+      <div className='HomeContainer '>
+        <div className='ContainerCards'>
+          {user === 1 || user === 4 || user === 3 ?
+
             <Card to='/dashboard/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='.-' />
-            <Card to='/dashboard/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='37' />
+            : null
+          }
+          {user === 1 || user === 3 || user === 2 ?
+            <Card to='/dashboard/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
+            : null
+          }
+          {user === 3 || user === 4 ?
             <Card to='/dashboard/comments' imgComponent={<TextsmsIcon className='Img' />} title='Comentarios' variables='1130' />
-            <Card to='/dashboard/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='5' />
+            : null
+          }
+          {user === 1 || user === 4 ?
             <Card to='/dashboard/memberships' imgComponent={<SettingsIcon className='Img' />} title='Membresías' variables='.-' />
-          </div>
+            : null
+          }
+          {user === 4 ?
+            <>
+              <Card to='/dashboard/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='37' />
+              <Card to='/dashboard/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='5' />
+            </>
+            : null
+          }
         </div>
       </div>
+    </div>
   )
 }
 

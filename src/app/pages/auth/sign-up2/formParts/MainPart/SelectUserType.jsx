@@ -34,14 +34,13 @@ const SelectUserType = ({ setStep, setUserType, userType }) => {
       </div>
 
       <div className="actions">
-        <button type="button" className="back_btn disabled">
-          atras
-        </button>
+        <span />
         <p className="actions__text_slogan">
           Nuestra vision es tu <span>bienestar</span>
         </p>
         <button
           type="button"
+          disabled={userType === UserTypes.none}
           onClick={() => setStep((prev) => prev + 1)}
           className={
             userType !== UserTypes.none ? "submit_btn" : "submit_btn disabled"

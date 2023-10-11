@@ -1,84 +1,75 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Tooltip,
+  XAxis,
+  YAxis,
+  Legend,
+} from "recharts";
+import { useQuery } from "react-query";
+import { StatisticsServices } from "../../../../services/dashboard/statistics/statistics.services";
+import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 
-const RadarGraphic = () => {
-  const dataRadar = [
-    {
-      name: "Higiene del Sueño",
-      value: 8,
-    },
-    {
-      name: "Gestión de la Ansiedad",
-      value: 8,
-    },
-    {
-      name: "Mindfulness",
-      value: 7,
-    },
-    {
-      name: "Relaciones de Pareja",
-      value: 5,
-    },
-    {
-      name: "Gestión de las Adicciones",
-      value: 7,
-    },
-    {
-      name: "Gestión Emocional",
-      value: 9.2,
-    },
-    {
-      name: "Gestión del Duelo",
-      value: 4,
-    },
-    {
-      name: "Gestión del Estrés",
-      value: 7,
-    },
-  ];
+const RadarGraphic = ({ company, category, setCategory }) => {
+  const { data: services, refetch: serviceRefetch } = useQuery(
+    ["getAllServices"],
+    () => StatisticsServices.getAllServices(company, category)
+  );
+  const {
+    data: dataCategory,
+    errors,
+    refetch: refetchCategory,
+    isLoading,
+  } = useQuery(["getAllCategory"], () => StatisticsServices.getAllCategory());
 
-  const [category, setCategory] = React.useState('');
-  
-  const handleChange = (event) => {
-    setCategory(event.target.value);
+  const handleChange = async (event) => {
+    const selectedCategory = event.target.value;
+    await setCategory(selectedCategory);
+    serviceRefetch();
+    refetchCategory();
   };
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Categorías</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={category}
-          onChange={handleChange}
-          label="Age"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Todos</MenuItem>
-          <MenuItem value={20}>Map Categories</MenuItem>
-        </Select>
-      </FormControl>
-        <RadarChart
-          cx={200}
-          cy={150}
-          outerRadius={120}
-          width={410}
-          height={300}
-          data={dataRadar}
-        >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="name" />
-          <Radar
-            dataKey="value"
-            stroke="#AE7A6C"
-            fill="#AE7A6C"
-            fillOpacity={0.6}
-          />
-        </RadarChart>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Categorías
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={category}
+              onChange={handleChange}
+              label="Category"
+            >
+              <MenuItem value="">Todos</MenuItem>
+              {dataCategory &&
+                dataCategory?.data !== undefined &&
+                dataCategory.data.length > 0 &&
+                dataCategory.data.map((el) => (
+                  <MenuItem key={el.id} value={el.id}>
+                    <em>{el.name}</em>
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <BarChart width={410} height={300} data={services?.data}>
+            <XAxis dataKey="serviceName" />
+            <YAxis />
+            <CartesianGrid stroke="#ae7a6c8f" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#AE7A6C" />
+          </BarChart>
+        </>
+      )}
     </div>
   );
 };

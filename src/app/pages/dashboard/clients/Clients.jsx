@@ -13,6 +13,7 @@ const clientHeaders = [
   "País",
   "Colaboradores",
   "Contacto",
+  "N° de sesiones"
 ];
 
 const Clientes = () => {
@@ -48,7 +49,7 @@ const Clientes = () => {
       ) : (
         <div className="clients_table">
           <TableShared
-            data={data.data.allCompanies}
+            data={data.data || []}
             currentPage="Clients"
             headers={clientHeaders}
           />

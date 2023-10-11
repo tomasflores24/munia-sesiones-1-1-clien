@@ -7,19 +7,21 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { useMutation } from "react-query";
 
 import "./PracticesAndServicesStyle.scss";
-import { useEffect, useMemo, useState } from "react";
 import { MenuProps } from "./multiselect.utils";
 import { useGetServices } from "../../../../../hooks/Register/useServices";
-import { setParts } from "../../../../../redux/slices/registerSlice/registerSlice";
 import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner";
+import { RegisterServices } from "../../../../../services/auth/register.services";
 
-const PracticesAndServices = ({ step, setStep }) => {
+const PracticesAndServices = ({ step, setStep, setRegisterToken }) => {
   const [selectedServices, setSelectedServices] = useState([]);
-  const dispatch = useDispatch();
-  const { services: storedServices } = useSelector((state) => state.register);
+
+  const registerData = useSelector((state) => state.register);
 
   const {
     handleSubmit,
@@ -27,17 +29,31 @@ const PracticesAndServices = ({ step, setStep }) => {
     control,
   } = useForm();
 
-  const { isLoading, isSuccess, data } = useGetServices();
-  const services = useMemo(() => data?.data?.allServices, [data]);
+  const { isLoading, isSuccess, data: services } = useGetServices();
+
+  const { isLoading: isRegisterLoading, mutate } = useMutation(
+    ["sign-up"],
+    RegisterServices.signUp,
+    {
+      onSuccess: (res) => {
+        setRegisterToken(res.data.token);
+        setStep((prev) => prev + 1);
+      },
+      onError: (err) => {
+        toast.error(err.response?.data?.error || "Algo salio mal.");
+      },
+    }
+  );
 
   const isAllSelected =
-    services?.length > 0 && selectedServices.length === services?.length;
+    services?.data?.length > 0 &&
+    selectedServices.length === services?.data?.length;
 
   const handleChange = (event) => {
     const value = event.target.value;
     if (value[value.length - 1] === "all") {
       setSelectedServices(
-        selectedServices.length === services?.length ? [] : services
+        selectedServices.length === services?.data?.length ? [] : services?.data
       );
       return;
     }
@@ -45,15 +61,21 @@ const PracticesAndServices = ({ step, setStep }) => {
   };
 
   const customHandleSubmit = (data) => {
-    console.log({ data, selectedServices });
-    dispatch(setParts({ services: selectedServices }));
+    console.log({ data, selectedServices, registerData });
+    // TODO: what to do with selectedServices and other data
+    mutate({
+      profilePic: "https://picsum.photos/200",
+      name: registerData.name,
+      lastName: registerData.lastName,
+      email: registerData.email,
+      password: registerData.password,
+      CountryId: 1,
+      city: "Cityville",
+      isActive: false,
+      UserTypeId: 3,
+      GenderId: 3,
+    });
   };
-
-  useEffect(() => {
-    if (storedServices?.length > 0) {
-      setSelectedServices(storedServices);
-    }
-  }, []);
 
   return (
     <section className="practiceAndServices__root">
@@ -93,7 +115,7 @@ const PracticesAndServices = ({ step, setStep }) => {
                   </ListItemIcon>
                   <ListItemText primary="Select All" />
                 </MenuItem>
-                {services?.map((option) => (
+                {services?.data?.map((option) => (
                   <MenuItem key={option.id} value={option}>
                     <ListItemIcon>
                       <Checkbox
@@ -113,6 +135,7 @@ const PracticesAndServices = ({ step, setStep }) => {
         <button
           type="button"
           className="back_btn"
+          disabled={isRegisterLoading}
           onClick={() => setStep(step - 1)}
         >
           atras
@@ -136,11 +159,14 @@ const PracticesAndServices = ({ step, setStep }) => {
         <button
           type="button"
           onClick={handleSubmit(customHandleSubmit)}
+          disabled={isRegisterLoading}
           className={isValid ? "submit_btn" : "submit_btn disabled"}
         >
-          Registrarse
+          {isRegisterLoading ? "Cargando..." : "Registrarse"}
         </button>
       </div>
+
+      <Toaster position="top-center" reverseOrder={false} />
     </section>
   );
 };
@@ -148,6 +174,7 @@ const PracticesAndServices = ({ step, setStep }) => {
 PracticesAndServices.propTypes = {
   step: PropTypes.number,
   setStep: PropTypes.func,
+  setRegisterToken: PropTypes.func,
 };
 
 export default PracticesAndServices;

@@ -1,6 +1,7 @@
 
 .selectMembership__root {
   width: 100%;
+  height: 100% !important;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
     font-size: 2rem;
     text-align: center;
     font-weight: 600;
-    padding: 2rem;
+    // padding: 2rem;
     span {
       color: #00000099;
     }
@@ -20,7 +21,7 @@
   .action__buttons {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    // margin-top: 2rem;
   }
   .selectMembership__btn {
     background-color: #9c6d61;

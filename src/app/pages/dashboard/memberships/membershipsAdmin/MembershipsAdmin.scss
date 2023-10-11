@@ -1,0 +1,99 @@
+.selectMembership__root {
+  height: 100vh;
+}
+.membership-navbar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ebdcc1;
+  .title {
+    color: #000;
+    font-family: "Montserrat";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .container-button {
+    padding: 2rem;
+    .button {
+      padding: 0;
+      width: 239px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 50px;
+      font-size: 20px;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+  }
+}
+.selectMembership__container {
+  padding: 5rem;
+
+  .arrow-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    .arrowIcon {
+      height: 40px;
+      width: 40px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.create-membership-modal {
+  max-width: 578px;
+  max-height: 735px;
+  flex-shrink: 0;
+  .membership-modal-title {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+  }
+  .membership-modal-subtitles {
+    margin-top: 15px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .textField-membership {
+    width: 100%;
+  }
+  .membership-modal-textarea {
+    width: 100%;
+    min-height: 110px;
+    border-radius: 0px 25px 25px 25px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background: #fff;
+    margin-bottom: 20px;
+  }
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .membership-button {
+    padding: 0;
+    min-width: 20vh;
+    height: 40px;
+    border-radius: 50px;
+    font-size: 20px;
+    background-color: #9c6d61;
+    color: #fff;
+    border: none;
+    outline: none;
+  }
+}

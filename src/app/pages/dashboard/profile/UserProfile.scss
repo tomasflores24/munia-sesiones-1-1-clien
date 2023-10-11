@@ -130,3 +130,13 @@
     }
   }
 }
+
+.btn__AddAvailability {
+  background-color: #EBDCC1;
+  border: 1px solid #0004;
+  padding: 1rem;
+  border-radius: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+}

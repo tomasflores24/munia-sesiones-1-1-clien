@@ -1,0 +1,142 @@
+$mainPadding: 1.5rem;
+.selectHours__root {
+  .selectHours__header {
+    background-color: #EBDCC1;
+    padding: $mainPadding;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    .closeIcon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  }
+  .selectHours__body {
+    display: flex;
+    flex-direction: column;
+    padding: .5rem $mainPadding;
+    .body-header {
+      margin-bottom: 1rem;
+      .subtitle {
+        margin-top: 0.2rem;
+        text-align: center;
+        font-weight: 600;
+      }
+      .desc {
+        color: #00000099;
+      }
+    }
+    .selectHours__form {
+      display: flex;
+      flex-direction: column;
+      .separator {
+        width: 8px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: #000;
+        margin-inline: .5rem;
+      }
+      .form__all-select {
+        display: flex;
+        color: #000000b0;
+        justify-content: space-evenly;
+        align-items: center;
+        label {
+          display: flex;
+          gap: .5rem;
+          align-items: center;
+          input {
+            border: none;
+            padding: .2rem;
+            font-weight: 600;
+            font-size: 16px;
+            border-bottom: 1px solid #000;
+          }
+        }
+      }
+      .form__daysOfWeek {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.5rem 0;
+        .dayOfWeek {
+          display: flex;
+          .title {
+            color: #AE7A6C;
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            input[type="checkbox"] {
+              opacity: 0;
+              position: absolute;
+              z-index: -1;
+            }
+          }
+          .select__hour-container {
+            display: flex;
+            gap: .5rem  ;
+            flex: content;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-left: 1rem;
+            input {
+              border: none;
+              padding: .2rem;
+              font-weight: 600;
+              font-size: 16px;
+              border-bottom: 1px solid #000;
+            }
+          }
+          .checked {
+            color: #068F1C;
+          }
+          .cancel {
+            color: #B00000;
+          }
+          .checked, .cancel {
+            $size: 20px;
+            width: $size;
+            height: $size;
+          }
+          .MuiCheckbox-root{
+            padding: 4px;
+          }
+        }
+      }
+    }
+    .selectHours__action-button {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem 0;
+      .continue__btn {
+        background-color: #9C6D61;
+        text-align: center;
+        text-wrap: nowrap;
+        font-family: "Montserrat";
+        padding: .5rem 1.5rem;
+        border: none;
+        border-radius: 15px;
+        color: #fff;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        box-shadow: 0px 4px 4px 0px #00000040;
+        -webkit-box-shadow:  0px 4px 4px 0px #00000040;
+        -moz-box-shadow:  0px 4px 4px 0px #00000040;
+        &:hover {
+            cursor: pointer;
+            background-color: #9c6d61c3;
+        }
+      }
+    }
+  }
+}

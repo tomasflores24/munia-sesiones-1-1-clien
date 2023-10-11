@@ -63,7 +63,7 @@ const Providers = () => {
       ) : !isLoading && isSuccess ? (
         <div className="providers_table">
           <TableShared
-            data={data.data.allProvider}
+            data={data.data || []}
             currentPage="Providers"
             headers={appointmentHeaders}
             openModal={openModal}
