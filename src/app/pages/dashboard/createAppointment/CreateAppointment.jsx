@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
+import SelectCategory from "./components/selectCategory/SelectCategory";
+import SelectService from "./components/selectService/selectService";
 
 // import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
 
 const CreateAppointment = () => {
-  // const [selectedCategory, setSelectedCategory] = useState(null);
-  // const [selectedService, setSelectedService] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedService, setSelectedService] = useState(null);
   // const [selectedProvider, setSelectedProvider] = useState(null);
 
   // use mutattion
@@ -13,6 +15,17 @@ const CreateAppointment = () => {
   return (
     <div style={{ marginLeft: "50px" }}>
       <div>CreateAppointment</div>
+      <SelectCategory
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+      {selectedCategory === "" ? null : (
+        <SelectService
+          selectedCategory={selectedCategory}
+          setSelectedService={setSelectedService}
+          selectedService={selectedService}
+        />
+      )}
       {/* <Category setSelectedCategory={setSelectedCategory} />
       {selectedCategory && (
         <Service

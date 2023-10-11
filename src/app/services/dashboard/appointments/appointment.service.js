@@ -12,4 +12,11 @@ export const AppointmentService = {
     ),
   cancelAppointment: async (id) =>
     HttpRequest.get(`/appointment/cancelAppointment/${id}`),
+
+  getAllCategory: async () => HttpRequest.get("/category"),
+
+  getServices: async (categoryId) =>
+    HttpRequest.get(
+      categoryId ? `/service/?CategoryId=${categoryId}` : "/service/"
+    ),
 };
