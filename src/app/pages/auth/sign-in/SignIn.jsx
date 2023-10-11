@@ -61,6 +61,11 @@ const SignIn = () => {
             id: decoded.userId,
             userTypeId: decoded.userTypeId,
             email: decoded.email,
+            collaboratorId: decoded.collaboratorId
+              ? decoded.collaboratorId
+              : null,
+            provaiderId: decoded.provaiderId ? decoded.provaiderId : null,
+            companyId: decoded.companyId ? decoded.companyId : null,
           },
         })
       );
