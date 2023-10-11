@@ -12,8 +12,9 @@ const initialState = {
     userTypeId: 4,
     picture: "",
     addressId: 0,
-    companyId: 0,
-    colaboratorId: 0,
+    companyId: "",
+    collaboratorId: "",
+    provaiderId: "",
   },
 };
 
@@ -24,8 +25,8 @@ const authSlice = createSlice({
     setDataSuccess: (state, { payload }) => {
       return {
         ...state,
-        ...payload
-      }
+        ...payload,
+      };
     },
     logOut: () => {
       return {

@@ -1,0 +1,90 @@
+.appointment_table {
+  padding: 1rem;
+  width: 100%;
+}
+
+.appoiment-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vh;
+  .appoiment-serchBar {
+    display: flex;
+    height: 10%;
+
+    @media (max-width: 650px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-SearchBar {
+      padding-left: 4vh;
+      width: 36vh;
+      height: 6vh;
+      color: rgba(0, 0, 0, 0.5);
+      font-family: Montserrat;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      border-radius: 25px 0px 0px 25px;
+      border: 0px solid grey;
+      background: #d9d9d9;
+
+      @media (max-width: 650px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+        padding-right: 2vh;
+      }
+
+      @media (max-width: 1199px) {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 1199px) {
+      width: 100%;
+    }
+
+    .input-SearchBar:focus-visible {
+      outline: none;
+    }
+
+    .button-SearchBar {
+      color: #000;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      padding-inline: 1vh;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      background: #ebdcc1;
+      border: none;
+
+      @media (max-width: 650px) {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-bottom-right-radius: 25px;
+        border-bottom-left-radius: 25px;
+
+        height: 4vh;
+      }
+    }
+
+    .button-SearchBar:hover {
+      background: #e0d2b5;
+    }
+
+    .button-SearchBarr:active {
+      background: #ebdcc1;
+    }
+  }
+}

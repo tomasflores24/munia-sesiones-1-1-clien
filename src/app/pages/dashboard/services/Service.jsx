@@ -119,8 +119,8 @@ function Service() {
             <Grid key={service.id} className="service-grid-item">
               <Card className="service-card">
                 <CardContent className="service-card-content">
-                  <Typography variant="h5">{service.name}</Typography>
-                  <Typography variant="p">{service.categories.name}</Typography>
+                  <Typography variant="h5" className="service-card-h5">{service.name}</Typography>
+                  <Typography variant="p" className="service-card-p">{service.categories.name}</Typography>
                 </CardContent>
                 <CardActions className="service-card-actions">
                   <Button onClick={() => openEditModal(service)}>
