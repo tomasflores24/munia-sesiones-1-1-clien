@@ -2,6 +2,7 @@
   padding: 1.5rem 1rem;
   display: flex;
   justify-content: center;
+  align-items: center;
   .createAppointment__container {
     margin-left: 50px;
     display: flex;
@@ -10,9 +11,13 @@
     max-width: 800px;
     width: 100%;
     align-items: center;
-    @media (min-width: 1199px) {
-      margin-left: 0;
-      padding: 3rem 2.5rem;
+    @media (min-width: 650px) {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      height: 100%;
+      width: 450px;
+      align-items: center;
     }
     .createAppointment__header {
       width: 100%;
@@ -24,6 +29,10 @@
         text-align: center;
         font-weight: 600;
         padding: 1rem;
+
+        @media (min-width: 650px) {
+          font-size: 1.5rem;
+        }
       }
       .desc {
         border-bottom: 2px solid rgba(0, 0, 0, 0.50);
@@ -37,11 +46,28 @@
       flex-direction:column;
       justify-content:space-between;
       height: 100%;
+
+      @media (min-width: 650px) {
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+        padding: 1rem;
+      }
       
       .textArea-label{
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: #000000;
+        color: rgba(0, 0, 0, 0.6);
+          font-family: Montserrat;
+          font-size: 1.5rem;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+
+          @media (min-width: 650px) {
+            display: flex;
+            justify-content: start;
+            font-size: 1rem;
+            margin-bottom: 5px;
+          }
       }
     
       .textArea{
@@ -56,6 +82,18 @@
         resize: none;
         outline: none;
         border-radius: 0 25px 25px 25px;
+
+        @media (min-width: 650px) {
+          width: 350px;
+          border: 1px solid #e0d2b5;
+          border-radius: 25px;
+          padding: 1rem;
+          font-size: 1.2rem;
+          font-weight: 400;
+          color: #000000;
+          resize: none;
+          outline: none;
+        }
       }
     }
     .confirm-button {
@@ -97,5 +135,38 @@
         font-weight: bold;
       }
     }
+  }
+}
+
+@media (min-width: 650px) {
+  .createAppointment__header {
+    .title {
+
+      font-size: 2rem;
+
+    }
+
+    .desc {
+      font-size: 1rem;
+      /* Cambiar el tamaño de fuente para la descripción */
+    }
+  }
+
+  .textArea-container {
+    .textArea-label {
+      font-size: 1.4rem;
+      /* Cambiar el tamaño de fuente para la etiqueta del área de texto */
+    }
+
+    .textArea {
+      width: 100%;
+      /* Cambiar el ancho del área de texto */
+    }
+  }
+
+  .confirm-button {
+    font-size: 16px;
+    /* Cambiar el tamaño de fuente del botón */
+    // Otros estilos que deseas aplicar a partir de 650px
   }
 }

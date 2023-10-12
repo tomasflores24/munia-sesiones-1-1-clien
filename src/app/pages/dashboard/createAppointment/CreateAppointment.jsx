@@ -67,18 +67,18 @@ const CreateAppointment = () => {
               />
             )}
 
-            <div className="textArea-container">
-              <label className="textArea-label">Razón de la consulta</label>
-              <textarea className="textArea" rows="4" />
-            </div>
-
             {selectedProviderId ? (
               <AppointmentCalendar
                 providerId={selectedProviderId}
                 selectedHour={selectedHour}
                 setSelectedHour={setSelectedHour}
               />
-            ) : null}
+              ) : null}
+              
+            <div className="textArea-container">
+              <label className="textArea-label">Razón de la consulta</label>
+              <textarea className="textArea" rows="4" />
+            </div>
 
             <div className="createAppointment__footer">
               <h3 className="providerSelected">Profesional Seleccionado</h3>

@@ -7,6 +7,13 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+
+      @media (min-width: 650px) {
+          display: flex;
+          justify-content: start;
+          font-size: 1rem;
+          margin-bottom: 5px;
+        }
   }
 
   .MuiFormLabel-root {
@@ -31,5 +38,12 @@
     border-right: 1px solid rgba(0, 0, 0, 0.5);
     border-left: 1px solid rgba(0, 0, 0, 0.5);
     background: #ebdcc1;
+
+    @media (min-width: 650px) {
+        width: 350px;
+        height: 40px;
+        border-radius: 25px;
+        margin-top: 5px;
+      }
   }
 }
