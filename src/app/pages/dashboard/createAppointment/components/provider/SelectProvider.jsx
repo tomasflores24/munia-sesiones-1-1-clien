@@ -11,10 +11,7 @@ import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner"
 import { ProvidersServices } from "../../../../../services/dashboard/providers/providers.services";
 
 const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
-  const {
-    data: providers,
-    status,
-  } = useQuery(["providers", serviceId], () =>
+  const { data: providers, status } = useQuery(["providers", serviceId], () =>
     ProvidersServices.getAllProviders({ serviceId })
   );
 
@@ -32,17 +29,19 @@ const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
   return (
     <div className="selectProvider__root">
       {status === "loading" ? (
-        <div>
+        <div className="loading-container">
           <LoadingSpinner />
           Cargando Proveedores
         </div>
       ) : status === "success" ? (
         <>
-          <div onClick={prev}>
-            <ChevronLeftIcon
-              className="left-arrow arrow-icons"
-              fontSize="large"
-            />
+          <div
+            onClick={prev}
+            className={`right-arrow arrow-icons ${
+              providers?.data?.length < 1 ? "disabled" : ""
+            }`}
+          >
+            <ChevronLeftIcon fontSize="large" />
           </div>
           <div className="slider">
             {providers.data?.length === 0 ? (
@@ -55,7 +54,12 @@ const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
                   key={provider.id}
                   className={index === sliderIndex ? "slide active" : "slide"}
                 >
-                  <div className="profile-img">Img</div>
+                  <div className="profile-img">
+                    <img
+                      src="https://media.istockphoto.com/id/1330046035/photo/headshot-portrait-of-smiling-female-doctor-in-hospital.jpg?s=612x612&w=0&k=20&c=fsNQPbmFIxoKA-PXl3G745zj7Cvr_cFIGsYknSbz_Tg="
+                      alt="profilePic"
+                    />
+                  </div>
                   <div className="profile-info">
                     <p className="name">{provider.user.name}</p>
                     <p className="data-list">
@@ -81,11 +85,13 @@ const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
               ))
             )}
           </div>
-          <div onClick={next}>
-            <ChevronRightIcon
-              className="right-arrow arrow-icons"
-              fontSize="large"
-            />
+          <div
+            onClick={next}
+            className={`right-arrow arrow-icons ${
+              providers?.data?.length < 1 ? "disabled" : ""
+            }`}
+          >
+            <ChevronRightIcon fontSize="large" />
           </div>
         </>
       ) : null}
