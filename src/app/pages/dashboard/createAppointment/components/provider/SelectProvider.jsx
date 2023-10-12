@@ -11,7 +11,10 @@ import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner"
 import { ProvidersServices } from "../../../../../services/dashboard/providers/providers.services";
 
 const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
-  const { data: providers, status } = useQuery(["providers", serviceId], () =>
+  const {
+    data: providers,
+    status,
+  } = useQuery(["providers", serviceId], () =>
     ProvidersServices.getAllProviders({ serviceId })
   );
 
@@ -24,12 +27,15 @@ const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
       setSelectedProviderId(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sliderIndex]);
+  }, [sliderIndex, providers?.data]);
 
   return (
     <div className="selectProvider__root">
       {status === "loading" ? (
-        <LoadingSpinner />
+        <div>
+          <LoadingSpinner />
+          Cargando Proveedores
+        </div>
       ) : status === "success" ? (
         <>
           <div onClick={prev}>
@@ -40,7 +46,9 @@ const SelectProvider = ({ setSelectedProviderId, serviceId }) => {
           </div>
           <div className="slider">
             {providers.data?.length === 0 ? (
-              <p className="no-providers">No hay proveedores para este servicio</p>
+              <p className="no-providers">
+                No hay proveedores para este servicio
+              </p>
             ) : (
               providers.data?.map((provider, index) => (
                 <div
