@@ -4,49 +4,41 @@ import SelectCategory from "./components/selectCategory/SelectCategory";
 import SelectService from "./components/selectService/selectService";
 import "./CreateAppointment.style.scss";
 
-// import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
+import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
+import SelectProvider from "./components/provider/SelectProvider";
 
 const CreateAppointment = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedService, setSelectedService] = useState(null);
-  // const [selectedProvider, setSelectedProvider] = useState(null);
-
-  // use mutattion
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [selectedProviderId, setSelectedProviderId] = useState(null);
 
   return (
-    <div style={{ marginLeft: "50px" }}>
-      <div>CreateAppointment</div>
+    <div className="createAppointment__root">
       <SelectCategory
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        selectedCategoryId={selectedCategoryId}
+        setSelectedCategoryId={setSelectedCategoryId}
       />
-      {selectedCategory === "" ? null : (
+      {selectedCategoryId === "" ? null : (
         <SelectService
-          selectedCategory={selectedCategory}
-          setSelectedService={setSelectedService}
-          selectedService={selectedService}
+          categoryId={selectedCategoryId}
+          setSelectedServiceId={setSelectedServiceId}
+          selectedService={selectedServiceId}
         />
       )}
-      {/* <Category setSelectedCategory={setSelectedCategory} />
-      {selectedCategory && (
-        <Service
-          selectedCategory={selectedCategory}
-          setSelectedService={setSelectedService}
-        />
-      )}
-      {selectedService && (
-        <Provider
-          setSelectedProvider={setSelectedProvider}
-          selectedService={selectedService}
-        />
-      )}
-      {selectedProvider && <AppointmentCalendar />} */}
+
       <div className="textArea-container">
         <label className="textArea-label">Razón de la consulta</label>
-        <textarea className="textArea"
-          rows="4"
-        ></textarea>
+        <textarea className="textArea" rows="4"></textarea>
       </div>
+
+      {selectedServiceId ? (
+        <SelectProvider
+          setSelectedProviderId={setSelectedProviderId}
+          serviceId={selectedServiceId}
+        />
+      ) : null}
+
+      {selectedProviderId ? <AppointmentCalendar /> : null}
 
       <Toaster position="bottom-center" />
     </div>
