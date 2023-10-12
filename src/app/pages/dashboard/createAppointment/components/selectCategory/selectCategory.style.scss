@@ -13,10 +13,15 @@
     width: 100%;
     text-align: center;
     font-size: 1.5rem;
+    top: -10px;
   }
 
   .MuiInputBase-root {
     font-size: 1.3rem;
+  }
+  .loading-container {
+    position: relative;
+    height: 120px;
   }
   .select-category {
     width: 400px;
