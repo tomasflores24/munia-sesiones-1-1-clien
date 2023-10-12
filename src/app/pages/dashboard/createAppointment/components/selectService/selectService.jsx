@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
-import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
-import { AppointmentService } from "../../../../../services/dashboard/appointments/appointment.service";
+import PropTypes from "prop-types";
+import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
+
+import { ServiceServices } from "../../../../../services/dashboard/service/service.service";
 
 const SelectService = ({
-  selectedCategory,
-  selectedService,
-  setSelectedService,
+  categoryId,
+  selectedServiceId,
+  setSelectedServiceId,
 }) => {
   const {
     data: services,
@@ -14,17 +16,17 @@ const SelectService = ({
     refetch: refetchServices,
     isLoading,
   } = useQuery(["getServices"], () =>
-    AppointmentService.getServices(selectedCategory)
+    ServiceServices.getServicesByCategoryId(categoryId)
   );
 
   const handleChangeService = async (event) => {
     const { value } = event.target;
-    await setSelectedService(value);
+    await setSelectedServiceId(value);
   };
 
   useEffect(() => {
     refetchServices();
-  }, [refetchServices, selectedCategory]);
+  }, [refetchServices, categoryId]);
 
   return (
     <div>
@@ -33,7 +35,7 @@ const SelectService = ({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={selectedService}
+          value={selectedServiceId}
           label=""
           onChange={handleChangeService}
         >
@@ -48,6 +50,12 @@ const SelectService = ({
       </FormControl>
     </div>
   );
+};
+
+SelectService.propTypes = {
+  categoryId: PropTypes.number.isRequired,
+  selectedServiceId: PropTypes.string.isRequired,
+  setSelectedServiceId: PropTypes.func.isRequired,
 };
 
 export default SelectService;

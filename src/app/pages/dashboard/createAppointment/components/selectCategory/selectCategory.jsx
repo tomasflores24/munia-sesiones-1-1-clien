@@ -1,20 +1,17 @@
-import React from "react";
-import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
-import { AppointmentService } from "../../../../../services/dashboard/appointments/appointment.service";
+import PropTypes from "prop-types";
 import { useQuery } from "react-query";
+import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 
-const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
-  const {
-    data: categories,
-    errors,
-    refetch: refetchCategory,
-    isLoading,
-  } = useQuery(["getAllCategory"], () => AppointmentService.getAllCategory());
+import { CategoriesServices } from "../../../../../services/dashboard/categories/categories.service";
+
+const SelectCategory = ({ selectedCategoryId, setSelectedCategoryId }) => {
+  const { data: categories, isLoading } = useQuery(["getAllCategory"], () =>
+    CategoriesServices.getAllCategories()
+  );
 
   const handleChangeCategory = async (event) => {
     const { value } = event.target;
-    console.log(value);
-    await setSelectedCategory(value);
+    await setSelectedCategoryId(value);
   };
 
   return (
@@ -24,7 +21,7 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={selectedCategory}
+          value={selectedCategoryId}
           label=""
           onChange={handleChangeCategory}
         >
@@ -40,6 +37,11 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
       </FormControl>
     </div>
   );
+};
+
+SelectCategory.propTypes = {
+  selectedCategoryId: PropTypes.number.isRequired,
+  setSelectedCategoryId: PropTypes.func,
 };
 
 export default SelectCategory;
