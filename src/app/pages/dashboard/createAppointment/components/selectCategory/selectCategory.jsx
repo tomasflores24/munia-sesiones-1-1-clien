@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useQuery } from "react-query";
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
-
+import "./selectCategory.style.scss";
 import { CategoriesServices } from "../../../../../services/dashboard/categories/categories.service";
 
 const SelectCategory = ({ selectedCategoryId, setSelectedCategoryId }) => {
@@ -15,16 +15,24 @@ const SelectCategory = ({ selectedCategoryId, setSelectedCategoryId }) => {
   };
 
   return (
-    <div>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select Categories</InputLabel>
+    <div className="select-container">
+      <FormControl>
+        <InputLabel
+          className="select-category-title"
+          id="demo-simple-select-label"
+        >
+          Selecciona una categoria
+        </InputLabel>
         <Select
+          className="select-category"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedCategoryId}
-          label=""
           onChange={handleChangeCategory}
         >
+          <MenuItem value="" disabled>
+            Selecciona Categoria
+          </MenuItem>
           {categories &&
             categories?.data !== undefined &&
             categories.data.length > 0 &&

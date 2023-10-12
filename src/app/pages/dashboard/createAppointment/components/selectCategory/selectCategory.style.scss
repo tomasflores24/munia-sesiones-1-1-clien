@@ -1,0 +1,30 @@
+.select-container {
+  margin-bottom: 30px;
+  .select-category-title {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .MuiFormLabel-root {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .MuiInputBase-root {
+    font-size: 1.3rem;
+  }
+  .select-category {
+    width: 400px;
+    height: 50px;
+    border-radius: 25px 25px 0px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    background: #ebdcc1;
+  }
+}
