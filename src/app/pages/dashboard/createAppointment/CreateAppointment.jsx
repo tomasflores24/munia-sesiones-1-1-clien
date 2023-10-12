@@ -1,12 +1,12 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import SelectCategory from "./components/selectCategory/SelectCategory";
-import SelectService from "./components/selectService/selectService";
-import "./CreateAppointment.style.scss";
+import { useMutation, useQueryClient } from "react-query";
 
+import "./CreateAppointment.style.scss";
+import SelectService from "./components/selectService/selectService";
+import SelectCategory from "./components/selectCategory/SelectCategory";
 import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
 import SelectProvider from "./components/provider/SelectProvider";
-import { useMutation, useQueryClient } from "react-query";
 import { AppointmentService } from "../../../services/dashboard/appointments/appointment.service";
 
 const CreateAppointment = () => {
@@ -30,7 +30,6 @@ const CreateAppointment = () => {
       },
     }
   );
-  console.log({ selectedProviderId, selectedHour });
 
   const onSubmit = () => {
     mutate({
@@ -44,6 +43,7 @@ const CreateAppointment = () => {
   return (
     <>
       <div className="createAppointment__root">
+        <h1 className="title">Agendar tu cita</h1>
         <SelectCategory
           selectedCategoryId={selectedCategoryId}
           setSelectedCategoryId={setSelectedCategoryId}
@@ -82,7 +82,7 @@ const CreateAppointment = () => {
           type="button"
           onClick={onSubmit}
         >
-          Confirm
+          Confirmar
         </button>
       </div>
       <Toaster position="bottom-center" />
