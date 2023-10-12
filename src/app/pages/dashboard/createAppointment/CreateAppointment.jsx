@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import SelectCategory from "./components/selectCategory/SelectCategory";
 import SelectService from "./components/selectService/selectService";
+import "./CreateAppointment.style.scss";
 
 // import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
 
@@ -40,6 +41,12 @@ const CreateAppointment = () => {
         />
       )}
       {selectedProvider && <AppointmentCalendar />} */}
+      <div className="textArea-container">
+        <label className="textArea-label">Razón de la consulta</label>
+        <textarea className="textArea"
+          rows="4"
+        ></textarea>
+      </div>
 
       <Toaster position="bottom-center" />
     </div>
