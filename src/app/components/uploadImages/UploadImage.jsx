@@ -15,7 +15,7 @@ const UploadImage = ({ profileImage, handleImageUpload, showFileUploadIcon }) =>
       <div className="upload-image">
         {showFileUploadIcon && (
           <label htmlFor="profile-image" className="upload-label">
-            <FileUploadIcon visibility="hidden" sx={{fontSize:"14vh"}}/>
+            <FileUploadIcon visibility="hidden" sx={{fontSize:"15vh"}}/>
           </label>
         )}
         <input

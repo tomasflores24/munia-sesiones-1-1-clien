@@ -78,6 +78,46 @@
                         justify-content: space-between;
 
                     }
+
+
+                    .provider__profile__info__date__container {
+                        display: flex;
+                        border-bottom: 1px solid grey;
+                        font-size: 0.9rem;
+                        align-items: baseline;
+                        justify-content: space-between;
+
+                        .provider__profile__info__date {
+                            height: 100%;
+                            border-bottom: none;
+                            border-top: none;
+                            border-left: none;
+                            border-right: none;
+                            font-size: small;
+                            font-weight: 100;
+                            color: grey;
+                            margin-left: 10px;
+                        }
+
+                        .provider__profile__info__date:focus-visible {
+                            outline: none;
+                        }
+
+                        input[type="date"]::-webkit-calendar-picker-indicator {
+                            border-radius: 6px;
+                            background-color: #e1c2b2;
+                            padding: 10px;
+                            /* margin-right: 1vh; */
+                            cursor: pointer;
+                        }
+
+                        input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+                            border-radius: 6px;
+                            cursor: pointer;
+                            color: black;
+                            font-family: Arial, Helvetica, sans-serif;
+                        }
+                    }
                 }
 
                 .provider__profile__modals__container {
@@ -194,6 +234,10 @@
                         align-items: center;
                         height: 100%;
                         width: 100%;
+                    }
+
+                    .provider__profile__documents__input {
+                        position: absolute;
                     }
                 }
             }
