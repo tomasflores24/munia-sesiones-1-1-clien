@@ -51,7 +51,7 @@ const TableShared = ({
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    if (currentPage === "Appoiment") {
+    if (currentPage === "Appointment") {
       let filterData = data?.data?.slice(0, rowsPerPage);
       // Actualiza datos de la tabla
       setDataTableFilter([...filterData]);

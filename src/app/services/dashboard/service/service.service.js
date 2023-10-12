@@ -7,4 +7,8 @@ export const ServiceServices = {
     HttpRequest.put(`/service/${id}`, data),
   deleteService: async (id) => HttpRequest.delete(`/service/${id}`),
   getAllCategory: async () => HttpRequest.get("/category"),
+  getServicesByCategoryId: async (categoryId) =>
+    HttpRequest.get(
+      categoryId ? `/service?CategoryId=${categoryId}` : "/service/"
+    ),
 };

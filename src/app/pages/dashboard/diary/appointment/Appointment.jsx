@@ -27,7 +27,7 @@ const Appointment = () => {
     isLoading,
     refetch: appoimentRefetch,
   } = useQuery(["getAppoiments"], () =>
-    AppointmentService.getAppoiments(userId)
+    AppointmentService.getAppointments(userId)
   );
 
   const [cancel, setCancel] = useState();

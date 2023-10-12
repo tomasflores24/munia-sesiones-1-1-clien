@@ -1,0 +1,49 @@
+.select-service-container {
+  margin-bottom: 30px;
+  .select-service-title {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+      @media (max-width: 650px) {
+          display: flex;
+          justify-content: start;
+          font-size: 1rem;
+          margin-bottom: 5px;
+        }
+  }
+
+  .MuiFormLabel-root {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    top: -10px;
+  }
+
+  .MuiInputBase-root {
+    font-size: 1.3rem;
+  }
+  .loading-container {
+    position: relative;
+    height: 120px;
+  }
+  .select-service {
+    width: 400px;
+    height: 50px;
+    border-radius: 25px 25px 0px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    background: #ebdcc1;
+
+    @media (max-width: 650px) {
+        width: 350px;
+        height: 40px;
+        border-radius: 25px;
+        margin-top: 5px;
+      }
+  }
+}

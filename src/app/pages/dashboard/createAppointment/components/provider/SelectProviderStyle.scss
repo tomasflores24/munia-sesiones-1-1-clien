@@ -1,0 +1,80 @@
+.selectProvider__root {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  .loading-container {
+    position: relative;
+    height: 120px;
+  }
+  .arrow-icons {
+    &.disabled {
+      opacity: .6;
+    }
+    cursor: pointer;
+  }
+  .slider {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    max-width: 440px;
+    .no-providers {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .slide {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      background-color: white;
+      transition: opacity ease-in-out 350ms;
+      display: flex;
+      overflow: hidden;
+      &.active {
+        opacity: 1;
+      }
+      .profile-img {
+        width: 28%;
+        background-color: #ca7b63;
+        overflow: hidden;
+        img {
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+        }
+      }
+      .profile-info {
+        padding: 0 .5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        flex-grow: 1;
+        border-right: 2px solid #ccc;
+        .name {
+          font-weight: bolder;
+          font-size: 16px;
+        }
+        .data-list {
+          font-size: 14px;
+          font-weight: normal;
+          span {
+            font-weight: bold;
+          }
+        }
+      }
+      .rating {
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        width: 16%;
+      }
+    }
+  }
+}
