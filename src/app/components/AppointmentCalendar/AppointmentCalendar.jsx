@@ -10,43 +10,60 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "./AppointmentCalendarStyle.scss";
 import { AvailableService } from "../../services/dashboard/available/available.service";
 import LoadingSpinner from "../../shared/loadingSpinner/LoadingSpinner";
-import { daysOfWeek, groupDataByDay } from "../../utils/calendar";
+import { daysOfWeek } from "../../utils/calendar";
 
 const AppointmentCalendar = ({ providerId, selectedHour, setSelectedHour }) => {
-  const [groupedHours, setGroupedHours] = useState([]);
+  const [page, setPage] = useState(1);
 
-  const { data, status } = useQuery(["providerAvailable", providerId], () =>
-    AvailableService.getAllByProviderId(providerId)
+  const {
+    data: availableHours,
+    status,
+    isPreviousData,
+  } = useQuery(["providerAvailable", providerId, page], () =>
+    AvailableService.getAllByProviderId({ providerId, page })
   );
 
   useEffect(() => {
-    if (data?.data && data.data.length > 0) {
-      const groupedHours = groupDataByDay(data.data);
-      setGroupedHours(groupedHours);
-    } else {
-      setGroupedHours([]);
-    }
-  }, [data]);
+    setPage(1);
+  }, [providerId]);
 
   return (
     <div className="appointmentCalendar__root">
       <div className="appointmentCalendar__container">
-        <ChevronLeftIcon className="left-arrow arrow-icons" fontSize="large" />
-        <ChevronRightIcon
-          className="right-arrow arrow-icons"
-          fontSize="large"
-        />
+        <span
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          className={page <= 1 ? "arrow-disabled" : ""}
+        >
+          <ChevronLeftIcon
+            className="left-arrow arrow-icons"
+            fontSize="large"
+          />
+        </span>
+        <span
+          onClick={() => {
+            if (!isPreviousData && availableHours?.data?.length > 0) {
+              setPage((prev) => prev + 1);
+            }
+          }}
+          className={availableHours?.data?.length === 0 ? "arrow-disabled" : ""}
+        >
+          <ChevronRightIcon
+            className="right-arrow arrow-icons"
+            fontSize="large"
+          />
+        </span>
         {status === "loading" ? (
           <div className="loading-container">
             <LoadingSpinner />
           </div>
-        ) : status === "success" && groupedHours.length > 0 ? (
-          groupedHours.map((day, indexDay) => (
+        ) : status === "success" &&
+          availableHours?.data?.[page - 1]?.length > 0 ? (
+          availableHours?.data?.[page - 1]?.map((day, indexDay) => (
             <div key={indexDay} className="date">
               <div className="date-header">
                 <div className="title">{daysOfWeek[indexDay]}</div>
                 <p className="desc">
-                  {day
+                  {day?.[0]
                     ? format(
                         new Date(day.at(0).startTime?.slice(0, -1) ?? 0),
                         "d MMM"
@@ -72,7 +89,7 @@ const AppointmentCalendar = ({ providerId, selectedHour, setSelectedHour }) => {
                           setSelectedHour(hour);
                         }}
                       >
-                        {hour.startTime.split("T")[1].slice(0, 5)}
+                        {hour.startTime?.split("T")[1].slice(0, 5)}
                       </button>
                     ))}
               </div>
@@ -83,7 +100,7 @@ const AppointmentCalendar = ({ providerId, selectedHour, setSelectedHour }) => {
         )}
       </div>
 
-      {status === "success" && groupedHours.length > 0 ? (
+      {status === "success" && availableHours?.data?.[0]?.length > 0 ? (
         <label htmlFor="more-hours" className="more-hours">
           <input type="checkbox" id="more-hours" />
           <p>Ver mas horarios</p>

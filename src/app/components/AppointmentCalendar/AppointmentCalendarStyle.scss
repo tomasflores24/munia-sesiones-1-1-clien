@@ -9,8 +9,18 @@
     position: relative;
     gap: 5px;
     .loading-container {
+      width: 140px;
       display: block;
       height: 150px;
+      display: flex;
+    }
+    .arrow-disabled {
+      .arrow-icons {
+        color: #969797d3;
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
     }
     .arrow-icons {
       position: absolute;
