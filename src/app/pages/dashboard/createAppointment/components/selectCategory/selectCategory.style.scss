@@ -1,7 +1,7 @@
 .select-container {
   margin-bottom: 30px;
 
-  @media (min-width: 650px) {
+  @media (max-width: 650px) {
     margin-bottom: 10px;
   }
 
@@ -14,7 +14,7 @@
     font-weight: 600;
     line-height: normal;
 
-    @media (min-width: 650px) {
+    @media (max-width: 650px) {
         display: flex;
         justify-content: start;
         font-size: 1rem;
@@ -47,7 +47,7 @@
     border-left: 1px solid rgba(0, 0, 0, 0.5);
     background: #ebdcc1;
 
-    @media (min-width: 650px) {
+    @media (max-width: 650px) {
         width: 350px;
         height: 40px;
         border-radius: 25px;
