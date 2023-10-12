@@ -1,51 +1,30 @@
-import { useQueryClient } from "react-query";
+import { PropTypes } from "prop-types";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { useQuery } from "react-query";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import "./AppointmentCalendarStyle.scss";
-import { useMutation, useQuery } from "react-query";
 import { AvailableService } from "../../services/dashboard/available/available.service";
 import LoadingSpinner from "../../shared/loadingSpinner/LoadingSpinner";
-import { format } from "date-fns";
-import { AppointmentService } from "../../services/dashboard/appointments/appointment.service";
 import { daysOfWeek, groupDataByDay } from "../../utils/calendar";
-import toast from "react-hot-toast";
 
-const AppointmentCalendar = () => {
-  const [selectedHour, setSelectedHour] = useState({ id: undefined });
+const AppointmentCalendar = ({ providerId, selectedHour, setSelectedHour }) => {
   const [groupedHours, setGroupedHours] = useState([]);
-  const queryClient = useQueryClient();
 
-  const { data, isLoading, isSuccess } = useQuery(["providerAvailable"], () =>
-    AvailableService.getAllByProviderId("4a3b2c1d-a1b2-4c3d-8e9f-6b7c8d9e0f1a")
+  const { data, status } = useQuery(["providerAvailable", providerId], () =>
+    AvailableService.getAllByProviderId(providerId)
   );
-  const { mutate } = useMutation(AppointmentService.createAppointment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("providerAvailable");
-      toast.success("Reunión agendada con éxito");
-      setSelectedHour({ id: undefined });
-    },
-    onError: (err) => {
-      toast.error(err.response?.data?.error || "Algo salio mal");
-    },
-  });
-
-  const onSubmit = () => {
-    mutate({
-      ServiceId: 3,
-      CollaboratorId: "f4c2d071-b2a9-4c71-b1ea-96bfc2d4b19e",
-      ProviderId: selectedHour.ProviderId,
-      AvailableId: selectedHour.id,
-    });
-  };
 
   useEffect(() => {
-    if (data?.data) {
+    if (data?.data && data.data.length > 0) {
       const groupedHours = groupDataByDay(data.data);
       setGroupedHours(groupedHours);
+    } else {
+      setGroupedHours([]);
     }
   }, [data]);
 
@@ -57,11 +36,11 @@ const AppointmentCalendar = () => {
           className="right-arrow arrow-icons"
           fontSize="large"
         />
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          !isLoading &&
-          isSuccess &&
+        {status === "loading" ? (
+          <div className="loading-container">
+            <LoadingSpinner />
+          </div>
+        ) : status === "success" && groupedHours.length > 0 ? (
           groupedHours.map((day, indexDay) => (
             <div key={indexDay} className="date">
               <div className="date-header">
@@ -99,21 +78,26 @@ const AppointmentCalendar = () => {
               </div>
             </div>
           ))
+        ) : (
+          <p className="no-hours">No hay horarios disponibles</p>
         )}
       </div>
 
-      {!isLoading && isSuccess ? (
+      {status === "success" && groupedHours.length > 0 ? (
         <label htmlFor="more-hours" className="more-hours">
           <input type="checkbox" id="more-hours" />
           <p>Ver mas horarios</p>
           <ExpandMoreIcon className="expand-icon" fontSize="large" />
         </label>
       ) : null}
-
-      <button type="button" onClick={onSubmit}>
-        Confirm
-      </button>
     </div>
   );
 };
+
+AppointmentCalendar.propTypes = {
+  providerId: PropTypes.string.isRequired,
+  selectedHour: PropTypes.object.isRequired,
+  setSelectedHour: PropTypes.func.isRequired,
+};
+
 export default AppointmentCalendar;
