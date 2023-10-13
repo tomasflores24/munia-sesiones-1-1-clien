@@ -22,7 +22,7 @@ const Home = () => {
             : null
           }
           {user === 1 || user === 3 || user === 2 ?
-            <Card to='/dashboard/agenda' imgComponent={<EventNoteIcon className='Img' />} title='Agenda' variables='.-' />
+            <Card to='/dashboard/appointments/create' imgComponent={<EventNoteIcon className='Img' />} title='Agendar' variables='.-' />
             : null
           }
           {user === 3 || user === 4 ?
