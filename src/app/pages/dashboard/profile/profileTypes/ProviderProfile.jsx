@@ -25,12 +25,13 @@ import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadImage from "../../../../components/uploadImages/UploadImage";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { ProvidersServices } from "../../../../services/dashboard/providers/providers.services";
 import { ClientsServices } from "../../../../services/dashboard/clients/clients.services";
 import { useSelector } from "react-redux";
 import { CollaboratorsService } from "../../../../services/dashboard/collaborators/collaborators.service";
 import { CountriesServices } from "../../../../services/dashboard/countries/countries.services";
+import { uploadProfilePicServices } from "../../../../services/auth/uploadProfilePic.services";
 
 
 
@@ -43,20 +44,36 @@ const ProviderProfile = () => {
   /* user.providerId */
   const { data: clientData, isLoading: clientIsLoading } = useQuery(
     ["getCompaniesById"],
-    () => ClientsServices.getCompaniesById('d224d2b3-8284-4105-9fb3-d61388edd35f')
+    () => ClientsServices.getCompaniesById('4ec50719-1919-41fe-96ed-7e2070e2d5e9')
   )
   /* user.companyId */
   const { data: collaboratorData, isLoading: collaboratorIsLoading } = useQuery(
     ["getCollaboratorById"],
-    () => CollaboratorsService.getCollaboratorById('04351ef9-ba29-4bff-ac30-475bd5eba030')
+    () => CollaboratorsService.getCollaboratorById('c296f9fa-2f5c-4b2b-9e8d-932db8c0daa1')
   )
   /* user.collaboratorId */
-  const { data: countries, isLoading: countriesAreLoading, isSuccess: countriesSuccess} = useQuery(
+  const { data: countries, isLoading: countriesAreLoading, isSuccess: countriesSuccess } = useQuery(
     ["getAllCountries"],
     () => CountriesServices.getAllCountries()
   )
 
+  const { mutate: providerMutate } = useMutation(
+    ["mutateProviders"],
+    () => ProvidersServices.updateProvider('7e6f5e4d-bb8a-4dc1-aa1b-6d5e4c3b2a1a', inputValues)
+  )
+  const { mutate: clientsMutate } = useMutation(
+    ["mutateClients"],
+    () => ClientsServices.updateClient('4ec50719-1919-41fe-96ed-7e2070e2d5e9', inputValues)
+  )
+  const { mutate: collaboratorsMutate } = useMutation(
+    ["mutateCollaborator"],
+    () => CollaboratorsService.updateCollaborator('c296f9fa-2f5c-4b2b-9e8d-932db8c0daa1', inputValues)
+  )
 
+  const { mutate: providerPicMutate} = useMutation(
+    ["mutateProvidersPic"],
+    uploadProfilePicServices.sendFile
+  )
 
   const inputsInitialState = {
     name: "",
@@ -85,6 +102,7 @@ const ProviderProfile = () => {
     }
     if (clientData && user.userTypeId === 1) {
       setInputValues({
+        ...inputValues,
         name: clientData.data.user.name,
         phone: clientData.data.phone,
         CountryId: clientData.data.user.CountryId,
@@ -93,6 +111,7 @@ const ProviderProfile = () => {
     }
     if (collaboratorData && user.userTypeId === 2) {
       setInputValues({
+        ...inputValues,
         GenderId: collaboratorData.data.GenderId,
         last_name: collaboratorData.data.last_name,
         CountryId: collaboratorData.data.user.CountryId,
@@ -103,7 +122,33 @@ const ProviderProfile = () => {
 
   }, [providerData, clientData, countries, collaboratorData])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
+    if (providerData && user.userTypeId === 3) {
+      providerMutate({
+        last_name: inputValues.last_name,
+        GenderId: inputValues.GenderId,
+        name: inputValues.name,
+        city: inputValues.city,
+        CountryId: inputValues.CountryId,
+      });
+    }
+    if (clientData && user.userTypeId === 1) {
+      clientsMutate({
+        name: inputValues.name,
+        phone: inputValues.phone,
+        CountryId: inputValues.CountryId,
+        city: inputValues.city,
+      })
+    }
+    if (collaboratorData && user.userTypeId === 2) {
+      collaboratorsMutate({
+        GenderId: inputValues.GenderId,
+        last_name: inputValues.last_name,
+        CountryId: inputValues.CountryId,
+        city: inputValues.city,
+        name: inputValues.name,
+      })
+    }
   }
 
   const handleDownload = () => {
@@ -128,6 +173,23 @@ const ProviderProfile = () => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setSelectedImage(imageUrl);
+    if (providerData && user.userTypeId === 3) {
+      providerPicMutate({
+        userId: user.id,
+        file: imageFile
+      });
+      console.log(imageFile);
+    }
+/*     if (clientData && user.userTypeId === 1) {
+      clientsMutate({
+        profilePic: selectedImage
+      })
+    }
+    if (collaboratorData && user.userTypeId === 2) {
+      collaboratorsMutate({
+        profilePic: selectedImage
+      })
+    } */
   };
 
   const providerInputsTheme = createTheme({
@@ -150,7 +212,7 @@ const ProviderProfile = () => {
       <header className="provider__image__container">
         <div className="provider__image">
           <UploadImage
-            profileImage={selectedImage ? selectedImage : providerPic}
+            profileImage={selectedImage ? selectedImage : providerData?.data.user.profilePic}
             handleImageUpload={handleImageUpload}
             showFileUploadIcon={true}
           />
@@ -176,7 +238,7 @@ const ProviderProfile = () => {
                           >{country.name}
                           </MenuItem>
                         })
-                      ): null
+                      ) : null
                       }
                     </Select>
                   </FormControl>
@@ -198,13 +260,21 @@ const ProviderProfile = () => {
 
                     </Select>
                   </FormControl>
-                  {/* <FormControl variant="standard">
+                  <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">País</InputLabel>
                     <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs}>
-                      <MenuItem value="Argentina">Argentina</MenuItem>
-                      <MenuItem value="Colombia">Colombia</MenuItem>
+                      {countriesSuccess ? (
+                        countries?.data?.map((country, index) => {
+                          <MenuItem
+                            key={index}
+                            value={country.id}
+                          >{country.name}
+                          </MenuItem>
+                        })
+                      ) : null
+                      }
                     </Select>
-                  </FormControl> */}
+                  </FormControl>
                   <TextField id="provider-input-city" name="city" label="Ciudad" variant="standard" value={inputValues.city} onChange={handleChangeInputs} />
                   <TextField id="provider-input-email" name="email" label="Correo" disabled variant="standard" value={inputValues.email} onChange={handleChangeInputs} />
                   <div className="provider__profile__info__date__container">

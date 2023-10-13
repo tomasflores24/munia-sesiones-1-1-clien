@@ -3,8 +3,10 @@ import { HttpRequest } from "../../HttpRequest";
 export const ProvidersServices = {
   getAllProviders: async (keyword) =>
     HttpRequest.get(`/provider${keyword ? "?keyword=" + keyword : ""}`),
-  getProviderById: async (providerId) => 
+  getProviderById: async (providerId) =>
     HttpRequest.get(providerId ? `/provider/${providerId}` : "/provider"),
+  updateProvider: async (providerId, body) =>
+    HttpRequest.patch(`/provider/${providerId}`, body),
   getAllProviders: async ({ keyword, serviceId }) => {
     const queryParams = new URLSearchParams();
     if (keyword) queryParams.append("keyword", keyword);
