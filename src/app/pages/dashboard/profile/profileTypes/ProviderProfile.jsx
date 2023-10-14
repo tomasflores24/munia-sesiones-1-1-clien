@@ -1,7 +1,6 @@
 import "./ProviderProfile.scss";
 import { useEffect, useState } from "react";
 import AddTimeAvailabilityModal from "../../../../components/AddTimeAvailabilityModal/AddTimeAvailabilityModal";
-import timeIcon from "/assets/timeIcon.png"
 import lockResetIcon from "/assets/lockResetIcon.png"
 import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.png"
 import displomaIcon from "/assets/diplomaIcon.png"
@@ -9,6 +8,7 @@ import proCardIcon from "/assets/proCardIcon.png"
 import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.png"
 import subirImagenSVG from "/assets/subirImagenSVG.svg"
 import Ellipse7 from "/assets/Ellipse7.svg"
+import timeIcon from "/assets/timeIcon.png"
 import providerPic from "/assets/providerPic.png"
 import {
   TextField,
@@ -18,7 +18,6 @@ import {
   InputLabel,
   ThemeProvider,
   createTheme,
-  Button,
   IconButton,
 } from "@mui/material";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
@@ -34,47 +33,40 @@ import { CountriesServices } from "../../../../services/dashboard/countries/coun
 import { uploadProfilePicServices } from "../../../../services/auth/uploadProfilePic.services";
 
 
-
 const ProviderProfile = () => {
   const user = useSelector(state => state.auth.auth.user);
   const { data: providerData, refetch: providerRefetch, isLoading: providerIsLoading } = useQuery(
     ["getProviderById"],
-    () => ProvidersServices.getProviderById('7e6f5e4d-bb8a-4dc1-aa1b-6d5e4c3b2a1a')
+    () => ProvidersServices.getProviderById(user.providerId)
   )
-  /* user.providerId */
   const { data: clientData, isLoading: clientIsLoading } = useQuery(
     ["getCompaniesById"],
-    () => ClientsServices.getCompaniesById('4ec50719-1919-41fe-96ed-7e2070e2d5e9')
+    () => ClientsServices.getCompaniesById(user.companyId)
   )
-  /* user.companyId */
   const { data: collaboratorData, isLoading: collaboratorIsLoading } = useQuery(
     ["getCollaboratorById"],
-    () => CollaboratorsService.getCollaboratorById('c296f9fa-2f5c-4b2b-9e8d-932db8c0daa1')
+    () => CollaboratorsService.getCollaboratorById(user.collaboratorId)
   )
-  /* user.collaboratorId */
   const { data: countries, isLoading: countriesAreLoading, isSuccess: countriesSuccess } = useQuery(
     ["getAllCountries"],
     () => CountriesServices.getAllCountries()
   )
-
   const { mutate: providerMutate } = useMutation(
     ["mutateProviders"],
-    () => ProvidersServices.updateProvider('7e6f5e4d-bb8a-4dc1-aa1b-6d5e4c3b2a1a', inputValues)
+    () => ProvidersServices.updateProvider(user.providerId, inputValues)
   )
   const { mutate: clientsMutate } = useMutation(
     ["mutateClients"],
-    () => ClientsServices.updateClient('4ec50719-1919-41fe-96ed-7e2070e2d5e9', inputValues)
+    () => ClientsServices.updateClient(user.companyId, inputValues)
   )
   const { mutate: collaboratorsMutate } = useMutation(
     ["mutateCollaborator"],
-    () => CollaboratorsService.updateCollaborator('c296f9fa-2f5c-4b2b-9e8d-932db8c0daa1', inputValues)
+    () => CollaboratorsService.updateCollaborator(user.collaboratorId, inputValues)
   )
-
-  const { mutate: providerPicMutate} = useMutation(
+  const { mutate: userProfilePicMutate } = useMutation(
     ["mutateProvidersPic"],
     uploadProfilePicServices.sendFile
   )
-
   const inputsInitialState = {
     name: "",
     GenderId: "",
@@ -88,7 +80,6 @@ const ProviderProfile = () => {
   const [openClientModal, setOpenClientModal] = useState(false);
   const [inputValues, setInputValues] = useState(inputsInitialState);
   const [selectedImage, setSelectedImage] = useState(null);
-
   useEffect(() => {
     if (providerData && user.userTypeId === 3) {
       setInputValues({
@@ -121,7 +112,6 @@ const ProviderProfile = () => {
     }
 
   }, [providerData, clientData, countries, collaboratorData])
-
   const handleSubmit = () => {
     if (providerData && user.userTypeId === 3) {
       providerMutate({
@@ -150,17 +140,7 @@ const ProviderProfile = () => {
       })
     }
   }
-
-  const handleDownload = () => {
-    // Crear un enlace temporal para descargar la imagen en una nueva pestaña
-    const downloadLink = document.createElement('a');
-    downloadLink.href = antecedentesPenalesIcon;
-    downloadLink.download = 'imagen.jpg';
-    downloadLink.click();
-  };
-
   const handleCloseModal = () => setOpenClientModal(false);
-
   const handleChangeInputs = (e) => {
     const { name, value } = e.target;
     setInputValues({
@@ -168,30 +148,29 @@ const ProviderProfile = () => {
       [name]: value,
     })
   };
-
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setSelectedImage(imageUrl);
     if (providerData && user.userTypeId === 3) {
-      providerPicMutate({
+      userProfilePicMutate({
         userId: user.id,
         file: imageFile
       });
-      console.log(imageFile);
     }
-/*     if (clientData && user.userTypeId === 1) {
-      clientsMutate({
-        profilePic: selectedImage
-      })
+    if (clientData && user.userTypeId === 1) {
+      userProfilePicMutate({
+        userId: user.id,
+        file: imageFile
+      });
     }
     if (collaboratorData && user.userTypeId === 2) {
-      collaboratorsMutate({
-        profilePic: selectedImage
-      })
-    } */
+      userProfilePicMutate({
+        userId: user.id,
+        file: imageFile
+      });
+    }
   };
-
   const providerInputsTheme = createTheme({
     palette: {
       primary: {
@@ -205,8 +184,6 @@ const ProviderProfile = () => {
       }
     },
   });
-
-
   return (
     <div className="root__container">
       <header className="provider__image__container">
@@ -330,7 +307,7 @@ const ProviderProfile = () => {
                   Cambiar contraseña
                 </button>
               </div>
-              <button type="submit" className="profile__btnGuardar" onClick={handleSubmit} /* disabled={} */>Actualizar perfil</button>
+              <button type="submit" className="profile__btnGuardar" onClick={handleSubmit}>Actualizar perfil</button>
             </div>
             {user.userTypeId === 3 ?
               <div className="provider__profile__documents__container">
@@ -342,12 +319,14 @@ const ProviderProfile = () => {
                       <img className="provider__profile__documents__logo__icon" src={antecedentesPenalesIcon} />
                     </div>
                     <div className="provider__profile__documents__buttons__container">
-                      <a href={providerData?.data.user.profilePic} target="_blank" rel="noopener noreferrer">
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
+                        {/* providerData?.data?.user?.profilePic */}
                         <IconButton>
                           <VisibilityIcon color="tertiary" />
                         </IconButton>
+
                       </a>
-                      <a href={providerData?.data.user.profilePic} download>
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'}>
                         <IconButton>
                           <FileDownloadIcon color="tertiary" />
                         </IconButton>
@@ -361,12 +340,12 @@ const ProviderProfile = () => {
                       <img className="provider__profile__documents__logo__icon" src={displomaIcon} />
                     </div>
                     <div className="provider__profile__documents__buttons__container">
-                      <a href={providerData?.data.user.profilePic} target="_blank" rel="noopener noreferrer">
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
                         <IconButton>
                           <VisibilityIcon color="tertiary" />
                         </IconButton>
                       </a>
-                      <a href={providerData?.data.user.profilePic} download>
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
                         <IconButton>
                           <FileDownloadIcon color="tertiary" />
                         </IconButton>
@@ -380,12 +359,12 @@ const ProviderProfile = () => {
                       <img className="provider__profile__documents__logo__icon" src={proCardIcon} />
                     </div>
                     <div className="provider__profile__documents__buttons__container">
-                      <a href={providerData?.data.user.profilePic} target="_blank" rel="noopener noreferrer">
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
                         <IconButton>
                           <VisibilityIcon color="tertiary" />
                         </IconButton>
                       </a>
-                      <a href={providerData?.data.user.profilePic} download>
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
                         <IconButton>
                           <FileDownloadIcon color="tertiary" />
                         </IconButton>
@@ -399,12 +378,12 @@ const ProviderProfile = () => {
                       <img className="provider__profile__documents__logo__icon" src={portfolioServiciosIcon} />
                     </div>
                     <div className="provider__profile__documents__buttons__container">
-                      <a href={providerData?.data.user.profilePic} target="_blank" rel="noopener noreferrer">
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
                         <IconButton>
                           <VisibilityIcon color="tertiary" />
                         </IconButton>
                       </a>
-                      <a href={providerData?.data.user.profilePic} download>
+                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download >
                         <IconButton>
                           <FileDownloadIcon color="tertiary" />
                         </IconButton>
