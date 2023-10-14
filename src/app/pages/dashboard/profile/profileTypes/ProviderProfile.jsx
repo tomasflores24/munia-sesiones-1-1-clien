@@ -37,19 +37,23 @@ const ProviderProfile = () => {
   const user = useSelector(state => state.auth.auth.user);
   const { data: providerData, refetch: providerRefetch, isLoading: providerIsLoading } = useQuery(
     ["getProviderById"],
-    () => ProvidersServices.getProviderById(user.providerId)
+    () => ProvidersServices.getProviderById(user.providerId),
+    {refetchOnWindowFocus: false}
   )
   const { data: clientData, isLoading: clientIsLoading } = useQuery(
     ["getCompaniesById"],
-    () => ClientsServices.getCompaniesById(user.companyId)
+    () => ClientsServices.getCompaniesById(user.companyId),
+    {refetchOnWindowFocus: false}
   )
   const { data: collaboratorData, isLoading: collaboratorIsLoading } = useQuery(
     ["getCollaboratorById"],
-    () => CollaboratorsService.getCollaboratorById(user.collaboratorId)
+    () => CollaboratorsService.getCollaboratorById(user.collaboratorId),
+    {refetchOnWindowFocus: false}
   )
   const { data: countries, isLoading: countriesAreLoading, isSuccess: countriesSuccess } = useQuery(
     ["getAllCountries"],
-    () => CountriesServices.getAllCountries()
+    () => CountriesServices.getAllCountries(),
+    {refetchOnWindowFocus: false}
   )
   const { mutate: providerMutate } = useMutation(
     ["mutateProviders"],
@@ -184,6 +188,8 @@ const ProviderProfile = () => {
       }
     },
   });
+  
+
   return (
     <div className="root__container">
       <header className="provider__image__container">
@@ -299,17 +305,25 @@ const ProviderProfile = () => {
               : null
             }
           </section>
+
           <section className="provider__profile__second__section">
-            <div className="provider__profile__buttons__container">
-              <div className="profile__contraseña">
-                <button className="profile__btnContraseña">
-                  <img src={lockResetIcon} />
-                  Cambiar contraseña
-                </button>
+            {providerIsLoading && countriesAreLoading ? (
+              <LoadingSpinner />
+            ) : user.userTypeId ?
+              <div className="provider__profile__buttons__container">
+                <div className="profile__contraseña">
+                  <button className="profile__btnContraseña">
+                    <img src={lockResetIcon} />
+                    Cambiar contraseña
+                  </button>
+                </div>
+                <button type="submit" className="profile__btnGuardar" onClick={handleSubmit}>Actualizar perfil</button>
               </div>
-              <button type="submit" className="profile__btnGuardar" onClick={handleSubmit}>Actualizar perfil</button>
-            </div>
-            {user.userTypeId === 3 ?
+              : null
+            }
+            {providerIsLoading && countriesAreLoading ? (
+              <LoadingSpinner />
+            ) : user.userTypeId === 3 ?
               <div className="provider__profile__documents__container">
                 <ThemeProvider theme={providerInputsTheme}>
                   <div className="provider__profile__documents">

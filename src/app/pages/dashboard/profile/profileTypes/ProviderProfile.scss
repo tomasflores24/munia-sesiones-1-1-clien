@@ -31,7 +31,8 @@
             padding-left: 3%;
             padding-top: 4%;
             padding-bottom: 4%;
-            height: 68vh;
+            min-height: 30vh;
+            max-height: 68vh;
             background: #FFFDFD;
             border-radius: 25px;
             border: 0.5px solid rgba(0, 0, 0, 0.308);
@@ -275,16 +276,16 @@
                     }
 
                     .provider__profile__documents__logo {
-                        width: 100;
-                        height: 100;
+                        width: 45%;
+                        height: 50%;
                         left: 5;
                         top: 18;
                         position: relative;
                     }
 
                     .provider__profile__documents__logo__background {
-                        width: 100;
-                        height: 100;
+                        width: 45%;
+                        height: 50%;
                         left: 0;
                         top: 0;
                         position: absolute;
