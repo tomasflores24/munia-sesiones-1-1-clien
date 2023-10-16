@@ -38,22 +38,22 @@ const ProviderProfile = () => {
   const { data: providerData, refetch: providerRefetch, isLoading: providerIsLoading } = useQuery(
     ["getProviderById"],
     () => ProvidersServices.getProviderById(user.providerId),
-    {refetchOnWindowFocus: false}
+    { refetchOnWindowFocus: false }
   )
   const { data: clientData, isLoading: clientIsLoading } = useQuery(
     ["getCompaniesById"],
     () => ClientsServices.getCompaniesById(user.companyId),
-    {refetchOnWindowFocus: false}
+    { refetchOnWindowFocus: false }
   )
   const { data: collaboratorData, isLoading: collaboratorIsLoading } = useQuery(
     ["getCollaboratorById"],
     () => CollaboratorsService.getCollaboratorById(user.collaboratorId),
-    {refetchOnWindowFocus: false}
+    { refetchOnWindowFocus: false }
   )
   const { data: countries, isLoading: countriesAreLoading, isSuccess: countriesSuccess } = useQuery(
     ["getAllCountries"],
     () => CountriesServices.getAllCountries(),
-    {refetchOnWindowFocus: false}
+    { refetchOnWindowFocus: false }
   )
   const { mutate: providerMutate } = useMutation(
     ["mutateProviders"],
@@ -188,7 +188,7 @@ const ProviderProfile = () => {
       }
     },
   });
-  
+
 
   return (
     <div className="root__container">
@@ -212,7 +212,7 @@ const ProviderProfile = () => {
                   <TextField id="provider-input-name" name="name" label="Nombre" variant="standard" value={inputValues.name} onChange={handleChangeInputs} />
                   <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">País</InputLabel>
-                    <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs}>
+                    <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs} style={{ width: '100%' }}>
                       {countriesSuccess ? (
                         countries?.data?.map((country, index) => {
                           <MenuItem
@@ -236,7 +236,7 @@ const ProviderProfile = () => {
                   <TextField id="provider-input-last-name" name="last_name" label="Apellido" variant="standard" value={inputValues.last_name} onChange={handleChangeInputs} />
                   <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">Género</InputLabel>
-                    <Select variant="standard" name="GenderId" value={inputValues.GenderId} onChange={handleChangeInputs}>
+                    <Select variant="standard" name="GenderId" value={inputValues.GenderId} onChange={handleChangeInputs} style={{ width: '100%' }}>
                       <MenuItem value={1}>Masculino</MenuItem>
                       <MenuItem value={2}>Femenino</MenuItem>
                       <MenuItem value={3}>Otro</MenuItem>
@@ -245,7 +245,7 @@ const ProviderProfile = () => {
                   </FormControl>
                   <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">País</InputLabel>
-                    <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs}>
+                    <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs} style={{width:'100%'}}>
                       {countriesSuccess ? (
                         countries?.data?.map((country, index) => {
                           <MenuItem
