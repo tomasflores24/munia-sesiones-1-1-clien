@@ -16,7 +16,6 @@ import {
   createTheme,
   IconButton,
 } from "@mui/material";
-import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadImage from "../../../components/uploadImages/UploadImage";
@@ -27,6 +26,7 @@ import { useSelector } from "react-redux";
 import { CollaboratorsService } from "../../../services/dashboard/collaborators/collaborators.service";
 import { CountriesServices } from "../../../services/dashboard/countries/countries.services";
 import { uploadProfilePicServices } from "../../../services/auth/uploadProfilePic.services";
+import LoadingSpinner from './../../../shared/loadingSpinner/LoadingSpinner';
 
 
 const Profile = () => {
@@ -198,15 +198,17 @@ const Profile = () => {
         </div>
       </header>
       <main className="provider__profile__container">
-        <div className="provider__profile">
-          <section className="provider__profile__first__section">
-            {clientIsLoading && countriesAreLoading ? (
-              <LoadingSpinner />
-            ) : user.userTypeId === 1 && countriesSuccess ?
-              <div className="provider__profile__info__container">
-                <ThemeProvider theme={providerInputsTheme}>
-                  <TextField id="provider-input-name" name="name" label="Nombre" variant="standard" value={inputValues.name} onChange={handleChangeInputs} />
-                  {/* <FormControl variant="standard">
+        {clientIsLoading && countriesAreLoading || providerIsLoading && countriesAreLoading || providerIsLoading && countriesAreLoading ? (
+          <LoadingSpinner />
+        )
+          :
+          <div className="provider__profile">
+            <section className="provider__profile__first__section">
+              {user.userTypeId === 1 && countriesSuccess ?
+                <div className="provider__profile__info__container">
+                  <ThemeProvider theme={providerInputsTheme}>
+                    <TextField id="provider-input-name" name="name" label="Nombre" variant="standard" value={inputValues.name} onChange={handleChangeInputs} />
+                    {/* <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">País</InputLabel>
                     <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs} style={{ width: '100%' }}>
                       {countriesSuccess ? (
@@ -221,25 +223,25 @@ const Profile = () => {
                       }
                     </Select>
                   </FormControl> */}
-                  <TextField id="provider-input-phone" name="phone" label="Teléfono" variant="standard" value={inputValues.phone} onChange={handleChangeInputs} />
-                  <TextField id="provider-input-city" name="city" label="Ciudad" variant="standard" value={inputValues.city} onChange={handleChangeInputs} />
-                  <TextField id="provider-input-email" name="email" label="Correo" disabled variant="standard" value={inputValues.email} onChange={handleChangeInputs} />
-                </ThemeProvider>
-              </div>
-              : <div className="provider__profile__info__container">
-                <ThemeProvider theme={providerInputsTheme}>
-                  <TextField id="provider-input-name" name="name" label="Nombre" variant="standard" value={inputValues.name} onChange={handleChangeInputs} />
-                  <TextField id="provider-input-last-name" name="last_name" label="Apellido" variant="standard" value={inputValues.last_name} onChange={handleChangeInputs} />
-                  <FormControl variant="standard">
-                    <InputLabel id="demo-simple-select-standard-label">Género</InputLabel>
-                    <Select variant="standard" name="GenderId" value={inputValues.GenderId} onChange={handleChangeInputs} style={{ width: '100%' }}>
-                      <MenuItem value={1}>Masculino</MenuItem>
-                      <MenuItem value={2}>Femenino</MenuItem>
-                      <MenuItem value={3}>Otro</MenuItem>
+                    <TextField id="provider-input-phone" name="phone" label="Teléfono" variant="standard" value={inputValues.phone} onChange={handleChangeInputs} />
+                    <TextField id="provider-input-city" name="city" label="Ciudad" variant="standard" value={inputValues.city} onChange={handleChangeInputs} />
+                    <TextField id="provider-input-email" name="email" label="Correo" disabled variant="standard" value={inputValues.email} onChange={handleChangeInputs} />
+                  </ThemeProvider>
+                </div>
+                : <div className="provider__profile__info__container">
+                  <ThemeProvider theme={providerInputsTheme}>
+                    <TextField id="provider-input-name" name="name" label="Nombre" variant="standard" value={inputValues.name} onChange={handleChangeInputs} />
+                    <TextField id="provider-input-last-name" name="last_name" label="Apellido" variant="standard" value={inputValues.last_name} onChange={handleChangeInputs} />
+                    <FormControl variant="standard">
+                      <InputLabel id="demo-simple-select-standard-label">Género</InputLabel>
+                      <Select variant="standard" name="GenderId" value={inputValues.GenderId} onChange={handleChangeInputs} style={{ width: '100%' }}>
+                        <MenuItem value={1}>Masculino</MenuItem>
+                        <MenuItem value={2}>Femenino</MenuItem>
+                        <MenuItem value={3}>Otro</MenuItem>
 
-                    </Select>
-                  </FormControl>
-                  {/* <FormControl variant="standard">
+                      </Select>
+                    </FormControl>
+                    {/* <FormControl variant="standard">
                     <InputLabel id="demo-simple-select-standard-label">País</InputLabel>
                     <Select variant="standard" name="CountryId" value={inputValues.CountryId} onChange={handleChangeInputs} style={{width:'100%'}}>
                       {countriesSuccess ? (
@@ -254,156 +256,155 @@ const Profile = () => {
                       }
                     </Select>
                   </FormControl> */}
-                  <TextField id="provider-input-city" name="city" label="Ciudad" variant="standard" value={inputValues.city} onChange={handleChangeInputs} />
-                  <TextField id="provider-input-email" name="email" label="Correo" disabled variant="standard" value={inputValues.email} onChange={handleChangeInputs} />
-                  <div className="provider__profile__info__date__container">
-                    <p className="provider__profile__info__date__title">Fecha de nacimiento</p>
-                    <input type="date" id="provider-profile-date" className="provider__profile__info__date" />
+                    <TextField id="provider-input-city" name="city" label="Ciudad" variant="standard" value={inputValues.city} onChange={handleChangeInputs} />
+                    <TextField id="provider-input-email" name="email" label="Correo" disabled variant="standard" value={inputValues.email} onChange={handleChangeInputs} />
+                    <div className="provider__profile__info__date__container">
+                      <p className="provider__profile__info__date__title">Fecha de nacimiento</p>
+                      <input type="date" id="provider-profile-date" className="provider__profile__info__date" />
+                    </div>
+                  </ThemeProvider>
+                </div>
+              }
+              {providerIsLoading ? (
+                <LoadingSpinner />
+              ) : user.userTypeId === 3 ?
+                <div className="provider__profile__modals__container">
+                  <div className="container__modal__availability">
+                    <button
+                      type="button"
+                      className="btn__modal__availability"
+                      onClick={() => setOpenClientModal(true)}
+                    >
+                      <div className="btn__modal__availability__items">
+                        Agregar disponibilidad
+                      </div>
+                    </button>
+                    <AddTimeAvailabilityModal
+                      closeModal={handleCloseModal}
+                      open={openClientModal}
+                    />
                   </div>
-                </ThemeProvider>
-              </div>
-            }
-            {providerIsLoading ? (
-              <LoadingSpinner />
-            ) : user.userTypeId === 3 ?
-              <div className="provider__profile__modals__container">
-                <div className="container__modal__availability">
-                  <button
-                    type="button"
-                    className="btn__modal__availability"
-                    onClick={() => setOpenClientModal(true)}
-                  >
-                    <div className="btn__modal__availability__items">
-                      Agregar disponibilidad
-                    </div>
-                  </button>
-                  <AddTimeAvailabilityModal
-                    closeModal={handleCloseModal}
-                    open={openClientModal}
-                  />
+                  <div className="container__modal__add__services">
+                    <button
+                      type="button"
+                      className="btn__modal__availability"
+                      onClick={() => setOpenClientModal(true)}
+                    >
+                      <div className="btn__modal__availability__items">
+                        Agregar servicios
+                      </div>
+                    </button>
+                  </div>
                 </div>
-                <div className="container__modal__add__services">
-                  <button
-                    type="button"
-                    className="btn__modal__availability"
-                    onClick={() => setOpenClientModal(true)}
-                  >
-                    <div className="btn__modal__availability__items">
-                      Agregar servicios
-                    </div>
-                  </button>
-                </div>
-              </div>
-              : null
-            }
-          </section>
+                : null
+              }
+            </section>
 
-          <section className="provider__profile__second__section">
-            {providerIsLoading && countriesAreLoading ? (
-              <LoadingSpinner />
-            ) : user.userTypeId ?
-              <div className="provider__profile__buttons__container">
-                <div className="profile__contraseña">
-                  <button className="profile__btnContraseña">
-                    <img src={lockResetIcon} />
-                    Cambiar contraseña
-                  </button>
+            <section className="provider__profile__second__section">
+              {user.userTypeId ?
+                <div className="provider__profile__buttons__container">
+                  <div className="profile__contraseña">
+                    <button className="profile__btnContraseña">
+                      <img src={lockResetIcon} />
+                      Cambiar contraseña
+                    </button>
+                  </div>
+                  <button type="submit" className="profile__btnGuardar" onClick={handleSubmit}>Actualizar perfil</button>
                 </div>
-                <button type="submit" className="profile__btnGuardar" onClick={handleSubmit}>Actualizar perfil</button>
-              </div>
-              : null
-            }
-            {providerIsLoading && countriesAreLoading ? (
-              <LoadingSpinner />
-            ) : user.userTypeId === 3 ?
-              <div className="provider__profile__documents__container">
-                <ThemeProvider theme={providerInputsTheme}>
-                  <div className="provider__profile__documents">
-                    <div className="provider__profile__documents__label">Antecedentes penales</div>
-                    <div className="provider__profile__documents__logo">
-                      <div className="provider__profile__documents__logo__background" />
-                      <img className="provider__profile__documents__logo__icon" src={antecedentesPenalesIcon} />
-                    </div>
-                    <div className="provider__profile__documents__buttons__container">
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
-                        {/* providerData?.data?.user?.profilePic */}
-                        <IconButton>
-                          <VisibilityIcon color="tertiary" />
-                        </IconButton>
+                : null
+              }
+              {providerIsLoading && countriesAreLoading ? (
+                <LoadingSpinner />
+              ) : user.userTypeId === 3 ?
+                <div className="provider__profile__documents__container">
+                  <ThemeProvider theme={providerInputsTheme}>
+                    <div className="provider__profile__documents">
+                      <div className="provider__profile__documents__label">Antecedentes penales</div>
+                      <div className="provider__profile__documents__logo">
+                        <div className="provider__profile__documents__logo__background" />
+                        <img className="provider__profile__documents__logo__icon" src={antecedentesPenalesIcon} />
+                      </div>
+                      <div className="provider__profile__documents__buttons__container">
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
+                          {/* providerData?.data?.user?.profilePic */}
+                          <IconButton>
+                            <VisibilityIcon color="tertiary" />
+                          </IconButton>
 
-                      </a>
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'}>
-                        <IconButton>
-                          <FileDownloadIcon color="tertiary" />
-                        </IconButton>
-                      </a>
+                        </a>
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'}>
+                          <IconButton>
+                            <FileDownloadIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="provider__profile__documents">
-                    <div className="provider__profile__documents__label">Diploma de grado</div>
-                    <div className="provider__profile__documents__logo">
-                      <div className="provider__profile__documents__logo__background" />
-                      <img className="provider__profile__documents__logo__icon" src={displomaIcon} />
+                    <div className="provider__profile__documents">
+                      <div className="provider__profile__documents__label">Diploma de grado</div>
+                      <div className="provider__profile__documents__logo">
+                        <div className="provider__profile__documents__logo__background" />
+                        <img className="provider__profile__documents__logo__icon" src={displomaIcon} />
+                      </div>
+                      <div className="provider__profile__documents__buttons__container">
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
+                          <IconButton>
+                            <VisibilityIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
+                          <IconButton>
+                            <FileDownloadIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                      </div>
                     </div>
-                    <div className="provider__profile__documents__buttons__container">
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
-                        <IconButton>
-                          <VisibilityIcon color="tertiary" />
-                        </IconButton>
-                      </a>
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
-                        <IconButton>
-                          <FileDownloadIcon color="tertiary" />
-                        </IconButton>
-                      </a>
+                    <div className="provider__profile__documents">
+                      <div className="provider__profile__documents__label">Tarjeta profesional</div>
+                      <div className="provider__profile__documents__logo">
+                        <div className="provider__profile__documents__logo__background" />
+                        <img className="provider__profile__documents__logo__icon" src={proCardIcon} />
+                      </div>
+                      <div className="provider__profile__documents__buttons__container">
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
+                          <IconButton>
+                            <VisibilityIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
+                          <IconButton>
+                            <FileDownloadIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="provider__profile__documents">
-                    <div className="provider__profile__documents__label">Tarjeta profesional</div>
-                    <div className="provider__profile__documents__logo">
-                      <div className="provider__profile__documents__logo__background" />
-                      <img className="provider__profile__documents__logo__icon" src={proCardIcon} />
+                    <div className="provider__profile__documents">
+                      <div className="provider__profile__documents__label">Portfolio de servicios</div>
+                      <div className="provider__profile__documents__logo">
+                        <div className="provider__profile__documents__logo__background" />
+                        <img className="provider__profile__documents__logo__icon" src={portfolioServiciosIcon} />
+                      </div>
+                      <div className="provider__profile__documents__buttons__container">
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
+                          <IconButton>
+                            <VisibilityIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                        <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download >
+                          <IconButton>
+                            <FileDownloadIcon color="tertiary" />
+                          </IconButton>
+                        </a>
+                      </div>
                     </div>
-                    <div className="provider__profile__documents__buttons__container">
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
-                        <IconButton>
-                          <VisibilityIcon color="tertiary" />
-                        </IconButton>
-                      </a>
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download>
-                        <IconButton>
-                          <FileDownloadIcon color="tertiary" />
-                        </IconButton>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="provider__profile__documents">
-                    <div className="provider__profile__documents__label">Portfolio de servicios</div>
-                    <div className="provider__profile__documents__logo">
-                      <div className="provider__profile__documents__logo__background" />
-                      <img className="provider__profile__documents__logo__icon" src={portfolioServiciosIcon} />
-                    </div>
-                    <div className="provider__profile__documents__buttons__container">
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} target="_blank" rel="noopener noreferrer">
-                        <IconButton>
-                          <VisibilityIcon color="tertiary" />
-                        </IconButton>
-                      </a>
-                      <a href={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg'} download >
-                        <IconButton>
-                          <FileDownloadIcon color="tertiary" />
-                        </IconButton>
-                      </a>
-                    </div>
-                  </div>
-                </ThemeProvider>
-              </div>
-              : null
-            }
-          </section>
-        </div>
-      </main>
-    </div>
+                  </ThemeProvider>
+                </div>
+                : null
+              }
+            </section>
+          </div>
+        }
+      </main >
+    </div >
   );
 };
 

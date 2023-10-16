@@ -1,14 +1,17 @@
-.loading-wrapper {
-  position: absolute;
-  top: 45%;
-  right: 50%;
-  .lds-roller {
+.loading__wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  .lds__roller {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
     div {
-      animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      animation: lds__roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
       transform-origin: 40px 40px;
     }
     div:after {
@@ -79,7 +82,7 @@
     }
   }
 
-  @keyframes lds-roller {
+  @keyframes lds__roller {
     0% {
       transform: rotate(0deg);
     }
