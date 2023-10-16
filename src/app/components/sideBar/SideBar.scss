@@ -38,6 +38,12 @@ $selectedTabColor: black;
     }
   }
 }
+.menuButton {
+  display: block;
+  @media (min-width: 1200px) {
+    display: none !important;
+  }
+}
 
 //------------------------------------------- No desplegable
 .container {
