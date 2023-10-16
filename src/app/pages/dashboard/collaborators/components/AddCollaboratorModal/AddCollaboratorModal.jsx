@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import * as yup from "yup";
-import { CollaboratorsService } from "../../services/dashboard/collaborators/collaborators.service";
+import { CollaboratorsService } from "../../../../../services/dashboard/collaborators/collaborators.service";
 import "./AddCollaboratorModalStyle.scss";
 import { useForm } from "react-hook-form";
 import {
