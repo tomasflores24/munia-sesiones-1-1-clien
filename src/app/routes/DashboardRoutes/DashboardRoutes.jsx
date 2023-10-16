@@ -26,7 +26,7 @@ const DashboardRoutes = () => {
           <Route path="/clients" element={<Clients />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/diary" element={<Diary />} />
-          <Route path="/appointment" element={<Appointment />} />
+          <Route path="/appointments" element={<Appointment />} />
          {/*  <Route path="/diaryCreate" element={<DiaryCreate />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointments/create" element={<CreateAppointment />} />
