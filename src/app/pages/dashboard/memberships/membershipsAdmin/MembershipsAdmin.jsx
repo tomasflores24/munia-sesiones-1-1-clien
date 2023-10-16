@@ -8,6 +8,9 @@ import { Dialog, DialogContent, TextField } from "@mui/material";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { useMutation, useQueryClient } from "react-query";
 import { MembershipsServices } from "../../../../services/dashboard/memberships/memberships.services";
+import MembershipsCreateModal from "./components/MembershipsCreateModal";
+import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
+import { toast, Toaster } from "react-hot-toast";
 
 export const MembershipTypes = {
   BASIC: 1,
@@ -26,7 +29,10 @@ const MembershipsAdmin = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("posts");
+        toast.success("Se creó la membresía con exito");
+        setTimeout(() => setModalOpen(false), 3000);
       },
+      onError: () => toast.error("Error al crear la membresia"),
     }
   );
   const [selectedMembership, setSelectedMembership] = useState(
@@ -46,108 +52,76 @@ const MembershipsAdmin = () => {
     setModalOpen(false);
   };
 
-  const createMembrships = async (e) => {
+  const createMembrships = async (e, data) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
     const amount = parseFloat(document.getElementById("amount").value);
     if (isLoading) {
       return;
     }
-    await mutate({ name, amount });
-    setModalOpen(false);
+    mutate({ name, amount });
   };
 
-  return (
-    <div className="selectMembership__root">
-      <header className="membership-header">
-        <nav className="membership-navbar">
-          <h1 className="title">Configurar membresías</h1>
-          <div className="container-button">
-            <button onClick={openModal} className="button">
-              Nueva membresía
-            </button>
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
+    <>
+      <Toaster position="top-center" />
+      <div className="selectMembership__root">
+        <header className="membership-header">
+          <nav className="membership-navbar">
+            <h1 className="title">Configurar membresías</h1>
+            <div className="container-button">
+              <button onClick={openModal} className="membership-button">
+                Nueva membresía
+              </button>
+            </div>
+          </nav>
+        </header>
+        {modalOpen && (
+          <>
+            <MembershipsCreateModal
+              closeModal={closeModal}
+              openModal={openModal}
+              createMembrships={createMembrships}
+            />
+          </>
+        )}
+        <div className="selectMembership__container">
+          <div className="arrow-container">
+            <ArrowBackIosNewIcon className="arrowIcon" fontSize="large" />
           </div>
-        </nav>
-      </header>
-      {modalOpen && (
-        <>
-          <Dialog
-            open={openModal}
-            onClose={closeModal}
-            className="createUserModal__root"
-            maxWidth="md"
-            sx={{ "& .MuiDialog-paper": { borderRadius: "25px" } }}
-          >
-            <DialogContent>
-              <div className="create-membership-modal">
-                <h2 className="membership-modal-title">Crear Membresía</h2>
-                <TextField
-                  id="name"
-                  label="Nombre de la membresia"
-                  variant="standard"
-                  placeholder="none"
-                  className="textField-membership"
-                />
-                <br />
-                <TextField
-                  id="amount"
-                  label="Precio"
-                  variant="standard"
-                  placeholder="none"
-                  className="textField-membership"
-                />
-                <h3 className="membership-modal-subtitles">Descripción</h3>
-                <TextareaAutosize
-                  aria-label="minimum height"
-                  className="membership-modal-textarea"
-                />
-              </div>
-              <div className="container-button">
-                <button
-                  onClick={createMembrships}
-                  className="membership-button"
-                >
-                  Nueva membresía
-                </button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </>
-      )}
-      <div className="selectMembership__container">
-        <div className="arrow-container">
-          <ArrowBackIosNewIcon className="arrowIcon" fontSize="large" />
-        </div>
-        <MembershipBox
-          price={basic.price}
-          title={basic.title}
-          list={basic.list}
-          titleBgColor={basic.titleBgColor}
-          selected={selectedMembership === MembershipTypes.BASIC}
-          selectMembership={() => selectMembership(MembershipTypes.BASIC)}
-        />
-        <MembershipBox
-          price={standard.price}
-          title={standard.title}
-          list={standard.list}
-          titleBgColor={standard.titleBgColor}
-          selected={selectedMembership === MembershipTypes.STANDARD}
-          selectMembership={() => selectMembership(MembershipTypes.STANDARD)}
-        />
-        <MembershipBox
-          price={company.price}
-          title={company.title}
-          list={company.list}
-          titleBgColor={company.titleBgColor}
-          description={company.description}
-          selected={selectedMembership === MembershipTypes.COMPANY}
-          selectMembership={() => selectMembership(MembershipTypes.COMPANY)}
-        />
-        <div className="arrow-container">
-          <ArrowForwardIosIcon className="arrowIcon" fontSize="large" />
+          <MembershipBox
+            price={basic.price}
+            title={basic.title}
+            list={basic.list}
+            titleBgColor={basic.titleBgColor}
+            selected={selectedMembership === MembershipTypes.BASIC}
+            selectMembership={() => selectMembership(MembershipTypes.BASIC)}
+          />
+          <MembershipBox
+            price={standard.price}
+            title={standard.title}
+            list={standard.list}
+            titleBgColor={standard.titleBgColor}
+            selected={selectedMembership === MembershipTypes.STANDARD}
+            selectMembership={() => selectMembership(MembershipTypes.STANDARD)}
+          />
+          <MembershipBox
+            price={company.price}
+            title={company.title}
+            list={company.list}
+            titleBgColor={company.titleBgColor}
+            description={company.description}
+            selected={selectedMembership === MembershipTypes.COMPANY}
+            selectMembership={() => selectMembership(MembershipTypes.COMPANY)}
+          />
+          <div className="arrow-container">
+            <ArrowForwardIosIcon className="arrowIcon" fontSize="large" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

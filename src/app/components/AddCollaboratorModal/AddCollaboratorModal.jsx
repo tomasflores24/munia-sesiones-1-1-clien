@@ -55,8 +55,7 @@ const collaboratorSchema = yup.object({
 });
 
 const AddCollaboratorModal = ({ handleModal, isLoading }) => {
-
-  const {companyId} =  useSelector(state => state.auth.auth.user)
+  const { companyId } = useSelector((state) => state.auth.auth.user);
   const modalRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -65,10 +64,9 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    getValues,
   } = useForm({
     resolver: yupResolver(collaboratorSchema),
-    defaultValues:{
+    defaultValues: {
       profilePic: "",
       name: "",
       lastName: "",
@@ -78,10 +76,9 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
       city: "",
       gender: "",
       password: "",
-      confirmPassword: ""
-    }
+      confirmPassword: "",
+    },
   });
-
 
   // const { data: collaborators, isLoading } = useQuery(
   //   ["createCollaborator"],
@@ -99,12 +96,10 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
   const { data: countries } = useQuery(["getAllCountries"], () =>
     CollaboratorsService.getAllCountries()
   );
-  console.log(getValues());
-  console.log(isValid);
   const onSubmit = async (data) => {
     // collaboratorMutation.mutate(data);
     console.log(data);
-  await mutateAsync({
+    await mutateAsync({
       profilePic: "",
       name: data.name,
       lastName: data.lastName,
@@ -225,7 +220,11 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                 <InputLabel id="demo-simple-select-standard-label">
                   Pais
                 </InputLabel>
+
                 <Select variant="standard" {...register("country")}>
+                  <MenuItem disabled hidden>
+                    Selecciona un país
+                  </MenuItem>
                   {countries?.data.map((el, index) => {
                     return (
                       <MenuItem key={index} value={el.id}>
@@ -249,7 +248,9 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                   Genero
                 </InputLabel>
                 <Select variant="standard" {...register("gender")}>
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem disabled hidden>
+                    Selecciona tu genero
+                  </MenuItem>
                   <MenuItem value="1">Masculino</MenuItem>
                   <MenuItem value="2">Femenino</MenuItem>
                   <MenuItem value="3">Otro</MenuItem>
