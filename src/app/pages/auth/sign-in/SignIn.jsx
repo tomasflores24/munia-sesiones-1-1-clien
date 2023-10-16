@@ -52,7 +52,7 @@ const SignIn = () => {
   const { isLoading, mutate } = useMutation(["login"], loginServices.login, {
     onSuccess: (e) => {
       const decoded = jwtDecode(e.data);
-
+      console.log(decoded.companyId)
       dispatch(
         setDataSuccess({
           token: e.data,

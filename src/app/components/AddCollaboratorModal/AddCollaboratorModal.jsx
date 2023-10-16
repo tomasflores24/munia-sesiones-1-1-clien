@@ -19,6 +19,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery, useMutation } from "react-query";
+import { useSelector } from "react-redux";
 
 const collaboratorSchema = yup.object({
   profilePic: yup
@@ -31,6 +32,7 @@ const collaboratorSchema = yup.object({
     }),
   name: yup.string().required("El nombre es requerido"),
   lastName: yup.string().required("El apellido es requerido"),
+  age: yup.string().required("La edad es requerida  "),
   email: yup
     .string()
     .required("Correo es requerido")
@@ -53,6 +55,8 @@ const collaboratorSchema = yup.object({
 });
 
 const AddCollaboratorModal = ({ handleModal, isLoading }) => {
+
+  const {companyId} =  useSelector(state => state.auth.auth.user)
   const modalRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -60,12 +64,24 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     getValues,
-    isValid,
   } = useForm({
     resolver: yupResolver(collaboratorSchema),
+    defaultValues:{
+      profilePic: "",
+      name: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      country: "",
+      city: "",
+      gender: "",
+      password: "",
+      confirmPassword: ""
+    }
   });
+
 
   // const { data: collaborators, isLoading } = useQuery(
   //   ["createCollaborator"],
@@ -88,17 +104,19 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
   const onSubmit = async (data) => {
     // collaboratorMutation.mutate(data);
     console.log(data);
-    const res = await mutateAsync({
-      profilePic: data.profilePic,
+  await mutateAsync({
+      profilePic: "",
       name: data.name,
       lastName: data.lastName,
       email: data.email,
       password: data.password,
-      CountryId: 1,
-      city: "Cityville",
+      CountryId: +data.country,
+      CompanyId: companyId,
+      city: data.city,
+      age: +data.age,
       isActive: true,
-      UserTypeId: 2,
-      GenderId: data.genderID,
+      UserTypeId: 3,
+      GenderId: +data.gender,
     });
   };
 
@@ -194,14 +212,23 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                 helperText={errors?.phone?.message}
                 error={!!errors?.phone}
               />
+              <TextField
+                className="input"
+                type="number"
+                label="Edad"
+                variant="standard"
+                {...register("age")}
+                helperText={errors?.age?.message}
+                error={!!errors?.age}
+              />
               <FormControl variant="standard" error={!!errors?.country}>
                 <InputLabel id="demo-simple-select-standard-label">
                   Pais
                 </InputLabel>
-                <Select variant="standard" {...register("CountryId")}>
-                  {countries?.data.map((el) => {
+                <Select variant="standard" {...register("country")}>
+                  {countries?.data.map((el, index) => {
                     return (
-                      <MenuItem key={el.id} value={el.id}>
+                      <MenuItem key={index} value={el.id}>
                         <em>{el.name}</em>
                       </MenuItem>
                     );
@@ -221,7 +248,8 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                 <InputLabel id="demo-simple-select-standard-label">
                   Genero
                 </InputLabel>
-                <Select variant="standard" {...register("GenderId")}>
+                <Select variant="standard" {...register("gender")}>
+                  <MenuItem value=""></MenuItem>
                   <MenuItem value="1">Masculino</MenuItem>
                   <MenuItem value="2">Femenino</MenuItem>
                   <MenuItem value="3">Otro</MenuItem>
