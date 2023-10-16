@@ -199,7 +199,7 @@ const Profile = () => {
       </header>
       <main className="provider__profile__container">
         {clientIsLoading && countriesAreLoading || providerIsLoading && countriesAreLoading || providerIsLoading && countriesAreLoading ? (
-          <LoadingSpinner end="end"/>
+          <LoadingSpinner/>
         )
           :
           <div className="provider__profile">
