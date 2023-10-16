@@ -1,9 +1,9 @@
 import React from "react";
 import "./LoadingSpinnerStyle.scss";
 
-const LoadingSpinner = ({start, end}) => {
+const LoadingSpinner = ({left, right, top, bottom}) => {
   return (
-    <div className={start ? `loading__wrapper__${start}` : end ? `loading__wrapper__${end}` : "loading__wrapper" }>
+    <div className={left ? `loading__wrapper__${left}` : right ? `loading__wrapper__${right}` : top ? `loading__wrapper__${top}`: bottom ? `loading__wrapper__${bottom}` : "loading__wrapper"}>
       <div className="lds__roller">
         <div></div>
         <div></div>
