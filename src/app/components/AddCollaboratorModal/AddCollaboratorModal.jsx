@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import * as yup from "yup";
-
+import { CollaboratorsService } from "../../services/dashboard/collaborators/collaborators.service";
 import "./AddCollaboratorModalStyle.scss";
 import { useForm } from "react-hook-form";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQuery, useMutation } from "react-query";
 
 const collaboratorSchema = yup.object({
   profilePic: yup
@@ -60,8 +61,34 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
     resolver: yupResolver(collaboratorSchema),
   });
 
-  const onSubmit = (data) => {
+  // const { data: collaborators, isLoading } = useQuery(
+  //   ["createCollaborator"],
+  //   CollaboratorsService.createCollaborator
+  // );
+  // const collaboratorMutation = useMutation(
+  //   CollaboratorsService.createCollaborator
+  // );
+  // const [body, setBody] = useState({});
+
+  const { mutateAsync } = useMutation(["createCollaborator"], (data) =>
+    CollaboratorsService.createCollaborator(data)
+  );
+
+  const onSubmit = async (data) => {
+    // collaboratorMutation.mutate(data);
     console.log(data);
+    const res = await mutateAsync({
+      profilePic: register.profilePic,
+      name: register.name,
+      lastName: register.lastName,
+      email: register.email,
+      password: register.password,
+      CountryId: 1,
+      city: "Cityville",
+      isActive: false,
+      UserTypeId: 2,
+      GenderId: 3,
+    });
   };
 
   const handleMouseDownPassword = (event) => {
