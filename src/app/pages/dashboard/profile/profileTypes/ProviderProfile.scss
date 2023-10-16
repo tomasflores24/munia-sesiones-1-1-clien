@@ -156,8 +156,8 @@
 
                     .btn__modal__availability {
                         background-color: #EBDCC1;
-                        width: 28vh;
-                        height: 13vh;
+                        width: 25vh;
+                        height: 8vh;
                         border-radius: 25px;
                         border: 0.5px solid rgba(0, 0, 0, 0.50);
                         background: #EBDCC1;
@@ -174,8 +174,8 @@
             .provider__profile__second__section {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
+                align-items: flex-start;
+                justify-content: space-around;
                 height: 60%;
                 width: 88%;
                 margin-top: 2%;
@@ -222,7 +222,7 @@
                     }
 
                     .profile__btnGuardar {
-
+                        margin-top: 10px;
                         width: 100%;
                         padding: 12px;
                         border: none;

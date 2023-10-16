@@ -296,10 +296,6 @@ const ProviderProfile = () => {
                       Agregar servicios
                     </div>
                   </button>
-                  {/* <SelectServices
-                  closeModal={}
-                  providerId={"81a9c3f8-28e3-4c21-98ab-e820c61ea52b"}
-                /> */}
                 </div>
               </div>
               : null
