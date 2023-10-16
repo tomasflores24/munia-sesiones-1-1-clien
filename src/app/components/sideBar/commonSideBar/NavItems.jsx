@@ -67,14 +67,14 @@ const NavItems = ({ userTypeId }) => {
       />
       {userTypeId === 3 && (
         <>
-          <Buttons
+          {/* <Buttons
             className="sidebarButtons"
             title="Pacientes"
             icon={<PeopleIcon style={{ fontSize: "30px" }} />}
             key="Pacientes"
             selected={location.pathname.includes("/patients")}
             onClick={() => redirect("patients")}
-          />
+          /> */}
           <Buttons
             className="sidebarButtons"
             title="Comentarios"
