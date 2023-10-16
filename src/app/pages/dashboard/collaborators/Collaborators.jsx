@@ -8,7 +8,7 @@ import {
   useGetCollaborators,
 } from "../../../hooks/collaborator/useCollaborator";
 import "./CollaboratorsStyle.scss";
-import AddCollaboratorModal from "../../../components/AddCollaboratorModal/AddCollaboratorModal";
+import AddCollaboratorModal from "./components/AddCollaboratorModal/AddCollaboratorModal";
 
 const collaboratorsHeaders = [
   "Colaboradores",
