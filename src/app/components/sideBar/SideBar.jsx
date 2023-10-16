@@ -49,7 +49,7 @@ export default function SideBar() {
         ) : (
           <header className="profile-data">
             <img src={user.profilePic} className="img-profile" alt="Profile" />
-            <h2 className="user-data">María Agustina Lahitou</h2>
+            <h2 className="user-data">{user.name}</h2>
           </header>
         )}
         <section className="navigation-buttons">

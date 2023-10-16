@@ -62,6 +62,7 @@ const SignIn = () => {
             profilePic: decoded.profilePic,
             userTypeId: decoded.userTypeId,
             email: decoded.email,
+            name: decoded.name,
             collaboratorId: decoded.collaboratorId
               ? decoded.collaboratorId
               : null,
