@@ -32,7 +32,7 @@ const NavItems = ({ userTypeId }) => {
       <Buttons
         className="sidebarButtons"
         title="Home"
-        icon={<HomeIcon style={{ fontSize: "30px" }} />}
+        icon={<HomeIcon className="button-icon" />}
         key="Home"
         selected={location.pathname.includes("/home")}
         onClick={() => redirect("home")}
@@ -41,7 +41,7 @@ const NavItems = ({ userTypeId }) => {
         <Buttons
           className="sidebarButtons"
           title="Perfil"
-          icon={<PersonIcon style={{ fontSize: "30px" }} />}
+          icon={<PersonIcon className="button-icon" />}
           key="Home"
           selected={location.pathname.includes("/profile")}
           onClick={() => redirect("profile")}
@@ -51,7 +51,7 @@ const NavItems = ({ userTypeId }) => {
         <Buttons
           className="sidebarButtons"
           title="Profesionales"
-          icon={<PsychologyIcon style={{ fontSize: "30px" }} />}
+          icon={<PsychologyIcon className="button-icon" />}
           key="Profesionales"
           selected={location.pathname.includes("/professionals")}
           onClick={() => redirect("professionals")}
@@ -60,7 +60,7 @@ const NavItems = ({ userTypeId }) => {
       <Buttons
         className="sidebarButtons"
         title="Agenda"
-        icon={<EventNoteIcon style={{ fontSize: "30px" }} />}
+        icon={<EventNoteIcon className="button-icon" />}
         key="Agenda"
         selected={location.pathname.includes("/appointments")}
         onClick={() => redirect("appointments")}
@@ -70,7 +70,7 @@ const NavItems = ({ userTypeId }) => {
           {/* <Buttons
             className="sidebarButtons"
             title="Pacientes"
-            icon={<PeopleIcon style={{ fontSize: "30px" }} />}
+            icon={<PeopleIcon className="button-icon" />}
             key="Pacientes"
             selected={location.pathname.includes("/patients")}
             onClick={() => redirect("patients")}
@@ -78,7 +78,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Comentarios"
-            icon={<SmsIcon style={{ fontSize: "30px" }} />}
+            icon={<SmsIcon className="button-icon" />}
             key="Comentarios"
             selected={location.pathname.includes("/comments")}
             onClick={() => redirect("comments")}
@@ -89,7 +89,7 @@ const NavItems = ({ userTypeId }) => {
         <Buttons
           className="sidebarButtons"
           title="Estadisticas"
-          icon={<AnalyticsIcon style={{ fontSize: "30px" }} />}
+          icon={<AnalyticsIcon className="button-icon" />}
           key="Estadisticas"
           selected={location.pathname.includes("/statistics")}
           onClick={() => redirect("statistics")}
@@ -99,7 +99,7 @@ const NavItems = ({ userTypeId }) => {
         <Buttons
           className="sidebarButtons"
           title="Colaboradores"
-          icon={<PeopleIcon style={{ fontSize: "30px" }} />}
+          icon={<PeopleIcon className="button-icon" />}
           key="Colaboradores"
           selected={location.pathname.includes("/collaborators")}
           onClick={() => redirect("collaborators")}
@@ -110,7 +110,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Comentarios"
-            icon={<TextsmsIcon style={{ fontSize: "30px" }} />}
+            icon={<TextsmsIcon className="button-icon" />}
             key="Comentarios"
             selected={location.pathname.includes("/comments")}
             onClick={() => redirect("comments")}
@@ -118,7 +118,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Clientes"
-            icon={<PeopleIcon style={{ fontSize: "30px" }} />}
+            icon={<PeopleIcon className="button-icon" />}
             key="Clientes"
             selected={location.pathname.includes("/clients")}
             onClick={() => redirect("clients")}
@@ -126,7 +126,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Proveedores"
-            icon={<PeopleIcon style={{ fontSize: "30px" }} />}
+            icon={<PeopleIcon className="button-icon" />}
             key="Proveedores"
             selected={location.pathname.includes("/providers")}
             onClick={() => redirect("providers")}
@@ -138,7 +138,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Membresías"
-            icon={<SettingsIcon style={{ fontSize: "30px" }} />}
+            icon={<SettingsIcon className="button-icon" />}
             key="Membresías"
             selected={location.pathname.includes("/memberships")}
             onClick={() => redirect("memberships")}
@@ -146,7 +146,7 @@ const NavItems = ({ userTypeId }) => {
           <Buttons
             className="sidebarButtons"
             title="Servicios"
-            icon={<WorkIcon style={{ fontSize: "30px" }} />}
+            icon={<WorkIcon className="button-icon" />}
             key="Servicios"
             selected={location.pathname.includes("/services")}
             onClick={() => redirect("services")}
@@ -156,7 +156,7 @@ const NavItems = ({ userTypeId }) => {
       <Buttons
         className="sidebarButtons"
         title="Salir"
-        icon={<LogoutIcon style={{ fontSize: "30px" }} />}
+        icon={<LogoutIcon className="button-icon" />}
         selected={location.pathname.includes("/logout")}
         onClick={() => dispatch(logOut())}
       />
