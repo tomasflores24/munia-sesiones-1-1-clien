@@ -13,8 +13,8 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 import "./SelectServicesStyle.scss";
-import { useGetProviderServices } from "../../../../hooks/Register/useServices";
-import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
+import { useGetProviderServices } from "../../../../../../../hooks/Register/useServices";
+import LoadingSpinner from "../../../../../../../shared/loadingSpinner/LoadingSpinner";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

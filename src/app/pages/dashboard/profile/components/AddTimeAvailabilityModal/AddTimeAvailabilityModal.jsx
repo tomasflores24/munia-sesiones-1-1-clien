@@ -6,8 +6,8 @@ import "./AddTimeAvailabilityStyle.scss";
 import SelectHours from "./modalParts/part1/SelectHours";
 import SelectAvailabilityType from "./modalParts/part2/SelectAvailabilityType";
 import SelectServices from "./modalParts/part3/SelectServices";
-import { useGetProviders } from "../../hooks/provider/useProviders";
-import { selectUser } from "../../redux/slices/authSlice/authSlice";
+import { useGetProviders } from "../../../../../hooks/provider/useProviders";
+import { selectUser } from "../../../../../redux/slices/authSlice/authSlice";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 
