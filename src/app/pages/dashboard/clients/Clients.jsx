@@ -49,7 +49,7 @@ const Clientes = () => {
       ) : (
         <div className="clients_table">
           <TableShared
-            data={data.data || []}
+            data={data?.data || []}
             currentPage="Clients"
             headers={clientHeaders}
           />

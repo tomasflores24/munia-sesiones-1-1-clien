@@ -101,7 +101,7 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
       city: "Seattle",
       isActive: false,
       UserTypeId: 2,
-      phone: parseInt(data.phone, 10),
+      phone: `${data.phone}`,
       register_id: `${data.registerId}`,
     });
   };
@@ -136,7 +136,7 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
                     <input
                       type="file"
                       id="uploadImg"
-                      accept=".png"
+                      accept=".png, .jpg"
                       {...register("profilePic", {
                         onChange: (e) => {
                           const file = e.target.files?.[0];

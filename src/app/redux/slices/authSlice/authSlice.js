@@ -37,7 +37,7 @@ const authSlice = createSlice({
 });
 
 //cargar las actions para exportar
-export const { setDataSuccess } = authSlice.actions;
+export const { setDataSuccess, logOut } = authSlice.actions;
 
 export const selectUser = (state) => state.auth.auth.user;
 

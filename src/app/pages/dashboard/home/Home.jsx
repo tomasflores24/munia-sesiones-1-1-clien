@@ -18,25 +18,25 @@ const Home = () => {
         <div className='ContainerCards'>
           {user === 1 || user === 4 || user === 3 ?
 
-            <Card to='/dashboard/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='.-' />
+            <Card to='/dashboard/statistics' imgComponent={<AnalyticsIcon className='Img' />} title='Estadísticas' variables='' />
             : null
           }
           {user === 1 || user === 3 || user === 2 ?
-            <Card to='/dashboard/appointments/create' imgComponent={<EventNoteIcon className='Img' />} title='Agendar' variables='.-' />
+            <Card to='/dashboard/appointments/create' imgComponent={<EventNoteIcon className='Img' />} title='Agendar' variables='' />
             : null
           }
           {user === 3 || user === 4 ?
-            <Card to='/dashboard/comments' imgComponent={<TextsmsIcon className='Img' />} title='Comentarios' variables='1130' />
+            <Card to='/dashboard/comments' imgComponent={<TextsmsIcon className='Img' />} title='Comentarios' variables='' />
             : null
           }
           {user === 1 || user === 4 ?
-            <Card to='/dashboard/memberships' imgComponent={<SettingsIcon className='Img' />} title='Membresías' variables='.-' />
+            <Card to='/dashboard/memberships' imgComponent={<SettingsIcon className='Img' />} title='Membresías' variables='' />
             : null
           }
           {user === 4 ?
             <>
-              <Card to='/dashboard/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='37' />
-              <Card to='/dashboard/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='5' />
+              <Card to='/dashboard/clients' imgComponent={<PeopleIcon className='Img' />} title='Clientes' variables='' />
+              <Card to='/dashboard/providers' imgComponent={<PsychologyIcon className='Img' />} title='Proveedores' variables='' />
             </>
             : null
           }

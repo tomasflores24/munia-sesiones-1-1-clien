@@ -75,5 +75,6 @@ const Profile = () => {
 };
 
 export default Profile;
+console.log(console.log("hola"))
 
 {/*  <UserProfile {...profileData} /> */}
