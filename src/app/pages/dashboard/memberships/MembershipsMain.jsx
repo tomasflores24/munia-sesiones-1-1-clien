@@ -1,6 +1,6 @@
 import "./MembershipsMainStyle.scss";
-import MembershipCard from "../../../components/MembershipModal/MembershipCard/MembershipCard";
-import { memberships } from "../../../components/MembershipModal/memberships";
+import MembershipCard from "./components/MembershipModal/MembershipCard/MembershipCard";
+import { memberships } from "./components/MembershipModal/memberships";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
