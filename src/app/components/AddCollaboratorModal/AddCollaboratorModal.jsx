@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import * as yup from "yup";
-
+import { CollaboratorsService } from "../../services/dashboard/collaborators/collaborators.service";
 import "./AddCollaboratorModalStyle.scss";
 import { useForm } from "react-hook-form";
 import {
@@ -12,10 +12,13 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  Select,
   TextField,
+  MenuItem,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQuery, useMutation } from "react-query";
 
 const collaboratorSchema = yup.object({
   profilePic: yup
@@ -36,6 +39,7 @@ const collaboratorSchema = yup.object({
       "Ingresa un correo valido"
     ),
   phone: yup.string().required("El telefono es requerido"),
+  country: yup.string().required("El pais es requerido"),
   password: yup
     .string()
     .required("La contraseña es requerida")
@@ -60,8 +64,37 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
     resolver: yupResolver(collaboratorSchema),
   });
 
-  const onSubmit = (data) => {
+  // const { data: collaborators, isLoading } = useQuery(
+  //   ["createCollaborator"],
+  //   CollaboratorsService.createCollaborator
+  // );
+  // const collaboratorMutation = useMutation(
+  //   CollaboratorsService.createCollaborator
+  // );
+  // const [body, setBody] = useState({});
+
+  const { mutateAsync } = useMutation(["createCollaborator"], (data) =>
+    CollaboratorsService.createCollaborator(data)
+  );
+
+  const { data: countries } = useQuery(["getAllCountries"], () =>
+    CollaboratorsService.getAllCountries()
+  );
+  const onSubmit = async (data) => {
+    // collaboratorMutation.mutate(data);
     console.log(data);
+    const res = await mutateAsync({
+      profilePic: data.profilePic,
+      name: data.name,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      CountryId: 1,
+      city: "Cityville",
+      isActive: true,
+      UserTypeId: 2,
+      GenderId: data.genderID,
+    });
   };
 
   const handleMouseDownPassword = (event) => {
@@ -156,6 +189,38 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                 helperText={errors?.phone?.message}
                 error={!!errors?.phone}
               />
+              <Select
+                label="Pais"
+                name="CountryId"
+                variant="standard"
+                {...register("CountryId")}
+                helperText={errors?.country?.message}
+                error={!!errors?.country}
+              >
+                {countries?.data.map((el) => {
+                  return (
+                    <MenuItem key={el.id} value={el.id}>
+                      <em>{el.name}</em>
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+              <TextField
+                className="input"
+                label="City"
+                variant="standard"
+                {...register("city")}
+              />
+              <Select
+                label="Genero"
+                name="GenderId"
+                variant="standard"
+                {...register("GenderId")}
+              >
+                <MenuItem value="1">Masculino</MenuItem>
+                <MenuItem value="2">Femenino</MenuItem>
+                <MenuItem value="3">Otro</MenuItem>
+              </Select>
               <FormControl className="input" variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Password

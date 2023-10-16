@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useMutation } from "react-query";
+import jwtDecode from "jwt-decode";
 
 import "./PracticesAndServicesStyle.scss";
 import { MenuProps } from "./multiselect.utils";
@@ -31,19 +32,13 @@ const PracticesAndServices = ({ step, setStep, setRegisterToken }) => {
 
   const { isLoading, isSuccess, data: services } = useGetServices();
 
-  const { isLoading: isRegisterLoading, mutate } = useMutation(
+  const { isLoading: isRegisterLoading, mutateAsync } = useMutation(
     ["sign-up"],
-    RegisterServices.signUp,
-    {
-      onSuccess: (res) => {
-        setRegisterToken(res.data.token);
-        setStep((prev) => prev + 1);
-      },
-      onError: (err) => {
-        toast.error(err.response?.data?.error || "Algo salio mal.");
-      },
-    }
+    RegisterServices.signUp
   );
+
+  const { mutate: mutateProfilePic } =
+    useMutation(["profile-pic"], RegisterServices.sendFile);
 
   const isAllSelected =
     services?.data?.length > 0 &&
@@ -60,21 +55,42 @@ const PracticesAndServices = ({ step, setStep, setRegisterToken }) => {
     setSelectedServices(value);
   };
 
-  const customHandleSubmit = (data) => {
-    console.log({ data, selectedServices, registerData });
-    // TODO: what to do with selectedServices and other data
-    mutate({
-      profilePic: "https://picsum.photos/200",
-      name: registerData.name,
-      lastName: registerData.lastName,
-      email: registerData.email,
-      password: registerData.password,
-      CountryId: 1,
-      city: "Cityville",
-      isActive: false,
-      UserTypeId: 3,
-      GenderId: 3,
-    });
+  const customHandleSubmit = async () => {
+    try {
+      const res = await mutateAsync({
+        profilePic: "",
+        name: registerData.name,
+        lastName: registerData.lastName,
+        email: registerData.email,
+        password: registerData.password,
+        CountryId: 1,
+        city: "City",
+        isActive: false,
+        UserTypeId: 3,
+        GenderId: 3,
+      });
+
+      setRegisterToken(res.data.token);
+      const decoded = jwtDecode(res.data.token);
+      
+      mutateProfilePic(
+        {
+          userId: decoded.userId,
+          data: registerData.profilePic,
+        },
+        {
+          onSuccess: () => {
+            setStep((prev) => prev + 1);
+          },
+          onError: (err) => {
+            console.log(err)
+            toast.error(err.response?.data?.error || "Algo salio mal.");
+          },
+        }
+      );
+    } catch (err) {
+      toast.error(err.response?.data?.error || "Algo salio mal.");
+    }
   };
 
   return (
