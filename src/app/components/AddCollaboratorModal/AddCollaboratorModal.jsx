@@ -40,6 +40,8 @@ const collaboratorSchema = yup.object({
     ),
   phone: yup.string().required("El telefono es requerido"),
   country: yup.string().required("El pais es requerido"),
+  city: yup.string().required("La ciudad es requerida"),
+  gender: yup.string().required("El genero es requerido"),
   password: yup
     .string()
     .required("La contraseña es requerida")
@@ -55,11 +57,12 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [imgSrc, setImgSrc] = useState("");
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
+    isValid,
   } = useForm({
     resolver: yupResolver(collaboratorSchema),
   });
@@ -80,6 +83,8 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
   const { data: countries } = useQuery(["getAllCountries"], () =>
     CollaboratorsService.getAllCountries()
   );
+  console.log(getValues());
+  console.log(isValid);
   const onSubmit = async (data) => {
     // collaboratorMutation.mutate(data);
     console.log(data);
@@ -189,38 +194,40 @@ const AddCollaboratorModal = ({ handleModal, isLoading }) => {
                 helperText={errors?.phone?.message}
                 error={!!errors?.phone}
               />
-              <Select
-                label="Pais"
-                name="CountryId"
-                variant="standard"
-                {...register("CountryId")}
-                helperText={errors?.country?.message}
-                error={!!errors?.country}
-              >
-                {countries?.data.map((el) => {
-                  return (
-                    <MenuItem key={el.id} value={el.id}>
-                      <em>{el.name}</em>
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+              <FormControl variant="standard" error={!!errors?.country}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Pais
+                </InputLabel>
+                <Select variant="standard" {...register("CountryId")}>
+                  {countries?.data.map((el) => {
+                    return (
+                      <MenuItem key={el.id} value={el.id}>
+                        <em>{el.name}</em>
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <FormHelperText>{errors?.country?.message}</FormHelperText>
+              </FormControl>
               <TextField
                 className="input"
-                label="City"
+                label="Ciudad"
                 variant="standard"
                 {...register("city")}
+                helperText={errors?.city?.message}
+                error={!!errors?.city}
               />
-              <Select
-                label="Genero"
-                name="GenderId"
-                variant="standard"
-                {...register("GenderId")}
-              >
-                <MenuItem value="1">Masculino</MenuItem>
-                <MenuItem value="2">Femenino</MenuItem>
-                <MenuItem value="3">Otro</MenuItem>
-              </Select>
+              <FormControl variant="standard" error={!!errors?.gender}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Genero
+                </InputLabel>
+                <Select variant="standard" {...register("GenderId")}>
+                  <MenuItem value="1">Masculino</MenuItem>
+                  <MenuItem value="2">Femenino</MenuItem>
+                  <MenuItem value="3">Otro</MenuItem>
+                </Select>
+                <FormHelperText>{errors?.gender?.message}</FormHelperText>
+              </FormControl>
               <FormControl className="input" variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Password
