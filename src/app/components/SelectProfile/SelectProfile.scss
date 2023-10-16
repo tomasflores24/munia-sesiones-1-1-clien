@@ -1,15 +1,15 @@
 .selectProfile {
     width: 100%;
+    font-size: smaller;
+    max-height: 60%;
 
-    font-size: 1.5rem;
-   
     .selectProfile__optionDefault1 {
         font-weight: 700;
         color: rgba(0, 0, 0, 0.6);
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between; 
+        justify-content: space-between;
         padding: 10px 10px;
         cursor: pointer;
         border-bottom: 1px solid rgba(0, 0, 0, 0.6);
@@ -17,22 +17,26 @@
         z-index: 20;
         background-color: white;
         transition: all .5s;
+        height: 100%;
+
         &:hover {
             background-color: rgb(219, 219, 219);
-            
+
         }
-        .selectProfile__span, .selectProfile__spanSelected {
+
+        .selectProfile__span,
+        .selectProfile__spanSelected {
             transition: transform .2s;
             position: absolute;
             left: 0;
-            
+
 
         }
 
         .selectProfile__span {
-            
-            
-           transform: translateY(0);
+
+
+            transform: translateY(0);
 
         }
 
@@ -50,32 +54,36 @@
         font-weight: 700;
         color: rgba(0, 0, 0, 0.6);
         width: 100%;
+        /* height: 100%; */
         display: flex;
         align-items: center;
-        justify-content: end; 
-        padding: 10px 10px;
+        justify-content: end;
+        /* padding: 10px 10px; */
         cursor: pointer;
         border-bottom: 1px solid rgba(0, 0, 0, 0.6);
         position: relative;
         z-index: 20;
         background-color: white;
         transition: all .5s;
+        height: 100%;
+
         &:hover {
             background-color: rgb(219, 219, 219);
         }
 
-        .selectProfile__span, .selectProfile__spanSelected {
+        .selectProfile__span,
+        .selectProfile__spanSelected {
             transition: transform .2s;
             position: absolute;
             left: 5px;
-            
+
 
         }
 
         .selectProfile__span {
-            
-            
-           transform: translateY(0);
+
+
+            transform: translateY(0);
 
         }
 
@@ -86,58 +94,60 @@
             color: var(--bg-cafe);
             border-radius: .5rem;
         }
-        
+
         .selectProfile__icon {
-            font-size: 3rem;
-        }
-    }
-   .selectProfile__options--container{
-    position: relative;
-    
-
-    .select {
-        display: none;
-    }
-
-    .selectProfile__options {
-        position: absolute;
-        width: 100%;
-        z-index: -10;
-        background-color: white;
-        box-shadow: none;
-        
-        transition: 0.2s;
-        transform:  translateY(-100%) scaleY(0);
-        opacity: 0;
-        /* clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0); */
-    }
-
-     .select:checked + .selectProfile__options {
-        /* clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);  */
-
-        transform: translateY(0) scaleY(1) ;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-        opacity: 1;
-        z-index: 50;
-
-
-        
-
-         
-    }
-
-    
-    .selectProfile__option {
-
-        padding: 5px 5px;
-        cursor: pointer;
-        &:hover {
-            background-color: var(--bg-beige);
+            font-size: 230%;
         }
     }
 
-   }
-        
+    .selectProfile__options--container {
+        position: relative;
 
-  
+
+        .select {
+            display: none;
+        }
+
+        .selectProfile__options {
+            position: absolute;
+            width: 100%;
+            z-index: -10;
+            background-color: white;
+            box-shadow: none;
+
+            transition: 0.2s;
+            transform: translateY(-100%) scaleY(0);
+            opacity: 0;
+            /* clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0); */
+        }
+
+        .select:checked+.selectProfile__options {
+            /* clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);  */
+
+            transform: translateY(0) scaleY(1);
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+            opacity: 1;
+            z-index: 50;
+
+
+
+
+
+        }
+
+
+        .selectProfile__option {
+
+            padding: 5px 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--bg-beige);
+            }
+        }
+
+    }
+
+
+
 }

@@ -20,6 +20,10 @@ $selectedTabColor: black;
       width: auto;
       height: auto;
     }
+    .round{
+      justify-self: center;
+      border-radius: 50% !important;
+    }
   }
 
   .navigation-buttons {
@@ -61,8 +65,9 @@ $selectedTabColor: black;
       height: 150px;
       border-radius: 100%;
       margin-top: 46px;
-      padding: 10rem;
+      // padding: 10rem;
     }
+
 
     .user-data {
       font-size: 16px;

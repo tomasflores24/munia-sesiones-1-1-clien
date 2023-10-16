@@ -14,7 +14,8 @@ export default function SideBar() {
 
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
-  };
+  };  
+
 
   return (
     <>
@@ -46,7 +47,7 @@ export default function SideBar() {
           ) : (
             <header className="profile-data">
               <img
-                src={muniaLogo}
+                src={user.profilePic}
                 className="img"
                 alt="Profile"
               />
@@ -69,7 +70,7 @@ export default function SideBar() {
           </header>
         ) : (
           <header className="profile-data">
-            <img src={muniaLogo} className="img" alt="Profile" />
+            <img src={user.profilePic} className="img-profile" alt="Profile" />
             <h2 className="user-data">María Agustina Lahitou</h2>
           </header>
         )}

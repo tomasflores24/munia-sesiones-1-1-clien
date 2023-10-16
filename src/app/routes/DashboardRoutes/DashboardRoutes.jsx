@@ -30,7 +30,6 @@ const DashboardRoutes = () => {
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/diaryCreate" element={<DiaryCreate />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/userProfile" element={<UserProfiles />} />
           <Route path="/appointments/create" element={<CreateAppointment />} />
           <Route path="/comments" element={<Comments />} />
           <Route path="/comments/:providerId" element={<Comments />} />

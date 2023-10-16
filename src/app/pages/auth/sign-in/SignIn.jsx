@@ -59,6 +59,7 @@ const SignIn = () => {
           isAuthenticated: true,
           user: {
             id: decoded.userId,
+            profilePic: decoded.profilePic,
             userTypeId: decoded.userTypeId,
             email: decoded.email,
             collaboratorId: decoded.collaboratorId
@@ -147,17 +148,6 @@ const SignIn = () => {
                 <div className="BoxLoginSend">
                   <button className="loginSend" type="submit">
                     Ingresar
-                  </button>
-                  <p className="pTopGoogle">O Regístrate Utilizando</p>
-                  <button
-                    style={{ border: "none", background: "transparent" }}
-                    onClick={() => handleGoogle}
-                    type="submit"
-                  >
-                    <img
-                      className="imgGoogle"
-                      src="../../../../assets/Google.jpg"
-                    />
                   </button>
                   <p className="pBottomGoogle">
                     ¿Todavía no tienes una cuenta?{" "}
