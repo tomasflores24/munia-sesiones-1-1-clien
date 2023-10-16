@@ -47,4 +47,17 @@ export const HttpRequest = {
   delete: async (url) => {
     return await Http.delete(url);
   },
+  postCustomHeaders: async (url, body, headers) => {
+    const config = {
+      headers: { ...Http.defaults.headers.common, ...headers },
+    };
+
+    if (headers && headers["Content-Type"]) {
+      config.headers["Content-Type"] = headers["Content-Type"];
+      if (headers.Authorization) {
+        config.headers.Authorization = headers.Authorization;
+      }
+    }
+    return await Http.post(url, body, config);
+  },
 };

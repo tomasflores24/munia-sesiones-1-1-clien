@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import ReplayIcon from '@mui/icons-material/Replay';
 import { IconButton } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ratingsArray = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
 
@@ -16,7 +17,6 @@ const Comments = () => {
   const [rating, setRating] = useState(0)
   const [service, setService] = useState()
   const [date, setDate] = useState()
-
 
   const { providerId } = useParams();
 
