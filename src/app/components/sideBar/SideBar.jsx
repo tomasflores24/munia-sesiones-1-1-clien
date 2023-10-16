@@ -18,10 +18,7 @@ export default function SideBar() {
 
   return (
     <>
-      <IconButton
-        className="menuButton"
-        onClick={toggleSidebar}
-      >
+      <IconButton className="menuButton" onClick={toggleSidebar}>
         <MenuIcon />
       </IconButton>
       <Drawer anchor="left" open={openSidebar} onClose={toggleSidebar}>
@@ -32,7 +29,13 @@ export default function SideBar() {
             </header>
           ) : (
             <header className="profile-data">
-              <img src={user.profilePic} className="img" alt="Profile" />
+              <div className="profile-img-container">
+                <img
+                  src={user.profilePic}
+                  className="img-profile"
+                  alt="Profile"
+                />
+              </div>
               <h2 className="user-data">{user.name}</h2>
             </header>
           )}
