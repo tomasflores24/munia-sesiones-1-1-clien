@@ -58,7 +58,7 @@ const PracticesAndServices = ({ step, setStep, setRegisterToken }) => {
   const customHandleSubmit = async () => {
     try {
       const res = await mutateAsync({
-        profilePic: "none",
+        profilePic: "",
         name: registerData.name,
         lastName: registerData.lastName,
         email: registerData.email,
@@ -71,7 +71,6 @@ const PracticesAndServices = ({ step, setStep, setRegisterToken }) => {
       });
 
       setRegisterToken(res.data.token);
-      console.log(res)
       const decoded = jwtDecode(res.data.token);
       
       mutateProfilePic(
