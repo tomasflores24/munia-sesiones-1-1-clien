@@ -4,78 +4,51 @@
   justify-content: center;
   align-items: center;
   width: 90%;
+  .subtitle {
+    margin-bottom: 1.5rem;
+  }
   .documentation__form {
     width: 100%;
     height: 360px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 1rem;
+    overflow-y: auto;
+    @media (min-width: 650px) {
+      column-gap: 2.4rem;
+      grid-template-columns: 1fr 1fr;
+    }
     .wrapper-file_input{
-      position: relative;
-      h5 {
-        margin: 30px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      .MuiFormLabel-root {
+        font-family: inherit;
+        font-weight: bold;
         text-align: center;
-      }
-      .img__container {
-        // width: 40%;
-        .upload {
-          display: flex;
-          justify-content: center;
-          position: relative;
-          .profile {
-            border-radius: 50%;
-            border: 6px solid #d9d9d9 ;
-            max-width: 200px;
-            min-width: 200px;
-            max-height: 200px;
-            min-height: 200px;
-            // margin-top: 20px;
-            background-color: #d9d9d9;
-          }
-          .upload_icon {
-            position: absolute;
-            bottom: 50px;
-            font-size: 120px;
-            fill: #737373;
-            overflow: hidden;
-          }
-          .pic-text {
-            position: absolute;
-            bottom: 30px;
-            color: #000;
-            font-size: 0.8rem;
-            text-align: center;
-          }
-          .img-add-icon {
-            position: absolute;
-            bottom: 40px;
-            color: #efb7a5;
-          }
-          .round {
-            width: 200px;
-            height: 200px;
-            text-align: center;
-            border-radius: 50%;
-            overflow: hidden;
-            position: absolute;
-            bottom: 10px;
-            input[type="file"] {
-              position: absolute;
-              transform: scale(10);
-              opacity: 0;
-            }
-            input[type="file"]::-webkit-file-upload-button {
-              cursor: pointer;
-            }
-          }
+        color: black;
+        font-size: 16px;
+        .MuiFormLabel-asterisk {
+          color: rgb(235, 65, 65);
         }
-        .img_helper {
-          text-align: center;
-          color: #ffff;
-          margin: 5px 4px 0 4px;
-          max-width: 230px;
-          word-wrap: break-word;
+      }
+      .file__container {
+        width: 100%;
+        .MuiButtonBase-root {
+          background-color: #e2d4bb;
+          color: black;
+          text-transform: none;
+          border-radius: 25px;
+          font-weight: bold;
+        }
+        .fileBtn_icon {
+          color: #292929;
+        }
+        .error_text {
+          font-size: 12px;
+          font-weight: bold;
+          color: rgb(243, 26, 26);
         }
         @media (max-width: 680px) {
           width: 100%;
@@ -99,5 +72,6 @@
     .submit_btn {
       width: 100px !important;
     }
+    margin-bottom: 1rem;
   }
 }

@@ -16,8 +16,10 @@
     align-items: center;
     width: 100%;
     max-width: 900px;
-    height: 88%;
-    // padding: 30px;
+    height: 100%;
+    @media (min-height: 800px) {
+      height: 88%;
+    }
     background-color: #ffff;
     border-radius: 50px;
     .signup__title {
