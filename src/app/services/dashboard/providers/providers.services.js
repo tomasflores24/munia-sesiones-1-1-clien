@@ -7,6 +7,8 @@ export const ProvidersServices = {
     HttpRequest.get(providerId ? `/provider/${providerId}` : "/provider"),
   updateProvider: async (providerId, body) =>
     HttpRequest.patch(`/provider/${providerId}`, body),
+  getInactiveProviders: async () =>
+    HttpRequest.get("/provider/is-active"),
   getAllProviders: async ({ keyword, serviceId }) => {
     const queryParams = new URLSearchParams();
     if (keyword) queryParams.append("keyword", keyword);

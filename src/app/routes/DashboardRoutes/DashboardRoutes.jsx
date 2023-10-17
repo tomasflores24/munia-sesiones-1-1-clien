@@ -15,19 +15,20 @@ import Providers from "../../pages/dashboard/providers/Providers";
 import Collaborators from "../../pages/dashboard/collaborators/Collaborators";
 import Service from "../../pages/dashboard/services/Service";
 import CreateAppointment from "../../pages/dashboard/createAppointment/CreateAppointment";
+import AcceptanceTable from "../../pages/dashboard/acceptanceTable/acceptanceTable";
 
 const DashboardRoutes = () => {
   return (
     <Suspense>
       <LayoutDashboard>
         <Routes>
+          {/*  <Route path="/diaryCreate" element={<DiaryCreate />} /> */}
           <Route path="/home" element={<Home />} />
           <Route path="/configuration" element={<Configuration />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/diary" element={<Diary />} />
           <Route path="/appointments" element={<Appointment />} />
-         {/*  <Route path="/diaryCreate" element={<DiaryCreate />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointments/create" element={<CreateAppointment />} />
           <Route path="/comments" element={<Comments />} />
@@ -36,6 +37,8 @@ const DashboardRoutes = () => {
           <Route path="/collaborators" element={<Collaborators />} />
           <Route path="/memberships" element={<Memberships />} />
           <Route path="/services" element={<Service />} />
+          <Route path="/acceptance" element={<AcceptanceTable />} />
+
         </Routes>
       </LayoutDashboard>
     </Suspense>

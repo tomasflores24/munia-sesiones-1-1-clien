@@ -1,17 +1,28 @@
-import "./acceptanceTable.scss"
+import "./AcceptanceTable.scss"
 import { useState } from "react";
-import {
-  useDeleteProvider,
-  useGetProviders,
-} from "../../../hooks/provider/useProviders";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import TableShared from "../../../shared/table/tableShared";
-import "./ProviderStyle.scss";
 import BanUserModal from "../../../components/BanUserModal/BanUserModal";
 import { Alert } from "@mui/material";
+import { useQuery } from "react-query";
+import { ProvidersServices } from "../../../services/dashboard/providers/providers.services";
+import { useDeleteProvider } from "../../../hooks/provider/useProviders";
+
+const appointmentHeaders = [
+    "Profesional",
+    "Servicios",
+    "Sesiones agregadas",
+    "Calificaciones",
+    "Contacto",
+    "Acciones",
+];
+
 
 const AcceptanceTable = () => {
-    const { isLoading, isSuccess, data } = useGetProviders();
+    const { isLoading, isSuccess, data } = useQuery(
+        ['getInactiveProviders'],
+        () => ProvidersServices.getInactiveProviders()
+    )
     const [showModal, setShowModal] = useState(false);
     const [providerId, setProviderId] = useState(null);
 
