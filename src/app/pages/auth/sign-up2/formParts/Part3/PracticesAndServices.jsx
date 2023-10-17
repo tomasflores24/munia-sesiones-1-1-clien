@@ -20,6 +20,7 @@ import { useGetServices } from "../../../../../hooks/Register/useServices";
 import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner";
 import { RegisterServices } from "../../../../../services/auth/register.services";
 import { Alert } from "@mui/material";
+import { cleanParts } from "../../../../../redux/slices/registerSlice/registerSlice";
 
 const PracticesAndServices = ({ step, setStep }) => {
   const [selectedServices, setSelectedServices] = useState([]);
@@ -34,20 +35,16 @@ const PracticesAndServices = ({ step, setStep }) => {
 
   const { isLoading, isSuccess, data: services, error } = useGetServices();
 
-  const { isLoading: isRegisterLoading, mutateAsync } = useMutation(
+  const { isLoading: isLoadingRegister, mutateAsync } = useMutation(
     ["sign-up"],
     RegisterServices.signUp
   );
 
-  const { mutateAsync: mutateAsyncProfilePic } = useMutation(
-    ["profile-pic"],
-    RegisterServices.sendFile
-  );
+  const { mutateAsync: mutateAsyncProfilePic, isLoading: isLoadingProfilePic } =
+    useMutation(["profile-pic"], RegisterServices.sendFile);
 
-  const { mutateAsync: mutateAsyncFiles } = useMutation(
-    ["pdf-files"],
-    RegisterServices.sendFiles,
-  );
+  const { mutateAsync: mutateAsyncFiles, isLoading: isLoadingFiles } =
+    useMutation(["pdf-files"], RegisterServices.sendFiles);
 
   const isAllSelected =
     services?.data?.length > 0 &&
@@ -88,35 +85,36 @@ const PracticesAndServices = ({ step, setStep }) => {
         accessToken: res.data.token,
       });
 
-      dataFiles.push({ file: registerData.dniDoc.file[0], desc: "dniDoc" });
+      dataFiles.push({ file: registerData.dniDoc.file[0], key: "dniDoc" });
       dataFiles.push({
         file: registerData.universityDegree.file[0],
-        desc: "universityDegree",
+        key: "universityDegree",
       });
       dataFiles.push({
         file: registerData.masterDegree.file[0],
-        desc: "masterDegree",
+        key: "masterDegree",
       });
       dataFiles.push({
         file: registerData.curriculum.file[0],
-        desc: "curriculum",
+        key: "curriculum",
       });
       dataFiles.push({
         file: registerData.profesionalCard.file[0],
-        desc: "profesionalCard",
+        key: "profesionalCard",
       });
       dataFiles.push({
         file: registerData.bankCertification.file[0],
-        desc: "bankCertification",
+        key: "bankCertification",
       });
 
       await mutateAsyncFiles({
-        data: dataFiles,
-        userId: decoded.userId,
+        data: dataFiles.filter((item) => !!item.file),
+        providerId: decoded.ProviderId,
         accessToken: res.data.token,
       });
 
       setStep((prev) => prev + 1);
+      cleanParts();
     } catch (err) {
       toast.error(err.response?.data?.error || "Algo salio mal.");
     }
@@ -124,96 +122,104 @@ const PracticesAndServices = ({ step, setStep }) => {
 
   return (
     <section className="practiceAndServices__root">
-      <div className="practiceAndServices__topWrapper">
-        <h2 className="practiceAndServices__title">
-          Selecciona los campos en los que deseas asistir a los pacientes.
-        </h2>
+      {isLoadingRegister || isLoadingProfilePic || isLoadingFiles ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <div className="practiceAndServices__topWrapper">
+            <h2 className="practiceAndServices__title">
+              Selecciona los campos en los que deseas asistir a los pacientes.
+            </h2>
 
-        <div className="practiceAndService__multiselect">
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : isSuccess && !isLoading ? (
-            <FormControl className="multiselect__container">
-              <InputLabel id="mutiple-select-label" className="label">
-                Servicios
-              </InputLabel>
-              <Select
-                labelId="mutiple-select-label"
-                multiple
-                value={selectedServices}
-                onChange={handleChange}
-                renderValue={(selected) =>
-                  selected?.map((option) => option.name).join(", ")
-                }
-                MenuProps={MenuProps}
-                className="select__input"
-              >
-                <MenuItem value="all">
-                  <ListItemIcon>
-                    <Checkbox
-                      checked={isAllSelected}
-                      indeterminate={
-                        selectedServices.length > 0 &&
-                        selectedServices.length < services.length
-                      }
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary="Select All" />
-                </MenuItem>
-                {services?.data?.map((option) => (
-                  <MenuItem key={option.id} value={option}>
-                    <ListItemIcon>
-                      <Checkbox
-                        checked={selectedServices.indexOf(option) > -1}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={option.name} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          ) : (
-            <Alert severity="error">
-              {error.message || "No se puedo cargar los servicios."}
-            </Alert>
-          )}
-        </div>
-      </div>
-
-      <div className="actions">
-        <button
-          type="button"
-          className="back_btn"
-          disabled={isRegisterLoading}
-          onClick={() => setStep(step - 1)}
-        >
-          Atras
-        </button>
-        <div className="wrapper__term_of_use">
-          <div className="term_of_use">
-            <Controller
-              name="termsOfUse"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => <Checkbox color="default" {...field} />}
-            />
-            <p>
-              Acepto los <span>Términos de uso</span>
-            </p>
+            <div className="practiceAndService__multiselect">
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : isSuccess && !isLoading ? (
+                <FormControl className="multiselect__container">
+                  <InputLabel id="mutiple-select-label" className="label">
+                    Servicios
+                  </InputLabel>
+                  <Select
+                    labelId="mutiple-select-label"
+                    multiple
+                    value={selectedServices}
+                    onChange={handleChange}
+                    renderValue={(selected) =>
+                      selected?.map((option) => option.name).join(", ")
+                    }
+                    MenuProps={MenuProps}
+                    className="select__input"
+                  >
+                    <MenuItem value="all">
+                      <ListItemIcon>
+                        <Checkbox
+                          checked={isAllSelected}
+                          indeterminate={
+                            selectedServices.length > 0 &&
+                            selectedServices.length < services.length
+                          }
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary="Select All" />
+                    </MenuItem>
+                    {services?.data?.map((option) => (
+                      <MenuItem key={option.id} value={option}>
+                        <ListItemIcon>
+                          <Checkbox
+                            checked={selectedServices.indexOf(option) > -1}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={option.name} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              ) : (
+                <Alert severity="error">
+                  {error.message || "No se puedo cargar los servicios."}
+                </Alert>
+              )}
+            </div>
           </div>
-          {errors?.termsOfUse && (
-            <span className="error">Debes aceptar los términos de uso</span>
-          )}
-        </div>
-        <button
-          type="button"
-          onClick={handleSubmit(customHandleSubmit)}
-          disabled={isRegisterLoading}
-          className={isValid ? "submit_btn" : "submit_btn disabled"}
-        >
-          {isRegisterLoading ? "Cargando..." : "Registrarse"}
-        </button>
-      </div>
+
+          <div className="actions">
+            <button
+              type="button"
+              className="back_btn"
+              disabled={isLoadingRegister}
+              onClick={() => setStep(step - 1)}
+            >
+              Atras
+            </button>
+            <div className="wrapper__term_of_use">
+              <div className="term_of_use">
+                <Controller
+                  name="termsOfUse"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <Checkbox color="default" {...field} />
+                  )}
+                />
+                <p>
+                  Acepto los <span>Términos de uso</span>
+                </p>
+              </div>
+              {errors?.termsOfUse && (
+                <span className="error">Debes aceptar los términos de uso</span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={handleSubmit(customHandleSubmit)}
+              disabled={isLoadingRegister}
+              className={isValid ? "submit_btn" : "submit_btn disabled"}
+            >
+              Registrarse
+            </button>
+          </div>
+        </>
+      )}
 
       <Toaster position="top-center" reverseOrder={false} />
     </section>

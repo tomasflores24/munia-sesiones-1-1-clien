@@ -10,12 +10,12 @@ export const RegisterServices = {
       Authorization: `Bearer ${accessToken}`
     });
   },
-  sendFiles: async ({ userId, data, accessToken }) => {
+  sendFiles: async ({ providerId, data, accessToken }) => {
     const formData = new FormData();
     data.forEach((item) => {
-      formData.append("files", item.file, item.desc)
+      formData.append(item.key, item.file)
     });
-    HttpRequest.patchCustomHeaders(`/auth/upload-files/${userId}`, formData, {
+    HttpRequest.patchCustomHeaders(`/auth/upload-files/${providerId}`, formData, {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${accessToken}`
     });
