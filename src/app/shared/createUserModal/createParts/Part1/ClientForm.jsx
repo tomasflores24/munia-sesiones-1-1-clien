@@ -20,6 +20,8 @@ import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 import { ClientsServices } from "../../../../services/dashboard/clients/clients.services";
 import LoadingSpinner from "../../../loadingSpinner/LoadingSpinner";
+import { uploadProfilePicServices } from "../../../../services/auth/uploadProfilePic.services";
+
 
 const collaboratorSchema = yup.object({
   profilePic: yup
@@ -65,6 +67,7 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues
   } = useForm({
     resolver: yupResolver(collaboratorSchema),
   });
@@ -77,8 +80,13 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
     ["registerClient"],
     ClientsServices.createClient,
     {
-      onSuccess: (res) => {
-        setCompanyId(res.data);
+      onSuccess: async (res) => {
+        setCompanyId(res.data.id);
+
+        await uploadProfilePicServices.sendFile({
+          userId: res.data.UserId,
+          file: getValues().profilePic[0],
+        });
         toast.success("¡Registro de empresa exitoso!");
         setTimeout(() => {
           setStep(2);

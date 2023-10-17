@@ -5,6 +5,7 @@ import TableShared from "../../../shared/table/tableShared";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import CreateUserModal from "../../../shared/createUserModal/CreateUserModal";
 import { useState } from "react";
+import { Alert } from "@mui/material";
 
 const clientHeaders = [
   "Nombre",
@@ -19,7 +20,7 @@ const clientHeaders = [
 const Clientes = () => {
   const [openClientModal, setOpenClientModal] = useState(false);
 
-  const { isLoading, data } = useQuery(
+  const { isLoading, data, isSuccess } = useQuery(
     ["getAllClients"],
     ClientsServices.getAllClients
   );
@@ -46,14 +47,17 @@ const Clientes = () => {
       </header>
       {isLoading ? (
         <LoadingSpinner />
-      ) : (
+      ) : isSuccess && !isLoading ? (
         <div className="clients_table">
           <TableShared
             data={data?.data || []}
             currentPage="Clients"
             headers={clientHeaders}
           />
+          {data?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
         </div>
+      ) : (
+        <Alert severity="error">No se pudieron cargar los clientes</Alert>
       )}
       <CreateUserModal
         closeModal={handleCloseModal}

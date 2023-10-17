@@ -17,14 +17,14 @@ function Diary() {
             variables=".-"
           />
         </div>
-        <div>
+        {/* <div>
           <Card
             to="/dashboard/diaryCreate"
             imgComponent={<EventNoteIcon className="Img" />}
             title="Crear Agenda"
             variables=".-"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

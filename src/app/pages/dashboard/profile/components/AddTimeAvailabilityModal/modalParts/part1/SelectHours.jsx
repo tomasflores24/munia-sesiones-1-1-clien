@@ -9,8 +9,8 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import "./SelectHoursStyle.scss";
-import { AppointmentService } from "../../../../services/dashboard/appointments/appointment.service";
-import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
+import { AppointmentService } from "../../../../../../../services/dashboard/appointments/appointment.service";
+import LoadingSpinner from "../../../../../../../shared/loadingSpinner/LoadingSpinner";
 
 const initialData = {
   mon: false,

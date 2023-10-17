@@ -8,7 +8,8 @@ import {
   useGetCollaborators,
 } from "../../../hooks/collaborator/useCollaborator";
 import "./CollaboratorsStyle.scss";
-import AddCollaboratorModal from "../../../components/AddCollaboratorModal/AddCollaboratorModal";
+import AddCollaboratorModal from "./components/AddCollaboratorModal/AddCollaboratorModal";
+import { Alert } from "@mui/material";
 
 const collaboratorsHeaders = [
   "Colaboradores",
@@ -77,8 +78,10 @@ const Collaborators = () => {
             headers={collaboratorsHeaders}
             openModal={openModal}
           />
+          {data?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
         </div>
-      ) : null}
+      ) : <Alert severity="error">No se pudieron cargar los clientes</Alert>
+      }
       {showDeleteModal && (
         <BanUserModal
           handleModal={() => setShowDeleteModal(false)}
@@ -90,7 +93,6 @@ const Collaborators = () => {
       {showCreateModal && (
         <AddCollaboratorModal
           handleModal={() => setShowCreateModal(false)}
-          isLoading={false}
         />
       )}
     </div>

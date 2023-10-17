@@ -15,7 +15,7 @@ import "./SelectAvailabilityTypeStyle.scss";
 import {
   calculateMonthMinDate,
   calculateWeekMinMaxDates,
-} from "../../../../utils/calendar";
+} from "../../../../../../../utils/calendar";
 
 const SelectAvailabilityType = ({ closeModal, nextStep }) => {
   const [minInterval, setMinInterval] = useState("");

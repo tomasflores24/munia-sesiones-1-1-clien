@@ -37,8 +37,8 @@ const TableShared = ({
       let startIndex = page * rowsPerPage;
       let endIndex = startIndex + rowsPerPage;
       if (currentPage === "Appointment") {
-        let filterData = data?.data?.slice(startIndex, endIndex);
-        setItemsPaginator(data.data.length);
+        let filterData = data?.slice(startIndex, endIndex);
+        setItemsPaginator(data?.length);
         setDataTableFilter([...filterData]);
       } else {
         let filterData = data?.slice(startIndex, endIndex);
@@ -52,7 +52,7 @@ const TableShared = ({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage === "Appointment") {
-      let filterData = data?.data?.slice(0, rowsPerPage);
+      let filterData = data?.data?.slice(0, rowsPerPage) || [];
       // Actualiza datos de la tabla
       setDataTableFilter([...filterData]);
     } else {
