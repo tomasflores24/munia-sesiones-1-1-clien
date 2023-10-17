@@ -93,7 +93,6 @@ const Collaborators = () => {
       {showCreateModal && (
         <AddCollaboratorModal
           handleModal={() => setShowCreateModal(false)}
-          isLoading={false}
         />
       )}
     </div>

@@ -60,4 +60,17 @@ export const HttpRequest = {
     }
     return await Http.post(url, body, config);
   },
+  patchCustomHeaders: async (url, body, headers) => {
+    const config = {
+      headers: { ...Http.defaults.headers.common, ...headers },
+    };
+
+    if (headers && headers["Content-Type"]) {
+      config.headers["Content-Type"] = headers["Content-Type"];
+      if (headers.Authorization) {
+        config.headers.Authorization = headers.Authorization;
+      }
+    }
+    return await Http.patch(url, body, config);
+  },
 };
