@@ -12,23 +12,12 @@ const registerSlice = createSlice({
     email: "",
     phone: "",
     password: "",
-    antPenales: {
-      name: "",
-      file: null,
-    },
-    diploma: {
-      name: "",
-      file: null,
-    },
-    tarjProf: {
-      name: "",
-      file: null,
-    },
-    portServicios: {
-      name: "",
-      file: null,
-    },
-    services: []
+    dniDoc: { name: "", file: null },
+    universityDegree: { name: "", file: null },
+    masterDegree: { name: "", file: null },
+    curriculum: { name: "", file: null },
+    profesionalCard: { name: "", file: null },
+    bankCertification: { name: "", file: null },
   },
   reducers: {
     setParts: (state, { payload }) => {
