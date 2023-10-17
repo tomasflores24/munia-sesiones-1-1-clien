@@ -5,6 +5,7 @@ import "./AppointmentStyle.scss";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Alert } from "@mui/material";
 
 const appointmentHeaders = [
   "Profesional",
@@ -16,18 +17,19 @@ const appointmentHeaders = [
 ];
 
 const Appointment = () => {
-  const userId = useSelector((state) => state.auth.auth.user.collaboratorId);
-  console.log(userId);
+  const user = useSelector((state) => state.auth.auth.user)
   const onEdit = () => {
     console.log("Edit");
   };
-
+ 
+  
   const {
     data: appoimentsById,
     isLoading,
     refetch: appoimentRefetch,
+    isSuccess
   } = useQuery(["getAppoiments"], () =>
-    AppointmentService.getAppointments(userId)
+    AppointmentService.getAppointments(user.providerId, user.collaboratorId)
   );
 
   const [cancel, setCancel] = useState();
@@ -47,12 +49,12 @@ const Appointment = () => {
     appoimentRefetch();
     cancelAppointmentRefetch();
   };
-
+  
   return (
     <>
       {isLoading ? (
         <LoadingSpinner />
-      ) : (
+      ) : isSuccess && !isLoading ?  (
         <div className="appointment_table">
           <div className="appoiment-title">
             <h1>Citas Programadas</h1>
@@ -77,13 +79,16 @@ const Appointment = () => {
           </div>
 
           <TableShared
-            data={appoimentsById}
+            data={appoimentsById?.data || []}
             currentPage="Appointment"
             headers={appointmentHeaders}
             onEdit={onEdit}
             onDelete={onDelete}
           />
+          {appoimentsById?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
         </div>
+      ) : (
+        <Alert severity="error">No se pudieron cargar los clientes</Alert>
       )}
     </>
   );
