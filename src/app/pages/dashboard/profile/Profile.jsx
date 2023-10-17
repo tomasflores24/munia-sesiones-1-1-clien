@@ -2,8 +2,14 @@ import "./Profile.scss";
 import { useEffect, useState } from "react";
 import AddTimeAvailabilityModal from "./components/AddTimeAvailabilityModal/AddTimeAvailabilityModal";
 import lockResetIcon from "/assets/lockResetIcon.png";
-import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.png";
-import displomaIcon from "/assets/diplomaIcon.png";
+import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.svg";
+
+
+/* import displomaIcon from "/assets/diplomaIcon.png"; */
+import displomaIcon from "/assets/displomaIconIcon.svg";
+
+
+
 import proCardIcon from "/assets/proCardIcon.png";
 import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.png";
 import {
@@ -205,8 +211,8 @@ const Profile = () => {
       </header>
       <main className="provider__profile__container">
         {(clientIsLoading && countriesAreLoading) ||
-        (providerIsLoading && countriesAreLoading) ||
-        (providerIsLoading && countriesAreLoading) ? (
+          (providerIsLoading && countriesAreLoading) ||
+          (providerIsLoading && countriesAreLoading) ? (
           <LoadingSpinner />
         ) : (
           <div className="provider__profile">
@@ -406,7 +412,6 @@ const Profile = () => {
                         Antecedentes penales
                       </div>
                       <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
                         <img
                           className="provider__profile__documents__logo__icon"
                           src={antecedentesPenalesIcon}
@@ -441,7 +446,6 @@ const Profile = () => {
                         Diploma de grado
                       </div>
                       <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
                         <img
                           className="provider__profile__documents__logo__icon"
                           src={displomaIcon}
@@ -476,7 +480,6 @@ const Profile = () => {
                         Tarjeta profesional
                       </div>
                       <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
                         <img
                           className="provider__profile__documents__logo__icon"
                           src={proCardIcon}
@@ -511,7 +514,6 @@ const Profile = () => {
                         Portfolio de servicios
                       </div>
                       <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
                         <img
                           className="provider__profile__documents__logo__icon"
                           src={portfolioServiciosIcon}
