@@ -37,8 +37,8 @@ const TableShared = ({
       let startIndex = page * rowsPerPage;
       let endIndex = startIndex + rowsPerPage;
       if (currentPage === "Appointment") {
-        let filterData = data?.data?.slice(startIndex, endIndex);
-        setItemsPaginator(data.data.length);
+        let filterData = data?.slice(startIndex, endIndex);
+        setItemsPaginator(data?.length);
         setDataTableFilter([...filterData]);
       } else {
         let filterData = data?.slice(startIndex, endIndex);
