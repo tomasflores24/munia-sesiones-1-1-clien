@@ -2,8 +2,8 @@ import "./Profile.scss";
 import { useEffect, useState } from "react";
 import AddTimeAvailabilityModal from "./components/AddTimeAvailabilityModal/AddTimeAvailabilityModal";
 import lockResetIcon from "/assets/lockResetIcon.png";
-import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.svg";
 import displomaIcon from "/assets/diplomaIcon.svg";
+import idIcon from "/assets/idIcon.svg";
 import proCardIcon from "/assets/proCardIcon.svg";
 import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.svg";
 import {
@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 import { CollaboratorsService } from "../../../services/dashboard/collaborators/collaborators.service";
 import { CountriesServices } from "../../../services/dashboard/countries/countries.services";
 import { uploadProfilePicServices } from "../../../services/auth/uploadProfilePic.services";
-import LoadingSpinner from "./../../../shared/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.auth.user);
@@ -72,6 +72,7 @@ const Profile = () => {
     uploadProfilePicServices.sendFile
   );
   const inputsInitialState = {
+    profilePic: user.profilePic,
     name: "",
     GenderId: "",
     phone: "",
@@ -188,7 +189,7 @@ const Profile = () => {
     },
   });
 
-  console.log(providerData?.data);
+  console.log(user.providerId);
   return (
     <div className="root__container">
       <header className="provider__image__container">
@@ -404,31 +405,18 @@ const Profile = () => {
                   <ThemeProvider theme={providerInputsTheme}>
                     <div className="provider__profile__documents">
                       <div className="provider__profile__documents__label">
-                        Antecedentes penales
+                        Documento de identificación
                       </div>
                       <div className="provider__profile__documents__logo">
                         <img
                           className="provider__profile__documents__logo__icon"
-                          src={antecedentesPenalesIcon}
+                          src={idIcon}
                         />
                       </div>
                       <div className="provider__profile__documents__buttons__container">
                         <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {/* providerData?.data?.user?.profilePic */}
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
+                          href={providerData?.data?.dniDoc}
+                          download
                         >
                           <IconButton>
                             <FileDownloadIcon color="tertiary" />
@@ -448,20 +436,7 @@ const Profile = () => {
                       </div>
                       <div className="provider__profile__documents__buttons__container">
                         <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
+                          href={providerData?.data?.universityDegree}
                           download
                         >
                           <IconButton>
@@ -482,20 +457,7 @@ const Profile = () => {
                       </div>
                       <div className="provider__profile__documents__buttons__container">
                         <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
+                          href={providerData?.data?.profesionalCard}
                           download
                         >
                           <IconButton>
@@ -516,20 +478,7 @@ const Profile = () => {
                       </div>
                       <div className="provider__profile__documents__buttons__container">
                         <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
+                          href={providerData?.data?.curriculum}
                           download
                         >
                           <IconButton>
