@@ -3,15 +3,9 @@ import { useEffect, useState } from "react";
 import AddTimeAvailabilityModal from "./components/AddTimeAvailabilityModal/AddTimeAvailabilityModal";
 import lockResetIcon from "/assets/lockResetIcon.png";
 import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.svg";
-
-
-/* import displomaIcon from "/assets/diplomaIcon.png"; */
-import displomaIcon from "/assets/displomaIconIcon.svg";
-
-
-
-import proCardIcon from "/assets/proCardIcon.png";
-import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.png";
+import displomaIcon from "/assets/diplomaIcon.svg";
+import proCardIcon from "/assets/proCardIcon.svg";
+import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.svg";
 import {
   TextField,
   FormControl,
@@ -194,6 +188,7 @@ const Profile = () => {
     },
   });
 
+  console.log(providerData?.data);
   return (
     <div className="root__container">
       <header className="provider__image__container">
