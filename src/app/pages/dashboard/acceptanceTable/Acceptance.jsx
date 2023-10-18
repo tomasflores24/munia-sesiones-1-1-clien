@@ -24,8 +24,6 @@ const Acceptance = () => {
         ['getInactiveProviders'],
         () => ProvidersServices.getInactiveProviders()
     )
-    
-
     const [showModal, setShowModal] = useState(false);
     const [providerId, setProviderId] = useState(null);
     const [dataModal, setDataModal] = useState();
