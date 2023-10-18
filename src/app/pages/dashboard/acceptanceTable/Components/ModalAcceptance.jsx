@@ -100,8 +100,8 @@ const ModalAcceptance = ({ openModal, closeModal, data}) => {
                     </div>
                 </div>
                 <div className="provider__buttons__container">
-                    <Button variant="contained">Aceptar</Button>
-                    <Button variant="contained">Rechazar</Button>
+                    <Button variant="contained" >Aceptar</Button>
+                    <Button variant="contained" >Rechazar</Button>
                 </div>
             </DialogContent>
         </Dialog>

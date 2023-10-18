@@ -71,6 +71,7 @@
 .provider__buttons__container {
     display: flex;
     justify-content: space-around;
+    margin-top: 4%;
 }
 
 .MuiDialog-root {
@@ -80,8 +81,9 @@
     }
 }
 
-.MuiDialogContent-root {
+/* .MuiDialogContent-root {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+ */
