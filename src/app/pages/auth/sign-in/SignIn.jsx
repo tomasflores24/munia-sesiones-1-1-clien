@@ -52,31 +52,31 @@ const SignIn = () => {
   const { isLoading, mutate } = useMutation(["login"], loginServices.login, {
     onSuccess: (e) => {
       const decoded = jwtDecode(e.data);
-      dispatch(
-        setDataSuccess({
-          token: e.data,
-          isAuthenticated: true,
-          user: {
-            id: decoded.userId,
-            profilePic: decoded.profilePic,
-            userTypeId: decoded.userTypeId,
-            email: decoded.email,
-            name: decoded.name,
-            collaboratorId: decoded.collaboratorId
-              ? decoded.collaboratorId
-              : null,
-            providerId: decoded.ProviderId ? decoded.ProviderId : null,
-            companyId: decoded.companyId ? decoded.companyId : null,
-          },
-        })
-      );
       toast.success("¡Inicio de sesión exitoso!");
       setTimeout(() => {
+        dispatch(
+          setDataSuccess({
+            token: e.data,
+            isAuthenticated: true,
+            user: {
+              id: decoded.userId,
+              profilePic: decoded.profilePic,
+              userTypeId: decoded.userTypeId,
+              email: decoded.email,
+              name: decoded.name,
+              collaboratorId: decoded.collaboratorId
+                ? decoded.collaboratorId
+                : null,
+              providerId: decoded.ProviderId ? decoded.ProviderId : null,
+              companyId: decoded.companyId ? decoded.companyId : null,
+            },
+          })
+        );
         navigate("/dashboard/home");
       }, 1800);
     },
     onError: (e) => {
-      toast.error(e.response.message);
+      toast.error(e.response.data.error);
     },
   });
 

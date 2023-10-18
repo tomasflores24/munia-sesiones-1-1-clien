@@ -16,6 +16,8 @@ import Swal from "sweetalert2";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CategoryModal from "./parts/CategoryModal/CategoryModal";
+import EditCategoryModal from "./parts/EditCategoryModal/EditCategoryModal";
 // import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Service() {
@@ -24,6 +26,8 @@ function Service() {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isViewModalOpen, setViewModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
+  const [categoryModal, setCategoryModal] = useState(false);
+  const [editCategoryModal, setEditCategoryModal] = useState(false);
 
   const {
     data: services,
@@ -46,20 +50,23 @@ function Service() {
     },
   });
 
-  const { mutateAsync: deleteServiceMutation, isLoading: isDeleting } = useMutation(["DeleteService"],
-    ServiceServices.deleteService,
-    {
+  const { mutateAsync: deleteServiceMutation, isLoading: isDeleting } =
+    useMutation(["DeleteService"], ServiceServices.deleteService, {
       onSuccess: () => {
         refetch();
         setViewModalOpen(false);
       },
-    }
-  );
-
+    });
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
     setSelectedService(null);
+  };
+  const openCategoryModal = () => {
+    setCategoryModal(true);
+  };
+  const openEditCategoryModal = () => {
+    setEditCategoryModal(true);
   };
 
   const openEditModal = (service) => {
@@ -71,11 +78,11 @@ function Service() {
   //   setViewModalOpen(true);
   // };
   const handleUpdateService = async (data) => {
-   mutate({ id: selectedService.id, ...data });
+    mutate({ id: selectedService.id, ...data });
   };
 
-  const handleDeleteService = async (id) => { 
-      await deleteServiceMutation(id);
+  const handleDeleteService = async (id) => {
+    await deleteServiceMutation(id);
   };
 
   const alertdeleteService = (id) => {
@@ -96,21 +103,43 @@ function Service() {
     });
   };
 
- if (isLoading || isDeleting) {
-   return <LoadingSpinner />;
- }
+  if (isLoading || isDeleting) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="service-container">
       <div className="service-header">
         <h1 className="service-title">Listado de Servicios</h1>
-        <Button
-          className="button-service"
-          variant="contained"
-          onClick={openCreateModal}
-        >
-          Crear Servicio
-        </Button>
+        <div className="button-container">
+          <div className="button__container">
+            <Button
+              className="button-service"
+              variant="contained"
+              onClick={openCategoryModal}
+            >
+              Crear Categoria
+            </Button>
+          </div>
+          <div className="button__container">
+            <Button
+              className="button-service"
+              variant="contained"
+              onClick={openEditCategoryModal}
+            >
+              Editar Categoria
+            </Button>
+          </div>
+          <div className="button__container">
+            <Button
+              className="button-service"
+              variant="contained"
+              onClick={openCreateModal}
+            >
+              Crear Servicio
+            </Button>
+          </div>
+        </div>
       </div>
 
       <Grid container className="service-grid">
@@ -119,8 +148,12 @@ function Service() {
             <Grid key={service.id} className="service-grid-item">
               <Card className="service-card">
                 <CardContent className="service-card-content">
-                  <Typography variant="h5" className="service-card-h5">{service.name}</Typography>
-                  <Typography variant="p" className="service-card-p">{service.categories.name}</Typography>
+                  <Typography variant="h5" className="service-card-h5">
+                    {service.name}
+                  </Typography>
+                  <Typography variant="p" className="service-card-p">
+                    {service.categories.name}
+                  </Typography>
                 </CardContent>
                 <CardActions className="service-card-actions">
                   <Button onClick={() => openEditModal(service)}>
@@ -182,6 +215,19 @@ function Service() {
           isViewMode={true}
           onCloseButton={true}
           initialData={selectedService}
+        />
+      )}
+
+      {categoryModal && (
+        <CategoryModal
+          isOpen={categoryModal}
+          onClose={() => setCategoryModal(false)}
+        />
+      )}
+      {editCategoryModal && (
+        <EditCategoryModal
+          isOpen={editCategoryModal}
+          onClose={() => setEditCategoryModal(false)}
         />
       )}
     </div>
