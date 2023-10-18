@@ -1,17 +1,13 @@
 import "./Acceptance.scss"
 import { useState } from "react";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
-import BanUserModal from "../../../components/BanUserModal/BanUserModal";
-import { Alert, Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+/* import BanUserModal from "../../../components/BanUserModal/BanUserModal"; */
+import { Alert } from "@mui/material";
 import { useQuery } from "react-query";
 import { ProvidersServices } from "../../../services/dashboard/providers/providers.services";
 import { useDeleteProvider } from "../../../hooks/provider/useProviders";
 import TableShared from "../../../shared/table/tableShared";
-import idIcon from '/assets/idIcon.svg';
-import displomaIcon from '/assets/diplomaIcon.svg';
-import proCardIcon from '/assets/proCardIcon.svg';
-import portfolioServiciosIcon from '/assets/portfolioServiciosIcon.svg';
-import { FileDownloadIcon } from '@mui/icons-material/FileDownload';
+import ModalAcceptance from "./Components/ModalAcceptance";
 
 const appointmentHeaders = [
     "Profesional",
@@ -28,17 +24,12 @@ const Acceptance = () => {
         ['getInactiveProviders'],
         () => ProvidersServices.getInactiveProviders()
     )
-/*     const {
-        data: providerData,
-        refetch: providerRefetch,
-        isLoading: providerIsLoading,
-    } = useQuery(
-        ["getProviderById"],
-        () => ProvidersServices.getProviderById(data.id),
-    ); */
+    
 
     const [showModal, setShowModal] = useState(false);
     const [providerId, setProviderId] = useState(null);
+    const [dataModal, setDataModal] = useState();
+
 
     const { mutateAsync, isLoading: isLoadingDelete } = useDeleteProvider();
 
@@ -48,11 +39,14 @@ const Acceptance = () => {
         console.log(searchData.get("search"));
     };
 
-    const openModal = (userId) => {
-        setProviderId(userId);
+    const openModal = (provider) => {
         setShowModal(true);
-
+        setDataModal(provider)
     };
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
 
     const onDelete = async (message) => {
         // TODO: hacer algo con el mensage(descripcion de la baja del usuario)
@@ -132,95 +126,7 @@ const Acceptance = () => {
             ) : <Alert severity="error">No se pudieron cargar los clientes</Alert>
             }
             {showModal && (
-                <Dialog open={false} onClick={() => openModal()}>
-                    <DialogTitle>Documentación del profesional</DialogTitle>
-                    <DialogContent>
-                        <div className="provider__profile__documents">
-                            <div className="provider__profile__documents__label">
-                                Documento de identificación
-                            </div>
-                            <div className="provider__profile__documents__logo">
-                                <img
-                                    className="provider__profile__documents__logo__icon"
-                                    src={idIcon}
-                                />
-                            </div>
-                            {/* <div className="provider__profile__documents__buttons__container">
-                                <a
-                                    href={providerData?.data?.dniDoc}
-                                    download
-                                >
-                                    <IconButton>
-                                        <FileDownloadIcon color="tertiary" />
-                                    </IconButton>
-                                </a>
-                            </div> */}
-                        </div>
-                        <div className="provider__profile__documents">
-                            <div className="provider__profile__documents__label">
-                                Diploma de grado
-                            </div>
-                            <div className="provider__profile__documents__logo">
-                                <img
-                                    className="provider__profile__documents__logo__icon"
-                                    src={displomaIcon}
-                                />
-                            </div>
-                            {/* <div className="provider__profile__documents__buttons__container">
-                                <a
-                                    href={providerData?.data?.universityDegree}
-                                    download
-                                >
-                                    <IconButton>
-                                        <FileDownloadIcon color="tertiary" />
-                                    </IconButton>
-                                </a>
-                            </div> */}
-                        </div>
-                        <div className="provider__profile__documents">
-                            <div className="provider__profile__documents__label">
-                                Tarjeta profesional
-                            </div>
-                            <div className="provider__profile__documents__logo">
-                                <img
-                                    className="provider__profile__documents__logo__icon"
-                                    src={proCardIcon}
-                                />
-                            </div>
-                            {/* <div className="provider__profile__documents__buttons__container">
-                                <a
-                                    href={providerData?.data?.profesionalCard}
-                                    download
-                                >
-                                    <IconButton>
-                                        <FileDownloadIcon color="tertiary" />
-                                    </IconButton>
-                                </a>
-                            </div> */}
-                        </div>
-                        <div className="provider__profile__documents">
-                            <div className="provider__profile__documents__label">
-                                Portfolio de servicios
-                            </div>
-                            <div className="provider__profile__documents__logo">
-                                <img
-                                    className="provider__profile__documents__logo__icon"
-                                    src={portfolioServiciosIcon}
-                                />
-                            </div>
-                            {/* <div className="provider__profile__documents__buttons__container">
-                                <a
-                                    href={providerData?.data?.curriculum}
-                                    download
-                                >
-                                    <IconButton>
-                                        <FileDownloadIcon color="tertiary" />
-                                    </IconButton>
-                                </a>
-                            </div> */}
-                        </div>
-                    </DialogContent>
-                </Dialog>
+                <ModalAcceptance openModal={openModal} closeModal={closeModal} data={dataModal}/>
             )}
         </div>
     )

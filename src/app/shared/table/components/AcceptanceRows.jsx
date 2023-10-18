@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import React from "react";
 
 const AcceptanceRows = ({ data, openModal }) => {
   // services colors: text: #00000099,  parent: #D9D9D9
