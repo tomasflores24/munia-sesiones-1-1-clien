@@ -5,6 +5,9 @@ import idIcon from "/assets/idIcon.svg";
 import displomaIcon from "/assets/diplomaIcon.svg";
 import proCardIcon from "/assets/proCardIcon.svg";
 import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.svg";
+import masterDegreeIcon from "/assets/masterDegreeIcon.svg"
+import bankCertificate from "/assets/bankCertificate.svg"
+import curriculum from "/assets/curriculum.svg"
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import "./ModalAcceptance.scss";
 import { useMutation } from "react-query";
@@ -67,13 +70,14 @@ const ModalAcceptance = ({ openModal, closeModal, data }) => {
 
   return (
     <Dialog
+      className="modal__dialog"
       open={openModal}
       onClose={closeModal}
       sx={{
         zIndex: 0,
       }}
     >
-      <DialogContent>
+      <DialogContent className="modal__dialog__content">
         {isLoading || isLoadingReject ? (
           <LoadingSpinner />
         ) : (
@@ -135,16 +139,52 @@ const ModalAcceptance = ({ openModal, closeModal, data }) => {
               </div>
               <div className="provider__profile__documents">
                 <div className="provider__profile__documents__label">
-                  Portfolio de servicios
+                  Currículum
                 </div>
                 <div className="provider__profile__documents__logo">
                   <img
                     className="provider__profile__documents__logo__icon"
-                    src={portfolioServiciosIcon}
+                    src={curriculum}
                   />
                 </div>
                 <div className="provider__profile__documents__buttons__container">
                   <a href={data?.curriculum} download>
+                    <IconButton>
+                      <FileDownloadIcon color="tertiary" />
+                    </IconButton>
+                  </a>
+                </div>
+              </div>
+              <div className="provider__profile__documents">
+                <div className="provider__profile__documents__label">
+                  Diploma de maestría
+                </div>
+                <div className="provider__profile__documents__logo">
+                  <img
+                    className="provider__profile__documents__logo__icon"
+                    src={masterDegreeIcon}
+                  />
+                </div>
+                <div className="provider__profile__documents__buttons__container">
+                  <a href={data?.masterDegree} download>
+                    <IconButton>
+                      <FileDownloadIcon color="tertiary" />
+                    </IconButton>
+                  </a>
+                </div>
+              </div>
+              <div className="provider__profile__documents">
+                <div className="provider__profile__documents__label">
+                  Certificación bancaria
+                </div>
+                <div className="provider__profile__documents__logo">
+                  <img
+                    className="provider__profile__documents__logo__icon"
+                    src={bankCertificate}
+                  />
+                </div>
+                <div className="provider__profile__documents__buttons__container">
+                  <a href={data?.bankCertification} download>
                     <IconButton>
                       <FileDownloadIcon color="tertiary" />
                     </IconButton>

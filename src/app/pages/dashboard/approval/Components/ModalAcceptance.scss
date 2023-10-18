@@ -73,3 +73,17 @@
     justify-content: space-around;
     margin-top: 4%;
 }
+.modal__dialog{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal__dialog__content {
+  /*   width: auto;
+    height: auto; */
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+}
