@@ -17,44 +17,43 @@ const appointmentHeaders = [
 ];
 
 const Appointment = () => {
-  const user = useSelector((state) => state.auth.auth.user)
-  const onEdit = () => {
-    console.log("Edit");
-  };
- 
-  
+  const user = useSelector((state) => state.auth.auth.user);
+
   const {
-    data: appoimentsById,
+    data: appointmentsById,
     isLoading,
-    refetch: appoimentRefetch,
-    isSuccess
-  } = useQuery(["getAppoiments"], () =>
-    AppointmentService.getAppointments(user.providerId, user.collaboratorId)
+    refetch: appointmentRefetch,
+    isSuccess,
+  } = useQuery(
+    ["getAppointments"],
+    () =>
+      AppointmentService.getAppointments(user.providerId, user.collaboratorId),
+    { retry: 2 }
   );
 
   const [cancel, setCancel] = useState();
 
-  const {
-    data: cancelAppointment,
-    refetch: cancelAppointmentRefetch,
-    isLoading: isLoadingCancelAppoiment,
-  } = useQuery(["cancelAppointment"], () =>
-    cancel ? AppointmentService.cancelAppointment(cancel) : null
+  const { refetch: cancelAppointmentRefetch } = useQuery(
+    ["cancelAppointment"],
+    () => (cancel ? AppointmentService.cancelAppointment(cancel) : null)
   );
+
+  const onEdit = () => {
+    console.log("Edit");
+  };
 
   const onDelete = (e) => {
     const id = e.target.value;
-    console.log(id);
     setCancel(id);
-    appoimentRefetch();
+    appointmentRefetch();
     cancelAppointmentRefetch();
   };
-  
+
   return (
     <>
       {isLoading ? (
         <LoadingSpinner />
-      ) : isSuccess && !isLoading ?  (
+      ) : isSuccess && !isLoading ? (
         <div className="appointment_table">
           <div className="appoiment-title">
             <h1>Citas Programadas</h1>
@@ -64,13 +63,11 @@ const Appointment = () => {
                 className="input-SearchBar"
                 type="text"
                 placeholder="Busca comentarios aquí"
-                value=""
-                onChange=""
               />
               <button
                 className="button-SearchBar"
-                onClick={async () => {
-                  ratingsRefetch();
+                onClick={() => {
+                  console.log("TODO");
                 }}
               >
                 Buscar
@@ -79,16 +76,20 @@ const Appointment = () => {
           </div>
 
           <TableShared
-            data={appoimentsById?.data || []}
+            data={appointmentsById?.data || []}
             currentPage="Appointment"
             headers={appointmentHeaders}
             onEdit={onEdit}
             onDelete={onDelete}
           />
-          {appoimentsById?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
+          {appointmentsById?.data?.length === 0 && (
+            <Alert variant="filled" color="secondary" severity="info">
+              Todavía no hay citas programadas, crea uno primero
+            </Alert>
+          )}
         </div>
       ) : (
-        <Alert severity="error">No se pudieron cargar los clientes</Alert>
+        <Alert severity="error">No se pudieron cargar las citas</Alert>
       )}
     </>
   );
