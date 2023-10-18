@@ -11,7 +11,6 @@ import SuccessRegister from "./formParts/FinalPart/SuccessRegister";
 const SignUp2 = () => {
   const [step, setStep] = useState(0);
   const [userType, setUserType] = useState(UserTypes.none);
-  const [registerToken, setRegisterToken] = useState("");
 
   const formDispense = () => {
     switch (step) {
@@ -38,7 +37,6 @@ const SignUp2 = () => {
           <PracticesAndServices
             step={step}
             setStep={setStep}
-            setRegisterToken={setRegisterToken}
           />
         );
       default:
@@ -81,7 +79,7 @@ const SignUp2 = () => {
             <div className="variable__form">{formDispense()}</div>
           </>
         ) : (
-          <SuccessRegister registerToken={registerToken} />
+          <SuccessRegister />
         )}
       </div>
     </div>

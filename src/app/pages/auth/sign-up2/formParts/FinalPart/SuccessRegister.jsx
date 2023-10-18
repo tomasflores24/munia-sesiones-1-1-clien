@@ -1,31 +1,12 @@
-import { PropTypes } from "prop-types";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import jwtDecode from "jwt-decode";
-
 import "./SuccessRegisterStyle.scss";
-import { setDataSuccess } from "../../../../../redux/slices/authSlice/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const SuccessRegister = ({ registerToken }) => {
-  const dispatch = useDispatch();
+const SuccessRegister = () => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const decoded = jwtDecode(registerToken);
-
-    setTimeout(() => {
-      dispatch(
-        setDataSuccess({
-          token: registerToken,
-          isAuthenticated: true,
-          user: {
-            id: decoded.userId,
-            userTypeId: decoded.userTypeId,
-            email: decoded.email,
-          },
-        })
-      );
-    }, [3000]);
-  }, [dispatch, registerToken]);
+  setTimeout(() => {
+    navigate("/")
+  }, [5000])
 
   return (
     <div className="successRegister__root">
@@ -55,10 +36,6 @@ const SuccessRegister = ({ registerToken }) => {
       </div>
     </div>
   );
-};
-
-SuccessRegister.propTypes = {
-  registerToken: PropTypes.string.isRequired,
 };
 
 export default SuccessRegister;
