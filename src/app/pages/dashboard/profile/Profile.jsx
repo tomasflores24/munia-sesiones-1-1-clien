@@ -189,7 +189,7 @@ const Profile = () => {
     },
   });
 
-  console.log(user.providerId);
+
   return (
     <div className="root__container">
       <header className="provider__image__container">
