@@ -28,7 +28,7 @@ const SelectUserType = ({ setStep, setUserType, userType }) => {
             }`}
             onClick={() => handleClick(UserTypes.psychologist)}
           >
-            Psicólogo
+            Proveedor
           </button>
         </div>
       </div>

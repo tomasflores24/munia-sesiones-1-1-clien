@@ -126,7 +126,7 @@ const GeneralInformation = ({ step, setStep, userType }) => {
               <input
                 id="uploadImg"
                 type="file"
-                accept=".png"
+                accept=".png, .jpg, .gif"
                 {...register("profilePic", {
                   onChange: (e) => {
                     const file = e.target.files?.[0];

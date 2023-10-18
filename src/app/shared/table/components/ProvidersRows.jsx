@@ -1,27 +1,26 @@
 import PropTypes from "prop-types";
 
 const ProvidersRows = ({ data, openModal }) => {
-  // services colors: text: #00000099,  parent: #D9D9D9
 
   return (
     <>
       <div className="shared_table-body">
-        {data?.map((appointment) => (
-          <div className="row-table-container" key={appointment.id}>
+        {data?.map((provider) => (
+          <div className="row-table-container" key={provider.id}>
             <div className="data-row-tag">
               <div className="imageName__wrapper">
-                <img src={appointment.user.profilePic} alt="picture" />
-                <p>{appointment.user.name}</p>
+                <img src={provider.user.profilePic} alt="picture" />
+                <p>{provider.user.name} {provider.last_name}</p>
               </div>
             </div>
             <div className="data-row-tag">Servicios</div>
             <div className="data-row-tag">Sesiones agregadas</div>
             <div className="data-row-tag">Calificaciones</div>
-            <div className="data-row-tag">{appointment.user.email}</div>
+            <div className="data-row-tag">{provider.user.email}</div>
             <div className="data-row-tag data-row-actions">
               <button
                 type="button"
-                onClick={() => openModal(appointment.id)}
+                onClick={() => openModal(provider.id)}
                 className="action-button"
               >
                 Dar de baja
