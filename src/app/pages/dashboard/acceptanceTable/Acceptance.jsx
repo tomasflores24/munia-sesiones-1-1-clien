@@ -1,12 +1,12 @@
-import "./AcceptanceTable.scss"
+import "./Acceptance.scss"
 import { useState } from "react";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
-import TableShared from "../../../shared/table/tableShared";
 import BanUserModal from "../../../components/BanUserModal/BanUserModal";
 import { Alert } from "@mui/material";
 import { useQuery } from "react-query";
 import { ProvidersServices } from "../../../services/dashboard/providers/providers.services";
 import { useDeleteProvider } from "../../../hooks/provider/useProviders";
+import InactiveProvidersTable from "../../../components/inactiveProvidersTable/inactiveProvidersTable";
 
 const appointmentHeaders = [
     "Profesional",
@@ -18,19 +18,19 @@ const appointmentHeaders = [
 ];
 
 
-const AcceptanceTable = () => {
+const Acceptance = () => {
     const { isLoading, isSuccess, data } = useQuery(
         ['getInactiveProviders'],
         () => ProvidersServices.getInactiveProviders()
     )
-/*     const {
+    const {
         data: providerData,
         refetch: providerRefetch,
         isLoading: providerIsLoading,
     } = useQuery(
         ["getProviderById"],
         () => ProvidersServices.getProviderById(data.id),
-    ); */
+    );
 
 const [showModal, setShowModal] = useState(false);
 const [providerId, setProviderId] = useState(null);
@@ -46,6 +46,7 @@ const onSearch = (event) => {
 const openModal = (userId) => {
     setProviderId(userId);
     setShowModal(true);
+    
 };
 
 const onDelete = async (message) => {
@@ -115,7 +116,7 @@ return (
             <LoadingSpinner />
         ) : !isLoading && isSuccess ? (
             <div className="providers_table">
-                <TableShared
+                <InactiveProvidersTable
                     data={data.data || []}
                     currentPage="Providers"
                     headers={appointmentHeaders}
@@ -137,4 +138,4 @@ return (
 )
 }
 
-export default AcceptanceTable;
+export default Acceptance;

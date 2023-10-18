@@ -7,6 +7,7 @@ import AppointmentRows from "./components/AppointmentRows";
 import { TablePagination } from "@mui/material";
 import ProvidersRows from "./components/ProvidersRows";
 import CollaboratorsRows from "./components/CollaboratorsRows";
+import Acceptance from './../../pages/dashboard/acceptanceTable/Acceptance';
 
 const TableShared = ({
   headers,
@@ -83,6 +84,9 @@ const TableShared = ({
         ) : null}
         {currentPage === "Providers" ? (
           <ProvidersRows data={dataTableFilter} openModal={openModal} />
+        ) : null}
+        {currentPage === "Providers" ? (
+          <AcceptanceRows data={dataTableFilter} openModal={openModal} />
         ) : null}
         {currentPage === "Collaborators" ? (
           <CollaboratorsRows data={dataTableFilter} openModal={openModal} />

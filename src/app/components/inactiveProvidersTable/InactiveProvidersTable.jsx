@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import "./TableShared.scss";
+import "./InactiveProvidersTable.scss";
 import ClientsRows from "./tableComponents/ClientsRows";
 import AppointmentRows from "./tableComponents/AppointmentRows";
 import { TablePagination } from "@mui/material";
 import ProvidersRows from "./tableComponents/ProvidersRows";
 import CollaboratorsRows from "./tableComponents/CollaboratorsRows";
 
-const TableShared = ({
+const InactiveProvidersTable = ({
   headers,
   data,
   currentPage,
@@ -60,7 +60,6 @@ const TableShared = ({
       setDataTableFilter([...filterData]);
     }
   }, [rowsPerPage]);
-
   return (
     <div className="table__root">
       <div className="shared_table__root">
@@ -105,7 +104,7 @@ const TableShared = ({
   );
 };
 
-TableShared.propTypes = {
+InactiveProvidersTable.propTypes = {
   data: PropTypes.array.isRequired,
   headers: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentPage: PropTypes.oneOf([
@@ -119,4 +118,4 @@ TableShared.propTypes = {
   openModal: PropTypes.func,
 };
 
-export default TableShared;
+export default InactiveProvidersTable;
