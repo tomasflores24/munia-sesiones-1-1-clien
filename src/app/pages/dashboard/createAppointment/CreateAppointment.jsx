@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import "./CreateAppointment.style.scss";
 import SelectService from "./components/selectService/selectService";
-import SelectCategory from "./components/selectCategory/SelectCategory";
+import SelectCategory from "./components/selectCategory/selectCategory";
 import AppointmentCalendar from "../../../components/AppointmentCalendar/AppointmentCalendar";
 import SelectProvider from "./components/provider/SelectProvider";
 import { AppointmentService } from "../../../services/dashboard/appointments/appointment.service";
@@ -73,8 +73,8 @@ const CreateAppointment = () => {
                 selectedHour={selectedHour}
                 setSelectedHour={setSelectedHour}
               />
-              ) : null}
-              
+            ) : null}
+
             <div className="textArea-container">
               <label className="textArea-label">Razón de la consulta</label>
               <textarea className="textArea" rows="4" />
