@@ -281,7 +281,7 @@ const Documentation = ({ setStep }) => {
           </div>
         </div>
         <div className="wrapper-file_input">
-          <InputLabel>Carta profesional</InputLabel>
+          <InputLabel>Tarjeta profesional</InputLabel>
           <div className="file__container">
             <Button
               component="label"
