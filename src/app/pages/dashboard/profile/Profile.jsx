@@ -2,10 +2,13 @@ import "./Profile.scss";
 import { useEffect, useState } from "react";
 import AddTimeAvailabilityModal from "./components/AddTimeAvailabilityModal/AddTimeAvailabilityModal";
 import lockResetIcon from "/assets/lockResetIcon.png";
-import antecedentesPenalesIcon from "/assets/antecedentesPenalesIcon.png";
-import displomaIcon from "/assets/diplomaIcon.png";
-import proCardIcon from "/assets/proCardIcon.png";
-import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.png";
+import idIcon from "/assets/idIcon.svg";
+import displomaIcon from "/assets/diplomaIcon.svg";
+import proCardIcon from "/assets/proCardIcon.svg";
+import portfolioServiciosIcon from "/assets/portfolioServiciosIcon.svg";
+import masterDegreeIcon from "/assets/masterDegreeIcon.svg"
+import bankCertificate from "/assets/bankCertificate.svg"
+import curriculum from "/assets/curriculum.svg"
 import {
   TextField,
   FormControl,
@@ -26,7 +29,7 @@ import { useSelector } from "react-redux";
 import { CollaboratorsService } from "../../../services/dashboard/collaborators/collaborators.service";
 import { CountriesServices } from "../../../services/dashboard/countries/countries.services";
 import { uploadProfilePicServices } from "../../../services/auth/uploadProfilePic.services";
-import LoadingSpinner from "./../../../shared/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.auth.user);
@@ -72,6 +75,7 @@ const Profile = () => {
     uploadProfilePicServices.sendFile
   );
   const inputsInitialState = {
+    profilePic: user.profilePic,
     name: "",
     GenderId: "",
     phone: "",
@@ -188,6 +192,7 @@ const Profile = () => {
     },
   });
 
+
   return (
     <div className="root__container">
       <header className="provider__image__container">
@@ -205,8 +210,8 @@ const Profile = () => {
       </header>
       <main className="provider__profile__container">
         {(clientIsLoading && countriesAreLoading) ||
-        (providerIsLoading && countriesAreLoading) ||
-        (providerIsLoading && countriesAreLoading) ? (
+          (providerIsLoading && countriesAreLoading) ||
+          (providerIsLoading && countriesAreLoading) ? (
           <LoadingSpinner />
         ) : (
           <div className="provider__profile">
@@ -401,144 +406,114 @@ const Profile = () => {
               ) : user.userTypeId === 3 ? (
                 <div className="provider__profile__documents__container">
                   <ThemeProvider theme={providerInputsTheme}>
-                    <div className="provider__profile__documents">
-                      <div className="provider__profile__documents__label">
-                        Antecedentes penales
+                    <div className="provider__container">
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Documento de identidad
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={idIcon}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.dniDoc} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
-                      <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
-                        <img
-                          className="provider__profile__documents__logo__icon"
-                          src={antecedentesPenalesIcon}
-                        />
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Diploma de grado
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={displomaIcon}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.universityDegree} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
-                      <div className="provider__profile__documents__buttons__container">
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {/* providerData?.data?.user?.profilePic */}
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                        >
-                          <IconButton>
-                            <FileDownloadIcon color="tertiary" />
-                          </IconButton>
-                        </a>
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Tarjeta profesional
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={proCardIcon}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.profesionalCard} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="provider__profile__documents">
-                      <div className="provider__profile__documents__label">
-                        Diploma de grado
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Currículum profesional
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={curriculum}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.curriculum} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
-                      <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
-                        <img
-                          className="provider__profile__documents__logo__icon"
-                          src={displomaIcon}
-                        />
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Diploma de maestría
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={masterDegreeIcon}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.masterDegree} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
-                      <div className="provider__profile__documents__buttons__container">
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          download
-                        >
-                          <IconButton>
-                            <FileDownloadIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="provider__profile__documents">
-                      <div className="provider__profile__documents__label">
-                        Tarjeta profesional
-                      </div>
-                      <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
-                        <img
-                          className="provider__profile__documents__logo__icon"
-                          src={proCardIcon}
-                        />
-                      </div>
-                      <div className="provider__profile__documents__buttons__container">
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          download
-                        >
-                          <IconButton>
-                            <FileDownloadIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="provider__profile__documents">
-                      <div className="provider__profile__documents__label">
-                        Portfolio de servicios
-                      </div>
-                      <div className="provider__profile__documents__logo">
-                        <div className="provider__profile__documents__logo__background" />
-                        <img
-                          className="provider__profile__documents__logo__icon"
-                          src={portfolioServiciosIcon}
-                        />
-                      </div>
-                      <div className="provider__profile__documents__buttons__container">
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <VisibilityIcon color="tertiary" />
-                          </IconButton>
-                        </a>
-                        <a
-                          href={
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/651px-Documento_Espa%C3%B1ol.jpg"
-                          }
-                          download
-                        >
-                          <IconButton>
-                            <FileDownloadIcon color="tertiary" />
-                          </IconButton>
-                        </a>
+                      <div className="provider__profile__documents">
+                        <div className="provider__profile__documents__label">
+                          Certificación bancaria
+                        </div>
+                        <div className="provider__profile__documents__logo">
+                          <img
+                            className="provider__profile__documents__logo__icon"
+                            src={bankCertificate}
+                          />
+                        </div>
+                        <div className="provider__profile__documents__buttons__container">
+                          <a href={providerData?.data?.bankCertification} download>
+                            <IconButton>
+                              <FileDownloadIcon color="tertiary" />
+                            </IconButton>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </ThemeProvider>
