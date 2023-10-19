@@ -13,6 +13,7 @@ import PsychologyIcon from "@mui/icons-material/Psychology";
 import SmsIcon from "@mui/icons-material/Sms";
 import WorkIcon from "@mui/icons-material/Work";
 import TextsmsIcon from "@mui/icons-material/Textsms";
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 import Buttons from "./buttons";
 import { logOut } from "../../../redux/slices/authSlice/authSlice";
@@ -95,6 +96,18 @@ const NavItems = ({ userTypeId }) => {
           onClick={() => redirect("statistics")}
         />
       )}
+      {
+        userTypeId === 4 &&(
+          <Buttons
+          className="sidebarButtons"
+          title="Aprovación"
+          icon={<AddTaskIcon className="button-icon" />}
+          key="approval"
+          selected={location.pathname.includes("/approval")}
+          onClick={() => redirect("approval")}
+        />
+        )
+      }
       {userTypeId === 1 && (
         <Buttons
           className="sidebarButtons"

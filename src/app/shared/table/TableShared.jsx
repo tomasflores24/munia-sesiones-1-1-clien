@@ -7,6 +7,8 @@ import AppointmentRows from "./components/AppointmentRows";
 import { TablePagination } from "@mui/material";
 import ProvidersRows from "./components/ProvidersRows";
 import CollaboratorsRows from "./components/CollaboratorsRows";
+import AcceptanceRows from "./components/AcceptanceRows";
+
 
 const TableShared = ({
   headers,
@@ -84,6 +86,9 @@ const TableShared = ({
         {currentPage === "Providers" ? (
           <ProvidersRows data={dataTableFilter} openModal={openModal} />
         ) : null}
+        {currentPage === "Acceptance" ? (
+          <AcceptanceRows data={dataTableFilter} openModal={openModal} />
+        ) : null}
         {currentPage === "Collaborators" ? (
           <CollaboratorsRows data={dataTableFilter} openModal={openModal} />
         ) : null}
@@ -113,6 +118,7 @@ TableShared.propTypes = {
     "Appointment",
     "Providers",
     "Collaborators",
+    "Acceptance",
   ]).isRequired,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
