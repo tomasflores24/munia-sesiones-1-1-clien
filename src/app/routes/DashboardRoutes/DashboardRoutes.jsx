@@ -5,7 +5,7 @@ import Configuration from "../../pages/dashboard/configuration/Configuration";
 import Clients from "../../pages/dashboard/clients/Clients";
 import Statistics from "../../pages/dashboard/Statistics/Statistics";
 import LayoutDashboard from "../../pages/dashboard/Layout/LayoutDashboard";
-import Diary from "../../pages/dashboard/diary/Diary";
+import Diary from "../../pages/dashboard/diary/diary";
 import Comments from "../../pages/dashboard/comments/Comments";
 import Profile from "../../pages/dashboard/profile/Profile";
 import Memberships from "../../pages/dashboard/memberships/Memberships";
