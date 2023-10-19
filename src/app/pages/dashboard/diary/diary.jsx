@@ -3,7 +3,7 @@
 // import Appointment from "./appointment/Appointment";
 import Card from "../../../components/CardsHome/Cards";
 import EventNoteIcon from "@mui/icons-material/EventNote";
-import "./Diary.style.scss";
+import "./diary.style.scss";
 
 function Diary() {
   return (
