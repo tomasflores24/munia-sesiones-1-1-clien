@@ -4,9 +4,16 @@ import { PersistGate } from "redux-persist/integration/react"; // Importa Persis
 import AppRouter from "./routes/AppRouter";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "@mui/material";
-import {appTheme} from './materialUITheme';
+import { appTheme } from "./materialUITheme";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (
@@ -15,7 +22,7 @@ function App() {
         <PersistGate loading={null} persistor={persistor}>
           <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={appTheme}>
-            <AppRouter />
+              <AppRouter />
             </ThemeProvider>
           </QueryClientProvider>
         </PersistGate>

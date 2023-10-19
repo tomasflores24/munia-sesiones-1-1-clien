@@ -1,4 +1,4 @@
-.service-form {
+.category-form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -7,7 +7,7 @@
   height: 100%;
   padding: 1rem;
 
-  .service-textfield {
+  .category-textfield {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -17,14 +17,14 @@
     width: 100%;
   }
 
-  .service-select {
+  .category-select {
     margin-bottom: 1rem;
     border-radius: 25px;
     font-size: 16px;
     width: 100%;
   }
 
-  .service-form-actions {
+  .category-form-actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -33,7 +33,7 @@
     align-items: center;
   }
 
-  .service-button-form {
+  .category-button-form {
     display: flex;
     justify-content: start;
     background-color: #ae7a6c;

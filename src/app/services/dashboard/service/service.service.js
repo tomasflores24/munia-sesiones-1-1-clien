@@ -11,4 +11,7 @@ export const ServiceServices = {
     HttpRequest.get(
       categoryId ? `/service?CategoryId=${categoryId}` : "/service/"
     ),
+  createCategory: async (data) => HttpRequest.post("/category", data),
+  editCategory: async ({ CategoryId, data }) =>
+    HttpRequest.put(`/category/${CategoryId}`, data),
 };
