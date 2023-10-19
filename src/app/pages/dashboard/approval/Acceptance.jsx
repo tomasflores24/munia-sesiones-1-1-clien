@@ -6,7 +6,7 @@ import { Alert } from "@mui/material";
 import { useQuery } from "react-query";
 import { ProvidersServices } from "../../../services/dashboard/providers/providers.services";
 /* import { useDeleteProvider } from "../../../hooks/provider/useProviders"; */
-import TableShared from "../../../shared/table/tableShared";
+import TableShared from "../../../shared/table/TableShared";
 import ModalAcceptance from "./Components/ModalAcceptance";
 
 const appointmentHeaders = [

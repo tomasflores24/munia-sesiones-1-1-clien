@@ -4,7 +4,7 @@ import {
   useGetProviders,
 } from "../../../hooks/provider/useProviders";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
-import TableShared from "../../../shared/table/tableShared";
+import TableShared from "../../../shared/table/TableShared";
 import "./ProviderStyle.scss";
 import BanUserModal from "../../../components/BanUserModal/BanUserModal";
 import { Alert } from "@mui/material";
@@ -69,10 +69,15 @@ const Providers = () => {
             headers={appointmentHeaders}
             openModal={openModal}
           />
-          {data?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
+          {data?.data?.length === 0 && (
+            <Alert variant="filled" color="secondary" severity="info">
+              Todavía no hay clientes, crea uno primero
+            </Alert>
+          )}
         </div>
-      ) : <Alert severity="error">No se pudieron cargar los clientes</Alert>
-      }
+      ) : (
+        <Alert severity="error">No se pudieron cargar los clientes</Alert>
+      )}
       {showModal && (
         <BanUserModal
           handleModal={() => setShowModal(false)}

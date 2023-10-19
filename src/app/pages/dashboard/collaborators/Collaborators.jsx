@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import BanUserModal from "../../../components/BanUserModal/BanUserModal";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
-import TableShared from "../../../shared/table/tableShared";
+import TableShared from "../../../shared/table/TableShared";
 import {
   useDeleteCollaborator,
   useGetCollaborators,
