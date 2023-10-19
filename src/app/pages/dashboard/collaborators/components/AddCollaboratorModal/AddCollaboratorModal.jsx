@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { uploadProfilePicServices } from "../../../../../services/auth/uploadProfilePic.services";
 import toast, { Toaster } from "react-hot-toast";
@@ -85,14 +85,7 @@ const AddCollaboratorModal = ({ handleModal }) => {
     },
   });
 
-  // const { data: collaborators, isLoading } = useQuery(
-  //   ["createCollaborator"],
-  //   CollaboratorsService.createCollaborator
-  // );
-  // const collaboratorMutation = useMutation(
-  //   CollaboratorsService.createCollaborator
-  // );
-  // const [body, setBody] = useState({});
+  const queryClient = useQueryClient();
 
   const { isLoading, mutateAsync } = useMutation(
     ["createCollaborator"],
@@ -104,8 +97,10 @@ const AddCollaboratorModal = ({ handleModal }) => {
           file: getValues().profilePic[0],
         });
         toast.success("Se ha creado el colaborador exitosamente");
+
         setTimeout(() => {
           handleModal(false);
+          queryClient.invalidateQueries("collaborators");
         }, 3000);
       },
       onError: () => {
