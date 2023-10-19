@@ -27,7 +27,6 @@ const collaboratorsHeaders = [
 ];
 
 const Collaborators = () => {
-  const { isLoading, isSuccess, data } = useGetCollaborators();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showAssignSessions, setShowAssignSessions] = useState(false);
@@ -35,12 +34,12 @@ const Collaborators = () => {
   const [collaboratorId, setCollaboratorId] = useState("");
 
   const { companyId } = useSelector(selectUser);
+  const { isLoading, isSuccess, data } = useGetCollaborators({ companyId });
 
   const { mutateAsync, isLoading: isLoadingDelete } = useDeleteCollaborator();
 
-  const { data: purchase } = useQuery(
-    ["company-purchase", companyId],
-    () => PurchasesServices.getPurchaseByCompanyId(companyId)
+  const { data: purchase } = useQuery(["company-purchase", companyId], () =>
+    PurchasesServices.getPurchaseByCompanyId(companyId)
   );
 
   const onSearch = (event) => {

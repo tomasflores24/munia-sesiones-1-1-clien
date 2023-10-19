@@ -3,8 +3,10 @@ import { CollaboratorsService } from "../../services/dashboard/collaborators/col
 
 const collaboratorKey = "collaborators";
 
-export function useGetCollaborators() {
-  return useQuery([collaboratorKey], CollaboratorsService.getAllCollaborators);
+export function useGetCollaborators({ companyId }) {
+  return useQuery([collaboratorKey], () =>
+    CollaboratorsService.getAllCollaborators({ companyId })
+  );
 }
 
 export function useDeleteCollaborator() {
