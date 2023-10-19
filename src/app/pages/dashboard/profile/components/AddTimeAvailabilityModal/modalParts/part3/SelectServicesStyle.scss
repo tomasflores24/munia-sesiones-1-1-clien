@@ -4,14 +4,12 @@ $mainPadding: 1.5rem;
     background-color: #EBDCC1;
     padding: $mainPadding;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 25px 25px 0 0;
     border: 0.5px solid rgba(0, 0, 0, 0.5);
-    width: 30vh;
-    height: 14vh;
     .title {
-      font-size: small;;
+      font-size: 20px;
       font-weight: 700;
     }
     .closeIcon {

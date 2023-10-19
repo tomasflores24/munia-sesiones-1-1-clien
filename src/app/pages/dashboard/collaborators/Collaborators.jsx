@@ -10,6 +10,12 @@ import {
 import "./CollaboratorsStyle.scss";
 import AddCollaboratorModal from "./components/AddCollaboratorModal/AddCollaboratorModal";
 import { Alert } from "@mui/material";
+import AssignSessionModal from "./components/AssignSessionModal/AssignSessionModal";
+import { Toaster } from "react-hot-toast";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/slices/authSlice/authSlice";
+import { PurchasesServices } from "../../../services/dashboard/purchases/purchases.services";
 
 const collaboratorsHeaders = [
   "Colaboradores",
@@ -21,11 +27,20 @@ const collaboratorsHeaders = [
 ];
 
 const Collaborators = () => {
-  const { isLoading, isSuccess, data } = useGetCollaborators();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showAssignSessions, setShowAssignSessions] = useState(false);
   const [providerId, setProviderId] = useState(null);
+  const [collaboratorId, setCollaboratorId] = useState("");
+
+  const { companyId } = useSelector(selectUser);
+  const { isLoading, isSuccess, data } = useGetCollaborators({ companyId });
+
   const { mutateAsync, isLoading: isLoadingDelete } = useDeleteCollaborator();
+
+  const { data: purchase } = useQuery(["company-purchase", companyId], () =>
+    PurchasesServices.getPurchaseByCompanyId(companyId)
+  );
 
   const onSearch = (event) => {
     event.preventDefault();
@@ -36,6 +51,11 @@ const Collaborators = () => {
   const openModal = (userId) => {
     setProviderId(userId);
     setShowDeleteModal(true);
+  };
+
+  const openAssignSessionsModal = (collaboratorId) => {
+    setCollaboratorId(collaboratorId);
+    setShowAssignSessions(true);
   };
 
   const onDelete = async (message) => {
@@ -77,11 +97,17 @@ const Collaborators = () => {
             currentPage="Collaborators"
             headers={collaboratorsHeaders}
             openModal={openModal}
+            openAssignSessionsModal={openAssignSessionsModal}
           />
-          {data?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
+          {data?.data?.length === 0 && (
+            <Alert variant="filled" color="secondary" severity="info">
+              Todavía no hay clientes, crea uno primero
+            </Alert>
+          )}
         </div>
-      ) : <Alert severity="error">No se pudieron cargar los clientes</Alert>
-      }
+      ) : (
+        <Alert severity="error">No se pudieron cargar los clientes</Alert>
+      )}
       {showDeleteModal && (
         <BanUserModal
           handleModal={() => setShowDeleteModal(false)}
@@ -91,10 +117,16 @@ const Collaborators = () => {
         />
       )}
       {showCreateModal && (
-        <AddCollaboratorModal
-          handleModal={() => setShowCreateModal(false)}
-        />
+        <AddCollaboratorModal handleModal={() => setShowCreateModal(false)} />
       )}
+      <AssignSessionModal
+        open={showAssignSessions}
+        closeModal={() => setShowAssignSessions(false)}
+        collaboratorId={collaboratorId}
+        companyId={companyId}
+        purchaseId={purchase?.data?.id || ""}
+      />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

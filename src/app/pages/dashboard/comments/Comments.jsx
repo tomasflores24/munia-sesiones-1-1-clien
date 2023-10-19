@@ -7,7 +7,6 @@ import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import { format } from "date-fns";
 import ReplayIcon from '@mui/icons-material/Replay';
 import { IconButton } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ratingsArray = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
@@ -18,16 +17,19 @@ const Comments = () => {
   const [service, setService] = useState()
   const [date, setDate] = useState()
 
-  const { providerId } = useParams();
+  const user = useSelector((state) => state.auth.auth.user);
 
   const { isLoading: ratingsAreLoading, data: ratingsData, refetch: ratingsRefetch } = useQuery(
-    ["getAllRatings"],
-    () => providerId ? CommentsServices.getAllRatings(filters, rating, service, date, providerId) : CommentsServices.getAllRatings(filters, rating, service, date)
+    ["getRatings"],
+    () =>
+      user.userTypeId === 3 ? CommentsServices.getRatingByProvider(filters, rating, service, date, user.providerId)
+        : user.userTypeId === 2 ? CommentsServices.getRatingByCollaborator(filters, rating, service, date, user.collaboratorId)
+          : user.userTypeId === 1 ? CommentsServices.getRatingByCompany(filters, rating, service, date, user.companyId)
+            : CommentsServices.getAllRatings(filters, rating, service, date, user.providerId)
   );
-
   const { isLoading: serviceLoading, data: serviceData } = useQuery(
     ["getAllService"],
-    () => providerId ? CommentsServices.getAllService(providerId) : CommentsServices.getAllService()
+    () => user?.providerId ? CommentsServices.getAllService(user?.providerId) : CommentsServices.getAllService()
   );
 
   const handleChangeFilters = async (e) => {
@@ -57,8 +59,11 @@ const Comments = () => {
     <div className="rootContainer">
       <div className="commentsSection">
         <div className="commentsTitle">
-          <h1>Comentarios de pacientes</h1>
-
+          {user.userTypeId === 3 ? <h1>Comentarios de pacientes</h1>
+            : user.userTypeId === 2 ? <h1>Mis comentarios</h1>
+              : user.userTypeId === 1 ? <h1>Comentarios de mis colaboradores</h1>
+                : <h1>Comentarios</h1>
+          }
           <div className="commentsSearchBar">
             <input
               id=""
@@ -125,7 +130,7 @@ const Comments = () => {
                   onChange={handleChangeService}
                 >
                   <option hidden>Servicio</option>
-                  {providerId ? (
+                  {user.providerId ? (
                     serviceData?.data[0]?.provider_assign_service?.map((servicio, index) => (
                       <option
                         key={index}

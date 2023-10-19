@@ -1,7 +1,7 @@
 import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
 
-const CollaboratorsRows = ({ data, openModal }) => {
+const CollaboratorsRows = ({ data, openModal, openAssignSessionsModal }) => {
   return (
     <>
       <div className="shared_table-body">
@@ -21,7 +21,7 @@ const CollaboratorsRows = ({ data, openModal }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    console.log("asignar sesiones");
+                    openAssignSessionsModal(collaborator.id);
                   }}
                   className="addSession_button"
                 >
@@ -56,6 +56,7 @@ const CollaboratorsRows = ({ data, openModal }) => {
 CollaboratorsRows.propTypes = {
   data: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
+  openAssignSessionsModal: PropTypes.func.isRequired,
 };
 
 export default CollaboratorsRows;
