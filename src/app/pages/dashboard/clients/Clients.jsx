@@ -1,11 +1,11 @@
 import "./ClientsStyle.scss";
 import { useMutation, useQuery } from "react-query";
 import { ClientsServices } from "../../../services/dashboard/clients/clients.services";
-import TableShared from "../../../shared/table/tableShared";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import CreateUserModal from "../../../shared/createUserModal/CreateUserModal";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import TableShared from "../../../shared/table/TableShared";
 
 const clientHeaders = [
   "Nombre",
@@ -14,7 +14,7 @@ const clientHeaders = [
   "País",
   "Colaboradores",
   "Contacto",
-  "N° de sesiones"
+  "N° de sesiones",
 ];
 
 const Clientes = () => {
@@ -54,7 +54,11 @@ const Clientes = () => {
             currentPage="Clients"
             headers={clientHeaders}
           />
-          {data?.data?.length === 0 && <Alert variant="filled" color="secondary" severity="info">Todavía no hay clientes, crea uno primero</Alert>}
+          {data?.data?.length === 0 && (
+            <Alert variant="filled" color="secondary" severity="info">
+              Todavía no hay clientes, crea uno primero
+            </Alert>
+          )}
         </div>
       ) : (
         <Alert severity="error">No se pudieron cargar los clientes</Alert>
