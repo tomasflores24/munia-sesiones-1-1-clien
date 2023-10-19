@@ -9,7 +9,6 @@ import ProvidersRows from "./components/ProvidersRows";
 import CollaboratorsRows from "./components/CollaboratorsRows";
 import AcceptanceRows from "./components/AcceptanceRows";
 
-
 const TableShared = ({
   headers,
   data,
@@ -17,6 +16,7 @@ const TableShared = ({
   onEdit,
   onDelete,
   openModal,
+  openAssignSessionsModal,
 }) => {
   const [dataTableFilter, setDataTableFilter] = useState(data);
   const [itemsPaginator, setItemsPaginator] = useState(5);
@@ -90,7 +90,11 @@ const TableShared = ({
           <AcceptanceRows data={dataTableFilter} openModal={openModal} />
         ) : null}
         {currentPage === "Collaborators" ? (
-          <CollaboratorsRows data={dataTableFilter} openModal={openModal} />
+          <CollaboratorsRows
+            data={dataTableFilter}
+            openModal={openModal}
+            openAssignSessionsModal={openAssignSessionsModal}
+          />
         ) : null}
         {/* Paginador */}
         <section className="section-paginador-table">
@@ -123,6 +127,7 @@ TableShared.propTypes = {
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
   openModal: PropTypes.func,
+  openAssignSessionsModal: PropTypes.func,
 };
 
 export default TableShared;

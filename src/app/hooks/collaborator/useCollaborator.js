@@ -18,3 +18,12 @@ export function useDeleteCollaborator() {
     }
   );
 }
+
+export function useAssignSessions() {
+  const queryClient = useQueryClient();
+  return useMutation(CollaboratorsService.assignSessions, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(collaboratorKey);
+    },
+  });
+}

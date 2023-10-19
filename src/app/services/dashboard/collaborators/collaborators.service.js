@@ -12,4 +12,6 @@ export const CollaboratorsService = {
   createCollaborator: async (data) =>
     HttpRequest.post("/collaborator/create", data),
   getAllCountries: async () => HttpRequest.get("/countries"),
+  assignSessions: async (body) =>
+    HttpRequest.patch("/session_per_collaborator/", body),
 };
