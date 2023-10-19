@@ -1,17 +1,44 @@
 import { Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import "./AssignSessionModalStyles.scss";
+import { useAssignSessions } from "../../../../../hooks/collaborator/useCollaborator";
+import LoadingSpinner from "../../../../../shared/loadingSpinner/LoadingSpinner";
 
-const AssignSessionModal = ({ open, closeModal, collaboratorId, isLoading = false }) => {
+const AssignSessionModal = ({
+  open,
+  closeModal,
+  collaboratorId,
+  purchaseId,
+  companyId,
+}) => {
   const [sessionsAmount, setSessionsAmount] = useState(0);
+
+  const { isLoading: isLoadingAssignSessions, mutate } = useAssignSessions();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // TODO: integrar con el back
-    console.log({ sessionsAmount, collaboratorId });
+
+    mutate(
+      {
+        number_sessions: parseInt(sessionsAmount, 10),
+        CompanyId: companyId,
+        PurchaseMembershipId: purchaseId,
+        CollaboratorId: collaboratorId,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Sesiones asignadas correctamennte");
+          closeModal();
+        },
+        onError: (error) => {
+          toast.error(error?.response?.data.error || "Algo salio mal.");
+          closeModal();
+        },
+      }
+    );
   };
 
   return (
@@ -20,39 +47,45 @@ const AssignSessionModal = ({ open, closeModal, collaboratorId, isLoading = fals
         open={open}
         onClose={closeModal}
         maxWidth="md"
-        sx={{ "& .MuiDialog-paper": { borderRadius: "25px" } }}
+        className="assignSessionModal__root"
       >
-        <form onSubmit={onSubmit} className="createUserModal__form">
-          <DialogContent>
-            <TextField
-              id="outlined-number"
-              label="Numero de sesiones"
-              type="number"
-              fullWidth
-              value={sessionsAmount}
-              onChange={(e) => setSessionsAmount(e.target.value)}
-            />
-          </DialogContent>
-          <DialogActions className="createUserModal__actions">
-            <button
-              onClick={closeModal}
-              className="clientForm__btn cancel"
-              disabled={isLoading}
-            >
-              Cancelar
-            </button>
+        {isLoadingAssignSessions ? (
+          <div className="loadingSpinner__container">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <form onSubmit={onSubmit} className="assignSessionModal__form">
+            <DialogContent>
+              <TextField
+                id="outlined-number"
+                label="Numero de sesiones"
+                type="number"
+                fullWidth
+                value={sessionsAmount}
+                onChange={(e) => setSessionsAmount(e.target.value)}
+              />
+            </DialogContent>
+            <DialogActions className="assignSessionModal__actions">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="clientForm__btn cancel"
+                disabled={isLoadingAssignSessions}
+              >
+                Cancelar
+              </button>
 
-            <button
-              type="submit"
-              className="clientForm__btn"
-              disabled={isLoading}
-            >
-              Asignar sesiones
-            </button>
-          </DialogActions>
-        </form>
+              <button
+                type="submit"
+                className="clientForm__btn"
+                disabled={isLoadingAssignSessions}
+              >
+                Asignar sesiones
+              </button>
+            </DialogActions>
+          </form>
+        )}
       </Dialog>
-      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };
@@ -61,7 +94,8 @@ AssignSessionModal.propTypes = {
   open: PropTypes.func,
   closeModal: PropTypes.func,
   collaboratorId: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool,
+  purchaseId: PropTypes.string.isRequired,
+  companyId: PropTypes.string.isRequired,
 };
 
 export default AssignSessionModal;

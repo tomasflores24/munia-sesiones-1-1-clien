@@ -4,7 +4,6 @@ import BanUserModal from "../../../components/BanUserModal/BanUserModal";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
 import TableShared from "../../../shared/table/tableShared";
 import {
-  useAssignSessions,
   useDeleteCollaborator,
   useGetCollaborators,
 } from "../../../hooks/collaborator/useCollaborator";
@@ -12,6 +11,11 @@ import "./CollaboratorsStyle.scss";
 import AddCollaboratorModal from "./components/AddCollaboratorModal/AddCollaboratorModal";
 import { Alert } from "@mui/material";
 import AssignSessionModal from "./components/AssignSessionModal/AssignSessionModal";
+import { Toaster } from "react-hot-toast";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/slices/authSlice/authSlice";
+import { PurchasesServices } from "../../../services/dashboard/purchases/purchases.services";
 
 const collaboratorsHeaders = [
   "Colaboradores",
@@ -30,8 +34,14 @@ const Collaborators = () => {
   const [providerId, setProviderId] = useState(null);
   const [collaboratorId, setCollaboratorId] = useState("");
 
+  const { companyId } = useSelector(selectUser);
+
   const { mutateAsync, isLoading: isLoadingDelete } = useDeleteCollaborator();
-  const { isLoading: isLoadingAssignSessions } = useAssignSessions();
+
+  const { data: purchase } = useQuery(
+    ["company-purchase", companyId],
+    () => PurchasesServices.getPurchaseByCompanyId(companyId)
+  );
 
   const onSearch = (event) => {
     event.preventDefault();
@@ -114,8 +124,10 @@ const Collaborators = () => {
         open={showAssignSessions}
         closeModal={() => setShowAssignSessions(false)}
         collaboratorId={collaboratorId}
-        isLoading={isLoadingAssignSessions}
+        companyId={companyId}
+        purchaseId={purchase?.data?.id || ""}
       />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
