@@ -1,5 +1,5 @@
 .root__container {
-    width: fit-content;
+    width: auto;
 
     @media (max-width: 1199px) {
         margin: 0em 0em 0em 47px;
@@ -27,7 +27,7 @@
     .provider__profile__container {
         padding: 2%;
         height: fit-content;
-        width: fit-content;
+        width: auto;
 
         @media (max-width: 650px) {
             height: fit-content;
@@ -213,7 +213,7 @@
                 .provider__profile__buttons__container {
                     min-width: fit-content;
                     min-height: fit-content;
-                    width: 24%;
+                    
                     /* border: 2px rgb(0, 149, 22) solid; */
                     display: flex;
                     flex-direction: column;
