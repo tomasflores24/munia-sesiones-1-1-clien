@@ -16,7 +16,7 @@ import Collaborators from "../../pages/dashboard/collaborators/Collaborators";
 import Service from "../../pages/dashboard/services/Service";
 import CreateAppointment from "../../pages/dashboard/createAppointment/CreateAppointment";
 import Acceptance from "../../pages/dashboard/approval/Acceptance";
-
+import EndAppointment from "../../pages/dashboard/endAppointment/EndAppointment";
 
 const DashboardRoutes = () => {
   return (
@@ -39,6 +39,7 @@ const DashboardRoutes = () => {
           <Route path="/memberships" element={<Memberships />} />
           <Route path="/services" element={<Service />} />
           <Route path="/approval" element={<Acceptance />} />
+          <Route path="/endAppointment" element={<EndAppointment />} />
 
         </Routes>
       </LayoutDashboard>

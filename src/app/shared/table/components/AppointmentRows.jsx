@@ -24,9 +24,9 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
               <div className="data-row-tag">
                 {appointment?.Available?.startTime
                   ? format(
-                      new Date(appointment?.Available?.startTime),
-                      "dd/MM/yyyy HH:mm"
-                    )
+                    new Date(appointment?.Available?.startTime),
+                    "dd/MM/yyyy HH:mm"
+                  )
                   : null}
               </div>
               <div className="data-row-tag">
