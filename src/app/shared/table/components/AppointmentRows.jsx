@@ -13,17 +13,13 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
           data.map((appointment, index) => (
             <div className="row-table-container" key={index}>
               <div className="data-row-tag">
-                <img
-                  style={{
-                    width: "35%",
-                    height: "100%",
-                    borderRadius: "10px",
-                    padding: "5px",
-                  }}
-                  src={appointment?.provider?.user?.profilePic}
-                  alt="picture"
-                />
-                <p>{appointment?.provider?.user?.name}</p>
+                <div className="imageName__wrapper">
+                  <img
+                    src={appointment?.provider?.user?.profilePic}
+                    alt="picture"
+                  />
+                  <p>{appointment?.provider?.user?.name}</p>
+                </div>
               </div>
               <div className="data-row-tag">
                 {appointment?.Available?.startTime
