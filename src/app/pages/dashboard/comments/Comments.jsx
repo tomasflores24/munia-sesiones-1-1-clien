@@ -59,9 +59,9 @@ const Comments = () => {
     <div className="rootContainer">
       <div className="commentsSection">
         <div className="commentsTitle">
-          {user.userTypeId === 3 ? <h1>Comentarios de pacientes</h1>
-            : user.userTypeId === 2 ? <h1>Mis comentarios</h1>
-              : user.userTypeId === 1 ? <h1>Comentarios de mis colaboradores</h1>
+          {user.userTypeId === 3 ? <h1 className="commentsTitle__text">Comentarios de pacientes</h1>
+            : user.userTypeId === 2 ? <h1 className="commentsTitle__text">Mis comentarios</h1>
+              : user.userTypeId === 1 ? <h1 className="commentsTitle__text">Comentarios de mis colaboradores</h1>
                 : <h1>Comentarios</h1>
           }
           <div className="commentsSearchBar">
