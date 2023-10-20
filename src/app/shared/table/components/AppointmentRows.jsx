@@ -40,17 +40,17 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                 <div>
                   {appointment?.Available?.StatusId === 1 ? (
                     <div>
-                      <h3>Disponible</h3>
+                      Disponible
                       <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
                     </div>
                   ) : appointment?.Available?.StatusId === 2 ? (
                     <div>
-                      <h3>Terminado</h3>
+                      Terminado
                       <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
                     </div>
                   ) : appointment?.Available?.StatusId === 3 ? (
                     <div>
-                      <h6>Cancelado{appointment?.Available?.StatusId}</h6>
+                      Cancelado
                       <CancelOutlined fontSize="22" stroke="#FF0000" />
                     </div>
                   ) : appointment?.Available?.StatusId === 4 ? (
@@ -60,17 +60,17 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                     </div>
                   ) : appointment?.Available?.StatusId === 5 ? (
                     <div>
-                      <h3>No Disponible {appointment?.Available?.StatusId}</h3>
+                      No Disponible
                       <CancelOutlined fontSize="22" stroke="#FF0000" />
                     </div>
                   ) : appointment?.Available?.StatusId === 6 ? (
                     <div>
-                      <h3>En Aprobacion</h3>
+                      En Aprobacion
                       <ChangeCircleOutlinedIcon fontSize="80" stroke="yellow" />
                     </div>
                   ) : appointment?.Available?.StatusId === 7 ? (
                     <div>
-                      <h3>Confirmado</h3>
+                      Confirmado
                       <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
                     </div>
                   ) : null}
