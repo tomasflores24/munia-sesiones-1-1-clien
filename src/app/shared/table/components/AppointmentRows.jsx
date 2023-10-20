@@ -87,6 +87,7 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                 >
                   Reprogramar
                 </button>
+
                 {appointment?.Available?.StatusId === 3 ? null : (
                   <>
                     <button
@@ -96,6 +97,13 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                       className="action-button"
                     >
                       Cancelar Cita
+                    </button>
+                    <button
+                      type="button"
+                      onClick={onEdit}
+                      className="action-button"
+                    >
+                      Ir a la cita
                     </button>
                   </>
                 )}
