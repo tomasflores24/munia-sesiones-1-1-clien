@@ -3,6 +3,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Chip } from "@mui/material";
 import { CancelOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
+import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
 
 const AppointmentRows = ({ data, onEdit, onDelete }) => {
   return (
@@ -12,7 +13,16 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
           data.map((appointment, index) => (
             <div className="row-table-container" key={index}>
               <div className="data-row-tag">
-                <img src={appointment?.provider?.profilePic} alt="picture" />
+                <img
+                  style={{
+                    width: "35%",
+                    height: "100%",
+                    borderRadius: "10px",
+                    padding: "5px",
+                  }}
+                  src={appointment?.provider?.user?.profilePic}
+                  alt="picture"
+                />
                 <p>{appointment?.provider?.user?.name}</p>
               </div>
               <div className="data-row-tag">
@@ -31,16 +41,44 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                 />
               </div>
               <div className="data-row-tag">
-                {appointment?.Available?.StatusId === 2 ? (
-                  <div>
-                    Confirmado
-                    <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
-                  </div>
-                ) : (
-                  <div>
-                    Cancelado <CancelOutlined fontSize="22" stroke="#FF0000" />
-                  </div>
-                )}
+                <div>
+                  {appointment?.Available?.StatusId === 1 ? (
+                    <div>
+                      <h3>Disponible</h3>
+                      <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 2 ? (
+                    <div>
+                      <h3>Terminado</h3>
+                      <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 3 ? (
+                    <div>
+                      <h6>Cancelado{appointment?.Available?.StatusId}</h6>
+                      <CancelOutlined fontSize="22" stroke="#FF0000" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 4 ? (
+                    <div>
+                      En Progreso
+                      <ChangeCircleOutlinedIcon fontSize="80" stroke="yellow" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 5 ? (
+                    <div>
+                      <h3>No Disponible {appointment?.Available?.StatusId}</h3>
+                      <CancelOutlined fontSize="22" stroke="#FF0000" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 6 ? (
+                    <div>
+                      <h3>En Aprobacion</h3>
+                      <ChangeCircleOutlinedIcon fontSize="80" stroke="yellow" />
+                    </div>
+                  ) : appointment?.Available?.StatusId === 7 ? (
+                    <div>
+                      <h3>Confirmado</h3>
+                      <CheckCircleOutlineIcon fontSize="22" stroke="#068F1C" />
+                    </div>
+                  ) : null}
+                </div>
               </div>
               <div className="data-row-tag">
                 {appointment?.provider?.user?.email}
