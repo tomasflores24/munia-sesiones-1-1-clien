@@ -4,7 +4,7 @@ import { Chip } from "@mui/material";
 import { CancelOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
-
+import { Link } from "react-router-dom";
 const AppointmentRows = ({ data, onEdit, onDelete }) => {
   return (
     <div>
@@ -24,9 +24,9 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
               <div className="data-row-tag">
                 {appointment?.Available?.startTime
                   ? format(
-                    new Date(appointment?.Available?.startTime),
-                    "dd/MM/yyyy HH:mm"
-                  )
+                      new Date(appointment?.Available?.startTime),
+                      "dd/MM/yyyy HH:mm"
+                    )
                   : null}
               </div>
               <div className="data-row-tag">
@@ -98,13 +98,15 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
                     >
                       Cancelar Cita
                     </button>
-                    <button
-                      type="button"
-                      onClick={onEdit}
-                      className="action-button"
-                    >
-                      Ir a la cita
-                    </button>
+                    <Link to="/dashboard/endAppointment">
+                      <button
+                        type="button"
+                        onClick={onEdit}
+                        className="action-button"
+                      >
+                        Ir a la cita
+                      </button>
+                    </Link>
                   </>
                 )}
               </div>
