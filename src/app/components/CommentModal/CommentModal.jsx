@@ -2,6 +2,11 @@ import './CommentModalStyle.scss';
 import { Dialog, DialogContent, Rating } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useForm, Controller } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import CommentsServices from '../../services/dashboard/comments/comments.services';
+import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from 'react-redux';
+
 
 const CommentModal = ({ openModal, handleCloseModal }) => {
   const {
@@ -11,10 +16,29 @@ const CommentModal = ({ openModal, handleCloseModal }) => {
     formState: { errors },
     reset,
   } = useForm();
+  const { mutate, isLoading } = useMutation(
+    CommentsServices.createRating,
+    {
+      onSuccess: () => {
+        toast.success("Reunión agendada con éxito");
+      },
+      onError: (err) => {
+        toast.error(err.response?.data?.error || "Algo salio mal");
+      },
+    }
+  )
+  const user = useSelector((state) => state.auth.auth.user);
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
-    alert('enviando datos...');
+    mutate({
+      rating: data.rating,
+      comentary: data.commentary,
+      UserId: user.userId,
+      isActive: true,
+      ProviderId: "286c3190-5638-4dd8-b7a3-73ec3ef9b4b9",
+      serviceId: 1
+    });
     reset();
     handleCloseModal();
   });
@@ -77,7 +101,7 @@ const CommentModal = ({ openModal, handleCloseModal }) => {
             maxlength='300'
           />
           <footer className='modal-footer'>
-            <button className='submit-btn'>Confirmar</button>
+            <button type='submit' className='submit-btn'>Confirmar</button>
           </footer>
         </form>
       </DialogContent>

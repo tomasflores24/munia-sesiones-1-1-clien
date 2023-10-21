@@ -5,6 +5,7 @@ import { CancelOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
 import { Link } from "react-router-dom";
+
 const AppointmentRows = ({ data, onEdit, onDelete }) => {
   return (
     <div>
@@ -14,6 +15,7 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
             <div className="row-table-container" key={index}>
               <div className="data-row-tag">
                 <div className="imageName__wrapper">
+                  {console.log(appointment)}
                   <img
                     src={appointment?.provider?.user?.profilePic}
                     alt="picture"

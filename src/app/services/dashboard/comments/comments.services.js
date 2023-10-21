@@ -90,8 +90,8 @@ const CommentsServices = {
       return  HttpRequest.get(url)
     }
   },
-
   getAllService: async (ProviderId) => await HttpRequest.get(ProviderId ? `/service/provider/${ProviderId}`: `/service`),
+  createRating: async (body) => HttpRequest.post("/rating", body),
 };
 
 export default CommentsServices;
