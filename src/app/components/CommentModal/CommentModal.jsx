@@ -6,6 +6,8 @@ import { useMutation } from 'react-query';
 import CommentsServices from '../../services/dashboard/comments/comments.services';
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from 'react-redux';
+import LoadingSpinner from '../../shared/loadingSpinner/LoadingSpinner';
+import Swal from 'sweetalert2';
 
 
 const CommentModal = ({ openModal, handleCloseModal }) => {
@@ -20,7 +22,7 @@ const CommentModal = ({ openModal, handleCloseModal }) => {
     CommentsServices.createRating,
     {
       onSuccess: () => {
-        toast.success("Reunión agendada con éxito");
+        toast.success("Comentario enviado con éxito");
       },
       onError: (err) => {
         toast.error(err.response?.data?.error || "Algo salio mal");
@@ -30,15 +32,26 @@ const CommentModal = ({ openModal, handleCloseModal }) => {
   const user = useSelector((state) => state.auth.auth.user);
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    mutate({
-      rating: data.rating,
-      comentary: data.commentary,
-      UserId: user.userId,
-      isActive: true,
-      ProviderId: "286c3190-5638-4dd8-b7a3-73ec3ef9b4b9",
-      serviceId: 1
-    });
+    if (isLoading) {
+      <LoadingSpinner />
+    } else {
+      mutate({
+        rating: Number(data.rating),
+        comentary: data.comment,
+        UserId: user.id,
+        isActive: true,
+        ProviderId: "286c3190-5638-4dd8-b7a3-73ec3ef9b4b9",
+        serviceId: 2
+      });
+      Swal.fire({
+        title: "¡Comentario enviado con éxito!",
+        customClass: {
+          title: 'swal2-title',
+          popup: 'swal2-popup',
+          confirmButton: 'swal2-confirm',
+        },
+      });
+    }
     reset();
     handleCloseModal();
   });
@@ -98,7 +111,7 @@ const CommentModal = ({ openModal, handleCloseModal }) => {
             rows={10}
             className='comment-section'
             placeholder='Escribe tu comentario'
-            maxlength='300'
+            maxLength='300'
           />
           <footer className='modal-footer'>
             <button type='submit' className='submit-btn'>Confirmar</button>

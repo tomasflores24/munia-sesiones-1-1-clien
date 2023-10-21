@@ -15,7 +15,6 @@ const AppointmentRows = ({ data, onEdit, onDelete }) => {
             <div className="row-table-container" key={index}>
               <div className="data-row-tag">
                 <div className="imageName__wrapper">
-                  {console.log(appointment)}
                   <img
                     src={appointment?.provider?.user?.profilePic}
                     alt="picture"

@@ -30,7 +30,6 @@ const Appointment = () => {
       AppointmentService.getAppointments(user.providerId, user.collaboratorId),
     { retry: 2 }
   );
-  console.log(appointmentsById.data);
   const [cancel, setCancel] = useState();
 
   const { refetch: cancelAppointmentRefetch } = useQuery(

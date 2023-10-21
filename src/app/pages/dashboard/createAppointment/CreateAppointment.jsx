@@ -18,7 +18,6 @@ const CreateAppointment = () => {
   const [selectedHour, setSelectedHour] = useState({ id: undefined });
   const user = useSelector((state) => state.auth.auth.user);
 
-  console.log(user.collaboratorId);
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(
