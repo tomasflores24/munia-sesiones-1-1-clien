@@ -19,7 +19,8 @@ const CardsStatistics = ({
   serviceGenders,
 }) => {
   const user = useSelector((state) => state.auth.auth.user.userTypeId);
-
+  const companyId = useSelector((state) => state.auth.auth.user.companyId);
+  console.log(user);
   const { data: collaborators, isLoading } = useQuery(
     ["getAllCollaborators"],
     StatisticsServices.getAllCollaborators
@@ -36,9 +37,17 @@ const CardsStatistics = ({
 
   const { data: general, refetch: generalRefetch } = useQuery(
     ["getAllGeneral"],
-    () => StatisticsServices.getAllGeneral(company)
+    () => {
+      if (user === 4) {
+        return StatisticsServices.getAllGeneral(company);
+      } else if (user === 1) {
+        return StatisticsServices.getAllGeneral(companyId);
+      } else null;
+    }
   );
 
+  console.log(company);
+  console.log(general);
   const { data: getAllCategories, refetch: allCategoriesRefetch } = useQuery(
     ["getAllCategories"],
     () => StatisticsServices.getAllCategories(company)

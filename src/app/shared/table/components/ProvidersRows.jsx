@@ -2,6 +2,7 @@ import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
 
 const ProvidersRows = ({ data, openModal }) => {
+
   return (
     <>
       <div className="shared_table-body">
@@ -9,6 +10,7 @@ const ProvidersRows = ({ data, openModal }) => {
           <div className="row-table-container" key={provider.id}>
             <div className="data-row-tag">
               <div className="imageName__wrapper">
+                {console.log("provider", provider)}
                 <img src={provider.user.profilePic} alt="picture" />
                 <p>
                   {provider.user.name} {provider.last_name}

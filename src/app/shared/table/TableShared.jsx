@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import "./TableShared.scss";
 import ClientsRows from "./components/ClientsRows";
 import AppointmentRows from "./components/AppointmentRows";
@@ -19,13 +18,13 @@ const TableShared = ({
   openAssignSessionsModal,
 }) => {
   const [dataTableFilter, setDataTableFilter] = useState(data);
+
   const [itemsPaginator, setItemsPaginator] = useState(5);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     console.log(event);
-
     setPage(newPage);
   };
 
@@ -51,17 +50,17 @@ const TableShared = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, data]);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    if (currentPage === "Appointment") {
-      let filterData = data?.data?.slice(0, rowsPerPage) || [];
-      // Actualiza datos de la tabla
-      setDataTableFilter([...filterData]);
-    } else {
-      let filterData = data.slice(0, rowsPerPage);
-      setDataTableFilter([...filterData]);
-    }
-  }, [rowsPerPage]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   if (currentPage === "Appointment") {
+  //     let filterData = data?.data?.slice(0, rowsPerPage) || [];
+  //     // Actualiza datos de la tabla
+  //     setDataTableFilter([...filterData]);
+  //   } else {
+  //     let filterData = data.slice(0, rowsPerPage);
+  //     setDataTableFilter([...filterData]);
+  //   }
+  // }, [rowsPerPage]);
 
   return (
     <div className="table__root">

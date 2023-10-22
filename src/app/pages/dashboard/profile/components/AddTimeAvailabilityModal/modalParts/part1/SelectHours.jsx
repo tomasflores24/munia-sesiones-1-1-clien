@@ -120,6 +120,7 @@ const SelectHours = ({ closeModal, nextStep, provider, loadingProvider }) => {
   );
 
   const onSubmit = (values) => {
+    console.log(provider);
     mutate({ providerId: provider.id, body: values });
   };
 

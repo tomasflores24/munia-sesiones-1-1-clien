@@ -9,12 +9,14 @@ import AppointmentCalendar from "../../../components/AppointmentCalendar/Appoint
 import SelectProvider from "./components/provider/SelectProvider";
 import { AppointmentService } from "../../../services/dashboard/appointments/appointment.service";
 import LoadingSpinner from "../../../shared/loadingSpinner/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const CreateAppointment = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedProviderId, setSelectedProviderId] = useState(null);
   const [selectedHour, setSelectedHour] = useState({ id: undefined });
+  const user = useSelector((state) => state.auth.auth.user);
 
   const queryClient = useQueryClient();
 
@@ -38,7 +40,7 @@ const CreateAppointment = () => {
   const onSubmit = () => {
     mutate({
       ServiceId: selectedServiceId,
-      CollaboratorId: "f4c2d071-b2a9-4c71-b1ea-96bfc2d4b19e",
+      CollaboratorId: user.collaboratorId,
       ProviderId: selectedHour.ProviderId,
       AvailableId: selectedHour.id,
     });
