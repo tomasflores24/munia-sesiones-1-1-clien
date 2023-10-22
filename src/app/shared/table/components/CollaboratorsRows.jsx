@@ -21,13 +21,18 @@ const CollaboratorsRows = ({ data, openModal, openAssignSessionsModal }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    openAssignSessionsModal(collaborator.id);
+                    openAssignSessionsModal(collaborator);
                   }}
                   className="addSession_button"
                 >
                   Asignar sesiones
                 </button>
-                <p className="sessions_text">Sesiones restantes 20</p>
+                <p className="sessions_text">
+                  Sesiones restantes{" "}
+                  {collaborator.session_per_collaborators.length === 0
+                    ? 0
+                    : collaborator.session_per_collaborators[0].number_sessions}
+                </p>
               </div>
             </div>
             <div className="data-row-tag">

@@ -29,3 +29,11 @@ export function useAssignSessions() {
     },
   });
 }
+export function useUpdateAssignSessions() {
+  const queryClient = useQueryClient();
+  return useMutation(CollaboratorsService.updateAssignSessions, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(collaboratorKey);
+    },
+  });
+}

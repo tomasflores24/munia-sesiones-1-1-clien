@@ -24,7 +24,8 @@ const TableShared = ({
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
-    console.log(event);
+    if(false) console.log(event);
+    
     setPage(newPage);
   };
 
@@ -37,30 +38,20 @@ const TableShared = ({
     if (data) {
       let startIndex = page * rowsPerPage;
       let endIndex = startIndex + rowsPerPage;
-      if (currentPage === "Appointment") {
-        let filterData = data?.slice(startIndex, endIndex);
-        setItemsPaginator(data?.length);
-        setDataTableFilter([...filterData]);
-      } else {
-        let filterData = data?.slice(startIndex, endIndex);
-        setItemsPaginator(data.length);
-        setDataTableFilter([...filterData]);
-      }
+
+      let filterData = data?.slice(startIndex, endIndex);
+      setItemsPaginator(data.length);
+      setDataTableFilter([...filterData]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, data]);
 
-  // useEffect(() => {
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   if (currentPage === "Appointment") {
-  //     let filterData = data?.data?.slice(0, rowsPerPage) || [];
-  //     // Actualiza datos de la tabla
-  //     setDataTableFilter([...filterData]);
-  //   } else {
-  //     let filterData = data.slice(0, rowsPerPage);
-  //     setDataTableFilter([...filterData]);
-  //   }
-  // }, [rowsPerPage]);
+  // console.log(itemsPaginator, dataTableFilter);
+
+  useEffect(() => {
+    let filterData = data.slice(0, rowsPerPage);
+    setDataTableFilter([...filterData]);
+  }, [rowsPerPage]);
 
   return (
     <div className="table__root">

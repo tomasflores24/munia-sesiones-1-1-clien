@@ -31,7 +31,7 @@ const Collaborators = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showAssignSessions, setShowAssignSessions] = useState(false);
   const [providerId, setProviderId] = useState(null);
-  const [collaboratorId, setCollaboratorId] = useState("");
+  const [collaborator, setCollaborator] = useState();
 
   const { companyId } = useSelector(selectUser);
   const { isLoading, isSuccess, data } = useGetCollaborators({ companyId });
@@ -53,8 +53,8 @@ const Collaborators = () => {
     setShowDeleteModal(true);
   };
 
-  const openAssignSessionsModal = (collaboratorId) => {
-    setCollaboratorId(collaboratorId);
+  const openAssignSessionsModal = (collaborator) => {
+    setCollaborator(collaborator);
     setShowAssignSessions(true);
   };
 
@@ -122,9 +122,14 @@ const Collaborators = () => {
       <AssignSessionModal
         open={showAssignSessions}
         closeModal={() => setShowAssignSessions(false)}
-        collaboratorId={collaboratorId}
+        collaboratorId={collaborator?.id}
         companyId={companyId}
         purchaseId={purchase?.data?.id || ""}
+        sessionPerColla={
+          collaborator?.session_per_collaborators
+            ? collaborator?.session_per_collaborators[0]
+            : null
+        }
       />
       <Toaster position="top-center" reverseOrder={false} />
     </div>
