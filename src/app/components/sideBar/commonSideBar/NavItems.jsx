@@ -97,7 +97,7 @@ const NavItems = ({ userTypeId }) => {
       {userTypeId === 4 && (
         <Buttons
           className="sidebarButtons"
-          title="Aprovación"
+          title="Aprobación"
           icon={<AddTaskIcon className="button-icon" />}
           key="approval"
           selected={location.pathname.includes("/approval")}
