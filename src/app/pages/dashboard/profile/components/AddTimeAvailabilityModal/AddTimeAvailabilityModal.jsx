@@ -27,21 +27,20 @@ const AddTimeAvailabilityModal = ({ open, closeModal }) => {
         return (
           <SelectHours
             nextStep={nextStep}
-            closeModal={closeModal}
+            closeModal={() => {
+              setStep(1);
+              return closeModal();
+            }}
             provider={data?.data?.[0]}
             loadingProvider={isLoading}
           />
         );
       case 2:
         return (
-          <SelectAvailabilityType nextStep={nextStep} closeModal={closeModal} />
-        );
-      case 3:
-        return (
-          <SelectServices
-            closeModal={closeModal}
-            providerId={data?.data?.[0].id}
-          />
+          <SelectAvailabilityType nextStep={nextStep} closeModal={() => {
+            setStep(1);
+            return closeModal();
+          }} />
         );
       default:
         break;

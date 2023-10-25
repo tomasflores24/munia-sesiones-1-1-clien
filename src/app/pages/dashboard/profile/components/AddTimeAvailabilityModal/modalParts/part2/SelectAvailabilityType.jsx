@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../../../../../shared/loadingSpinner/LoadingSpinner";
 
-const SelectAvailabilityType = ({ closeModal, nextStep }) => {
+const SelectAvailabilityType = ({ closeModal }) => {
   const [minInterval, setMinInterval] = useState("");
   const [availabilityType, setAvailabilityType] = useState("");
   const [rangeDate, setRangeDate] = useState({ min: "", max: "" });
@@ -52,11 +52,15 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
     ["createAvailability"],
     (data) => AvailableService.createAvailability(data),
     {
-      onSuccess: async (e) => {
-        await toast.success("Se agrego la disponibilidad exitosamente");
+      onSuccess: async () => {
+        toast.success("Se agrego la disponibilidad exitosamente");
+        setTimeout(() => {
+          
+          closeModal();
+        }, 3000);
       },
-      onError: async (e) => {
-        await toast.error("Error al crear la disponibilidad");
+      onError: async () => {
+        toast.error("Error al crear la disponibilidad");
       },
     }
   );
@@ -70,7 +74,6 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
     }
     const [year, month, day] = selectedDate.split("-");
     const isWeek = selectedDate.includes("W");
-    const isMonth = selectedDate.split("-").length === 2 && !isWeek;
     const isDay = selectedDate.split("-").length === 3;
     await mutateAsync({
       ProviderId: providerId,
@@ -80,7 +83,6 @@ const SelectAvailabilityType = ({ closeModal, nextStep }) => {
       ...(isDay && { day: +day }),
       ...(isWeek && { week: selectedDate.split("W").join("").concat("w") }),
     });
-    nextStep();
   };
 
   useEffect(() => {

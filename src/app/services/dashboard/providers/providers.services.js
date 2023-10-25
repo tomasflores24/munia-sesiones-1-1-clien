@@ -2,7 +2,7 @@ import { HttpRequest } from "../../HttpRequest";
 
 export const ProvidersServices = {
   getProviderById: async (providerId) =>
-    HttpRequest.get(providerId ? `/provider/${providerId}` : null),
+    HttpRequest.get(`/provider/${providerId}`),
   updateProvider: async (providerId, body) =>
     HttpRequest.patch(`/provider/${providerId}`, body),
   getInactiveProviders: async () => HttpRequest.get("/provider/is-active"),

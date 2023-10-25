@@ -45,12 +45,15 @@ const Profile = () => {
   const { data: clientData, isLoading: clientIsLoading } = useQuery(
     ["getCompaniesById"],
     () => ClientsServices.getCompaniesById(user.companyId),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false,
+      enabled: user.companyId !== null }
   );
   const { data: collaboratorData, isLoading: collaboratorIsLoading } = useQuery(
     ["getCollaboratorById"],
     () => CollaboratorsService.getCollaboratorById(user.collaboratorId),
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false,
+      enabled: user.collaboratorId !== null
+    }
   );
   const {
     data: countries,

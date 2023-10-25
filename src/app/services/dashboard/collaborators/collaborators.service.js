@@ -3,10 +3,10 @@ import { HttpRequest } from "../../HttpRequest";
 export const CollaboratorsService = {
   getAllCollaborators: async ({ companyId }) =>
     HttpRequest.get(
-      `/collaborator?${companyId ? `companyId=${companyId}` : ""}`
+      `/collaborator${companyId ? `?companyId=${companyId}` : ""}`
     ),
   getCollaboratorById: async (collaboratorId) =>
-    HttpRequest.get(collaboratorId ? `/collaborator/${collaboratorId}` : null),
+    HttpRequest.get(`/collaborator/${collaboratorId}`),
   updateCollaborator: async (collaboratorId, body) =>
     HttpRequest.patch(`/collaborator/${collaboratorId}`, body),
 
