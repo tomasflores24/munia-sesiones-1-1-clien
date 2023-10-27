@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   &.selected {
-    border-width: 2px;
+    outline: 5px solid #bca39d;
   }
   .membershipBox__header {
     text-align: center;

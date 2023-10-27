@@ -8,6 +8,7 @@ import { Alert } from "@mui/material";
 import TableShared from "../../../shared/table/TableShared";
 
 const clientHeaders = [
+  "",
   "Nombre",
   "Fecha de vinculación",
   "Paquete contratado",
@@ -20,7 +21,7 @@ const clientHeaders = [
 const Clientes = () => {
   const [openClientModal, setOpenClientModal] = useState(false);
 
-  const { isLoading, data, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess, refetch } = useQuery(
     ["getAllClients"],
     ClientsServices.getAllClients
   );
@@ -49,15 +50,16 @@ const Clientes = () => {
         <LoadingSpinner />
       ) : isSuccess && !isLoading ? (
         <div className="clients_table">
-          <TableShared
-            data={data?.data || []}
-            currentPage="Clients"
-            headers={clientHeaders}
-          />
-          {data?.data?.length === 0 && (
-            <Alert variant="filled" color="secondary" severity="info">
+          {data?.data?.length === 0 ? (
+            <Alert variant="outlined" severity="info">
               Todavía no hay clientes, crea uno primero
             </Alert>
+          ) : (
+            <TableShared
+              data={data?.data || []}
+              currentPage="Clients"
+              headers={clientHeaders}
+            />
           )}
         </div>
       ) : (
@@ -68,6 +70,7 @@ const Clientes = () => {
         open={openClientModal}
         isLoading={isLoadingModal}
         onSubmit={mutate}
+        refetch={refetch}
       />
     </div>
   );

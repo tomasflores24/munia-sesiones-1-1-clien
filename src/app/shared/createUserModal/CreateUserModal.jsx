@@ -7,26 +7,28 @@ import SelectMembership from "./createParts/Part2/SelectMembership";
 import ClientForm from "./createParts/Part1/ClientForm";
 import "./CreateUserModalStyle.scss";
 
-const CreateUserModal = ({ open, closeModal }) => {
-  const [step, setStep] = useState(1);
+const CreateUserModal = ({ open, closeModal, refetch }) => {
+  const [step, setStep] = useState(0);
   const [companyId, setCompanyId] = useState(null);
 
   const formDispense = () => {
     switch (step) {
-      case 1:
+      case 0:
         return (
           <ClientForm
             setStep={setStep}
             closeModal={closeModal}
             setCompanyId={setCompanyId}
+            refetch={refetch}
           />
         );
-      case 2:
+      case 1:
         return (
           <SelectMembership
             companyId={companyId}
             setStep={setStep}
             closeModal={closeModal}
+            refetch={refetch}
           />
         );
       default:
@@ -56,6 +58,7 @@ CreateUserModal.propTypes = {
   open: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
+  refetch: PropTypes.func
 };
 
 export default CreateUserModal;

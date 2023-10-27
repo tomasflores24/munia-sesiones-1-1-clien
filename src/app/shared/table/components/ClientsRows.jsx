@@ -6,13 +6,16 @@ const ClientsRows = ({ data }) => {
     <div className="shared_table-body">
       {data.map((client, index) => (
         <div className="row-table-container" key={index}>
-           <div className="data-row-tag">
-              <div className="imageName__wrapper">
-                <img src={client.user.profilePic} alt="picture" />
-                <p>{client.user.name}</p>
-              </div>
+          <div className="data-row-tag">
+            <div className="imageName__wrapper">
+              <img src={client.user.profilePic} alt="picture" className="complete-img"/>
             </div>
-          {/* <div className="data-row-tag">{client.user.name}</div> */}
+          </div>
+          <div className="data-row-tag ">
+            <div className="imageName__wrapper">
+              <p>{client.user.name}</p>
+            </div>
+          </div>
           <div className="data-row-tag">
             {format(new Date(client.user.createdAt), "dd/MM/yyyy HH:mm")}
           </div>

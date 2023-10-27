@@ -58,7 +58,7 @@ const collaboratorSchema = yup.object({
     .oneOf([yup.ref("password"), null], "Las contraseñas deben ser iguales"),
 });
 
-const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
+const ClientForm = ({ setStep, closeModal, setCompanyId, refetch }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [imgSrc, setImgSrc] = useState("");
@@ -88,8 +88,9 @@ const ClientForm = ({ setStep, closeModal, setCompanyId }) => {
           file: getValues().profilePic[0],
         });
         toast.success("¡Registro de empresa exitoso!");
+        refetch()
         setTimeout(() => {
-          setStep(2);
+          setStep(1);
         }, [1000]);
       },
       onError: (err) => {
@@ -286,6 +287,7 @@ ClientForm.propTypes = {
   setStep: PropTypes.func,
   closeModal: PropTypes.func.isRequired,
   setCompanyId: PropTypes.func,
+  refetch: PropTypes.func
 };
 
 export default ClientForm;

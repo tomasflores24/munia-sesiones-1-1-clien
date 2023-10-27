@@ -63,20 +63,21 @@ const Providers = () => {
         <LoadingSpinner />
       ) : !isLoading && isSuccess ? (
         <div className="providers_table">
-          <TableShared
-            data={data.data || []}
-            currentPage="Providers"
-            headers={appointmentHeaders}
-            openModal={openModal}
-          />
-          {data?.data?.length === 0 && (
-            <Alert variant="filled" color="secondary" severity="info">
-              Todavía no hay clientes, crea uno primero
+          {data?.data?.length === 0 ? (
+            <Alert variant="outlined"  severity="info">
+              No hay proveedores por el momento, vuelve mas tarde.
             </Alert>
+          ) : (
+            <TableShared
+              data={data.data || []}  
+              currentPage="Providers"
+              headers={appointmentHeaders}
+              openModal={openModal}
+            />
           )}
         </div>
       ) : (
-        <Alert severity="error">No se pudieron cargar los clientes</Alert>
+        <Alert severity="error">No se pudieron cargar los proveedores</Alert>
       )}
       {showModal && (
         <BanUserModal

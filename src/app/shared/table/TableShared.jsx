@@ -87,6 +87,7 @@ const TableShared = ({
           />
         ) : null}
         {/* Paginador */}
+        
         <section className="section-paginador-table">
           <TablePagination
             component="div"

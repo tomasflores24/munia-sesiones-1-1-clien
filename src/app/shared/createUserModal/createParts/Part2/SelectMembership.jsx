@@ -5,8 +5,11 @@ import toast from "react-hot-toast";
 import MembershipBox from "./MembershipBox/MembershipBox";
 import "./SelectMembershipStyle.scss";
 import { basic, company, standard } from "../../../../utils/membershipsData";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { PurchasesServices } from "../../../../services/dashboard/purchases/purchases.services";
+import { MembershipsServices } from "../../../../services/dashboard/memberships/memberships.services";
+import LoadingSpinner from "../../../loadingSpinner/LoadingSpinner";
+import { Alert } from "@mui/material";
 
 export const MembershipTypes = {
   BASIC: 1,
@@ -14,9 +17,12 @@ export const MembershipTypes = {
   COMPANY: 3,
 };
 
-const SelectMembership = ({ companyId, closeModal, setStep }) => {
-  const [selectedMembership, setSelectedMembership] = useState(
-    MembershipTypes.BASIC
+const SelectMembership = ({ companyId, closeModal, setStep, refetch }) => {
+  const [selectedMembership, setSelectedMembership] = useState();
+
+  const { isLoading, data, isSuccess } = useQuery(
+    ["getMemberships"],
+    MembershipsServices.getAllMemberships
   );
 
   const { mutate } = useMutation(
@@ -25,9 +31,10 @@ const SelectMembership = ({ companyId, closeModal, setStep }) => {
     {
       onSuccess: () => {
         toast.success("¡Compra de membresia exitosa!");
+        refetch();
         closeModal();
         setTimeout(() => {
-          setStep(1);
+          setStep(0);
         }, [1000]);
       },
       onError: (err) => {
@@ -46,7 +53,7 @@ const SelectMembership = ({ companyId, closeModal, setStep }) => {
       amountHistory: 500,
       CompanyId: companyId,
       MembershipId: selectedMembership,
-    });    
+    });
   };
 
   return (
@@ -55,36 +62,35 @@ const SelectMembership = ({ companyId, closeModal, setStep }) => {
         Seleccionar <span>membresia del cliente</span>
       </h2>
       <div className="selectMembership__container">
-        <MembershipBox
-          price={basic.price}
-          title={basic.title}
-          list={basic.list}
-          titleBgColor={basic.titleBgColor}
-          selected={selectedMembership === MembershipTypes.BASIC}
-          selectMembership={() => selectMembership(MembershipTypes.BASIC)}
-        />
-        <MembershipBox
-          price={standard.price}
-          title={standard.title}
-          list={standard.list}
-          titleBgColor={standard.titleBgColor}
-          selected={selectedMembership === MembershipTypes.STANDARD}
-          selectMembership={() => selectMembership(MembershipTypes.STANDARD)}
-        />
-        <MembershipBox
-          price={company.price}
-          title={company.title}
-          list={company.list}
-          titleBgColor={company.titleBgColor}
-          description={company.description}
-          selected={selectedMembership === MembershipTypes.COMPANY}
-          selectMembership={() => selectMembership(MembershipTypes.COMPANY)}
-        />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : !isLoading && isSuccess ? (
+          <>
+            {data?.data.map((el) => (
+              <MembershipBox
+                key={el.id}
+                price={`$${el.amount}`}
+                title={el.name}
+                list={basic.list}
+                titleBgColor={
+                  el.id % 2 === 0 ? company.titleBgColor : basic.titleBgColor
+                }
+                selected={selectedMembership?.id === el.id}
+                selectMembership={() => selectMembership(el)}
+              />
+            ))}
+          </>
+        ) : (
+          <Alert severity="error" className="full-width">
+            Ha ocurrido un error obteniendo las membresias
+          </Alert>
+        )}
       </div>
       <div className="action__buttons">
         <button
           type="submit"
           className="selectMembership__btn"
+          disabled={!isSuccess}
           onClick={onSubmit}
         >
           Finalizar
@@ -98,6 +104,7 @@ SelectMembership.propTypes = {
   companyId: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   setStep: PropTypes.func,
+  refetch: PropTypes.func,
 };
 
 export default SelectMembership;

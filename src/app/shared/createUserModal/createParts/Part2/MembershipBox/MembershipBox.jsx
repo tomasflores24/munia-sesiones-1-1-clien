@@ -1,7 +1,6 @@
 import PropType from "prop-types";
 import CheckIcon from "@mui/icons-material/Check";
 import "./MembershipBoxStyle.scss";
-import { useSelector } from "react-redux";
 
 const MembershipBox = ({
   title,
@@ -13,7 +12,6 @@ const MembershipBox = ({
   selected,
   buttonTxt
 }) => {
-  const user = useSelector((state) => state.auth.auth.user.userTypeId);
 
   return (
     <div className={`membershipBox__root ${selected && "selected"}`}>

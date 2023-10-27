@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://auth.munia.co";
+const URL = "http://localhost:3000";
 
 const Http = axios.create({
   baseURL: URL,

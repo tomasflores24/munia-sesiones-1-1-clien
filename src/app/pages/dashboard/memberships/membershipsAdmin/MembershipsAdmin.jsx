@@ -4,9 +4,7 @@ import { basic, company, standard } from "../../../../utils/membershipsData";
 import "./MembershipsAdmin.scss";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Dialog, DialogContent, TextField } from "@mui/material";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { MembershipsServices } from "../../../../services/dashboard/memberships/memberships.services";
 import MembershipsCreateModal from "./components/MembershipsCreateModal";
 import LoadingSpinner from "../../../../shared/loadingSpinner/LoadingSpinner";
@@ -19,16 +17,18 @@ export const MembershipTypes = {
 };
 
 const MembershipsAdmin = () => {
-  const queryClient = useQueryClient();
+  const { isLoading, data, isSuccess } = useQuery(
+    ["getMemberships"],
+    MembershipsServices.getAllMemberships
+  );
 
-  const { mutate, error, isLoading } = useMutation(
+  const { mutate, isLoading: isLoadingMutation } = useMutation(
     ["postMembership"],
     async (data) => {
       await MembershipsServices.postMembership(data);
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("posts");
         toast.success("Se creó la membresía con exito");
         setTimeout(() => setModalOpen(false), 3000);
       },
@@ -62,7 +62,7 @@ const MembershipsAdmin = () => {
     mutate({ name, amount });
   };
 
-  return isLoading ? (
+  return isLoading || isLoadingMutation ? (
     <LoadingSpinner />
   ) : (
     <>
@@ -78,48 +78,41 @@ const MembershipsAdmin = () => {
             </div>
           </nav>
         </header>
-        {modalOpen && (
-          <>
-            <MembershipsCreateModal
-              closeModal={closeModal}
-              openModal={openModal}
-              createMembrships={createMembrships}
-            />
-          </>
-        )}
+
         <div className="selectMembership__container">
           <div className="arrow-container">
             <ArrowBackIosNewIcon className="arrowIcon" fontSize="large" />
           </div>
-          <MembershipBox
-            price={basic.price}
-            title={basic.title}
-            list={basic.list}
-            titleBgColor={basic.titleBgColor}
-            selected={selectedMembership === MembershipTypes.BASIC}
-            selectMembership={() => selectMembership(MembershipTypes.BASIC)}
-          />
-          <MembershipBox
-            price={standard.price}
-            title={standard.title}
-            list={standard.list}
-            titleBgColor={standard.titleBgColor}
-            selected={selectedMembership === MembershipTypes.STANDARD}
-            selectMembership={() => selectMembership(MembershipTypes.STANDARD)}
-          />
-          <MembershipBox
-            price={company.price}
-            title={company.title}
-            list={company.list}
-            titleBgColor={company.titleBgColor}
-            description={company.description}
-            selected={selectedMembership === MembershipTypes.COMPANY}
-            selectMembership={() => selectMembership(MembershipTypes.COMPANY)}
-          />
+          {!isLoading && isSuccess ? (
+            <>
+              {data?.data.map((el) => (
+                <MembershipBox
+                  key={el.id}
+                  price={`$${el.amount}`}
+                  title={el.name}
+                  list={basic.list}
+                  titleBgColor={
+                    el.id % 2 === 0 ? company.titleBgColor : basic.titleBgColor
+                  }
+                  selected={selectedMembership?.id === el.id}
+                  selectMembership={() => selectMembership(el)}
+                />
+              ))}
+            </>
+          ) : (
+            <Alert severity="error" className="full-width">
+              Ha ocurrido un error obteniendo las membresias
+            </Alert>
+          )}
           <div className="arrow-container">
             <ArrowForwardIosIcon className="arrowIcon" fontSize="large" />
           </div>
         </div>
+        <MembershipsCreateModal
+          closeModal={closeModal}
+          openModal={modalOpen}
+          createMembrships={createMembrships}
+        />
       </div>
     </>
   );

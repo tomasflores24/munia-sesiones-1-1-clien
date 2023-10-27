@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* overflow-x: hidden; */
 }
 
 :root {
@@ -24,4 +25,8 @@ ol {
 }
 a {
   text-decoration: none;
+}
+
+.full-width{
+  width: 100%;
 }
