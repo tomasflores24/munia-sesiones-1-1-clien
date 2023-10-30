@@ -1,0 +1,22 @@
+.upload-section {
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 120px;
+}
+
+.upload-image{
+    display: flex;
+    justify-content: center;
+}
+.upload-label{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

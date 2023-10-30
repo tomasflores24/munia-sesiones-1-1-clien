@@ -1,0 +1,92 @@
+.signup__root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/assets/register-bg.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .signup__form {
+    display: flex;
+    // justify-content: center;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    @media (min-height: 800px) {
+      height: 88%;
+    }
+    background-color: #ffff;
+    border-radius: 50px;
+    .signup__title {
+      margin-top: 30px;
+      span {
+        color: #666666;
+      }
+    }
+    .signup__subtitle {
+      color: #666666;
+      span {
+        color: #9c6d61;
+      }
+    }
+    .signup__stepers {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      .steper {
+        width: 100%;
+        padding: 20px 20px;
+        text-align: center;
+        background-color: #d9d9d9;
+        &.main__step {
+          background-color: #E2D4BB;
+          font-weight: 700;
+          font-size: 20px;
+        }
+      }
+      .selected {
+        background-color: #9c6d61;
+      }
+    }
+    .variable__form {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      width: 100%;
+      height: 100%;
+      .submit_btn {
+        margin-top: 20px;
+        background-color: #9c6d61;
+        color: #fff;
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 16px;
+        border: none;
+        text-transform: capitalize;
+        font-weight: 700;
+      }
+      .back_btn {
+        margin-top: 20px;
+        background-color: #e2d4bb;
+        color: #000;
+        text-transform: capitalize;
+        font-weight: 700;
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 16px;
+        border: none;
+      }
+      .disabled {
+        background-color: grey;
+      }
+    }
+  }
+}

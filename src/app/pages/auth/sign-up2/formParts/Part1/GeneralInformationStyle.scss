@@ -1,0 +1,112 @@
+.generalInfo__root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  .generalInfo__form {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .img__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .upload {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #3f0963;
+        display: flex;
+        #profile {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          background-color: #ffff;
+        }
+        .upload__label {
+          position: absolute;
+          bottom: 0;
+          background-color: rgba(75, 75, 75, 0.2);
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          font-weight: 600;
+          gap: 1rem;
+          .icon {
+            $size: 44px;
+            width: $size;
+            height: $size;
+          }
+        }
+        .pic-text {
+          position: absolute;
+          bottom: 60px;
+          color: #8e8e8e;
+        }
+        .round {
+          text-align: center;
+          overflow: hidden;
+          position: absolute;
+          bottom: 10px;
+          input[type="file"] {
+            position: absolute;
+            transform: scale(10);
+            opacity: 0;
+          }
+          input[type="file"]::-webkit-file-upload-button {
+            cursor: pointer;
+          }
+        }
+      }
+      .img_helper {
+        text-align: center;
+        color: #ffff;
+        margin: 5px 4px 0 4px;
+        max-width: 230px;
+        word-wrap: break-word;
+      }
+      @media (max-width: 680px) {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        .img_helper {
+          max-width: none;
+        }
+      }
+    }
+    .text_inputs {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      margin-right: 30px;
+      .auth_input {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .general-info__actions{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .submit_btn{
+      display: flex;
+      width: 30% !important;
+      justify-content: center;
+    }
+  }
+}

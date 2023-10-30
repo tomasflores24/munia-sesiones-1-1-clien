@@ -1,0 +1,41 @@
+.service-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+
+    .service-modal-title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .service-modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 300px;
+        width: 600px;
+        border-radius: 25px;
+        margin: 0 auto;
+    }
+
+    .service-modal-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 150px;
+        margin-top: 1rem;
+    }
+
+    .service-modal-actions button {
+        background-color: #ae7a6c;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 1rem 1.5rem;
+        font-size: 16px;
+        font-weight: 700;
+    }
+}

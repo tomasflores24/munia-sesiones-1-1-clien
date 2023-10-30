@@ -1,0 +1,47 @@
+.documentation-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 2rem;
+    gap: 5rem;
+    @media (max-width: 768px) {
+        height: auto;
+    }
+    .documentation-cards {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+        }
+    }
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        text-align: justify;
+        color: rgba(0, 0, 0, 0.6);
+        font-family: Montserrat;
+        font-size: 2rem;
+        font-weight: 600;
+        @media (max-width: 768px) {
+            font-size: 1.7rem;
+        }
+    }
+    .buttons {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        justify-content: space-between;
+    }
+}

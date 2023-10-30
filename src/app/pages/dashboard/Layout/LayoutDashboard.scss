@@ -1,0 +1,27 @@
+.layoutDashboard-container {
+  display: flex;
+  min-height: 100vh;
+  // width: 100%;
+}
+
+.layoutDashboard-sidebar {
+  background-color: #ebdcc1;
+  color: black;
+  min-height: 100vh;
+  z-index: 1;
+  width: 19em;
+  @media (max-width: 1200px) {
+    position: fixed;
+    background-color: #ebdcc1;
+    color: black;
+    width: 3em;
+  }
+}
+
+.layoutDashboard-content {
+  flex: 1;
+  background-color: #f4f4f4;
+  @media (max-width: 1200px) {
+    margin-left: 3em;
+  }
+}
